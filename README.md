@@ -53,3 +53,10 @@ To update the po files when something is added.
 
 
  heroku run "POOL_SIZE=2 mix hello.task"
+
+ ## Deploy
+
+ git push heroku master
+
+ migrations:
+  heroku run "POOL_SIZE=2 mix ecto.migrate"
