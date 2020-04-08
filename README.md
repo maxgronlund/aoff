@@ -60,3 +60,6 @@ To update the po files when something is added.
 
  migrations:
   heroku run "POOL_SIZE=2 mix ecto.migrate"
+
+
+heroku run "POOL_SIZE=2 mix run apps/aoff/priv/repo/seeds.exs" --app aoff
