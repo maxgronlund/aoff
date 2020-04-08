@@ -4,7 +4,6 @@
 /doc
 /.fetch
 erl_crash.dump
-/apps/aoff/config/*.secret.exs
 *.ez
 *.beam
 .elixir_ls/
