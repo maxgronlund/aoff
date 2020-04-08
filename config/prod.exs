@@ -32,8 +32,3 @@ config :aoff_web,
     password: System.get_env("BASIC_AUTH_PASSWORD"),
     realm: System.get_env("BASIC_AUTH_REALM")
   ]
-
-
-# Finally import the config/prod.secret.exs which should be versioned
-# separately.
-# import_config "prod.secret.exs"
