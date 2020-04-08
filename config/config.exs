@@ -1,16 +1,26 @@
-# This file is responsible for configuring your application
-# and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
-# By default, the umbrella project as well as each child
-# application will require this configuration file, as
-# configuration and dependencies are shared in an umbrella
-# project. While one could configure all applications here,
-# we prefer to keep the configuration of each individual
-# child application in their own app, but all other
-# dependencies, regardless if they belong to one or multiple
-# apps, should be configured in the umbrella to avoid confusion.
-import_config "../apps/*/config/config.exs"
+# Configure Mix tasks and generators
+config :aoff,
+  namespace: AOFF,
+  ecto_repos: [AOFF.Repo]
+
+# General application configuration
+config :aoff_web,
+  namespace: AOFFWeb,
+  ecto_repos: [AOFF.Repo],
+  generators: [context_app: :aoff, binary_id: true]
+
+# Configures the endpoint
+config :aoff_web, AOFFWeb.Endpoint,
+  url: [host: "localhost"],
+  secret_key_base: "Uc830879o+fgFbSBJg54+TesvR7F8Rw/1AKFMw6koyGxYWGWqECDDMjkvijqSxgS",
+  render_errors: [view: AOFFWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: AOFFWeb.PubSub, adapter: Phoenix.PubSub.PG2]
+
+config :gettext, :default_locale, "da"
+
+
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -55,6 +65,23 @@ config :aoff_web,
     password: System.get_env("BASIC_AUTH_PASSWORD"),
     realm: System.get_env("BASIC_AUTH_REALM")
   ]
+
+config :arc,
+  storage: Arc.Storage.S3,
+  virtual_host: true,
+  # if using Amazon S3
+  bucket: System.get_env("AOFF_AWS_S3_BUCKET")
+
+config :ex_aws,
+  access_key_id: System.get_env("AOFF_AWS_ACCESS_KEY_ID"),
+  secret_access_key: System.get_env("AOFF_AWS_SECRET_ACCESS_KEY"),
+  region: System.get_env("AOFF_AWS_REGION"),
+  s3: [
+    scheme: "https://",
+    host: "s3." <> System.get_env("AOFF_AWS_REGION") <> ".amazonaws.com",
+    region: System.get_env("AOFF_AWS_REGION")
+  ]
+
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
