@@ -1,0 +1,29 @@
+h2= gettext("Admin Shop")
+p= gettext("Please select an opening date")
+
+
+.blog
+  = for date <- @dates do
+    = link to: Routes.shop_assistant_date_path(@conn, :show, date) do
+      .card.is-shady
+        .card-header
+          .card-header-title.is-centered
+            = date(date.date)
+        .card-content
+          = gettext("Open")
+          = if name = assistant_name(date.shop_assistant_a) do
+            br
+            =name
+          = if name = assistant_name(date.shop_assistant_b) do
+            br
+            =name
+          hr
+          = gettext("Close")
+          = if name = assistant_name(date.shop_assistant_c) do
+            br
+            =name
+
+          = if name = assistant_name(date.shop_assistant_d) do
+            br
+            =name
+          / = date.

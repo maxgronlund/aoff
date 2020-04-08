@@ -1,0 +1,36 @@
+
+.row
+  .column
+    .aoff-logo.mt-1
+
+.row.mt-1
+  .column
+    = if @message.show do
+      .white-text
+        h4 = @message.title
+        = raw @message.text
+    .blog
+      = for product <- @products do
+        .card.is-black
+          .card-header-title.is-black.is-centered
+            = product.name
+            | &nbsp;
+            = product.price
+          .card-content
+            =text_to_html(product.description)
+          .card-footer.is-black.is-botton
+            = link gettext("Shop"),\
+              to: Routes.shop_date_path(@conn, :show, @date),\
+              class: "card-footer-item is-button is-black"
+            / = get_next_date(date)
+
+
+
+
+.row
+  .column
+    = link gettext("Become member"),\
+      to: "/users/new",\
+      class: "button button-xlarge button-full-width"
+
+

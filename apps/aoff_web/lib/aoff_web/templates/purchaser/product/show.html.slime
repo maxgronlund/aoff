@@ -1,0 +1,15 @@
+h2 = @product.name
+
+
+= text_to_html(@product.description)
+
+strong Price:&nbsp;
+= @product.price
+/= for_sale(@product.for_sale)
+
+hr
+= link "Back", to: Routes.purchaser_product_path(@conn, :index), class: "button button-outline"
+| &nbsp;
+= link "Edit", to: Routes.purchaser_product_path(@conn, :edit, @product), class: "button"
+
+

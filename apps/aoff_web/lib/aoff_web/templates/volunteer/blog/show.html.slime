@@ -1,0 +1,32 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("Blogs"), to: Routes.volunteer_blog_path(@conn, :index)
+
+
+
+h2 = gettext("Blog: %{title}", title: @blog.title)
+p = @blog.description
+
+/ = link "Edit", to: Routes.volunteer_blog_path(@conn, :edit, @blog), class: "button botton-outling"
+
+
+= link gettext("New Post"), to: Routes.volunteer_blog_blog_post_path(@conn, :new,  @blog), class: "button button-outline"
+
+| &nbsp;
+= link gettext("Edit"), to: Routes.volunteer_blog_path(@conn, :edit,  @blog), class: "button"
+
+.blog
+  = for post <- @blog.blog_posts do
+    .card.is-shady
+      .card-image
+        img.modal-button alt=("#{post.title}") src="#{AOFF.Uploader.Image.url({post.image, post}, :thumb)}"
+      .card-content
+        h4 = post.title
+        p = post.teaser
+        = link gettext("Edit"), to: Routes.volunteer_blog_blog_post_path(@conn, :edit, @blog, post), class: "button button-outline"
+        | &nbsp;
+        = link gettext("Delete"), to: Routes.volunteer_blog_blog_post_path(@conn, :delete, @blog, post), method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red"
+        = link gettext("Read More"), to: Routes.volunteer_blog_blog_post_path(@conn, :show, @blog, post), class: "button float-right"
+
+

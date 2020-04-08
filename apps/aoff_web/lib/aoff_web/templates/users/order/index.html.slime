@@ -1,0 +1,20 @@
+h2 = gettext("Invoices")
+= @user.username
+
+table.table
+  thead
+    tr
+      th = gettext("Order Nr.")
+      th = gettext("Amount")
+      th
+  tbody
+    = for order <- @orders do
+      = if closed?(order.state) do
+        tr
+          td = order.order_nr
+          td = order.total
+          td class="text-right"
+            = link gettext("Show"), to: Routes.user_order_path(@conn, :show, @user, order), class: "button button-outline float-right"
+
+
+

@@ -1,0 +1,5 @@
+h2 = gettext("Edit: %{identifier}-%{locale}", identifier: @message.identifier, locale: @message.locale)
+
+= render "form.html", Map.put(assigns, :action, Routes.volunteer_message_path(@conn, :update, @message))
+
+/ = link "Back", to: Routes.message_path(@conn, :index)

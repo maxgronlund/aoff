@@ -1,0 +1,9 @@
+= form_for @changeset, @action, fn f ->
+  = if @changeset.action do
+    .alert.alert-danger
+      p = gettext("Oops, something went wrong! Please check the errors below.")
+
+  = hidden_input f, :state, value: "closed"
+
+
+  = submit gettext("Save"), class: "button"

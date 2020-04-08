@@ -1,0 +1,103 @@
+doctype html
+html lang="en" class="<%= backdrop(@conn) %>"
+  head
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+    meta content="" name="description"
+    meta content="" name="author"
+    title AOFF
+    link rel="stylesheet" href="#{Routes.static_path(@conn, "/css/app.css")}"
+    link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+
+    script src="#{Routes.static_path(@conn, "/js/responsive-nav.js")}"
+
+    script referrerpolicy="origin" src="https://cdn.tiny.cloud/1/tzlwj2zjulv5ip3mavrlk4ljknmkqv7n8yyivelsou29j4eg/tinymce/5/tinymce.min.js"
+
+
+    / meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"
+
+
+
+  body
+    = render AOFFWeb.LayoutView, "navbar.html", assigns
+    main.container.content role="main"
+      = if @warning.show do
+        .alert.alert-warning
+          h4= @warning.title
+          = raw @warning.text
+      = render AOFFWeb.LayoutView, "user_tabs.html", assigns
+      = render AOFFWeb.LayoutView, "flash.html", assigns
+      = render @view_module, @view_template, assigns
+
+
+    script src="#{Routes.static_path(@conn, "/js/app.js")}"
+    script src="#{Routes.static_path(@conn, "/js/fastclick.js")}"
+    script src="#{Routes.static_path(@conn, "/js/scroll.js")}"
+    script src="#{Routes.static_path(@conn, "/js/fixed-responsive-nav.js")}"
+
+
+
+
+
+
+/ .navigation
+/   .container
+/     #AOFFNav.topnav
+/       = link gettext("Home"), to: "/", class: "nav-link"
+/       = if !@current_user do
+/         = link gettext("Signup"), to: "/users/new" #, class: "active"
+/       = link gettext("Shop"), to: Routes.shop_shop_path(@conn, :index), class: "nav-link"
+/       = link gettext("About"), to: "/", class: "nav-link"
+
+/       = if @current_user do
+/         = link( gettext("Account"), to: Routes.user_path(@conn, :show, @current_user))
+
+/         /= link( gettext("Log out"),to: Routes.session_path(@conn, :delete, @current_user),method: "delete")
+/       - else
+/         = link gettext("Login"), to: "/sessions/new"
+
+/       a.icon href="javascript:void(0);" onclick="myFunction()"
+/         i.fa.fa-bars
+
+/   main.container role="main"
+/     = if @current_user do
+/       .row
+/         .column
+/           = if @current_user.admin do
+/             = link gettext("Admin"), to: Routes.admin_admin_path(@conn, :index), class: "button button-outline button-tab"
+
+
+
+/           = if @current_user.volunteer do
+/             = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index), class: "button button-outline button-tab"
+
+
+
+/           = if @current_user.purchasing_manager do
+/             = link gettext("Purchaser"), to: Routes.purchaser_purchaser_path(@conn, :index), class: "button button-outline button-tab"
+
+
+/           = if @current_user.shop_assistant do
+/             = link gettext("Shop"), to: Routes.shop_assistant_shop_assistant_path(@conn, :index), class: "button button-outline button-tab"
+
+/       br
+/ = link img_tag(Routes.static_path(@conn, "/images/aoff-logo.png")), to: "/"
+/ = render AOFFWeb.LayoutView, "flash.html", assigns
+/ = render @view_module, @view_template, assigns
+  /= render BEWeb.LayoutView, "footer.html", assigns
+/script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
+/ script src="#{Routes.static_path(@conn, "/js/app.js")}"
+//script src="#{Routes.static_path(@conn, "/js/navbar.js")}"
+
+/ script src="js/fastclick.js"
+/ script src="js/scroll.js"
+/ script src="js/fixed-responsive-nav.js"
+
+
+
+
+
+
+
+

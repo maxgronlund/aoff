@@ -1,0 +1,32 @@
+javascript:
+  tinymce.init({
+    selector: '#message_text',
+    menubar: false,
+    height : 300
+  });
+
+
+
+= form_for @changeset, @action, fn f ->
+  = if @changeset.action do
+    .alert.alert-danger
+      p = gettext("Oops, something went wrong! Please check the errors below.")
+  .form-group
+    = label f, :title, class: "control-label"
+    = text_input f, :title, class: "form-control"
+    = error_tag f, :title
+
+  .form-group
+    = label f, :text, class: "control-label"
+    = textarea f, :text, class: "form-control"
+    = error_tag f, :text
+  .form-group
+    = label f, :show, class: "control-label"
+    = checkbox f, :show, class: "form-control"
+    = error_tag f, :show
+
+  .form-group
+    = link gettext("Cancel"),\
+      to: Routes.volunteer_message_path(@conn, :index), class: "button button-outline"
+    | &nbsp;
+    = submit gettext("Save"), class: "button"

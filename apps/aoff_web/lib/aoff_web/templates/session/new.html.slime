@@ -1,0 +1,17 @@
+h2 = gettext("Login")
+
+.row
+  .column
+    = form_for @conn, Routes.session_path(@conn, :create), [as: :session], fn f ->
+      = label f, :email, gettext("Email"), class: "label"
+      = email_input f, :email, placeholder: gettext("Email"), class: "input"
+      .pt-1
+      = label f, :password, gettext("Password"), class: "label"
+      = password_input f, :password, placeholder: gettext("Password"), class: "input"
+      .pt-1
+      .is-pulled-right
+        = link gettext("Cancel"), to: "/", class: "button button-outline"
+        |&nbsp;
+        = submit gettext("Login"), class: "button"
+      |&nbsp;
+  .column

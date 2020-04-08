@@ -1,0 +1,5 @@
+h2 = gettext("New Date")
+
+= render "form.html", Map.put(assigns, :action, Routes.volunteer_date_path(@conn, :create))
+
+

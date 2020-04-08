@@ -1,0 +1,21 @@
+h2 = gettext("Shopping list: %{date}", date: date(@date.date))
+
+.row
+  .column
+    table
+      thead
+        tr
+          th = gettext("Product")
+          th
+            .float-right
+              = gettext("Amount")
+      tbody
+        = for product <- @products do
+          - {%AOFF.Shop.Product{} = product, nr} = product
+            tr
+              td
+                = link product.name, to: Routes.purchaser_product_path(@conn, :show, product)
+              td
+                .float-right
+                  strong = nr
+  .column

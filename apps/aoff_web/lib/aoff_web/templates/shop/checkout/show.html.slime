@@ -1,0 +1,4 @@
+h2 = gettext("Checkout")
+| Payment window gode here
+
+= render "form.html", Map.put(assigns, :action, Routes.shop_checkout_path(@conn, :update, @order))

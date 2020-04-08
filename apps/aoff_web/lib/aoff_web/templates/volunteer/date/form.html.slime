@@ -1,0 +1,45 @@
+= form_for @changeset, @action, fn f ->
+  = if @changeset.action do
+    .alert.alert-danger
+      p = gettext("Oops, something went wrong! Please check the errors below.")
+  .row
+    .column
+      .form-group
+        = label f, :date, class: "control-label"
+        = date_select f, :date, class: "form-control"
+        = error_tag f, :date
+    .column
+      h3 =gettext("Early shift")
+      .form-group
+        = label f, :shop_assistant_a, class: "control-label"
+        = select f, :shop_assistant_a, \
+          @users,\
+          prompt: gettext("select shop assistant"),\
+          class: "form-control"
+        = error_tag f, :shop_assistant_a
+      .form-group
+        = label f, :shop_assistant_b, class: "control-label"
+        = select f, :shop_assistant_b, \
+          @users,\
+          prompt: gettext("select shop assistant"),\
+          class: "form-control"
+        = error_tag f, :shop_assistant_b
+      h3 =gettext("Late shift")
+      .form-group
+        = label f, :shop_assistant_c, class: "control-label"
+        = select f, :shop_assistant_c, \
+          @users,\
+          prompt: gettext("select shop assistant"),\
+          class: "form-control"
+        = error_tag f, :shop_assistant_c
+      .form-group
+        = label f, :shop_assistant_d, class: "control-label"
+        = select f, :shop_assistant_d, \
+          @users,\
+          prompt: gettext("select shop assistant"),\
+          class: "form-control"
+        = error_tag f, :shop_assistant_d
+  .form-group
+    = link "Cancel", to: Routes.volunteer_date_path(@conn, :index), class: "button button-outline"
+    | &nbsp;
+    = submit gettext("Save"), class: "button"

@@ -1,0 +1,49 @@
+.row
+  .column
+    h2 = @user.username
+    = gettext("Email: %{email}", email: @user.email)
+    br/
+    = gettext("Mobile: %{mobile}", mobile: @user.mobile)
+  .column
+    strong = gettext("Member Nr: %{member_nr}", member_nr: @user.member_nr)
+    br
+    = if @valid_member do
+      = gettext("Valid to: %{expiration_date}", expiration_date: date(@user.expiration_date))
+    - else
+      .alert.alert-danger
+        = gettext("No valid membership")
+        hr
+        = link gettext("Pay for membership"), to: "/", class: "button"
+        / = gettext("Expired: %{expiration_date}", expiration_date: date(@user.expiration_date))
+
+= if @valid_member do
+  = if @message.show do
+      h3= @messate.title
+      = raw @message.text
+  / .row
+  /   .column
+  /     .alert.alert-info
+  /       h4= gettext("Time to become a member")
+  /       .row
+  /         .column
+  /           p= gettext("Your membership is expired or you don't have one yet")
+  /         .column
+  /           .float-right
+  /             = link gettext("Get membership"), to: Routes.user_membership_path(@conn, :new, @user), class: "button"
+  /         br
+  /         | &nbsp;
+.row
+  .column
+    = link gettext("Invoices"), to: Routes.user_order_path(@conn, :index, @user), class: "button button-outline"
+
+  .column
+    = link gettext("Edit account"), to: Routes.user_path(@conn, :edit, @user), class: "button button-outline"
+    | &nbsp;
+    = link gettext("Delete account"),\
+      to: Routes.user_path(@conn, :delete, @user),\
+      method: :delete,\
+      data: [confirm: "Are you sure?"],\
+      class: "button button-red button-outline"
+
+
+

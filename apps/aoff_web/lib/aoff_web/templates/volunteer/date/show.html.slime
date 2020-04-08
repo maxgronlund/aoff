@@ -1,0 +1,31 @@
+h2 = @date.date
+
+.row
+  .column
+    h3 = gettext("Early shift")
+    ul
+      li
+        strong = gettext("Shop assistant %{id}: ", id: "1")
+        | &nbsp;
+        = @shop_assistant_a
+      li
+        strong = gettext("Shop assistant %{id}: ", id: "2")
+        | &nbsp;
+        = @shop_assistant_b
+
+  .column
+    h3 = gettext("Late shift")
+    ul
+      li
+        strong = gettext("Shop assistant %{id}: ", id: "1")
+        | &nbsp;
+        = @shop_assistant_c
+      li
+        strong = gettext("Shop assistant %{id}: ", id: "2")
+        | &nbsp;
+        = @shop_assistant_d
+= link "Back", to: Routes.volunteer_date_path(@conn, :index), class: "button button-outline"
+| &nbsp;
+= link "Edit", to: Routes.volunteer_date_path(@conn, :edit, @date), class: "button"
+
+

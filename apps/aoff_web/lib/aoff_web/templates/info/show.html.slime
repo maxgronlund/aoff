@@ -1,0 +1,25 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("Info"), to: Routes.info_path(@conn, :index)
+    li.is-active
+      | &nbsp;
+      = @blog.title
+
+.row
+  .column
+    h2 = @blog.title
+    p= @blog.description
+  .column
+    = img_tag AOFF.Uploader.Image.url({@blog.image, @blog}, :original)
+hr
+.blog
+  = for post <- @blog.blog_posts do
+    .card.is-shady
+      .card-image
+        img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({post.image, post}, :thumb)}"
+
+      .card-content
+        h4 = post.title
+        p = post.teaser
+        = link gettext("Read More"), to: Routes.info_about_path(@conn, :show, @blog, post), class: "button float-right"

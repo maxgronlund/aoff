@@ -1,0 +1,11 @@
+/* This file is for your main application css. */
+
+/*From git https://github.com/adtile/fixed-nav*/
+@import "./navbar.css";
+
+@import "./milligram.css";
+
+@import "./custom.css";
+
+@import "./bulma.css"
+

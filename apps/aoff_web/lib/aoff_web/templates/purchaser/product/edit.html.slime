@@ -1,0 +1,5 @@
+h2 Edit Product
+
+= render "form.html", Map.put(assigns, :action, Routes.purchaser_product_path(@conn, :update, @product))
+
+

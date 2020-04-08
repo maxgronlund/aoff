@@ -1,0 +1,11 @@
+h2= gettext("Opening dates")
+p= gettext("Please select an opening date")
+
+
+.blog
+  = for date <- @dates do
+    = link to: Routes.purchaser_date_path(@conn, :show, date) do
+      .card.is-shady
+
+        .card-header-title.is-centered
+          = date(date.date)

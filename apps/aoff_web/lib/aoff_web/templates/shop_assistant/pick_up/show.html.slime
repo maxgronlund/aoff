@@ -1,0 +1,13 @@
+h2 = gettext("Pick up")
+
+
+table
+  thead
+    tr
+      th = gettext("Product")
+      th = gettext("Price")
+  tbody
+    = for order_item <- @pick_up.order_items do
+      tr
+        td = order_item.product.name
+        td = order_item.price

@@ -1,0 +1,38 @@
+= form_for @changeset, @action, fn f ->
+  = if @changeset.action do
+    .alert.alert-danger
+      p = gettext("Oops, something went wrong! Please check the errors below.")
+
+
+  .form-group
+    = label f, :username, class: "control-label"
+    = text_input f, :username, class: "form-control"
+    = error_tag f, :username
+
+  .form-group
+    = label f, :email, class: "control-label"
+    = email_input f, :email, class: "form-control"
+    = error_tag f, :email
+  .form-group
+    = label f, :email_confirmation, class: "control-label"
+    = email_input f, :email_confirmation, class: "form-control", value: @email
+    = error_tag f, :email_confirmation
+
+  .form-group
+    = label f, :password, class: "control-label"
+    = password_input f, :password, class: "form-control"
+    = error_tag f, :password
+
+  .form-group
+    = label f, :mobile, class: "control-label"
+    = telephone_input f, :mobile, class: "form-control"
+    = error_tag f, :mobile
+
+
+  .form-group
+    / = link gettext("Cancel"), to: Routes.user_path(@conn, :index), class: "button button-outline"
+    /| &nbsp;
+    .float-right
+      = link gettext("Already a member"), to: "/sessions/new", class: "button button-outline"
+      | &nbsp;
+      = submit gettext("Sign up"), class: "button"

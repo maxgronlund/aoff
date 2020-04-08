@@ -1,0 +1,98 @@
+defmodule AOFFWeb.Volunteer.DateController do
+  use AOFFWeb, :controller
+
+  alias AOFF.Shop
+  alias AOFF.Shop.Date
+  alias AOFF.Users
+
+  alias AOFFWeb.Users.Auth
+  plug Auth
+  plug :authenticate when action in [:index, :edit, :new, :update, :create, :delete]
+  plug :navbar when action in [:index, :new, :show, :edit]
+
+  def index(conn, _params) do
+    dates = Shop.list_dates()
+    render(conn, "index.html", dates: dates)
+  end
+
+  def new(conn, _params) do
+    changeset = Shop.change_date(%Date{})
+    render(conn, "new.html", changeset: changeset, users: shop_assistans())
+  end
+
+  def create(conn, %{"date" => date_params}) do
+    case Shop.create_date(date_params) do
+      {:ok, date} ->
+        conn
+        |> put_flash(:info, "Date created successfully.")
+        |> redirect(to: Routes.volunteer_date_path(conn, :show, date))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "new.html", changeset: changeset, users: shop_assistans())
+    end
+  end
+
+  def show(conn, %{"id" => id}) do
+    date = Shop.get_date!(id)
+
+    render(
+      conn,
+      "show.html",
+      date: date,
+      shop_assistant_a: Users.username(date.shop_assistant_a),
+      shop_assistant_b: Users.username(date.shop_assistant_b),
+      shop_assistant_c: Users.username(date.shop_assistant_c),
+      shop_assistant_d: Users.username(date.shop_assistant_d)
+    )
+  end
+
+  def edit(conn, %{"id" => id}) do
+    date = Shop.get_date!(id)
+
+    changeset = Shop.change_date(date)
+    render(conn, "edit.html", date: date, changeset: changeset, users: shop_assistans())
+  end
+
+  def update(conn, %{"id" => id, "date" => date_params}) do
+    date = Shop.get_date!(id)
+
+    case Shop.update_date(date, date_params) do
+      {:ok, date} ->
+        conn
+        |> put_flash(:info, "Date updated successfully.")
+        |> redirect(to: Routes.volunteer_date_path(conn, :show, date))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "edit.html", date: date, changeset: changeset, users: shop_assistans())
+    end
+  end
+
+  def delete(conn, %{"id" => id}) do
+    date = Shop.get_date!(id)
+    {:ok, _date} = Shop.delete_date(date)
+
+    conn
+    |> put_flash(:info, "Date deleted successfully.")
+    |> redirect(to: Routes.volunteer_date_path(conn, :index))
+  end
+
+  defp shop_assistans() do
+    Enum.map(Users.list_shop_assistans(), fn u -> {u.username, u.id} end)
+  end
+
+  defp authenticate(conn, _opts) do
+    if conn.assigns.current_user && conn.assigns.current_user.volunteer do
+      conn
+    else
+      conn
+      |> put_status(401)
+      |> put_view(AOFFWeb.ErrorView)
+      |> render(:"401")
+      |> halt()
+    end
+  end
+
+  defp navbar(conn, _opts) do
+    conn = assign(conn, :page, :volunteer)
+  end
+end

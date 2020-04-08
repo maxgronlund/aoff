@@ -1,0 +1,17 @@
+= if @current_user do
+  .tabs
+    ul
+      = if @volunteer do
+        li class="<%= user_tab(@conn, :volunteer) %>"
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+
+      = if @purchasing_manager do
+        li class="<%= user_tab(@conn, :purchaser) %>"
+          = link gettext("Purchaser"), to: Routes.purchaser_purchaser_path(@conn, :index)
+
+      = if @shop_assistant do
+        li class="<%= user_tab(@conn, :shop_assistant) %>"
+          = link gettext("Shop assistant"), to: Routes.shop_assistant_shop_assistant_path(@conn, :index)
+
+
+

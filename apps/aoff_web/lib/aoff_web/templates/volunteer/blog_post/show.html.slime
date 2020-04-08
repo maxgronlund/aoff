@@ -1,0 +1,29 @@
+
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link @post.blog.title, to: Routes.info_path(@conn, :index)
+    li.is-active
+      | &nbsp;
+      = @post.title
+
+h2= @post.title
+
+
+
+strong = @post.author
+| &nbsp; / &nbsp
+= @post.date
+br
+
+    /= img_tag AOFF.Blogs.BlogPost.image_url(@post, @post.image)
+= img_tag AOFF.Uploader.Image.url({@post.image, @post}, :original)
+br
+i = @post.caption
+= raw(@post.text)
+
+
+= link gettext("Edit"), to: Routes.volunteer_blog_blog_post_path(@conn, :edit, @blog, @post), class: "button"
+
+/ | &nbsp;
+/ = link "Back", to: Routes.post_path(@conn, :index)

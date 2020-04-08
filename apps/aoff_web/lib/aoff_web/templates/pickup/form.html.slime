@@ -1,0 +1,10 @@
+= form_for @changeset, @action, fn f ->
+  = if @changeset.action do
+    .alert.alert-danger
+      p Oops, something went wrong! Please check the errors below.
+  .form-group
+    = label f, :picked_up, class: "control-label"
+    = checkbox f, :picked_up, class: "form-control"
+    = error_tag f, :picked_up
+  .form-group
+    = submit gettext("Save"), class: "btn btn-primary"

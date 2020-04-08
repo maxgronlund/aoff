@@ -1,0 +1,37 @@
+
+h2= gettext("Shop")
+p= gettext("Please select a pickup date")
+
+
+.blog
+  = for date <- @dates do
+    = link to: Routes.shop_date_path(@conn, :show, date) do
+      .card.is-shady
+
+        .card-header-title.is-centered
+          = date(date.date)
+
+= unless @valid_member do
+  .row
+    .column
+      .alert.alert-info
+        = if @current_user do
+          h3 = @expired_message.title
+          = raw @expired_message.text
+          br/
+          .float-right
+            = link gettext("Pay for membership"), to: "/users/new", class: "button"
+
+        - else
+          h3 = @login_message.title
+          = raw @login_message.text
+          br/
+          .float-right
+            = link gettext("Signup"), to: "/users/new", class: "button"
+            | &nbsp;
+            = link gettext("Login"), to: "/users/new", class: "button button-outline"
+        br/
+        | &nbsp;
+    .column
+  -
+

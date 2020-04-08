@@ -1,0 +1,42 @@
+.row
+  .column
+    h2 = gettext("Pickup list: %{date}", date: date(@date.date))
+    = link gettext("< Other dates"),\
+      to: Routes.shop_assistant_shop_assistant_path(@conn, :index),\
+      class: "button button-outline"
+  .column
+    = form_for @conn, Routes.shop_assistant_date_path(@conn, :show, @date), [method: :get], fn f ->
+      = label f, "Search", class: "control-label"
+      = search_input f, :query, placeholder: gettext("Username / Member Nr. / email")
+      = hidden_input f, :page, value: "1"
+      = submit gettext("Search")
+      | &nbsp;
+      = link gettext("Show all"), to: Routes.shop_assistant_date_path(@conn, :show, @date), class: "button button-outline"
+table
+  thead
+    tr
+      th = gettext("Username")
+      th = gettext("Member Nr.")
+      th = gettext("Order Nr.")
+      th = gettext("Products")
+      th
+        .float-right = gettext("Pickup state")
+  tbody
+    = for pick_up <- @pick_ups do
+      = if pick_up.order.state=="closed" do
+        tr
+          td
+            b = pick_up.username
+          td = pick_up.member_nr
+          td = pick_up.order.order_nr
+          td
+            = for order_item <- pick_up.order_items do
+              = order_item.product.name
+              br
+          td
+            = if pick_up.picked_up do
+              = link gettext("Show"), to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up), class: "float-right"
+            - else
+              = link gettext("Extradit"), to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up), class: "button button-outline float-right"
+
+

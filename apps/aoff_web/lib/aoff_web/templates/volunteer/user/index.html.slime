@@ -1,0 +1,48 @@
+.row
+  .column
+    h2 = gettext("Admin Users")
+  .column
+
+    = form_for @conn, Routes.volunteer_user_path(@conn, :index), [method: :get], fn f ->
+      = label f, "Search", class: "control-label"
+      = search_input f, :query, placeholder: gettext("Username / Member Nr. / email")
+      = hidden_input f, :page, value: "1"
+      = submit "Search"
+      | &nbsp;
+      = link gettext("Show all"), to: Routes.volunteer_user_path(@conn, :index), class: "button button-outline"
+hr
+= for user <- @users do
+  .row
+    .column
+      strong = user.username
+      br
+      = gettext("Member Nr: %{member_nr}", member_nr: user.member_nr)
+    .column
+      = valid_membership(user)
+      br/
+      = if user.admin do
+        = gettext("Admin")
+        br/
+      = if user.purchasing_manager do
+        = gettext("Purchaser")
+        br/
+      = if user.volunteer do
+        = gettext("Volunteer")
+        br/
+      = if user.shop_assistant do
+        = gettext("Shop assistant")
+        br/
+    .column
+
+      = link gettext("Edit"),\
+        to: Routes.volunteer_user_path(@conn, :edit, user),\
+        class: "button button-small button-outline"
+      = if !user.admin do
+        | &nbsp;
+        = link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red button-small"
+  hr
+
+= for page <- 0..@pages do
+  - s = Integer.to_string(page)
+  = link s, to: Routes.volunteer_user_path(@conn, :index, page: s)
+  | &nbsp;

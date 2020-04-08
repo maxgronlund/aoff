@@ -1,0 +1,6 @@
+h2 = gettext("Products")
+
+
+= link gettext("Products"), to: Routes.purchaser_product_path(@conn, :index), class: "button button-outline"
+| &nbsp;
+= link gettext("Shopping list"), to: Routes.purchaser_date_path(@conn, :index), class: "button button-outline"

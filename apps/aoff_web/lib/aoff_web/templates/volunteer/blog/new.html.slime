@@ -1,0 +1,11 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("Blogs"), to: Routes.volunteer_blog_path(@conn, :index)
+
+
+h2 gettext("New Blog")
+
+= render "form.html", Map.put(assigns, :action, Routes.volunteer_blog_path(@conn, :create))
+
+

@@ -1,0 +1,22 @@
+
+.row
+  .column
+    h2 = @message.title
+    = raw @message.text
+
+    = link gettext("Edit"),\
+      to: Routes.volunteer_message_path(@conn, :edit, @message),\
+      class: "button"
+
+  .column
+    = gettext("Identifier: %{identifier}", identifier: @message.identifier)
+    br
+    = if @message.show do
+      = gettext("Show on page: Yes")
+    - else
+      = gettext("Show on page: No")
+    br
+    = gettext("Locale: %{locale}", locale: @message.locale)
+
+
+

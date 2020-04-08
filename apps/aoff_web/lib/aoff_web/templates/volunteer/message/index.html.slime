@@ -1,0 +1,29 @@
+h2 = gettext("Text used on the site")
+/= link gettext("New text"), to: Routes.volunteer_message_path(@conn, :new), class: "button"
+
+table.table
+  thead
+    tr
+      th Title
+      th Identifier
+      th Show
+      th
+  tbody
+    = for message <- @messages do
+      tr
+        td= message.title
+        td= message.identifier
+        td= message.show
+        td
+          .float-right
+            = link gettext("Show"), to: Routes.volunteer_message_path(@conn, :show, message), class: "button button-outline button-small"
+            | &nbsp;
+            = link gettext("Edit"), to: Routes.volunteer_message_path(@conn, :edit, message), class: "button button-outline button-small"
+            | &nbsp;
+            = link "Delete",\
+              to: Routes.volunteer_message_path(@conn, :delete, message),\
+              method: :delete, \
+              data: [confirm: gettext("Are you sure?")], \
+              class: "button button-red button-small"
+
+/= link gettext("New text"), to: Routes.volunteer_message_path(@conn, :new), class: "button"

@@ -1,0 +1,24 @@
+h2= gettext("Blogs")
+= link gettext("New Blog"), to: Routes.volunteer_blog_path(@conn, :new), class: "button"
+table.table
+  thead
+    tr
+      th = gettext("Title")
+      th = gettext("Description")
+      th = gettext("Identifier")
+      th
+  tbody
+    = for blog <- @blogs do
+      tr
+        td= blog.title
+        td= blog.description
+        td= blog.identifier
+        td
+          .float-right
+            = link "Show", to: Routes.volunteer_blog_path(@conn, :show, blog), class: "button button-small button-outline"
+            | &nbsp;
+            = link "Edit", to: Routes.volunteer_blog_path(@conn, :edit, blog), class: "button button-small button-outline"
+            | &nbsp;
+            = link "Delete", to: Routes.volunteer_blog_path(@conn, :delete, blog), method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-small button-red"
+
+
