@@ -50,3 +50,6 @@ To get started and generete the structure based on the .pot files. Run.
 To update the po files when something is added.
 
 ```mix gettext.extract --merge```
+
+
+ heroku run "POOL_SIZE=2 mix hello.task"
