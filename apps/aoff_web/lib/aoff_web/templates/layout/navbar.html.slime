@@ -7,18 +7,27 @@ header
     ul
       li class="<%= menu_item(@conn, :shop) %>"
         = link gettext("Shop"), to: Routes.shop_shop_path(@conn, :index)
-      li class="<%= menu_item(@conn, :info) %>"
-        = link gettext("Info"), to: Routes.info_path(@conn, :index)
+
+      li class="<%= menu_item(@conn, :news) %>"
+        = link gettext("News"), to: Routes.news_path(@conn, :index)
+
+      li class="<%= menu_item(@conn, :about_aoff) %>"
+        = link gettext("About AOFF"), to: Routes.info_path(@conn, :index)
 
       = if @current_user do
         li class="<%= menu_item(@conn, :logout) %>"
           = link gettext("Log out"),to: Routes.session_path(@conn, :delete, @current_user), method: "delete"
 
         li class="<%= menu_item(@conn, :user) %>"
-          = link( gettext("Account"), to: Routes.user_path(@conn, :show, @current_user))
-
+          = link to: Routes.user_path(@conn, :show, @current_user) do
+            i.fa.fa-user
         li class="<%= menu_item(@conn, :order) %>"
-          = link( gettext("Basket"), to: Routes.user_order_path(@conn, :show, @current_user, current_order(@current_user.id)))
+
+          = link to: Routes.user_order_path(@conn, :show, @current_user, current_order(@current_user.id)) do
+            i.fa.fa-shopping-cart
+            | &nbsp;
+            .numberCircle
+              |1
 
       - else
         li class="<%= menu_item(@conn, :user) %>"

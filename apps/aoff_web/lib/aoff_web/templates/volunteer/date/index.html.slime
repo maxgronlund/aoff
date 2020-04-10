@@ -1,5 +1,9 @@
 h2= gettext("Opening dates")
 
+= link "Seed dates", to: Routes.shop_date_path(@conn, :index), class: "button"
+
+| &nbsp;
+
 = link "New Opening Date", to: Routes.volunteer_date_path(@conn, :new), class: "button"
 table.table
   thead

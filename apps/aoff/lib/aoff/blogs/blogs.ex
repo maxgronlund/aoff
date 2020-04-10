@@ -25,6 +25,7 @@ defmodule AOFF.Blogs do
     |> Repo.all()
   end
 
+  alias AOFF.Blogs.BlogPost
 
   @doc """
   Find or create a blog.
@@ -40,9 +41,10 @@ defmodule AOFF.Blogs do
   """
   def find_or_create_blog(identifier, locale \\ "da") do
     query =
-      from m in Blog,
-      where: m.identifier==^identifier and m.locale==^locale,
-      limit: 1
+      from b in Blog,
+      where: b.identifier==^identifier and b.locale==^locale,
+      select: b,
+      preload: [blog_posts: ^from(p in BlogPost, order_by: p.date)]
 
     case Repo.one(query) do
       nil ->
@@ -58,39 +60,13 @@ defmodule AOFF.Blogs do
     end
   end
 
-
-
-
-
-  alias AOFF.Blogs.BlogPost
-
-  def get_blog!(title) do
-    # blog_post_query = from post in BlogPost, order_by: post.date, where: post.blog_id == ^id
-    IO.puts "get blog"
+  def get_blog!(title, locale \\ "da") do
 
     query =
       from b in Blog,
-      where: b.title==^title,
+      where: b.title==^title and b.locale==^locale,
       select: b,
       preload: [blog_posts: ^from(p in BlogPost, order_by: p.date)]
-
-
-
-    # query =
-    # from(
-    #   p in Member,
-    #   where: p.id == ^id,
-    #   select: p,
-    #   preload: [
-    #     :avatar,
-    #     activities:
-    #       ^from(
-    #         a in Activity,
-    #         order_by: [desc: a.inserted_at]
-    #       )
-    #   ]
-    # )
-
 
     Repo.one(query)
   end
@@ -190,10 +166,6 @@ defmodule AOFF.Blogs do
 
   """
   def get_post!(blog_title, title, locale \\ "da") do
-
-    IO.inspect blog_title
-    IO.inspect title
-    IO.puts "=-====="
     query =
       from p in BlogPost,
       where: p.title==^title,

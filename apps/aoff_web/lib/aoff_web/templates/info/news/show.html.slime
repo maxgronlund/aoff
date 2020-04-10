@@ -1,0 +1,19 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link @blog.title, to: Routes.news_path(@conn, :index)
+    li.is-active
+      | &nbsp;
+      = @post.title
+
+
+
+h2= @post.title
+= img_tag AOFF.Uploader.Image.url({@post.image, @post}, :original)
+.image-caption
+  i = @post.caption
+br
+p = raw(@post.text)
+
+
+

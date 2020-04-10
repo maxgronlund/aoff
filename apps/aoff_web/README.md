@@ -18,3 +18,14 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
+
+
+
+## Heroku
+  * migrating the db: ```$ heroku run "POOL_SIZE=2 mix exto.migrate"```
+
+  * Running the server: ```$ heroku run "POOL_SIZE=2 iex -S mix"```
+
+AOFF.Repo.delete_all(AOFF.Users.OrderItem)
+AOFF.Repo.delete_all(AOFF.Shop.PickUp)
+AOFF.Repo.delete_all(AOFF.Shop.Date)

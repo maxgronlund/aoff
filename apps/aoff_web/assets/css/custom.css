@@ -378,24 +378,18 @@ label.panel-block:hover {
   color: #fff;
 }
 
-/*.panel-icon {
-  display: inline-block;
-  font-size: 14px;
-  height: 1em;
-  line-height: 1em;
-  text-align: center;
-  vertical-align: top;
-  width: 1em;
-  color: #7a7a7a;
-  margin-right: 0.75em;
+.numberCircle {
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    padding: 2px;
+    background: #F00;
+    /* border: 2px solid #666; */
+    /* color: #666; */
+    text-align: center;
+    font: 9px Arial, sans-serif;
+    z-index: 99;
+    position: relative;
+    top: -19px;
+    left: 19px;
 }
-
-.panel-icon .fa {
-  font-size: inherit;
-  line-height: inherit;
-}*/
-
-
-
-
-

@@ -1,18 +1,18 @@
-h2 = gettext("Info")
+h2 = gettext("About AOFF")
 .blog
-  .card.is-shady
-    .card-header
-      .card-header-title.is-centered
-        = @news.title
+  / .card.is-shady
+  /   .card-header
+  /     .card-header-title.is-centered
+  /       = @news.title
 
-    .card-image
-      img.modal-button alt=("#{@news.title}") src="#{ AOFF.Uploader.Image.url({@news.image, @news}, :original)}"
-    .card-content
+  /   .card-image
+  /     img.modal-button alt=("#{@news.title}") src="#{ AOFF.Uploader.Image.url({@news.image, @news}, :original)}"
+  /   .card-content
 
-      = @news.description
-      hr/
-      = link gettext("Read More"), to: Routes.info_path(@conn, :show, @news), class: "button float-right"
-      | &nbsp;
+  /     = @news.description
+  /     hr/
+  /     = link gettext("Read More"), to: Routes.info_path(@conn, :show, @news), class: "button float-right"
+  /     | &nbsp;
 
   .card.is-shady
     .card-header
@@ -43,12 +43,12 @@ h2 = gettext("Info")
   .card.is-shady
     .card-header
       .card-header-title.is-centered
-        = @about.title
+        = @about_aoff.title
 
     .card-image
-      img.modal-button alt=("#{@about.title}") src="#{ AOFF.Uploader.Image.url({@about.image, @about}, :original)}"
+      img.modal-button alt=("#{@about_aoff.title}") src="#{ AOFF.Uploader.Image.url({@about_aoff.image, @about_aoff}, :original)}"
     .card-content
-      = @about.description
+      = @about_aoff.description
       hr/
-      = link gettext("Read More"), to: Routes.info_path(@conn, :show, @about), class: "button float-right"
+      = link gettext("Read More"), to: Routes.info_path(@conn, :show, @about_aoff), class: "button float-right"
       | &nbsp;

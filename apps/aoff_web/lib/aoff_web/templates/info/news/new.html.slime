@@ -1,0 +1,13 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link @blog.title, to: Routes.news_path(@conn, :index)
+    li.is-active
+      | &nbsp;
+      = gettext("Create News")
+
+h2= gettext("Create News")
+
+= render "form.html", Map.put(assigns, :action, Routes.info_news_path(@conn, :create, @blog))
+
+/ = link "Back", to: Routes.post_path(@conn, :index)

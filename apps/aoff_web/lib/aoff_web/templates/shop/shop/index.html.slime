@@ -2,12 +2,10 @@
 h2= gettext("Shop")
 p= gettext("Please select a pickup date")
 
-
 .blog
   = for date <- @dates do
     = link to: Routes.shop_date_path(@conn, :show, date) do
       .card.is-shady
-
         .card-header-title.is-centered
           = date(date.date)
 

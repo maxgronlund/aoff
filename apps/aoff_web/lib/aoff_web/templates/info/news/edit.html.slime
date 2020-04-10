@@ -1,0 +1,15 @@
+/ .breadcrumb aria-label="breadcrumbs"
+/   ul
+/     li
+/       = link gettext("Blogs"), to: Routes.volunteer_blog_path(@conn, :index)
+/     li
+/       = link @blog.title, to: Routes.volunteer_blog_path(@conn, :show, @blog)
+/     li.is-active
+/       | &nbsp;
+/       = gettext("Edit Post")
+
+h2= gettext("Edit Post")
+
+= render "form.html", Map.put(assigns, :action, Routes.info_news_path(@conn, :update, @blog, @blog_post))
+
+/ = link "Back", to: Routes.post_path(@conn, :index)

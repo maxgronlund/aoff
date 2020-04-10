@@ -29,14 +29,16 @@ defmodule AOFFWeb.Router do
     resources "/sessions", SessionController
 
     resources "/info", InfoController, only: [:index, :show] do
-      resources "/about", Info.AboutController, only: [:show]
+      resources "/about_aoff", Info.AboutController, only: [:show]
+      resources "/news", Info.NewsController, except: [:index, :show]
     end
+    resources "/news", Info.NewsController, only: [:index, :show]
   end
 
   scope "/shop", as: :shop do
     pipe_through :browser
     get "/", AOFFWeb.Shop.ShopController, :index
-    resources "/dates", AOFFWeb.Shop.DateController, only: [:show]
+    resources "/dates", AOFFWeb.Shop.DateController, only: [:show, :index]
     resources "/checkout/", AOFFWeb.Shop.CheckoutController, only: [:show, :update]
   end
 
