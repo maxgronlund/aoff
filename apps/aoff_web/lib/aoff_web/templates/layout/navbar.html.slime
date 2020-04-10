@@ -25,7 +25,6 @@ header
 
           = link to: Routes.user_order_path(@conn, :show, @current_user, current_order(@current_user.id)) do
             i.fa.fa-shopping-cart
-            | &nbsp;
             .numberCircle
               |1
 
