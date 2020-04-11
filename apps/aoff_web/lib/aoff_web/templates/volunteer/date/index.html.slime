@@ -1,36 +1,46 @@
 h2= gettext("Opening dates")
+.row
+  .column
+    = link gettext("Create pick up date"), to: Routes.volunteer_date_path(@conn, :new), class: "button"
+  .column
+    .float-right
+      = render "pagination.html", assigns
 
-= if @admin do
-  = link "Seed dates", to: Routes.shop_date_path(@conn, :index), class: "button"
+/ = if @admin do
+/   = link "Seed dates", to: Routes.shop_date_path(@conn, :index), class: "button"
 
-| &nbsp;
 
-= link "New Opening Date", to: Routes.volunteer_date_path(@conn, :new), class: "button"
-table.table
-  thead
-    tr
-      th Date
-      th = gettext("Early shift")
-      th = gettext("Late shift")
-      th
-  tbody
-    = for date <- @dates do
-      tr
-        td= date(date.date)
-        td
-          = assistant_name(date.shop_assistant_a)
-          | &nbsp;/&nbsp;
-          = assistant_name(date.shop_assistant_b)
-        td
-          = assistant_name(date.shop_assistant_c)
-          | &nbsp;/&nbsp;
-          = assistant_name(date.shop_assistant_d)
 
-        td class="text-right"
-          = link "Show", to: Routes.volunteer_date_path(@conn, :show, date), class: "btn btn-default btn-xs"
-          | &nbsp;
-          = link "Edit", to: Routes.volunteer_date_path(@conn, :edit, date), class: "btn btn-default btn-xs"
-          | &nbsp;
-          = link "Delete", to: Routes.volunteer_date_path(@conn, :delete, date), method: :delete, data: [confirm: "Are you sure?"]
 
+
+
+
+.blog
+  = for date <- @dates do
+    = link to: Routes.volunteer_date_path(@conn, :edit, date) do
+      .card.is-shady
+        = if date.open do
+          .card-header-title.is-centered
+            = date(date.date)
+          - else
+            .card-header-title.is-centered.is-red
+              = gettext("%{date} - closed", date: date(date.date))
+        .card-content
+          b = gettext("Early shift")
+          br/ = raw shop_assistant(date.shop_assistant_a)
+          br/
+          = raw shop_assistant(date.shop_assistant_b)
+          hr
+
+          b = gettext("Late shift")
+          br/ = raw shop_assistant(date.shop_assistant_c)
+          br/
+          = raw shop_assistant(date.shop_assistant_d)
+        .card-footer-item.is-button
+          = gettext("Edit")
+
+
+hr
+
+= render "pagination.html", assigns
 

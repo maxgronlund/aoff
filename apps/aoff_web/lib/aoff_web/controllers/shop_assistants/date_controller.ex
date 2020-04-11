@@ -2,6 +2,7 @@ defmodule AOFFWeb.ShopAssistant.DateController do
   use AOFFWeb, :controller
 
   alias AOFF.Shop
+  alias AOFF.Users
 
   def show(conn, params) do
     conn = assign(conn, :page, :shop_assistant)
@@ -15,6 +16,12 @@ defmodule AOFFWeb.ShopAssistant.DateController do
         Shop.list_pick_ups(date.id)
       end
 
-    render(conn, "show.html", date: date, pick_ups: pick_ups)
+    render(
+      conn,
+      "show.html",
+      date: date,
+      pick_ups: pick_ups
+    )
+
   end
 end

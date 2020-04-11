@@ -5,7 +5,7 @@
 
 
   .form-group
-    = label f, :username, class: "control-label"
+    = label f, :username, "Brugernavn",class: "control-label"
     = text_input f, :username, class: "form-control"
     = error_tag f, :username
 
@@ -35,4 +35,4 @@
     .float-right
       = link gettext("Already a member"), to: "/sessions/new", class: "button button-outline"
       | &nbsp;
-      = submit gettext("Sign up"), class: "button"
+      = submit gettext("Save"), class: "button"

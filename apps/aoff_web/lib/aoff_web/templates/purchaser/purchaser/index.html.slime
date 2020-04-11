@@ -1,4 +1,4 @@
-h2 = gettext("Products")
+h2 = gettext("Purchaser")
 
 
 = link gettext("Products"), to: Routes.purchaser_product_path(@conn, :index), class: "button button-outline"

@@ -26,7 +26,7 @@ html lang="en" class="<%= backdrop(@conn) %>"
         .alert.alert-warning
           h4= @warning.title
           = raw @warning.text
-      = render AOFFWeb.LayoutView, "user_tabs.html", assigns
+      /= render AOFFWeb.LayoutView, "user_tabs.html", assigns
       = render AOFFWeb.LayoutView, "flash.html", assigns
       = render @view_module, @view_template, assigns
 

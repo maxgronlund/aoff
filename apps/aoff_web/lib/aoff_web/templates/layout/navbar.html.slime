@@ -8,6 +8,13 @@ header
       li class="<%= menu_item(@conn, :shop) %>"
         = link gettext("Shop"), to: Routes.shop_shop_path(@conn, :index)
 
+      = if @purchasing_manager do
+        li class="<%= menu_item(@conn, :purchaser) %>"
+          = link gettext("Purchaser"), to: Routes.purchaser_purchaser_path(@conn, :index)
+      = if @volunteer do
+        li class="<%= menu_item(@conn, :volunteer) %>"
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+
       li class="<%= menu_item(@conn, :news) %>"
         = link gettext("News"), to: Routes.news_path(@conn, :index)
 

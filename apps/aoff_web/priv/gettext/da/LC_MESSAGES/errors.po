@@ -12,76 +12,76 @@ msgstr ""
 "Plural-Forms: nplurals=2\n"
 
 msgid "can't be blank"
-msgstr ""
+msgstr "skal udfyldes"
 
 msgid "has already been taken"
-msgstr ""
+msgstr "er allerede taget"
 
 msgid "is invalid"
-msgstr ""
+msgstr "ugyldig"
 
 msgid "must be accepted"
-msgstr ""
+msgstr "skal godkendes"
 
 msgid "has invalid format"
-msgstr ""
+msgstr "ugyldigt format"
 
 msgid "has an invalid entry"
-msgstr ""
+msgstr "har en ugyldig post"
 
 msgid "is reserved"
-msgstr ""
+msgstr "er reserveret"
 
 msgid "does not match confirmation"
-msgstr ""
+msgstr "stemmer ikke overens med bekræftelsen"
 
 msgid "is still associated with this entry"
-msgstr ""
+msgstr "er stadig knyttet til dette ellement"
 
 msgid "are still associated with this entry"
-msgstr ""
+msgstr "er stadig knyttet til dette ellement"
 
 msgid "should be %{count} character(s)"
 msgid_plural "should be %{count} character(s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "skal være% {count} karakter (r)"
+msgstr[1] "skal være% {count} karakterer (r)"
 
 msgid "should have %{count} item(s)"
 msgid_plural "should have %{count} item(s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "skal havde %{count} ellement(s)"
+msgstr[1] "skal havde %{count} ellementer(s)"
 
 msgid "should be at least %{count} character(s)"
 msgid_plural "should be at least %{count} character(s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "skal være minst %{count} karakter(s)"
+msgstr[1] "skal være minst %{count} karakterer(s)"
 
 msgid "should have at least %{count} item(s)"
 msgid_plural "should have at least %{count} item(s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "skal havde mindst %{count} ellement(s)"
+msgstr[1] "skal havde mindst %{count} ellementer(s)"
 
 msgid "should be at most %{count} character(s)"
 msgid_plural "should be at most %{count} character(s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "kan højst være %{count} karakter(s)"
+msgstr[1] "kan højst være %{count} karakterer(s)"
 
 msgid "should have at most %{count} item(s)"
 msgid_plural "should have at most %{count} item(s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "kan højst havde %{count} ellement(s)"
+msgstr[1] "kan højst havde %{count} ellementer(s)"
 
 msgid "must be less than %{number}"
-msgstr ""
+msgstr "skal være mindre end %{number}"
 
 msgid "must be greater than %{number}"
-msgstr ""
+msgstr "skal være størrer end %{number}"
 
 msgid "must be less than or equal to %{number}"
-msgstr ""
+msgstr "skal være mindre eller lig med %{number}"
 
 msgid "must be greater than or equal to %{number}"
-msgstr ""
+msgstr "skal være størrer eller lig med %{number}"
 
 msgid "must be equal to %{number}"
-msgstr ""
+msgstr "skal være lig med %{number}"

@@ -8,6 +8,7 @@ defmodule AOFF.Shop.Date do
   @foreign_key_type :binary_id
   schema "dates" do
     field :date, :date
+    field :open, :boolean, default: true
     field :shop_assistant_a, :binary
     field :shop_assistant_b, :binary
     field :shop_assistant_c, :binary
@@ -22,6 +23,7 @@ defmodule AOFF.Shop.Date do
     date
     |> cast(attrs, [
       :date,
+      :open,
       :shop_assistant_a,
       :shop_assistant_b,
       :shop_assistant_c,

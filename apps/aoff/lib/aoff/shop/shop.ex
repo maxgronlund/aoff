@@ -17,12 +17,15 @@ defmodule AOFF.Shop do
       [%Date{}, ...]
 
   """
+
   def list_dates do
-    query =
+
+    dates =
       from d in Date,
         order_by: [asc: d.date]
 
-    Repo.all(query)
+    dates
+    |> Repo.all()
   end
 
   @doc """
@@ -34,14 +37,23 @@ defmodule AOFF.Shop do
       [%Date{}, ...]
 
   """
-  def list_dates(date, limit \\ 6) do
+  @dates_pr_page 12
+
+  def list_dates(date, page \\ 0, per_page \\ @dates_pr_page) do
     query =
       from d in Date,
         where: d.date >= ^date,
         order_by: [asc: d.date],
-        limit: ^limit
+        limit: ^per_page,
+        offset: ^(page * per_page)
 
     Repo.all(query)
+  end
+
+
+  def date_pages(per_page \\ @dates_pr_page) do
+    dates = Repo.one(from d in Date, select: count(d.id))
+    Integer.floor_div(dates, per_page)
   end
 
   @doc """

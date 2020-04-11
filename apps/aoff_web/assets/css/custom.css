@@ -394,3 +394,21 @@ label.panel-block:hover {
   top: -4px;
   left: 7px;
 }
+
+.red {
+  color: #F00;
+}
+
+#date_date_year {
+  display: inline-block;
+}
+#date_date_month {
+  display: inline-block;
+}
+#date_date_date {
+  display: inline-block;
+}
+
+.card-header-title.is-centered.is-red {
+  color: #F00;
+}

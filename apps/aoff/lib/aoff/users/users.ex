@@ -19,7 +19,6 @@ defmodule AOFF.Users do
       [%User{}, ...]
 
   """
-
   def list_users(page \\ 0, per_page \\ @users_pr_page) do
     query =
       from u in User,
@@ -29,10 +28,6 @@ defmodule AOFF.Users do
 
     Repo.all(query)
   end
-
-  # def list_users() do
-  #   list_users(0, @users_pr_page)
-  # end
 
   def user_pages(per_page \\ @users_pr_page) do
     users = Repo.one(from u in User, select: count(u.id))
@@ -87,33 +82,6 @@ defmodule AOFF.Users do
   """
   def get_user(id) do
     Repo.get(User, id)
-  end
-
-  @doc """
-  Gets a username.
-
-  Raises `Ecto.NoResultsError` if the User does not exist.
-
-  ## Examples
-
-      iex> get_user!(123)
-      %User{}
-
-      iex> get_user!(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def username(id) do
-    cond do
-      id == nil ->
-        "-"
-
-      user = Repo.get(User, id) ->
-        user.username
-
-      true ->
-        "-"
-    end
   end
 
   @doc """

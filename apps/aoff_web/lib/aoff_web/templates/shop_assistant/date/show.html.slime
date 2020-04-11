@@ -1,17 +1,46 @@
 .row
   .column
-    h2 = gettext("Pickup list: %{date}", date: date(@date.date))
-    = link gettext("< Other dates"),\
-      to: Routes.shop_assistant_shop_assistant_path(@conn, :index),\
-      class: "button button-outline"
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Pick up dates"), to: Routes.shop_shop_path(@conn, :index)
+        li
+          = link date(@date.date), to: Routes.shop_date_path(@conn, :show, @date)
+        li.is-active
+          | &nbsp;
+          = gettext("Pick up list")
+
+.row
+  .column
+    .card.is-shady
+      .card-header-title.is-centered
+          = gettext("Early shift")
+      .card-content
+        = raw shop_assistant(@date.shop_assistant_a)
+        br/
+        = raw shop_assistant(@date.shop_assistant_b)
+  .column
+    .card.is-shady
+      .card-header-title.is-centered
+          = gettext("Late shift")
+      .card-content
+        = raw shop_assistant(@date.shop_assistant_c)
+        br/
+        = raw shop_assistant(@date.shop_assistant_d)
+
+hr
+h3 = gettext("Pickup list: %{date}", date: @date.date)
+.row
   .column
     = form_for @conn, Routes.shop_assistant_date_path(@conn, :show, @date), [method: :get], fn f ->
-      = label f, "Search", class: "control-label"
+      = label f, gettext("Search"), class: "control-label"
       = search_input f, :query, placeholder: gettext("Username / Member Nr. / email")
       = hidden_input f, :page, value: "1"
       = submit gettext("Search")
       | &nbsp;
       = link gettext("Show all"), to: Routes.shop_assistant_date_path(@conn, :show, @date), class: "button button-outline"
+  .column
+
 table
   thead
     tr
@@ -37,6 +66,6 @@ table
             = if pick_up.picked_up do
               = link gettext("Show"), to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up), class: "float-right"
             - else
-              = link gettext("Extradit"), to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up), class: "button button-outline float-right"
+              = link gettext("Awaits"), to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up), class: "button button-outline float-right"
 
 

@@ -28,4 +28,3 @@ h2 = @date.date
 | &nbsp;
 = link "Edit", to: Routes.volunteer_date_path(@conn, :edit, @date), class: "button"
 
-

@@ -1,36 +1,23 @@
-.breadcrumb aria-label="breadcrumbs"
-  ul
-    li
-      = link gettext("Pick up dates"), to: Routes.shop_shop_path(@conn, :index)
-    li.is-active
-      | &nbsp;
-      = date(@date.date)
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Pick up dates"), to: Routes.shop_shop_path(@conn, :index)
+        li.is-active
+          | &nbsp;
+          = date(@date.date)
 
-h2= gettext("Pick up date: %{date}", date: date(@date.date))
-.blog
-  = for product <- @products do
-
-    .card.is-shady
-      .card-header-title.is-centered
-        = product.name
+  = if @volunteer do
+    .column
+      .alert.alert-info
+        = raw gettext("Clik the <strong>button</strong> if you are one of todays host")
+        hr
+        = link gettext("Pick up list"), to: Routes.shop_assistant_date_path(@conn, :show, @date), class: "button float-right"
         | &nbsp;
-        = product.price
-      .card-content
-        = text_to_html(product.description)
-      .card-footer.is-botton
+        br/
 
-
-        = if @valid_member do
-          = link gettext("Add to basket"),\
-            to: Routes.user_order_item_path(@conn, :create, @current_user, params: order_item_params(@current_user.id, product, @date.id)),\
-            method: "POST",\
-            class: "card-footer-item is-button"
-        - else
-          = link gettext("Buy"),\
-            to: "/users/new",\
-            class: "card-footer-item is-button"
-
-
+h2= date(@date.date)
 
 
 = unless @valid_member do
@@ -43,6 +30,8 @@ h2= gettext("Pick up date: %{date}", date: date(@date.date))
           br/
           .float-right
             = link gettext("Pay for membership"), to: "/users/new", class: "button"
+          = if @volunteer do
+            = link gettext("Edit"), to: Routes.volunteer_message_path(@conn, :edit, @expired_message)
 
         - else
           h3 = @login_message.title
@@ -54,6 +43,26 @@ h2= gettext("Pick up date: %{date}", date: date(@date.date))
             = link gettext("Login"), to: "/users/new", class: "button button-outline"
         br/
         | &nbsp;
-    .column
-  -
+
+
+
+.blog
+  = for product <- @products do
+
+    .card.is-shady
+      .card-header-title.is-centered
+        = product.name
+        | &nbsp;
+        = product.price
+      .card-content
+        = text_to_html(product.description)
+      .card-footer.is-botton
+        = if @valid_member do
+          = link gettext("Add to basket"),\
+            to: Routes.user_order_item_path(@conn, :create, @current_user, params: order_item_params(@current_user.id, product, @date.id)),\
+            method: "POST",\
+            class: "card-footer-item is-button"
+        - else
+          .card-footer-item.is-button
+
 

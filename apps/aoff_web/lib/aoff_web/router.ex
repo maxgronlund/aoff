@@ -38,7 +38,7 @@ defmodule AOFFWeb.Router do
   scope "/shop", as: :shop do
     pipe_through :browser
     get "/", AOFFWeb.Shop.ShopController, :index
-    resources "/dates", AOFFWeb.Shop.DateController, only: [:show, :index]
+    resources "/dates", AOFFWeb.Shop.DateController, only: [:show]
     resources "/checkout/", AOFFWeb.Shop.CheckoutController, only: [:show, :update]
   end
 

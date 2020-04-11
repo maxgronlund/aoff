@@ -2,7 +2,7 @@ defmodule AOFFWeb.Volunteer.DateController do
   use AOFFWeb, :controller
 
   alias AOFF.Shop
-  alias AOFF.Shop.Date
+  # alias AOFF.Shop.Date
   alias AOFF.Users
 
   alias AOFFWeb.Users.Auth
@@ -10,13 +10,34 @@ defmodule AOFFWeb.Volunteer.DateController do
   plug :authenticate when action in [:index, :edit, :new, :update, :create, :delete]
   plug :navbar when action in [:index, :new, :show, :edit]
 
-  def index(conn, _params) do
-    dates = Shop.list_dates()
-    render(conn, "index.html", dates: dates)
+  def index(conn, params) do
+
+
+    page =
+      if params["query"] do
+        false
+      else
+        params["page"] || "0"
+      end
+
+    dates =
+      if query = params["query"] do
+        Shop.search_date(query)
+      else
+        Shop.list_dates( Date.utc_today(), String.to_integer(page), 12)
+      end
+
+    render(
+      conn,
+      "index.html",
+      dates: dates,
+      pages: Shop.date_pages(),
+      page: String.to_integer(page)
+    )
   end
 
   def new(conn, _params) do
-    changeset = Shop.change_date(%Date{})
+    changeset = Shop.change_date(%AOFF.Shop.Date{})
     render(conn, "new.html", changeset: changeset, users: shop_assistans())
   end
 
@@ -38,11 +59,7 @@ defmodule AOFFWeb.Volunteer.DateController do
     render(
       conn,
       "show.html",
-      date: date,
-      shop_assistant_a: Users.username(date.shop_assistant_a),
-      shop_assistant_b: Users.username(date.shop_assistant_b),
-      shop_assistant_c: Users.username(date.shop_assistant_c),
-      shop_assistant_d: Users.username(date.shop_assistant_d)
+      date: date
     )
   end
 
@@ -60,7 +77,7 @@ defmodule AOFFWeb.Volunteer.DateController do
       {:ok, date} ->
         conn
         |> put_flash(:info, "Date updated successfully.")
-        |> redirect(to: Routes.volunteer_date_path(conn, :show, date))
+        |> redirect(to: Routes.volunteer_date_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", date: date, changeset: changeset, users: shop_assistans())
