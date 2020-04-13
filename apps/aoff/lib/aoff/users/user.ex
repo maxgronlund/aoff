@@ -19,7 +19,6 @@ defmodule AOFF.Users.User do
     field :mobile, :string
     field :password, :string, virtual: true
     field :password_hash, :string
-    field :months, :integer, default: 12
     field :expiration_date, :date
     field :admin, :boolean, default: false
     field :volunteer, :boolean, default: false
@@ -78,7 +77,6 @@ defmodule AOFF.Users.User do
       :member_nr,
       :password,
       :mobile,
-      :months,
       :expiration_date,
       :admin,
       :volunteer,
@@ -90,7 +88,6 @@ defmodule AOFF.Users.User do
       :email,
       :member_nr,
       :password,
-      :months,
       :expiration_date,
       :admin,
       :volunteer,
@@ -113,7 +110,6 @@ defmodule AOFF.Users.User do
       :mobile,
       :username,
       :member_nr,
-      :months,
       :expiration_date,
       :admin,
       :volunteer,
@@ -124,7 +120,6 @@ defmodule AOFF.Users.User do
       :username,
       :email,
       :member_nr,
-      :months,
       :expiration_date,
       :admin,
       :volunteer,
@@ -171,7 +166,6 @@ defmodule AOFF.Users.User do
         %{
           "member_nr" => last_member_nr + 1,
           "expiration_date" => ~D[2020-01-01],
-          "months" => 0,
           "registration_date" => Date.utc_today()
         }
       )
@@ -185,7 +179,6 @@ defmodule AOFF.Users.User do
       :mobile,
       :member_nr,
       :expiration_date,
-      :months,
       :terms_accepted,
       :registration_date
     ])
@@ -195,7 +188,6 @@ defmodule AOFF.Users.User do
       :password,
       :member_nr,
       :expiration_date,
-      :months,
       :terms_accepted,
       :registration_date
     ])

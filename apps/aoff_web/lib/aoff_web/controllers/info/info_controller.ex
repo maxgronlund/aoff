@@ -2,9 +2,14 @@ defmodule AOFFWeb.InfoController do
   use AOFFWeb, :controller
 
   alias AOFF.Blogs
+  alias AOFF.System
 
   def index(conn, _params) do
     conn = assign(conn, :page, :about_aoff)
+
+
+    {:ok, message } = System.find_or_create_message("/info", Gettext.get_locale())
+
 
     {:ok, manufacturers} = Blogs.find_or_create_blog("manufacturers", Gettext.get_locale())
     {:ok, calendar} = Blogs.find_or_create_blog("calendar", Gettext.get_locale())
@@ -14,6 +19,7 @@ defmodule AOFFWeb.InfoController do
     render(
       conn,
       "index.html",
+      message: message,
       manufacturers: manufacturers,
       calendar: calendar,
       about_aoff: about_aoff

@@ -10,8 +10,10 @@ defmodule AOFFWeb.Volunteer.MessageController do
   plug :navbar when action in [:index, :new, :show, :edit]
 
   def index(conn, _params) do
+    {:ok, instructions } =
+      System.find_or_create_message("/volunteer/messages", Gettext.get_locale())
     messages = System.list_messages("da")
-    render(conn, "index.html", messages: messages)
+    render(conn, "index.html", messages: messages, instructions: instructions)
   end
 
   def show(conn, %{"id" => id}) do

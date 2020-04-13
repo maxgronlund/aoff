@@ -1,17 +1,17 @@
 .breadcrumb aria-label="breadcrumbs"
   ul
     li
-      = link gettext("Blogs"), to: Routes.volunteer_blog_path(@conn, :index)
+      = link gettext("Categories"), to: Routes.volunteer_blog_path(@conn, :index)
 
 
 
-h2 = gettext("Blog: %{title}", title: @blog.title)
+h2 = gettext("Category: %{title}", title: @blog.title)
 p = @blog.description
 
 / = link "Edit", to: Routes.volunteer_blog_path(@conn, :edit, @blog), class: "button botton-outling"
 
 
-= link gettext("New Post"), to: Routes.volunteer_blog_blog_post_path(@conn, :new,  @blog), class: "button button-outline"
+= link gettext("New Article"), to: Routes.volunteer_blog_blog_post_path(@conn, :new,  @blog), class: "button button-outline"
 
 | &nbsp;
 = link gettext("Edit"), to: Routes.volunteer_blog_path(@conn, :edit,  @blog), class: "button"

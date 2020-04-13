@@ -1,10 +1,10 @@
 .breadcrumb aria-label="breadcrumbs"
   ul
     li
-      = link gettext("Blogs"), to: Routes.volunteer_blog_path(@conn, :index)
+      = link gettext("Categories"), to: Routes.volunteer_blog_path(@conn, :index)
 
 
-h2 gettext("New Blog")
+h2 gettext("Create Category")
 
 = render "form.html", Map.put(assigns, :action, Routes.volunteer_blog_path(@conn, :create))
 

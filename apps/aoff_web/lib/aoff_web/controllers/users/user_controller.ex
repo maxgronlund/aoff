@@ -20,7 +20,6 @@ defmodule AOFFWeb.UserController do
 
     changeset =
       Users.change_user(%User{
-        months: 12,
         expiration_date: ~D[2021-03-31],
         member_nr: last_member_nr + 1
       })

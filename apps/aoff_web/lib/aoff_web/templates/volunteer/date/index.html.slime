@@ -1,4 +1,4 @@
-h2= gettext("Opening dates")
+h2= gettext("Schedules")
 .row
   .column
     = link gettext("Create opening date"), to: Routes.volunteer_date_path(@conn, :new), class: "button"

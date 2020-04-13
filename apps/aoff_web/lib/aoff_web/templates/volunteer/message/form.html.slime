@@ -12,16 +12,16 @@ javascript:
     .alert.alert-danger
       p = gettext("Oops, something went wrong! Please check the errors below.")
   .form-group
-    = label f, :title, class: "control-label"
+    = label f, :title, gettext("Title"), class: "control-label"
     = text_input f, :title, class: "form-control"
     = error_tag f, :title
 
   .form-group
-    = label f, :text, class: "control-label"
+    = label f, :text, gettext("Text"), class: "control-label"
     = textarea f, :text, class: "form-control"
     = error_tag f, :text
   .form-group
-    = label f, :show, class: "control-label"
+    = label f, :show, gettext("Visible on site"), class: "control-label"
     = checkbox f, :show, class: "form-control"
     = error_tag f, :show
 

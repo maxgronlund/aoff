@@ -7,23 +7,24 @@
         li.is-active
           | &nbsp;
           = gettext("Messages")
-
-h2 = gettext("Text used on the site")
-
+= if @instructions.show do
+  .alert.alert-info
+    h2 = @instructions.title
+    = raw @instructions.text
 
 table.table
   thead
     tr
-      th Title
-      th Identifier
-      th Show
+      th = gettext("Title")
+      th = gettext("Identifier")
+      th = gettext("Visible")
       th
   tbody
     = for message <- @messages do
       tr
         td= message.title
         td= message.identifier
-        td= message.show
+        td= show(message.show)
         td
           .float-right
             = link gettext("Show"), to: Routes.volunteer_message_path(@conn, :show, message), class: "button button-outline button-small"

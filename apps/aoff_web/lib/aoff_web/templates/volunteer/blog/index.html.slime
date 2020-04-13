@@ -1,5 +1,5 @@
-h2= gettext("Blogs")
-= link gettext("New Blog"), to: Routes.volunteer_blog_path(@conn, :new), class: "button"
+h2= gettext("Categories")
+= link gettext("Create Category"), to: Routes.volunteer_blog_path(@conn, :new), class: "button"
 table.table
   thead
     tr

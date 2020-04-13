@@ -12,7 +12,6 @@ defmodule AOFF.Repo.Migrations.CreateUsers do
       add :password_reset_expires, :utc_datetime_usec
       add :email, :string
       add :mobile, :string
-      add :months, :integer, default: 12
       add :expiration_date, :date
       add :admin, :boolean, default: false
       add :volunteer, :boolean, default: false

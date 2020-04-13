@@ -1,19 +1,6 @@
-h2 = gettext("About AOFF")
+h2 = @message.title
+= raw @message.text
 .blog
-  / .card.is-shady
-  /   .card-header
-  /     .card-header-title.is-centered
-  /       = @news.title
-
-  /   .card-image
-  /     img.modal-button alt=("#{@news.title}") src="#{ AOFF.Uploader.Image.url({@news.image, @news}, :original)}"
-  /   .card-content
-
-  /     = @news.description
-  /     hr/
-  /     = link gettext("Read More"), to: Routes.info_path(@conn, :show, @news), class: "button float-right"
-  /     | &nbsp;
-
   .card.is-shady
     .card-header
       .card-header-title.is-centered
