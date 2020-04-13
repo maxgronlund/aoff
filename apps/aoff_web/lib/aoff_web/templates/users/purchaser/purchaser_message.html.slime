@@ -1,0 +1,16 @@
+.alert.alert-info
+  - message = purchaser_message()
+    h3 = message.title
+    = raw message.text
+    = if @volunteer do
+      br/
+      = link gettext("Edit"), to: Routes.volunteer_message_path(@conn, :edit, message)
+    br/
+    .float-right
+      = link \
+        gettext("Handle products"),\
+        to: Routes.purchaser_product_path(@conn, :index),\
+        class: "button"
+
+    br/
+    | &nbsp;

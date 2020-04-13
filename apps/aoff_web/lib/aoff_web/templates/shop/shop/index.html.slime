@@ -1,11 +1,12 @@
 .row
-  .column
-    = unless @valid_member do
+  = unless @valid_member do
+    .column
       = render AOFFWeb.Users.MembershipView, "missing_membership_message.html", assigns
+  = if @purchaser do
+    .column
+      = render AOFFWeb.Users.PurchaserView, "purchaser_message.html", assigns
 
 h2= gettext("Please select a pickup date")
-
-
 .blog
   = for date <- @dates do
     = if date.open do
