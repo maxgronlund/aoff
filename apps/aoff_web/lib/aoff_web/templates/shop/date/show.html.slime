@@ -10,22 +10,25 @@
 
 h2= date(@date.date)
 
-.row
-  .column
-    = unless @valid_member do
+
+= unless @valid_member do
+  .row
+    .column
       = render AOFFWeb.Users.MembershipView, "missing_membership_message.html", assigns
-  .column
-    = if @volunteer do
+= if @volunteer do
+  .row
+    .column
       = render "host_message.html", assigns
-  .column
-      = if @purchaser do
-        = render "shopping_list.html", assigns
-
-
+= if @purchaser do
+  .row
+    .column
+      = render "shopping_list.html", assigns
 
 .blog
   = for product <- @products do
     .card.is-shady
+      .card-image
+        img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({product.image, product}, :thumb)}"
       .card-header-title.is-centered
         = product.name
         | &nbsp;

@@ -1,9 +1,13 @@
-= form_for @changeset, @action, fn f ->
+= form_for @changeset, @action, [multipart: true], fn f ->
   = if @changeset.action do
     .alert.alert-danger
       p = gettext("Oops, something went wrong! Please check the errors below.")
 
-
+  = if @volunteer do
+    .form-group
+      = label f, :avatar, class: "control-label"
+      = file_input f, :avatar, class: "form-control"
+      = error_tag f, :avatar
   .form-group
     = label f, :username, gettext("Username"), class: "control-label"
     = text_input f, :username, class: "form-control"

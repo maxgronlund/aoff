@@ -12,10 +12,12 @@ defmodule AOFFWeb.Info.NewsController do
     conn = assign(conn, :page, :news)
     {:ok, news} = Blogs.find_or_create_blog("news", Gettext.get_locale())
 
+    IO.inspect news.blog_posts
+
     blog_posts =
       case news.blog_posts do
         %Ecto.Association.NotLoaded{} -> []
-        [%AOFF.Blogs.BlogPost{}] = blog_posts -> blog_posts
+        _ -> news.blog_posts
       end
 
     render(

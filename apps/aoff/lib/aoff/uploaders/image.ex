@@ -7,7 +7,7 @@ defmodule AOFF.Uploader.Image do
   use Arc.Ecto.Definition
 
   # To add a thumbnail version:
-  @versions [:original, :thumb, :stamp]
+  @versions [:original, :thumb, :stamp, :avatar]
 
   # Override the bucket on a per definition basis:
   # def bucket do
@@ -32,6 +32,11 @@ defmodule AOFF.Uploader.Image do
   # Define a stamp transformation:
   def transform(:stamp, _) do
     {:convert, "-strip -thumbnail 100x62^ -gravity center -extent 100x62 -format png", :png}
+  end
+
+  # Define a stamp transformation:
+  def transform(:avatar, _) do
+    {:convert, "-strip -thumbnail 150x150^ -gravity center -extent 150x150 -format png", :png}
   end
 
   # Override the persisted filenames:

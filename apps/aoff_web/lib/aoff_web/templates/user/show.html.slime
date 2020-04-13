@@ -1,5 +1,9 @@
 .row
   .column
+    = if @volunteer do
+      = img_tag AOFF.Uploader.Image.url({@user.avatar, @user}, :avatar)
+      br
+      b = gettext("Volunteer")
     h2 = @user.username
     = gettext("Email: %{email}", email: @user.email)
     br/

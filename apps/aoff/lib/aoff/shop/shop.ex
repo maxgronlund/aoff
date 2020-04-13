@@ -183,7 +183,8 @@ defmodule AOFF.Shop do
   def list_products do
     query =
       from p in Product,
-        order_by: [asc: p.name]
+        order_by: [asc: p.name],
+        where: p.deleted==false
 
     Repo.all(query)
   end
@@ -201,7 +202,7 @@ defmodule AOFF.Shop do
     query =
       from p in Product,
         order_by: [asc: p.name],
-        where: p.for_sale == true
+        where: p.for_sale == true and p.deleted==false
 
     Repo.all(query)
   end
@@ -305,7 +306,15 @@ defmodule AOFF.Shop do
 
   """
   def delete_product(%Product{} = product) do
-    Repo.delete(product)
+    # Repo.delete(product)
+    product
+    |> Product.delete_changeset(
+      %{
+        "deleted" => true,
+        "show_on_landing_page" => false
+      }
+    )
+    |> Repo.update()
   end
 
   @doc """

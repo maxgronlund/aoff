@@ -1,13 +1,16 @@
 defmodule AOFF.Shop.Date do
   use Ecto.Schema
+  use Arc.Ecto.Schema
   import Ecto.Changeset
 
   alias AOFF.Shop.PickUp
+  alias AOFF.Uploader.Image
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "dates" do
     field :date, :date
+    field :image, Image.Type
     field :open, :boolean, default: true
     field :shop_assistant_a, :binary
     field :shop_assistant_b, :binary
@@ -33,6 +36,7 @@ defmodule AOFF.Shop.Date do
       :date
     ])
     |> unique_constraint(:date)
+    |> cast_attachments(attrs, [:image])
   end
 
   def build_defaults() do
@@ -52,5 +56,10 @@ defmodule AOFF.Shop.Date do
           "not a date"
       end
     end
+  end
+
+  def image_url(user, field) do
+    %{file_name: file_name} = field
+    AOFF.Uploader.Image.url({file_name, user})
   end
 end

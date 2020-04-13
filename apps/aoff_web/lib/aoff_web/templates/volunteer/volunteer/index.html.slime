@@ -3,12 +3,50 @@
     h2= gettext("Volunteer")
 
 
-hr
+.row
+  .column
+    .alert.alert-info
+      = @volunteer.title
+      = raw @volunteer.text
+.blog
+  .card.is-shady
+    .card-header-title.is-centered
+      = @categories.title
+    .card-content
+      = raw @categories.text
+    .card-footer.is-botton
+      = link gettext("Show"),\
+        to: Routes.volunteer_blog_path(@conn, :index),\
+        class: "card-footer-item is-button"
 
-= link gettext("Blog"), to: Routes.volunteer_blog_path(@conn, :index), class: "button button-outline"
-| &nbsp;
-= link gettext("Users"), to: Routes.volunteer_user_path(@conn, :index), class: "button button-outline"
-| &nbsp;
-= link gettext("Opening dates"), to: Routes.volunteer_date_path(@conn, :index), class: "button button-outline"
-| &nbsp;
-= link gettext("Messages"), to: Routes.volunteer_message_path(@conn, :index), class: "button button-outline"
+  .card.is-shady
+    .card-header-title.is-centered
+      = @users.title
+    .card-content
+      = raw @users.text
+    .card-footer.is-botton
+      = link gettext("Show"),\
+        to: Routes.volunteer_user_path(@conn, :index),\
+        class: "card-footer-item is-button"
+
+  .card.is-shady
+    .card-header-title.is-centered
+      = @opening_dates.title
+    .card-content
+      = raw @opening_dates.text
+    .card-footer.is-botton
+      = link gettext("Show"),\
+        to: Routes.volunteer_date_path(@conn, :index),\
+        class: "card-footer-item is-button"
+
+  .card.is-shady
+    .card-header-title.is-centered
+      = @messages.title
+    .card-content
+      = @messages.text
+    .card-footer.is-botton
+      = link gettext("Show"),\
+        to: Routes.volunteer_message_path(@conn, :index),\
+        class: "card-footer-item is-button"
+
+

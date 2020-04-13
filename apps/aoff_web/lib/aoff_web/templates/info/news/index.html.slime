@@ -5,7 +5,7 @@
     h2 = @news.title
     p= @news.description
     = if @volunteer do
-      = link gettext("Edit"), to: Routes.volunteer_blog_path(@conn, :edit, @news), class: "button button-outline"
+      = link gettext("Edit category"), to: Routes.volunteer_blog_path(@conn, :edit, @news), class: "button"
       | &nbsp;
       = link gettext("Create news"), to: Routes.info_news_path(@conn, :new,  @news), class: "button button-outline"
 hr

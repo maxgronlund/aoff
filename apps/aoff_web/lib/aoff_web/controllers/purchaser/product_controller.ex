@@ -15,7 +15,7 @@ defmodule AOFFWeb.Purchaser.ProductController do
   def new(conn, _params) do
     changeset = Shop.change_product(%Product{})
 
-    render(conn, "new.html", changeset: changeset, amount: 0)
+    render(conn, "new.html", changeset: changeset, amount: 0, product: false)
   end
 
   def create(conn, %{"product" => product_params}) do
@@ -26,8 +26,8 @@ defmodule AOFFWeb.Purchaser.ProductController do
     case Shop.create_product(product_params) do
       {:ok, product} ->
         conn
-        |> put_flash(:info, gettext("Product created successfully."))
-        |> redirect(to: Routes.purchaser_product_path(conn, :show, product))
+        |> put_flash(:info, gettext("Please attach image."))
+        |> redirect(to: Routes.purchaser_product_path(conn, :edit, product))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset, amount: product_params["price"])

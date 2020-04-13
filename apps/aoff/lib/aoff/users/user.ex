@@ -1,16 +1,18 @@
 defmodule AOFF.Users.User do
   use Ecto.Schema
+  use Arc.Ecto.Schema
   import Ecto.Changeset
   alias AOFF.Users
   alias AOFF.Users.Order
   alias AOFF.Shop.PickUp
+  alias AOFF.Uploader.Image
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "users" do
     field :member_nr, :integer
     field :username, :string
-    field :avatar, :string
+    field :avatar, Image.Type
     field :email, :string
     field :password_reset_token, :string
     field :password_reset_expires, :utc_datetime_usec
@@ -100,6 +102,7 @@ defmodule AOFF.Users.User do
     |> validate_length(:password, min: 6, max: 100)
     |> unique_constraint(:email)
     |> put_pass_hash()
+    |> cast_attachments(attrs, [:avatar])
   end
 
   defp admin_changeset_without_password(user, attrs) do
@@ -131,6 +134,7 @@ defmodule AOFF.Users.User do
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
     |> validate_confirmation(:email)
+    |> cast_attachments(attrs, [:avatar])
   end
 
   @doc false
@@ -155,6 +159,7 @@ defmodule AOFF.Users.User do
     |> validate_length(:password, min: 6, max: 100)
     |> unique_constraint(:email)
     |> put_pass_hash()
+    |> cast_attachments(attrs, [:avatar])
   end
 
   def registration_changeset(user, attrs) do
@@ -200,6 +205,7 @@ defmodule AOFF.Users.User do
     |> validate_length(:password, min: 6, max: 100)
     |> unique_constraint(:email)
     |> put_pass_hash()
+    |> cast_attachments(attrs, [:avatar])
   end
 
   @doc false
@@ -229,6 +235,7 @@ defmodule AOFF.Users.User do
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
     |> validate_confirmation(:email)
+    |> cast_attachments(attrs, [:avatar])
   end
 
   defp put_pass_hash(changeset) do
@@ -239,5 +246,10 @@ defmodule AOFF.Users.User do
       _ ->
         changeset
     end
+  end
+
+  def image_url(user, field) do
+    %{file_name: file_name} = field
+    AOFF.Uploader.Image.url({file_name, user})
   end
 end

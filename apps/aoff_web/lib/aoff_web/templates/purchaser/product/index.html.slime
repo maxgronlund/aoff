@@ -1,24 +1,29 @@
 h2 = gettext("Products")
 = link gettext("New Product"), to: Routes.purchaser_product_path(@conn, :new), class: "button"
-table.table
-  thead
-    tr
-      th = gettext("Product name")
-      th = gettext("Show in shop")
-      th = gettext("Product price")
-      th
-  tbody
-    = for product <- @products do
-      tr
-        td= product.name
-        td= for_sale(product.for_sale)
-        td= product.price
-        td
-          .float-right
-            = link gettext("Show"), to: Routes.purchaser_product_path(@conn, :show, product), class: "button button-small button-outline"
-            | &nbsp;
-            = link gettext("Edit"), to: Routes.purchaser_product_path(@conn, :edit, product), class: "button button-small button-outline"
-            | &nbsp;
-            = link gettext("Delete"), to: Routes.purchaser_product_path(@conn, :delete, product), method: :delete, data: [confirm: "Are you sure?"], class: "button button-small button-red"
+.blog
+  = for product <- @products do
+    .card.is-shady
+
+      .card-image
+        img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({product.image, product}, :thumb)}"
+      .card-header-title.is-centered
+        = product.name
+        | &nbsp;
+        = product.price
+
+      .card-content
+        = for_sale(product.for_sale)
+
+        = text_to_html(product.description)
+        .float-right
+          = link gettext("Show"), to: Routes.purchaser_product_path(@conn, :show, product), class: "button button-small button-outline"
+          | &nbsp;
+          = link gettext("Edit"), to: Routes.purchaser_product_path(@conn, :edit, product), class: "button button-small button-outline"
+          | &nbsp;
+          = link gettext("Delete"), to: Routes.purchaser_product_path(@conn, :delete, product), method: :delete, data: [confirm: "Are you sure?"], class: "button button-small button-red"
+
+
+
+
 
 

@@ -1,8 +1,10 @@
-.row
-  = unless @valid_member do
+
+= unless @valid_member do
+  .row
     .column
       = render AOFFWeb.Users.MembershipView, "missing_membership_message.html", assigns
-  = if @purchaser do
+= if @purchaser do
+  .row
     .column
       = render AOFFWeb.Users.PurchaserView, "purchaser_message.html", assigns
 

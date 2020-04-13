@@ -24,10 +24,10 @@ html lang="da" class="<%= backdrop(@conn) %>"
     = render AOFFWeb.LayoutView, "navbar.html", assigns
     main.container.content role="main" lang="de"
       = if @warning.show do
-        .alert.alert-warning
+        .alert.alert-danger
           h4= @warning.title
           = raw @warning.text
-
+      = render AOFFWeb.LayoutView, "flash.html", assigns
       = render @view_module, @view_template, assigns
 
 

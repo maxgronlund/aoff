@@ -8,7 +8,15 @@
 
 
 
-h2= @post.title
+.row
+  .column
+    h2= @post.title
+  = if @volunteer do
+    .column
+      = link gettext("Edit"),\
+        to: Routes.info_news_path(@conn, :edit, @blog, @post),\
+        class: "button float-right"
+
 = img_tag AOFF.Uploader.Image.url({@post.image, @post}, :original)
 .image-caption
   i = @post.caption

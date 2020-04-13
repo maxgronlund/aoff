@@ -2,12 +2,32 @@ defmodule AOFFWeb.Volunteer.VolunteerController do
   use AOFFWeb, :controller
 
   alias AOFFWeb.Users.Auth
+  alias AOFF.System
   plug Auth
   plug :authenticate when action in [:index]
 
   def index(conn, _params) do
+    {:ok, volunteer } =
+      System.find_or_create_message("/volunteer - volunteer", Gettext.get_locale())
+    {:ok, users }
+      = System.find_or_create_message("/volunteer - user", Gettext.get_locale())
+    {:ok, opening_dates }
+      = System.find_or_create_message("/volunteer - dates", Gettext.get_locale())
+    {:ok, messages }
+      = System.find_or_create_message("/volunteer - messages", Gettext.get_locale())
+    {:ok, categories }
+      = System.find_or_create_message("/volunteer - categories", Gettext.get_locale())
     conn = assign(conn, :page, :volunteer)
-    render(conn, "index.html")
+    render(
+      conn,
+      "index.html",
+      volunteer: volunteer,
+      users: users,
+      messages: messages,
+      opening_dates: opening_dates,
+      categories: categories,
+
+    )
   end
 
   defp authenticate(conn, _opts) do
