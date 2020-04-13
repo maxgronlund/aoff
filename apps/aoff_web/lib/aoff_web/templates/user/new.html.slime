@@ -1,10 +1,4 @@
-= if @message.show do
-  h2 = @message.title
+h2 = @message.title
+= raw @message.text
 
-  .row
-    .column
-      = raw @message.text
-    .column
-      = render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create))
-- else
-  = render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create))
+= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create))
