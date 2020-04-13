@@ -12,6 +12,9 @@
     .blog
       = for product <- @products do
         .card.is-black
+
+          .card-image
+            img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({product.image, product}, :thumb)}"
           .card-header-title.is-black.is-centered
             = product.name
             | &nbsp;
