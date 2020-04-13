@@ -8,6 +8,13 @@ defmodule AOFF.Shop do
 
   alias AOFF.Shop.Date
 
+  def secure_dates() do
+    query = from d in Date, limit: 1
+    if Repo.one(query) == nil do
+      Date.build_defaults()
+    end
+  end
+
   @doc """
   Returns the list of dates.
 

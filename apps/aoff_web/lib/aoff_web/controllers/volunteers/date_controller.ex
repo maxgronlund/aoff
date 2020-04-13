@@ -12,6 +12,8 @@ defmodule AOFFWeb.Volunteer.DateController do
 
   def index(conn, params) do
 
+    Shop.secure_dates()
+
 
     page =
       if params["query"] do

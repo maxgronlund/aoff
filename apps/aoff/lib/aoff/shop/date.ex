@@ -34,4 +34,23 @@ defmodule AOFF.Shop.Date do
     ])
     |> unique_constraint(:date)
   end
+
+  def build_defaults() do
+    for year <- 2020..2029, month <- 1..11, date <- 1..31 do
+      case Date.new(year, month, date) do
+        {:ok, date} ->
+          if Date.day_of_week(date) == 3 do
+            if Date.compare(date, Date.utc_today()) == :gt do
+              AOFF.Shop.create_date(%{
+                "date" => date,
+                "open" => true
+              })
+            end
+          end
+
+        _ ->
+          "not a date"
+      end
+    end
+  end
 end
