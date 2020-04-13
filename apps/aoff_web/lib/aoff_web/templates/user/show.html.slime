@@ -28,19 +28,20 @@
         | &nbsp;
 
 .row
-  .column
-    = link gettext("Invoices"), to: Routes.user_order_path(@conn, :index, @user), class: "button button-outline"
 
   .column
-    = link gettext("Edit account"), to: Routes.user_path(@conn, :edit, @user), class: "button button-outline"
+    = link gettext("Edit account"), to: Routes.user_path(@conn, :edit, @user), class: "button"
     | &nbsp;
     = link gettext("Delete account"),\
       to: Routes.user_path(@conn, :delete, @user),\
       method: :delete,\
       data: [confirm: "Are you sure?"],\
-      class: "button button-red button-outline"
+      class: "button button-red"
 
 hr/
+.row
+  .column
+    = link gettext("Invoices"), to: Routes.user_order_path(@conn, :index, @user), class: "button button-outline"
 h3 = gettext("Upcoming host dates")
 .blog
   = for date <- @host_dates do

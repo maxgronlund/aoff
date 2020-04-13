@@ -25,7 +25,7 @@ defmodule AOFFWeb.UserController do
       })
 
     {:ok, message } = System.find_or_create_message("/users/new", Gettext.get_locale())
-    render(conn, "new.html", changeset: changeset, email: "", message: message)
+    render(conn, "new.html", changeset: changeset, email: "", message: message, user: false)
   end
 
   def create(conn, %{"user" => user_params}) do
