@@ -498,7 +498,7 @@ defmodule AOFF.Shop do
       [%Product{}, ...]
 
   """
-  def get_shopping_list(date_id) do
+  def paid_orders_list(date_id) do
 
     query =
       from o in OrderItem,

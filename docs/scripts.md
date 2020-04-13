@@ -37,3 +37,4 @@ mix phx.gen.html.slime Shop OrderItem order_items order_id:references:order date
 
 
 mix phx.gen.html.slime Volunteer Message messages title:string identifier:string body:text show:boolean locale:string
+

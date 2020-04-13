@@ -10,6 +10,8 @@ h2 = gettext("Login")
       = password_input f, :password, placeholder: gettext("Password"), class: "input"
       .pt-1
       .is-pulled-right
+        = link gettext("Forgot password"), to: Routes.reset_password_path(@conn, :new), class: "button button-outline"
+        | &nbsp;
         = link gettext("Cancel"), to: "/", class: "button button-outline"
         |&nbsp;
         = submit gettext("Login"), class: "button"

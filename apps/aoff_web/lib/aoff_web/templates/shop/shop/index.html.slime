@@ -1,3 +1,7 @@
+.row
+  .column
+    = unless @valid_member do
+      = render AOFFWeb.Users.MembershipView, "missing_membership_message.html", assigns
 
 h2= gettext("Please select a pickup date")
 

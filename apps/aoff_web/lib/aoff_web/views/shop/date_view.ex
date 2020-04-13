@@ -25,4 +25,16 @@ defmodule AOFFWeb.Shop.DateView do
     {:ok, %Order{} = order} = Users.current_order(user_id)
     order
   end
+
+  alias AOFF.System
+  def host_message() do
+    {:ok, message } = System.find_or_create_message("/shop/dates/:id - host", Gettext.get_locale())
+
+    message
+  end
+  def purchaser_message() do
+    {:ok, message } = System.find_or_create_message("/shop/dates/:id - purchaser", Gettext.get_locale())
+
+    message
+  end
 end

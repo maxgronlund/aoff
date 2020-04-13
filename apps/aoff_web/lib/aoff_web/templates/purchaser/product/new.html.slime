@@ -1,4 +1,4 @@
-h2 New Product
+h2 = gettext("New Product")
 
 = render "form.html", Map.put(assigns, :action, Routes.purchaser_product_path(@conn, :create))
 

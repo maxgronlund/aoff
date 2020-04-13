@@ -18,7 +18,7 @@ defmodule AOFFWeb.Purchaser.DateController do
 
   def show(conn, %{"id" => id}) do
     date = Shop.get_date!(id)
-    products = Shop.get_shopping_list(date.id)
+    products = Shop.paid_orders_list(date.id)
 
     render(conn,"show.html", date: date, products: products)
   end
@@ -30,7 +30,7 @@ defmodule AOFFWeb.Purchaser.DateController do
   # end
 
   defp authenticate(conn, _opts) do
-    if conn.assigns.current_user && conn.assigns.current_user.volunteer do
+    if conn.assigns.purchaser do
       assign(conn, :page, :purchaser)
     else
       conn

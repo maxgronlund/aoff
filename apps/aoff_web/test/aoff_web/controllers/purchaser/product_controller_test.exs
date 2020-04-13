@@ -28,7 +28,7 @@ defmodule AOFFWeb.Purchaser.ProductControllerTest do
 
     test "lists all products", %{conn: conn} do
       conn = get(conn, Routes.purchaser_product_path(conn, :index))
-      assert html_response(conn, 200) =~ "Listing Products"
+      assert html_response(conn, 200) =~ gettext("Productst")
     end
 
     test "renders new product form", %{conn: conn} do

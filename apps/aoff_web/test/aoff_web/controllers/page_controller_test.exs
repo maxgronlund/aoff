@@ -5,6 +5,6 @@ defmodule AOFFWeb.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")
-    assert html_response(conn, 200) =~ gettext("Welcome")
+    assert html_response(conn, 200) =~ gettext("Become member")
   end
 end

@@ -6,11 +6,11 @@ defmodule AOFF.Repo.Migrations.CreateOrderItems do
       add :id, :binary_id, primary_key: true
       add :state, :string, default: "initial"
       add :price, :integer, default: 0
-      add :order_id, references(:orders, on_delete: :delete_all, type: :binary_id)
-      add :date_id, references(:dates, on_delete: :nothing, type: :binary_id)
-      add :user_id, references(:users, on_delete: :nothing, type: :binary_id)
-      add :product_id, references(:products, on_delete: :nothing, type: :binary_id)
-      add :pick_up_id, references(:pick_ups, on_delete: :nothing, type: :binary_id)
+      add :order_id, references(:orders, delete_all: :delete_all, type: :binary_id)
+      add :date_id, references(:dates, on_delete: :delete_all, type: :binary_id)
+      add :user_id, references(:users, on_delete: :delete_all, type: :binary_id)
+      add :product_id, references(:products, on_delete: :delete_all, type: :binary_id)
+      add :pick_up_id, references(:pick_ups, on_delete: :delete_all, type: :binary_id)
 
       timestamps()
     end

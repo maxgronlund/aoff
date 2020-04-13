@@ -82,6 +82,10 @@ config :ex_aws,
     region: System.get_env("AOFF_AWS_REGION")
   ]
 
+  # config/config.exs
+  config :aoff_web, AOFFWeb.Mailer,
+    adapter: Bamboo.SendGridAdapter,
+    api_key: System.get_env("AOFF_SEND_GRID_API_KEY")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -1,18 +1,13 @@
 h2= gettext("Opening dates")
 .row
   .column
-    = link gettext("Create pick up date"), to: Routes.volunteer_date_path(@conn, :new), class: "button"
+    = link gettext("Create opening date"), to: Routes.volunteer_date_path(@conn, :new), class: "button"
   .column
     .float-right
       = render "pagination.html", assigns
 
 / = if @admin do
 /   = link "Seed dates", to: Routes.shop_date_path(@conn, :index), class: "button"
-
-
-
-
-
 
 
 .blog

@@ -1,88 +1,92 @@
 defmodule AOFFWeb.MessageControllerTest do
   use AOFFWeb.ConnCase
 
-  alias AOFF.Volunteer
+  import AOFF.System.MessageFixture
+  import AOFF.Users.UserFixture
+  import AOFFWeb.Gettext
 
-  @create_attrs %{body: "some body", identifier: "some identifier", locale: "some locale", show: true, title: "some title"}
-  @update_attrs %{body: "some updated body", identifier: "some updated identifier", locale: "some updated locale", show: false, title: "some updated title"}
-  @invalid_attrs %{body: nil, identifier: nil, locale: nil, show: nil, title: nil}
+  alias AOFF.System
+  alias Plug.Conn
 
-  def fixture(:message) do
-    {:ok, message} = Volunteer.create_message(@create_attrs)
-    message
-  end
-
-  describe "index" do
-    test "lists all messages", %{conn: conn} do
-      conn = get(conn, Routes.message_path(conn, :index))
-      assert html_response(conn, 200) =~ "Listing Messages"
+  describe "unauthorized" do
+    test "index renders 401", %{conn: conn} do
+      conn = get(conn, Routes.volunteer_message_path(conn, :index))
+      assert html_response(conn, 401) =~ "Unauthorized"
     end
   end
 
-  describe "new message" do
-    test "renders form", %{conn: conn} do
-      conn = get(conn, Routes.message_path(conn, :new))
-      assert html_response(conn, 200) =~ "New Message"
+  describe "volunteer" do
+    @session Plug.Session.init(
+               store: :cookie,
+               key: "_app",
+               encryption_salt: "yadayada",
+               signing_salt: "yadayada"
+             )
+    setup do
+      user = user_fixture(%{"volunteer" => true})
+
+
+
+      conn =
+        build_conn()
+        |> Plug.Session.call(@session)
+        |> Conn.fetch_session()
+        |> put_session(:user_id, user.id)
+        |> configure_session(renew: true)
+
+      {:ok, conn: conn, user: user}
     end
-  end
 
-  describe "create message" do
-    test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.message_path(conn, :create), message: @create_attrs)
+    test "index lists all messages", %{conn: conn} do
+      conn = get(conn, Routes.volunteer_message_path(conn, :index))
+      assert html_response(conn, 200) =~ gettext("Text used on the site")
+    end
 
-      assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.message_path(conn, :show, id)
 
-      conn = get(conn, Routes.message_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show Message"
+    test "edit message renders form for editing chosen message", %{conn: conn} do
+
+      message = message_fixture()
+      conn = get(conn, Routes.volunteer_message_path(conn, :edit, message))
+      assert html_response(conn, 200) =~
+        gettext("Edit: %{identifier}-%{locale}",
+          identifier: message.identifier,
+          locale: message.locale
+        )
+    end
+
+    test "update message redirects when data is valid", %{conn: conn} do
+      message = message_fixture()
+      attrs = update_message_attrs()
+      conn = put(conn, Routes.volunteer_message_path(conn, :update, message), message: attrs)
+      assert redirected_to(conn) == Routes.volunteer_message_path(conn, :show, message)
+
+      conn = get(conn, Routes.volunteer_message_path(conn, :show, message))
+      assert html_response(conn, 200) =~ attrs["title"]
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.message_path(conn, :create), message: @invalid_attrs)
-      assert html_response(conn, 200) =~ "New Message"
-    end
-  end
-
-  describe "edit message" do
-    setup [:create_message]
-
-    test "renders form for editing chosen message", %{conn: conn, message: message} do
-      conn = get(conn, Routes.message_path(conn, :edit, message))
-      assert html_response(conn, 200) =~ "Edit Message"
-    end
-  end
-
-  describe "update message" do
-    setup [:create_message]
-
-    test "redirects when data is valid", %{conn: conn, message: message} do
-      conn = put(conn, Routes.message_path(conn, :update, message), message: @update_attrs)
-      assert redirected_to(conn) == Routes.message_path(conn, :show, message)
-
-      conn = get(conn, Routes.message_path(conn, :show, message))
-      assert html_response(conn, 200) =~ "some updated body"
+      message = message_fixture()
+      attrs = invalid_message_attrs()
+      conn = put(conn, Routes.volunteer_message_path(conn, :update, message), message: attrs)
+      assert html_response(conn, 200) =~
+        gettext("Edit: %{identifier}-%{locale}",
+          identifier: message.identifier,
+          locale: message.locale
+        )
     end
 
-    test "renders errors when data is invalid", %{conn: conn, message: message} do
-      conn = put(conn, Routes.message_path(conn, :update, message), message: @invalid_attrs)
-      assert html_response(conn, 200) =~ "Edit Message"
-    end
-  end
-
-  describe "delete message" do
-    setup [:create_message]
-
-    test "deletes chosen message", %{conn: conn, message: message} do
-      conn = delete(conn, Routes.message_path(conn, :delete, message))
-      assert redirected_to(conn) == Routes.message_path(conn, :index)
+    test "delete message deletes chosen message", %{conn: conn} do
+      message = message_fixture()
+      conn = delete(conn, Routes.volunteer_message_path(conn, :delete, message))
+      assert redirected_to(conn) == Routes.volunteer_message_path(conn, :index)
       assert_error_sent 404, fn ->
-        get(conn, Routes.message_path(conn, :show, message))
+        get(conn, Routes.volunteer_message_path(conn, :show, message))
       end
     end
   end
 
-  defp create_message(_) do
-    message = fixture(:message)
-    {:ok, message: message}
-  end
+  # defp create_message(_) do
+  #   message = fixture(:message)
+  #   {:ok, message: message}
+  # end
 end

@@ -27,7 +27,6 @@ defmodule AOFF.System.Message do
     |> validate_required([
       :title,
       :identifier,
-      :text,
       :show,
       :locale]
     )

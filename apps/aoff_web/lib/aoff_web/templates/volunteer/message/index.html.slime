@@ -1,5 +1,15 @@
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+        li.is-active
+          | &nbsp;
+          = gettext("Messages")
+
 h2 = gettext("Text used on the site")
-/= link gettext("New text"), to: Routes.volunteer_message_path(@conn, :new), class: "button"
+
 
 table.table
   thead

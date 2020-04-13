@@ -1,0 +1,4 @@
+h2 = @message.title
+= raw @message.text
+hr/
+= link gettext("OK"), to: Routes.page_path(@conn, :index), class: "button"

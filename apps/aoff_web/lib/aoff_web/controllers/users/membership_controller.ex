@@ -3,13 +3,28 @@ defmodule AOFFWeb.Users.MembershipController do
 
   alias AOFF.Users
   alias AOFF.Shop
+  alias AOFF.System
 
   def new(conn, %{"user_id" => user_id}) do
     conn = assign(conn, :page, :user)
     date = Shop.get_next_date(Date.utc_today())
     user = Users.get_user!(user_id)
     products = Shop.get_memberships()
-    render(conn, "new.html", user: user, products: products, date: date)
+
+    {:ok, message } =
+      System.find_or_create_message(
+        "/users/:id/membership/new/ - buy new",
+        Gettext.get_locale()
+      )
+
+    render(
+      conn,
+      "new.html",
+      user: user,
+      products: products,
+      date: date,
+      message: message
+    )
   end
 
   def create(conn, %{"user_id" => user_id, "params" => params}) do
@@ -17,7 +32,7 @@ defmodule AOFFWeb.Users.MembershipController do
 
     # TODO
     # Make it look like when a product is added to the basket
-    # but bounce direct to sheckout
+    # but bounce direct to checkout
 
     IO.inspect product = Shop.get_product(params["product_id"])
     IO.inspect(params)

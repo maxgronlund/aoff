@@ -8,47 +8,23 @@
           | &nbsp;
           = date(@date.date)
 
-  = if @volunteer do
-    .column
-      .alert.alert-info
-        = raw gettext("Clik the <strong>button</strong> if you are one of todays host")
-        hr
-        = link gettext("Pick up list"), to: Routes.shop_assistant_date_path(@conn, :show, @date), class: "button float-right"
-        | &nbsp;
-        br/
-
 h2= date(@date.date)
 
-
-= unless @valid_member do
-  .row
-    .column
-      .alert.alert-info
-        = if @current_user do
-          h3 = @expired_message.title
-          = raw @expired_message.text
-          br/
-          .float-right
-            = link gettext("Pay for membership"), to: "/users/new", class: "button"
-          = if @volunteer do
-            = link gettext("Edit"), to: Routes.volunteer_message_path(@conn, :edit, @expired_message)
-
-        - else
-          h3 = @login_message.title
-          = raw @login_message.text
-          br/
-          .float-right
-            = link gettext("Signup"), to: "/users/new", class: "button"
-            | &nbsp;
-            = link gettext("Login"), to: "/users/new", class: "button button-outline"
-        br/
-        | &nbsp;
+.row
+  .column
+    = unless @valid_member do
+      = render AOFFWeb.Users.MembershipView, "missing_membership_message.html", assigns
+  .column
+    = if @volunteer do
+      = render "host_message.html", assigns
+  .column
+      = if @purchaser do
+        = render "shopping_list.html", assigns
 
 
 
 .blog
   = for product <- @products do
-
     .card.is-shady
       .card-header-title.is-centered
         = product.name

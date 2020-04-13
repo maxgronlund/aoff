@@ -34,6 +34,19 @@ defmodule AOFF.Users do
     Integer.floor_div(users, per_page)
   end
 
+  alias AOFF.Shop.Date
+  def host_dates(date, user_id) do
+
+    dates =
+      from d in Date,
+        order_by: [asc: d.date],
+        where: d.date >= ^date,
+        where: d.shop_assistant_a==^user_id or d.shop_assistant_b==^user_id or d.shop_assistant_c==^user_id or d.shop_assistant_d==^user_id
+
+    dates
+    |> Repo.all()
+  end
+
   @doc """
   Returns the list of users.
 
@@ -84,6 +97,14 @@ defmodule AOFF.Users do
     Repo.get(User, id)
   end
 
+  def get_user_by_reset_password_token(token) do
+    cond do
+      token=="" -> nil
+      token==nil -> nil
+      true -> Repo.get_by(User, password_reset_token: token)
+    end
+  end
+
   @doc """
   Register a user.
 
@@ -116,6 +137,19 @@ defmodule AOFF.Users do
   def update_user(%User{} = user, attrs) do
     user
     |> User.update_changeset(attrs)
+    |> Repo.update()
+  end
+
+  def set_password_reset_token(user, attrs) do
+    user
+    |> User.password_reset_token_changeset(attrs)
+    |> Repo.update()
+  end
+
+  def update_password!(%User{} = user, attrs) do
+    attrs = Map.put(attrs, "password_reset_token", "")
+    user
+    |> User.update_password_changeset(attrs)
     |> Repo.update()
   end
 
@@ -261,6 +295,8 @@ defmodule AOFF.Users do
     query = from(u in User, order_by: [desc: u.member_nr], select: u.member_nr, limit: 1)
     Repo.one(query)
   end
+
+
 
   alias AOFF.Users.Order
 
@@ -427,6 +463,18 @@ defmodule AOFF.Users do
   end
 
   alias AOFF.Users.OrderItem
+
+  def order_items_count(user_id) do
+    query =
+      from o in OrderItem,
+      where: o.state==^"initial",
+      join: ordr in assoc(o, :order),
+      where: ordr.state==^"open",
+      select: count(o.id)
+
+    Repo.one(query)
+
+  end
 
   @doc """
   Returns the list of order_items.

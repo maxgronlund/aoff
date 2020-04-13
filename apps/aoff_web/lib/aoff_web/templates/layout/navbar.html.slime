@@ -8,9 +8,9 @@ header
       li class="<%= menu_item(@conn, :shop) %>"
         = link gettext("Shop"), to: Routes.shop_shop_path(@conn, :index)
 
-      = if @purchasing_manager do
-        li class="<%= menu_item(@conn, :purchaser) %>"
-          = link gettext("Purchaser"), to: Routes.purchaser_purchaser_path(@conn, :index)
+      / = if @purchaser do
+      /   li class="<%= menu_item(@conn, :purchaser) %>"
+      /     = link gettext("Purchaser"), to: Routes.purchaser_purchaser_path(@conn, :index)
       = if @volunteer do
         li class="<%= menu_item(@conn, :volunteer) %>"
           = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
@@ -28,12 +28,13 @@ header
         li class="<%= menu_item(@conn, :user) %>"
           = link to: Routes.user_path(@conn, :show, @current_user) do
             i.fa.fa-user
-        li class="<%= menu_item(@conn, :order) %>"
+        = if @order_items_count > 0 do
+          li class="<%= menu_item(@conn, :order) %>"
 
-          = link to: Routes.user_order_path(@conn, :show, @current_user, current_order(@current_user.id)) do
-            i.fa.fa-shopping-cart
-            .numberCircle
-              |1
+            = link to: Routes.user_order_path(@conn, :show, @current_user, current_order(@  current_user.id)) do
+              i.fa.fa-shopping-cart
+              .numberCircle
+                = @order_items_count
 
       - else
         li class="<%= menu_item(@conn, :user) %>"

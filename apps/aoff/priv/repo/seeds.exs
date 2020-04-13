@@ -43,12 +43,14 @@ for n <- 1..15 do
     "email" => "user-" <> s <> "@example.com",
     "mobile" => Integer.to_string(n + 1_234_578),
     "password" => "password",
-    "expiration_date" => Date.add(~D[2020-01-04], 365),
+    "expiration_date" => Date.add(Date.utc_today(), 365),
     "month" => 12,
     "admin" => false,
     "volunteer" => n < 12,
     "purchasing_manager" => n < 4,
-    "shop_assistant" => n < 41
+    "shop_assistant" => n < 41,
+    "terms_accepted" => true,
+    "registration_date" => Date.utc_today()
   })
 end
 
@@ -109,7 +111,7 @@ for year <- 2020..2029, month <- 1..11, date <- 1..31 do
         if Date.compare(date, Date.utc_today()) == :gt do
           Shop.create_date(%{
             "date" => date,
-            "open" = true
+            "open" => true
           })
         end
       end

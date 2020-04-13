@@ -8,6 +8,7 @@ defmodule AOFFWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug AOFFWeb.Users.Auth
+    plug AOFFWeb.Users.OrderItemsInBasketCount
     plug AOFFWeb.System.Warning
   end
 
@@ -15,16 +16,23 @@ defmodule AOFFWeb.Router do
     plug :accepts, ["json"]
   end
 
+  # if Mix.env == :dev do
+  #   forward "/sent_emails", Bamboo.EmailPreviewPlug
+  # end
+
   scope "/", AOFFWeb do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/terms", TermsController, :index
 
     resources "/users", UserController, except: [:index] do
       resources "/order_items", Users.OrderItemController, only: [:create, :delete]
       resources "/orders", Users.OrderController, except: [:delete]
       resources "/membership", Users.MembershipController
     end
+
+    resources "/reset_password", ResetPasswordController, only: [:new, :create, :edit, :update, :index]
 
     resources "/sessions", SessionController
 
@@ -33,6 +41,9 @@ defmodule AOFFWeb.Router do
       resources "/news", Info.NewsController, except: [:index, :show]
     end
     resources "/news", Info.NewsController, only: [:index, :show]
+
+
+
   end
 
   scope "/shop", as: :shop do
@@ -53,7 +64,7 @@ defmodule AOFFWeb.Router do
     get "/", AOFFWeb.Volunteer.VolunteerController, :index
     resources "/dates", AOFFWeb.Volunteer.DateController
     resources "/users", AOFFWeb.Volunteer.UserController
-    resources "/messages", AOFFWeb.Volunteer.MessageController
+    resources "/messages", AOFFWeb.Volunteer.MessageController, except: [:new, :create]
 
     resources "/blogs", AOFFWeb.Volunteer.BlogController do
       resources "/posts", AOFFWeb.Volunteer.BlogPostController

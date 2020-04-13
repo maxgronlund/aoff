@@ -5,8 +5,11 @@ defmodule AOFF.Repo.Migrations.CreateUsers do
     create table(:users, primary_key: false) do
       add :id, :binary_id, primary_key: true
       add :username, :string
+      add :avatar, :string
       add :member_nr, :integer
       add :password_hash, :string
+      add :password_reset_token, :string
+      add :password_reset_expires, :utc_datetime_usec
       add :email, :string
       add :mobile, :string
       add :months, :integer, default: 12
@@ -15,6 +18,8 @@ defmodule AOFF.Repo.Migrations.CreateUsers do
       add :volunteer, :boolean, default: false
       add :purchasing_manager, :boolean, default: false
       add :shop_assistant, :boolean, default: false
+      add :terms_accepted, :boolean, default: false
+      add :registration_date, :date
 
       timestamps()
     end

@@ -9,8 +9,9 @@
       | &nbsp;
       = link gettext("Create news"), to: Routes.info_news_path(@conn, :new,  @news), class: "button button-outline"
 hr
+
 .blog
-  = for post <- @news.blog_posts do
+  = for post <- @blog_posts do
     .card.is-shady
       .card-image
         img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({post.image, post}, :thumb)}"

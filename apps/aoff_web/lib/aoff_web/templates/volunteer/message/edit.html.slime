@@ -1,3 +1,12 @@
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+        li.is-active
+          = link gettext("Messages"), to: Routes.volunteer_message_path(@conn, :index)
+
 h2 = gettext("Edit: %{identifier}-%{locale}", identifier: @message.identifier, locale: @message.locale)
 
 = render "form.html", Map.put(assigns, :action, Routes.volunteer_message_path(@conn, :update, @message))

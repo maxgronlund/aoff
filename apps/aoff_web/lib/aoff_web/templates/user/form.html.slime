@@ -5,28 +5,38 @@
 
 
   .form-group
-    = label f, :username, "Brugernavn",class: "control-label"
+    = label f, :username, gettext("Username"), class: "control-label"
     = text_input f, :username, class: "form-control"
     = error_tag f, :username
 
   .form-group
-    = label f, :email, class: "control-label"
+    = label f, :email, gettext("Email"), class: "control-label"
     = email_input f, :email, class: "form-control"
     = error_tag f, :email
   .form-group
-    = label f, :email_confirmation, class: "control-label"
+    = label f, :email_confirmation, gettext("Confirm email"),class: "control-label"
     = email_input f, :email_confirmation, class: "form-control", value: @email
     = error_tag f, :email_confirmation
 
   .form-group
-    = label f, :password, class: "control-label"
+    = label f, :password, gettext("Password"), class: "control-label"
     = password_input f, :password, class: "form-control"
     = error_tag f, :password
 
   .form-group
-    = label f, :mobile, class: "control-label"
+    = label f, :mobile, gettext("Mobile"), class: "control-label"
     = telephone_input f, :mobile, class: "form-control"
     = error_tag f, :mobile
+  .form-group
+
+    = label f, :terms_accepted do
+      = checkbox f, :terms_accepted, class: "form-control"
+      = label f, :terms_accepted,\
+        gettext("I accept"),\
+        class: "control-label label-inline"
+      | &nbsp;
+      = link(gettext("terms and condition"), to: Routes.terms_path(@conn, :index))
+    = error_tag f, :terms_accepted
 
 
   .form-group

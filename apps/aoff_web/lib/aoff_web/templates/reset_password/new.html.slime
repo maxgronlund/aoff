@@ -1,0 +1,6 @@
+h3 = @message.title
+.row
+  .column
+    = raw @message.text
+  .column
+    = render "email_form.html", Map.put(assigns, :action, Routes.reset_password_path(@conn, :create))

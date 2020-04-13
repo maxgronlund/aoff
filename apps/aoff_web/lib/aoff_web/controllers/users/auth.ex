@@ -13,8 +13,9 @@ defmodule AOFFWeb.Users.Auth do
     |> assign(:valid_member, user && valid_member?(user))
     |> assign(:admin, user && user.admin)
     |> assign(:volunteer, user && user.volunteer)
-    |> assign(:purchasing_manager, user && user.purchasing_manager)
+    |> assign(:purchaser, user && user.purchasing_manager)
     |> assign(:shop_assistant, user && user.shop_assistant)
+
   end
 
   def login(conn, user) do

@@ -10,7 +10,10 @@ defmodule AOFF.Users.User do
   schema "users" do
     field :member_nr, :integer
     field :username, :string
+    field :avatar, :string
     field :email, :string
+    field :password_reset_token, :string
+    field :password_reset_expires, :utc_datetime_usec
     field :mobile, :string
     field :password, :string, virtual: true
     field :password_hash, :string
@@ -20,11 +23,28 @@ defmodule AOFF.Users.User do
     field :volunteer, :boolean, default: false
     field :purchasing_manager, :boolean, default: false
     field :shop_assistant, :boolean, default: false
+    field :terms_accepted, :boolean, default: false
+    field :registration_date, :date
 
     has_many :orders, Order
     has_many :pick_ups, PickUp
 
     timestamps()
+  end
+
+  @doc false
+  def password_reset_token_changeset(user, attrs) do
+    user
+    |> cast(attrs,[:password_reset_token, :password_reset_expires])
+    |> validate_required([:password_reset_token, :password_reset_expires])
+  end
+
+  def update_password_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:password, :password_reset_token])
+    |> validate_required([:password])
+    |> validate_length(:password, min: 6, max: 100)
+    |> put_pass_hash()
   end
 
   @doc false
@@ -121,7 +141,9 @@ defmodule AOFF.Users.User do
       :email,
       :mobile,
       :username,
-      :password
+      :password,
+      :password_reset_token,
+      :password_reset_expires,
     ])
     |> validate_required([
       :username,
@@ -144,7 +166,8 @@ defmodule AOFF.Users.User do
         %{
           "member_nr" => last_member_nr + 1,
           "expiration_date" => ~D[2020-01-01],
-          "months" => 0
+          "months" => 0,
+          "registration_date" => Date.utc_today()
         }
       )
 
@@ -157,7 +180,9 @@ defmodule AOFF.Users.User do
       :mobile,
       :member_nr,
       :expiration_date,
-      :months
+      :months,
+      :terms_accepted,
+      :registration_date
     ])
     |> validate_required([
       :username,
@@ -165,8 +190,11 @@ defmodule AOFF.Users.User do
       :password,
       :member_nr,
       :expiration_date,
-      :months
+      :months,
+      :terms_accepted,
+      :registration_date
     ])
+    |> validate_acceptance(:terms_accepted)
     |> validate_confirmation(:email)
     |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 6, max: 100)

@@ -24,7 +24,6 @@ defmodule AOFF.Blogs.BlogPost do
 
   @doc false
   def changeset(post, attrs) do
-    IO.inspect attrs
     post
     |> cast(attrs, [
       :blog_id,

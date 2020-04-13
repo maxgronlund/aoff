@@ -14,23 +14,6 @@ defmodule AOFFWeb.Volunteer.MessageController do
     render(conn, "index.html", messages: messages)
   end
 
-  # def new(conn, _params) do
-  #   changeset = System.change_message(%Message{})
-  #   render(conn, "new.html", changeset: changeset)
-  # end
-
-  # def create(conn, %{"message" => message_params}) do
-  #   case System.create_message(message_params) do
-  #     {:ok, message} ->
-  #       conn
-  #       |> put_flash(:info, "Message created successfully.")
-  #       |> redirect(to: Routes.volunteer_message_path(conn, :show, message))
-
-  #     {:error, %Ecto.Changeset{} = changeset} ->
-  #       render(conn, "new.html", changeset: changeset)
-  #   end
-  # end
-
   def show(conn, %{"id" => id}) do
     message = System.get_message!(id)
     render(conn, "show.html", message: message)
@@ -48,7 +31,7 @@ defmodule AOFFWeb.Volunteer.MessageController do
     case System.update_message(message, message_params) do
       {:ok, message} ->
         conn
-        |> put_flash(:info, "Message updated successfully.")
+        |> put_flash(:info, gettext("Message updated successfully."))
         |> redirect(to: Routes.volunteer_message_path(conn, :show, message))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -61,7 +44,7 @@ defmodule AOFFWeb.Volunteer.MessageController do
     {:ok, _message} = System.delete_message(message)
 
     conn
-    |> put_flash(:info, "Message deleted successfully.")
+    |> put_flash(:info, gettext("Message deleted successfully."))
     |> redirect(to: Routes.volunteer_message_path(conn, :index))
   end
 

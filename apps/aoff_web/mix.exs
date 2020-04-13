@@ -24,7 +24,7 @@ defmodule AOFFWeb.MixProject do
   def application do
     [
       mod: {AOFFWeb.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :bamboo]
     ]
   end
 
@@ -54,7 +54,8 @@ defmodule AOFFWeb.MixProject do
       {:hackney, "~> 1.6"},
       {:poison, "~> 3.1"},
       {:sweet_xml, "~> 0.6"},
-      {:ex_cldr_dates_times, "~> 2.0"}
+      {:ex_cldr_dates_times, "~> 2.0"},
+      {:bamboo, "~> 1.4"}
     ]
   end
 

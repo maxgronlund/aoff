@@ -14,7 +14,7 @@
   .column
     .card.is-shady
       .card-header-title.is-centered
-          = gettext("Early shift")
+          = gettext("Hosts early shift")
       .card-content
         = raw shop_assistant(@date.shop_assistant_a)
         br/
@@ -22,12 +22,18 @@
   .column
     .card.is-shady
       .card-header-title.is-centered
-          = gettext("Late shift")
+          = gettext("Hosts late shift")
       .card-content
         = raw shop_assistant(@date.shop_assistant_c)
         br/
         = raw shop_assistant(@date.shop_assistant_d)
-
+= if @volunteer do
+  .row
+    .column
+      = link\
+         gettext("Edit hosts"),\
+         to: Routes.volunteer_date_path(@conn, :edit, @date),\
+         class: "button float-right"
 hr
 h3 = gettext("Pickup list: %{date}", date: @date.date)
 .row
@@ -64,8 +70,8 @@ table
               br
           td
             = if pick_up.picked_up do
-              = link gettext("Show"), to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up), class: "float-right"
+              = link gettext("Handed"), to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up), class: "button button-outline float-right"
             - else
-              = link gettext("Awaits"), to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up), class: "button button-outline float-right"
+              = link gettext("Awaits"), to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up), class: "button float-right"
 
 

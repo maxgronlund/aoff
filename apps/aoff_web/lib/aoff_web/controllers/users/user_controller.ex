@@ -40,19 +40,21 @@ defmodule AOFFWeb.UserController do
         |> redirect(to: Routes.user_path(conn, :show, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset, email: "")
+        {:ok, message } = System.find_or_create_message("/users/new", Gettext.get_locale())
+        render(conn, "new.html", changeset: changeset, email: user_params["email_confirmation"], message: message)
     end
   end
 
   def show(conn, %{"id" => id}) do
     conn = assign(conn, :page, :user)
     user = get_user!(conn, id)
+    host_dates = Users.host_dates(Date.utc_today(), user.id)
 
     {:ok, message } =
       System.find_or_create_message("Pay for membership", Gettext.get_locale())
 
 
-    render(conn, "show.html", user: user, message: message)
+    render(conn, "show.html", user: user, message: message, host_dates: host_dates)
   end
 
   def edit(conn, %{"id" => id}) do

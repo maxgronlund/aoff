@@ -1,7 +1,9 @@
 defmodule AOFFWeb.ShopAssistant.DateView do
   use AOFFWeb, :view
 
-  @not_found  "<i>"<> gettext("No host") <>"</i><br/>&nbsp;<br/>&nbsp;"
+  @not_found  "<b class='red'>#{gettext("Missing host")}</b>
+        <br/>" <> "-" <>
+        "<br/>" <> "-"
 
   def date(date) do
     {:ok, date} = AOFFWeb.Cldr.Date.to_string(date, locale: "da")

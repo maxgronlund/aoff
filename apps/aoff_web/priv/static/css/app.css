@@ -1300,9 +1300,10 @@ label.panel-block:hover {
 .card-header-title.is-centered.is-red {
   color: #F00;
 }
+
 .blog {
   display: grid;
-  grid-template-columns: repeat(auto-fit, [col-start] minmax(300px, 1fr) [col-end]);
+  grid-template-columns: repeat(auto-fit, [col-start] minmax(282px, 1fr) [col-end]);
   grid-row-gap: 10px;
   grid-column-gap: 10px;
   width: 100%;

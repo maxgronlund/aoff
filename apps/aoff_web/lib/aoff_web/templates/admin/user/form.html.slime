@@ -52,9 +52,9 @@
         .row
           .column
             .form-group
-              = label f, :admin_user_path do
-                = checkbox f, :admin_user_path, class: "form-control"
-                = label f, :admin_user_path, gettext("Admin"), class: "control-label label-inline"
+              = label f, :admin do
+                = checkbox f, :admin, class: "form-control"
+                = label f, :admin, gettext("Admin"), class: "control-label label-inline"
           .column
             .form-group
               = label f, :volunteer do

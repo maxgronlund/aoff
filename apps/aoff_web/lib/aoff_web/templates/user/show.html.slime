@@ -7,31 +7,25 @@
   .column
     strong = gettext("Member Nr: %{member_nr}", member_nr: @user.member_nr)
     br
+    = gettext("Member since %{date}", date: date(@user.registration_date))
+    br
     = if @valid_member do
       = gettext("Valid to: %{expiration_date}", expiration_date: date(@user.expiration_date))
     - else
       .alert.alert-danger
-        = gettext("No valid membership")
-        hr
-        = link gettext("Pay for membership"), to: "/", class: "button"
-        / = gettext("Expired: %{expiration_date}", expiration_date: date(@user.expiration_date))
+        = gettext("Payment for membership missing")
+        br/
+        = link gettext("Pay"),\
+          to: Routes.shop_shop_path(@conn, :index),\
+          class: "button float-right"
+        | &nbsp;
+        br/
 
 = if @valid_member do
   = if @message.show do
       h3= @messate.title
       = raw @message.text
-  / .row
-  /   .column
-  /     .alert.alert-info
-  /       h4= gettext("Time to become a member")
-  /       .row
-  /         .column
-  /           p= gettext("Your membership is expired or you don't have one yet")
-  /         .column
-  /           .float-right
-  /             = link gettext("Get membership"), to: Routes.user_membership_path(@conn, :new, @user), class: "button"
-  /         br
-  /         | &nbsp;
+
 .row
   .column
     = link gettext("Invoices"), to: Routes.user_order_path(@conn, :index, @user), class: "button button-outline"
@@ -44,6 +38,31 @@
       method: :delete,\
       data: [confirm: "Are you sure?"],\
       class: "button button-red button-outline"
+
+hr/
+h3 = gettext("Upcoming host dates")
+.blog
+  = for date <- @host_dates do
+    = link to: Routes.shop_assistant_date_path(@conn, :show, date) do
+      .card.is-shady
+        = if date.open do
+          .card-header-title.is-centered
+            = date(date.date)
+          - else
+            .card-header-title.is-centered.is-red
+              = gettext("%{date} - closed", date: date(date.date))
+        .card-content
+          b = gettext("Early shift")
+          br/ = raw shop_assistant(date.shop_assistant_a)
+          br/
+          = raw shop_assistant(date.shop_assistant_b)
+          hr
+          b = gettext("Late shift")
+          br/ = raw shop_assistant(date.shop_assistant_c)
+          br/
+          = raw shop_assistant(date.shop_assistant_d)
+        .card-footer-item.is-button
+          = gettext("Show")
 
 
 

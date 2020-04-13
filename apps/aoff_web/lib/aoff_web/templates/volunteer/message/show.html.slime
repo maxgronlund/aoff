@@ -1,3 +1,16 @@
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+        li
+          = link gettext("Messages"), to: Routes.volunteer_message_path(@conn, :index)
+        li.is-active
+          | &nbsp;
+          = @message.title
+
+
 
 .row
   .column

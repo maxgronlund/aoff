@@ -6,6 +6,8 @@ defmodule AOFFWeb.PageController do
 
   def index(conn, _params) do
 
+
+
     # if user = conn.assigns.current_user do
     #   redirect(conn, to: Routes.user_path(conn, :show, user))
     # else
@@ -16,5 +18,6 @@ defmodule AOFFWeb.PageController do
       conn = assign(conn, :page, :home)
       render(conn, "index.html", products: products, date: date, message: message)
     # end
+
   end
 end

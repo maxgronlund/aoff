@@ -10,7 +10,6 @@ defmodule AOFFWeb.Shop.CheckoutController do
   end
 
   def update(conn, %{"id" => id, "order" => order_params}) do
-    IO.inspect order_params
     order = Users.get_order!(id)
 
     Users.update_order(order, order_params)
