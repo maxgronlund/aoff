@@ -40,7 +40,6 @@
         },
 
         'buttonLocales': {
-            'da': 'Godkend',
             'en': 'Ok'
         },
 
@@ -147,7 +146,6 @@
     function testCookie() {
         document.cookie = 'testCookie=1';
         return document.cookie.indexOf('testCookie') != -1;
-
     }
 
     /**
@@ -187,7 +185,11 @@
         noticeStyle.background = bgColor;
         noticeStyle.color = textColor;
         noticeStyle["z-index"] = '999';
-        noticeStyle.padding = '10px 20px';
+        noticeStyle.padding = '10px 15px';
+        // noticeStyle["text-align"] = 'center';
+        // noticeStyle["font-size"] = "12px";
+        // noticeStyle["line-height"] = "28px";
+        // noticeStyle.fontFamily = 'Helvetica neue, Helvetica, sans-serif';
 
         return notice;
     }
@@ -205,33 +207,39 @@
             dismissButtonStyle = dismissButton.style;
 
         // Dismiss button
-        dismissButton.href = '/';
+        dismissButton.href = '#';
         dismissButton.innerHTML = message;
 
         dismissButton.className = 'confirm';
 
         // Dismiss button style
-        dismissButtonStyle['background-color'] = '#007A4B';
-        dismissButtonStyle['border'] = '0.1rem solid #007A4B';
-        dismissButtonStyle.color = '#fff';
-        dismissButtonStyle['border-radius'] = '.4rem';
-        dismissButtonStyle['cursor'] = 'cursor';
-        dismissButtonStyle['display'] = 'inline-block';
-        dismissButtonStyle['font-size'] = '1.1rem';
-        dismissButtonStyle['font-weight'] = '700';
-        dismissButtonStyle['height'] = '3.8rem';
-        dismissButtonStyle['letter-spacing'] = '.1rem';
-        dismissButtonStyle['line-height'] = '3.8rem';
-        dismissButtonStyle['padding'] = '0 3.0rem';
-        dismissButtonStyle['text-align'] = 'center';
-        dismissButtonStyle['text-decoration'] = 'none';
-        dismissButtonStyle['text-transform'] = 'uppercase';
-        dismissButtonStyle['white-space'] = 'nowrap';
-        dismissButtonStyle['text-decoration'] = 'none';
-        dismissButtonStyle['margin-bottom'] = '1.0rem';
-        dismissButtonStyle['float'] = 'right';
-        dismissButtonStyle['margin-top'] = '1.0rem';
+        // dismissButtonStyle.background = buttonColor;
+        // dismissButtonStyle.color = buttonTextColor;
+        // dismissButtonStyle['text-decoration'] = 'none';
+        // dismissButtonStyle.display = 'inline-block';
+        // dismissButtonStyle.padding = '0 15px';
+        // dismissButtonStyle.margin = '0 0 0 10px';
 
+
+
+        dismissButtonStyle['background-color'] =  '#007A4B';
+        dismissButtonStyle['border'] =  '0.1rem solid #007A4B';
+        dismissButtonStyle['border-radius'] =  '.4rem';
+        dismissButtonStyle['color'] =  '#fff';
+        dismissButtonStyle['cursor'] =  'pointer';
+        dismissButtonStyle['display'] =  'inline-block';
+        dismissButtonStyle['font-size'] =  '1.1rem';
+        dismissButtonStyle['font-weight'] =  '700';
+        dismissButtonStyle['height'] =  '3.8rem';
+        dismissButtonStyle['letter-spacing'] =  '.1rem';
+        dismissButtonStyle['line-height'] =  '3.8rem';
+        dismissButtonStyle['padding'] =  '0 3.0rem';
+        dismissButtonStyle['text-align'] =  'center';
+        dismissButtonStyle['text-decoration'] =  'none';
+        dismissButtonStyle['text-transform'] =  'uppercase';
+        dismissButtonStyle['white-space'] =  'nowrap';
+        dismissButtonStyle['float'] =  'right';
+        dismissButtonStyle['margin-top'] =  '10px';
 
         return dismissButton;
 
@@ -259,8 +267,6 @@
         learnMoreLinkStyle.color = linkColor;
         learnMoreLinkStyle['text-decoration'] = 'none';
         learnMoreLinkStyle.display = 'inline';
-        learnMoreLinkStyle['color'] = '#6a6';
-        learnMoreLinkStyle['font-weight'] = '700';
 
         return learnMoreLink;
 
