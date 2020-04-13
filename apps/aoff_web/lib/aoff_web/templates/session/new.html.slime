@@ -16,4 +16,3 @@ h2 = gettext("Login")
         |&nbsp;
         = submit gettext("Login"), class: "button"
       |&nbsp;
-  .column

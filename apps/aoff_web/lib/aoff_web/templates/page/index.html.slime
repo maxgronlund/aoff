@@ -9,6 +9,14 @@
       .white-text
         h4 = @message.title
         = raw @message.text
+= if @current_user == nil do
+  .row
+    .column
+      = link gettext("Become member"),\
+        to: "/users/new",\
+        class: "button button-xlarge button-full-width"
+.row
+  .column
     .blog
       = for product <- @products do
         .card.is-black
@@ -29,11 +37,6 @@
 
 
 
-= if @current_user == nil do
-  .row
-    .column
-      = link gettext("Become member"),\
-        to: "/users/new",\
-        class: "button button-xlarge button-full-width"
+
 
 
