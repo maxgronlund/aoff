@@ -17,18 +17,15 @@
       = gettext("Valid to: %{expiration_date}", expiration_date: date(@user.expiration_date))
     - else
       .alert.alert-danger
-        = gettext("Payment for membership missing")
+        h3= @message.title
+        = raw @message.text
         br/
         = link gettext("Pay"),\
           to: Routes.shop_shop_path(@conn, :index),\
           class: "button float-right"
         | &nbsp;
         br/
-
-= if @valid_member do
-  = if @message.show do
-      h3= @messate.title
-      = raw @message.text
+        | &nbsp;
 
 .row
   .column

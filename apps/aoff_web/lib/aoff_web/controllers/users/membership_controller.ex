@@ -34,8 +34,11 @@ defmodule AOFFWeb.Users.MembershipController do
     # Make it look like when a product is added to the basket
     # but bounce direct to checkout
 
-    IO.inspect product = Shop.get_product(params["product_id"])
+    IO.inspect product = Shop.get_product!(params["product_id"])
     IO.inspect(params)
+
+    conn
+    |> redirect(to: Routes.page_path(conn, :index))
   end
 end
 
