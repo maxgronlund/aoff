@@ -22,7 +22,7 @@ defmodule AOFF.System do
     |> Repo.all()
   end
 
-  def find_or_create_message(identifier, locale \\ "da") do
+  def find_or_create_message(identifier, title, locale \\ "da") do
     query =
       from m in Message,
       where: m.identifier==^identifier and m.locale==^locale,
@@ -32,7 +32,7 @@ defmodule AOFF.System do
       nil ->
         create_message(
           %{
-            "title" => "-",
+            "title" => title,
             "text" => "-",
             "identifier" => identifier,
             "locale"=> locale

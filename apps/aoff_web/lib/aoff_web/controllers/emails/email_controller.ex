@@ -7,6 +7,7 @@ defmodule AOFFWeb.Email do
     {:ok, message } =
       System.find_or_create_message(
         "/reset_password/:id/create",
+        "Reset password",
         Gettext.get_locale()
       )
     new_email()

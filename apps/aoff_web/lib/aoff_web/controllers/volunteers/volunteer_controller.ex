@@ -8,15 +8,35 @@ defmodule AOFFWeb.Volunteer.VolunteerController do
 
   def index(conn, _params) do
     {:ok, volunteer } =
-      System.find_or_create_message("/volunteer - volunteer", Gettext.get_locale())
+      System.find_or_create_message(
+        "/volunteer - volunteer",
+        "Volunteer landing page",
+        Gettext.get_locale()
+      )
     {:ok, users }
-      = System.find_or_create_message("/volunteer - user", Gettext.get_locale())
+      = System.find_or_create_message(
+        "/volunteer - user",
+        "Volunteer Users",
+        Gettext.get_locale()
+      )
     {:ok, opening_dates }
-      = System.find_or_create_message("/volunteer - dates", Gettext.get_locale())
+      = System.find_or_create_message(
+        "/volunteer - dates",
+        "Volunteer Opening dates",
+        Gettext.get_locale()
+      )
     {:ok, messages }
-      = System.find_or_create_message("/volunteer - messages", Gettext.get_locale())
+      = System.find_or_create_message(
+        "/volunteer - messages",
+        "Volunteer Messages",
+        Gettext.get_locale()
+      )
     {:ok, categories }
-      = System.find_or_create_message("/volunteer - categories", Gettext.get_locale())
+      = System.find_or_create_message(
+        "/volunteer - categories",
+        "Volunteer Categories",
+        Gettext.get_locale()
+      )
     conn = assign(conn, :page, :volunteer)
     render(
       conn,

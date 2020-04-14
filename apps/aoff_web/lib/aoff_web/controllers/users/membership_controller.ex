@@ -14,6 +14,7 @@ defmodule AOFFWeb.Users.MembershipController do
     {:ok, message } =
       System.find_or_create_message(
         "/users/:id/membership/new/ - buy new",
+        "Buy membership",
         Gettext.get_locale()
       )
 

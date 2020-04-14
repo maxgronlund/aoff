@@ -6,12 +6,11 @@ defmodule AOFFWeb.PageController do
 
   def index(conn, _params) do
 
-
-
-    # if user = conn.assigns.current_user do
-    #   redirect(conn, to: Routes.user_path(conn, :show, user))
-    # else
-      {:ok, message } = System.find_or_create_message("/", Gettext.get_locale())
+      {:ok, message } =
+        System.find_or_create_message("/",
+          "About AOFF - landing page",
+          Gettext.get_locale()
+        )
       date = Shop.get_next_date(Date.utc_today())
       products = Shop.get_products_for_landing_page()
       conn = assign(conn, :backdrop, :show)

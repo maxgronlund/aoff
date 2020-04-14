@@ -10,18 +10,33 @@
 
 .row
   .column
+    = @post.author <> " - " <> date(@post.date)
+
     h2= @post.title
-  = if @volunteer do
-    .column
-      = link gettext("Edit"),\
-        to: Routes.info_news_path(@conn, :edit, @blog, @post),\
-        class: "button float-right"
+  .column
 
-= img_tag AOFF.Uploader.Image.url({@post.image, @post}, :original)
-.image-caption
-  i = @post.caption
-br
-p = raw(@post.text)
+    = img_tag AOFF.Uploader.Image.url({@post.image, @post}, :original)
+    .image-caption
+      = @post.caption
+.row
+  .column
+    = raw(@post.text)
 
 
 
+= if @volunteer do
+  .column
+    = link gettext("Edit"),\
+      to: Routes.info_news_path(@conn, :edit, @blog, @post),\
+      class: "button float-right"
+  / = if @volunteer do
+  /   = link gettext("Delete"),\
+  /     to: Routes.info_news_path(@conn, :delete, @news, post),\
+  /     method: :delete,\
+  /     data: [confirm: gettext("Are you sure?")],\
+  /     class: "button button-red button-outline"
+  /   | &nbsp;
+  /   = link gettext("Edit"),\
+  /     to: Routes.info_news_path(@conn, :edit, @news, post),\
+  /     class: "button button-outline"
+  /   | &nbsp;

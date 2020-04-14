@@ -1,41 +1,21 @@
 h2 = @message.title
 = raw @message.text
+= if @volunteer do
+  | &nbsp;
+  = link gettext("edit"), to: Routes.volunteer_message_path(@conn, :edit, @message)
+br
 .blog
-  .card.is-shady
-    .card-header
-      .card-header-title.is-centered
-        = @manufacturers.title
+  = for blog <- @blogs do
+    .card.is-shady
+      .card-header
+        .card-header-title.is-centered
+          = blog.title
+      .card-image
+        img.modal-button alt=("#{blog.title}") src="#{ AOFF.Uploader.Image.url({blog.image, blog}, :original)}"
+      .card-content
+        = blog.description
 
-    .card-image
-      img.modal-button alt=("#{@manufacturers.title}") src="#{ AOFF.Uploader.Image.url({@manufacturers.image, @manufacturers}, :original)}"
-    .card-content
-      = @manufacturers.description
-      hr/
-      = link gettext("Read More"), to: Routes.info_path(@conn, :show, @manufacturers), class: "button float-right"
-      | &nbsp;
-
-  .card.is-shady
-    .card-header
-      .card-header-title.is-centered
-        = @calendar.title
-
-    .card-image
-      img.modal-button alt=("#{@calendar.title}") src="#{ AOFF.Uploader.Image.url({@calendar.image, @calendar}, :original)}"
-    .card-content
-      = @calendar.description
-      hr/
-      = link gettext("Read More"), to: Routes.info_path(@conn, :show, @calendar), class: "button float-right"
-      | &nbsp;
-
-  .card.is-shady
-    .card-header
-      .card-header-title.is-centered
-        = @about_aoff.title
-
-    .card-image
-      img.modal-button alt=("#{@about_aoff.title}") src="#{ AOFF.Uploader.Image.url({@about_aoff.image, @about_aoff}, :original)}"
-    .card-content
-      = @about_aoff.description
-      hr/
-      = link gettext("Read More"), to: Routes.info_path(@conn, :show, @about_aoff), class: "button float-right"
-      | &nbsp;
+      .card-footer.is-botton
+        = link gettext("Read More"),\
+          to: Routes.info_path(@conn, :show, blog),\
+          class: "card-footer-item is-button"

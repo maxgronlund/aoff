@@ -16,8 +16,12 @@
         = error_tag f, :name
       .form-group
         = label f, :description, gettext("Description"), class: "control-label"
-        = textarea f, :description, style: "height: 300px;" , class: "form-control"
+        = textarea f, :description, style: "height: 150px;" , class: "form-control"
         = error_tag f, :description
+      .form-group
+        = label f, :this_weeks_content, gettext("Content this week"), class: "control-label"
+        = textarea f, :this_weeks_content, style: "height: 300px;" , class: "form-control"
+        = error_tag f, :this_weeks_content
     .column
       .form-group
         = label f, gettext("Price"), class: "control-label"

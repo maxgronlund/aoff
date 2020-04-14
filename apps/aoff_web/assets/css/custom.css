@@ -376,7 +376,12 @@ label.panel-block:hover {
 
 .white-text {
   color: #fff;
+  background-color: hsla(180, 50%, 0%, 0.68);
+  padding: 1.5rem;
+  margin-bottom: 20px;
+  border-radius: 4px;
 }
+
 
 .numberCircle {
   border-radius: 50%;
@@ -412,3 +417,14 @@ label.panel-block:hover {
 .card-header-title.is-centered.is-red {
   color: #F00;
 }
+
+.image-caption {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.auto-columns {
+  columns: 3 280px;
+  column-gap: 1.5em;
+}
+

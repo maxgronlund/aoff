@@ -1,14 +1,22 @@
+
+= if @volunteer do
+  .alert.alert-info
+    h3 = @message.title
+    = raw @message.text
+    br
+    = link gettext("Edit"), to: Routes.volunteer_message_path(@conn, :edit, @message)
+
+
+    = link gettext("Create news"),\
+      to: Routes.info_news_path(@conn, :new,  @news),\
+      class: "button float-right"
+    br/
+    | &nbsp;
 .row
-  .column
-    = img_tag AOFF.Uploader.Image.url({@news.image, @news}, :original)
   .column
     h2 = @news.title
     p= @news.description
-    = if @volunteer do
-      = link gettext("Edit category"), to: Routes.volunteer_blog_path(@conn, :edit, @news), class: "button"
-      | &nbsp;
-      = link gettext("Create news"), to: Routes.info_news_path(@conn, :new,  @news), class: "button button-outline"
-hr
+
 
 .blog
   = for post <- @blog_posts do
@@ -21,17 +29,6 @@ hr
         h4 = post.title
         p = post.teaser
         .float-right
-          = if @volunteer do
-            = link gettext("Delete"),\
-              to: Routes.info_news_path(@conn, :delete, @news, post),\
-              method: :delete,\
-              data: [confirm: gettext("Are you sure?")],\
-              class: "button button-red button-outline"
-            | &nbsp;
-            = link gettext("Edit"),\
-              to: Routes.info_news_path(@conn, :edit, @news, post),\
-              class: "button button-outline"
-            | &nbsp;
           = link gettext("Read More"),\
             to: Routes.news_path(@conn, :show, post, %{"blog_id" => @news.title, "locale" => @news.locale}),\
             class: "button"

@@ -817,7 +817,7 @@ msgstr "Kontoen er slettet"
 #, elixir-format
 #: lib/aoff_web/controllers/volunteers/message_controller.ex:36
 msgid "Message updated successfully."
-msgstr "Kontoen er blevet opdateret"
+msgstr "Beskeden er blevet opdateret"
 
 #, elixir-format
 #: lib/aoff_web/templates/reset_password/index.html.slime:1

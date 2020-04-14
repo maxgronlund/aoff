@@ -30,11 +30,11 @@ javascript:
         = label f, :text, class: "control-label"
         = textarea f, :text, class: "form-control", style: "height: 175px;"
         = error_tag f, :text
-
-      .form-group
-        = label f, :image, class: "control-label"
-        = file_input f, :image, class: "form-control"
-        = error_tag f, :image
+      = if @blog_post do
+        .form-group
+          = label f, :image, class: "control-label"
+          = file_input f, :image, class: "form-control"
+          = error_tag f, :image
 
       .form-group
         = label f, :caption, class: "control-label"

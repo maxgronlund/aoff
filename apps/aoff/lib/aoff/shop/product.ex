@@ -18,6 +18,7 @@ defmodule AOFF.Shop.Product do
     field :show_on_landing_page, :boolean, default: false
     field :membership, :boolean, default: false
     field :deleted, :boolean, default: false
+    field :this_weeks_content, :string
 
     has_many :order_items, OrderItem
 
@@ -33,7 +34,8 @@ defmodule AOFF.Shop.Product do
       :price,
       :for_sale,
       :membership,
-      :show_on_landing_page]
+      :show_on_landing_page,
+      :this_weeks_content]
     )
     |> cast_attachments(attrs, [:image])
     |> validate_required([
@@ -41,7 +43,8 @@ defmodule AOFF.Shop.Product do
       :price,
       :for_sale,
       :membership,
-      :show_on_landing_page]
+      :show_on_landing_page,
+      :this_weeks_content]
     )
   end
 

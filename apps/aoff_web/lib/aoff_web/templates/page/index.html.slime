@@ -7,8 +7,9 @@
   .column
     = if @message.show do
       .white-text
-        h4 = @message.title
-        = raw @message.text
+        h3 = @message.title
+        .auto-columns
+          = raw @message.text
 
 .row
   .column
@@ -16,8 +17,8 @@
       = for product <- @products do
         .card.is-black
 
-          .card-image
-            img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({product.image, product}, :thumb)}"
+          /.card-image
+          /  img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({/product.image, product}, :thumb)}"
           .card-header-title.is-black.is-centered
             = product.name
             | &nbsp;
@@ -25,7 +26,7 @@
           .card-content
             =text_to_html(product.description)
           .card-footer.is-black.is-botton
-            = link gettext("Shop"),\
+            = link gettext("Order"),\
               to: Routes.shop_date_path(@conn, :show, @date),\
               class: "card-footer-item is-button is-black"
             / = get_next_date(date)
@@ -36,6 +37,12 @@
       = link gettext("Become member"),\
         to: "/users/new",\
         class: "button button-xlarge button-full-width"
+
+.row
+  .column
+    = link gettext("Show more products"),\
+      to: Routes.shop_date_path(@conn, :show, @date),\
+      class: "button button-xlarge button-full-width"
 
 
 

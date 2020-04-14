@@ -6,12 +6,22 @@ defmodule AOFFWeb.ResetPasswordController do
   alias AOFF.System
 
   def index(conn, _params) do
-    {:ok, message } = System.find_or_create_message("/reset_password/index", Gettext.get_locale())
+    {:ok, message } =
+      System.find_or_create_message(
+        "/reset_password/index",
+        "Reset password",
+        Gettext.get_locale()
+      )
     render(conn, "index.html", message: message)
   end
 
   def new(conn, _params) do
-    {:ok, message } = System.find_or_create_message("/reset_password/new", Gettext.get_locale())
+    {:ok, message } =
+      System.find_or_create_message(
+        "/reset_password/new",
+        "Send reset pasword email",
+        Gettext.get_locale()
+      )
     changeset =
       Users.change_user(%User{})
 

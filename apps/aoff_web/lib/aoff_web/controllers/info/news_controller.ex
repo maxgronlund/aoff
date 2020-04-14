@@ -3,6 +3,7 @@ defmodule AOFFWeb.Info.NewsController do
 
   alias AOFF.Blogs
   alias AOFF.Blogs.BlogPost
+  alias AOFF.System
 
   alias AOFFWeb.Users.Auth
   plug Auth
@@ -11,8 +12,12 @@ defmodule AOFFWeb.Info.NewsController do
   def index(conn, _params) do
     conn = assign(conn, :page, :news)
     {:ok, news} = Blogs.find_or_create_blog("news", Gettext.get_locale())
-
-    IO.inspect news.blog_posts
+    {:ok, message} =
+      System.find_or_create_message(
+        "/news",
+        "For volunteers",
+        Gettext.get_locale()
+      )
 
     blog_posts =
       case news.blog_posts do
@@ -24,7 +29,8 @@ defmodule AOFFWeb.Info.NewsController do
       conn,
       "index.html",
       news: news,
-      blog_posts: blog_posts
+      blog_posts: blog_posts,
+      message: message
     )
   end
 
@@ -38,7 +44,8 @@ defmodule AOFFWeb.Info.NewsController do
       changeset: changeset,
       blog: blog,
       author: conn.assigns.current_user.username,
-      date: Date.utc_today()
+      date: Date.utc_today(),
+      blog_post: false
     )
   end
 
@@ -63,7 +70,8 @@ defmodule AOFFWeb.Info.NewsController do
           changeset: changeset,
           blog: blog,
           author: blog_post["author"],
-          date: blog_post["date"]
+          date: blog_post["date"],
+          blog_post: false
         )
     end
   end

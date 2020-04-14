@@ -47,7 +47,9 @@
     = if @user do
       = link gettext("Cancel"), to: Routes.user_path(@conn, :show, @user), class: "button button-outline"
       | &nbsp;
-    = unless @user do
+      = submit gettext("Save"), class: "button"
+    - else do
       = link gettext("Already a member"), to: "/sessions/new", class: "button button-outline"
       | &nbsp;
-    = submit gettext("Save"), class: "button"
+      = submit gettext("Create account"), class: "button"
+

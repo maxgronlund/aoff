@@ -1265,7 +1265,12 @@ label.panel-block:hover {
 
 .white-text {
   color: #fff;
+  background-color: hsla(180, 50%, 0%, 0.68);
+  padding: 1.5rem;
+  margin-bottom: 20px;
+  border-radius: 4px;
 }
+
 
 .numberCircle {
   border-radius: 50%;
@@ -1302,6 +1307,17 @@ label.panel-block:hover {
   color: #F00;
 }
 
+.image-caption {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.auto-columns {
+  columns: 3 280px;
+  column-gap: 1.5em;
+}
+
+
 .blog {
   display: grid;
   grid-template-columns: repeat(auto-fit, [col-start] minmax(282px, 1fr) [col-end]);
@@ -1320,6 +1336,7 @@ label.panel-block:hover {
   position: relative;
   margin-bottom: 20px;
   border-radius: 4px;
+  padding-bottom: 36px;
 }
 
 .card-header {
@@ -1426,6 +1443,10 @@ label.panel-block:hover {
   white-space: nowrap;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
+}
+
+.card-footer-item.is-button:hover {
+  background-color: #005a38;
 }
 
 .card-footer-item.is-button.is-black {

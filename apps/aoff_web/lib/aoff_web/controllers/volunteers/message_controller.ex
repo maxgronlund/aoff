@@ -11,7 +11,11 @@ defmodule AOFFWeb.Volunteer.MessageController do
 
   def index(conn, _params) do
     {:ok, instructions } =
-      System.find_or_create_message("/volunteer/messages", Gettext.get_locale())
+      System.find_or_create_message(
+        "/volunteer/messages",
+        "Volunteer messages page",
+        Gettext.get_locale()
+      )
     messages = System.list_messages("da")
     render(conn, "index.html", messages: messages, instructions: instructions)
   end

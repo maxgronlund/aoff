@@ -9,8 +9,17 @@ defmodule AOFFWeb.Shop.ShopController do
     dates = Shop.list_dates(Date.utc_today(), 0, 6)
 
     unless conn.assigns.valid_member do
-      {:ok, expired_message } = System.find_or_create_message("/shop/ - expired", Gettext.get_locale())
-      {:ok, login_message } = System.find_or_create_message("/shop/ - login", Gettext.get_locale())
+      {:ok, expired_message } =
+        System.find_or_create_message(
+          "/shop/ - expired",
+          "Membership expired",
+           Gettext.get_locale()
+          )
+      {:ok, login_message } =
+        System.find_or_create_message(
+          "/shop/ - login",
+          "Login to shop",
+          Gettext.get_locale())
       render(
         conn,
         "index.html",

@@ -8,22 +8,20 @@ defmodule AOFFWeb.InfoController do
     conn = assign(conn, :page, :about_aoff)
 
 
-    {:ok, message } = System.find_or_create_message("/info", Gettext.get_locale())
+    {:ok, message } =
+      System.find_or_create_message(
+        "/info",
+        "Info",
+        Gettext.get_locale()
+      )
+
+    blogs = Blogs.all_but_news(Gettext.get_locale())
+    # {:ok, manufacturers} = Blogs.find_or_create_blog("manufacturers", Gettext.get_locale())
+    # {:ok, calendar} = Blogs.find_or_create_blog("calendar", Gettext.get_locale())
+    # {:ok, about_aoff} = Blogs.find_or_create_blog("about_aoff", Gettext.get_locale())
 
 
-    {:ok, manufacturers} = Blogs.find_or_create_blog("manufacturers", Gettext.get_locale())
-    {:ok, calendar} = Blogs.find_or_create_blog("calendar", Gettext.get_locale())
-    {:ok, about_aoff} = Blogs.find_or_create_blog("about_aoff", Gettext.get_locale())
-
-
-    render(
-      conn,
-      "index.html",
-      message: message,
-      manufacturers: manufacturers,
-      calendar: calendar,
-      about_aoff: about_aoff
-    )
+    render(conn, "index.html", message: message, blogs: blogs)
 
   end
 

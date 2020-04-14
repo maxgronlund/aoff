@@ -18,14 +18,39 @@ defmodule AOFF.Blogs do
 
   """
   def list_blogs(locale \\ "da") do
+    secure_defaults()
     query =
       from b in Blog,
       where: b.locale==^locale
+
     query
     |> Repo.all()
+
+  end
+
+  defp secure_defaults(locale \\ "da") do
+    {:ok, manufacturers} =
+      find_or_create_blog("manufacturers", locale)
+    {:ok, calendar} =
+      find_or_create_blog("calendar", locale)
+    {:ok, about_aoff} =
+      find_or_create_blog("about_aoff", locale)
   end
 
   alias AOFF.Blogs.BlogPost
+
+  def news(locale \\ "da") do
+    find_or_create_blog("news-" <> locale, "News", locale)
+  end
+
+  def all_but_news(locale \\ "da") do
+    query =
+      from b in Blog,
+      where: b.locale ==^locale and b.identifier !=^"news"
+    query
+    |> Repo.all()
+    |> Repo.preload(:blog_posts)
+  end
 
   @doc """
   Find or create a blog.
@@ -39,7 +64,7 @@ defmodule AOFF.Blogs do
 
 
   """
-  def find_or_create_blog(identifier, locale \\ "da") do
+  def find_or_create_blog(identifier, title, locale \\ "da") do
     query =
       from b in Blog,
       where: b.identifier==^identifier and b.locale==^locale,
