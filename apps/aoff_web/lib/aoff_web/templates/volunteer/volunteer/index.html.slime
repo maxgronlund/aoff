@@ -14,7 +14,7 @@
       = @categories.title
     .card-content
       = raw @categories.text
-    .card-footer.is-botton
+    .card-footer.is-button
       = link gettext("Show"),\
         to: Routes.volunteer_blog_path(@conn, :index),\
         class: "card-footer-item is-button"
@@ -24,7 +24,7 @@
       = @users.title
     .card-content
       = raw @users.text
-    .card-footer.is-botton
+    .card-footer.is-button
       = link gettext("Show"),\
         to: Routes.volunteer_user_path(@conn, :index),\
         class: "card-footer-item is-button"
@@ -34,7 +34,7 @@
       = @opening_dates.title
     .card-content
       = raw @opening_dates.text
-    .card-footer.is-botton
+    .card-footer.is-button
       = link gettext("Show"),\
         to: Routes.volunteer_date_path(@conn, :index),\
         class: "card-footer-item is-button"
@@ -44,7 +44,7 @@
       = @messages.title
     .card-content
       = raw @messages.text
-    .card-footer.is-botton
+    .card-footer.is-button
       = link gettext("Show"),\
         to: Routes.volunteer_message_path(@conn, :index),\
         class: "card-footer-item is-button"

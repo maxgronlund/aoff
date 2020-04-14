@@ -38,7 +38,7 @@ defmodule AOFFWeb.Router do
 
     resources "/info", InfoController, only: [:index, :show] do
       resources "/about_aoff", Info.AboutController, only: [:show]
-      resources "/news", Info.NewsController, except: [:index, :show]
+      # resources "/news", Info.NewsController, except: [:index, :show]
     end
     resources "/news", Info.NewsController, only: [:index, :show]
 

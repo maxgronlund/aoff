@@ -1336,7 +1336,6 @@ label.panel-block:hover {
   position: relative;
   margin-bottom: 20px;
   border-radius: 4px;
-  padding-bottom: 36px;
 }
 
 .card-header {
@@ -1418,7 +1417,7 @@ label.panel-block:hover {
   border-top: 1px solid #404040;
 }
 
-.card-footer.is-botton {
+.card-footer.is-button {
   position: absolute;
   bottom: 0;
   width: 100%;

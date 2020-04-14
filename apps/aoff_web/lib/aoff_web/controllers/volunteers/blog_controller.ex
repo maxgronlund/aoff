@@ -16,18 +16,18 @@ defmodule AOFFWeb.Volunteer.BlogController do
 
   def new(conn, _params) do
     changeset = Blogs.change_blog(%Blog{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, blog: false)
   end
 
   def create(conn, %{"blog" => blog_params}) do
     case Blogs.create_blog(blog_params) do
       {:ok, blog} ->
         conn
-        |> put_flash(:info, "Blog created successfully.")
-        |> redirect(to: Routes.volunteer_blog_path(conn, :show, blog))
+        |> put_flash(:info, gettext("Please update the default image."))
+        |> redirect(to: Routes.volunteer_blog_path(conn, :edit, blog))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, blog: false)
     end
   end
 
@@ -48,7 +48,7 @@ defmodule AOFFWeb.Volunteer.BlogController do
     case Blogs.update_blog(blog, blog_params) do
       {:ok, blog} ->
         conn
-        |> put_flash(:info, "Blog updated successfully.")
+        |> put_flash(:info, gettext("Category updated successfully."))
         |> redirect(to: Routes.volunteer_blog_path(conn, :show, blog))
 
       {:error, %Ecto.Changeset{} = changeset} ->

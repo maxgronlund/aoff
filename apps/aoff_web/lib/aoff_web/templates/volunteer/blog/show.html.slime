@@ -1,20 +1,36 @@
 .breadcrumb aria-label="breadcrumbs"
   ul
     li
+      = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+    li
       = link gettext("Categories"), to: Routes.volunteer_blog_path(@conn, :index)
 
+.row
+  .column
 
+    .float-right
+      = link gettext("Edit"),\
+        to: Routes.volunteer_blog_path(@conn, :edit,  @blog),\
+        class: "button"
+      | &nbsp;
+      = link "Delete",\
+        to: Routes.volunteer_blog_path(@conn, :delete, @blog),\
+        method: :delete,\
+        data: [confirm: gettext("Are you sure?")],\
+        class: "button button-red"
+.row
+  .column
+    h2 = @blog.title
 
-h2 = gettext("Category: %{title}", title: @blog.title)
+  .column
+    = img_tag(AOFF.Uploader.Image.url({@blog.image, @blog}, :original), class: "image")
 p = @blog.description
 
-/ = link "Edit", to: Routes.volunteer_blog_path(@conn, :edit, @blog), class: "button botton-outling"
 
 
-= link gettext("New Article"), to: Routes.volunteer_blog_blog_post_path(@conn, :new,  @blog), class: "button button-outline"
+= link gettext("New Article"), to: Routes.volunteer_blog_blog_post_path(@conn, :new,  @blog), class: "button float-right"
 
-| &nbsp;
-= link gettext("Edit"), to: Routes.volunteer_blog_path(@conn, :edit,  @blog), class: "button"
+
 
 .blog
   = for post <- @blog.blog_posts do
@@ -24,9 +40,10 @@ p = @blog.description
       .card-content
         h4 = post.title
         p = post.teaser
-        = link gettext("Edit"), to: Routes.volunteer_blog_blog_post_path(@conn, :edit, @blog, post), class: "button button-outline"
-        | &nbsp;
-        = link gettext("Delete"), to: Routes.volunteer_blog_blog_post_path(@conn, :delete, @blog, post), method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red"
-        = link gettext("Read More"), to: Routes.volunteer_blog_blog_post_path(@conn, :show, @blog, post), class: "button float-right"
+      .card-footer.is-button
+        = link gettext("Edit"), to: Routes.volunteer_blog_blog_post_path(@conn, :edit, @blog, post), class: "card-footer-item is-button"
+
+        /= link gettext("Delete"), to: Routes.volunteer_blog_blog_post_path(@conn, :delete, @blog, post), method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red"
+        /= link gettext("Read More"), to: Routes.volunteer_blog_blog_post_path(@conn, :show, @blog, post), class: "button float-right"
 
 

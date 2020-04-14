@@ -4,7 +4,7 @@
       = link gettext("Categories"), to: Routes.volunteer_blog_path(@conn, :index)
 
 
-h2 gettext("Create Category")
+h2 = gettext("Create Category")
 
 = render "form.html", Map.put(assigns, :action, Routes.volunteer_blog_path(@conn, :create))
 

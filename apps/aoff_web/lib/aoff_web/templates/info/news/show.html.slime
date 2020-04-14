@@ -27,7 +27,7 @@
 = if @volunteer do
   .column
     = link gettext("Edit"),\
-      to: Routes.info_news_path(@conn, :edit, @blog, @post),\
+      to: Routes.volunteer_blog_blog_post_path(@conn, :edit, @blog, @post),\
       class: "button float-right"
   / = if @volunteer do
   /   = link gettext("Delete"),\

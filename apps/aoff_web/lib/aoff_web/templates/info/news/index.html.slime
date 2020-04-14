@@ -3,12 +3,10 @@
   .alert.alert-info
     h3 = @message.title
     = raw @message.text
-    br
-    = link gettext("Edit"), to: Routes.volunteer_message_path(@conn, :edit, @message)
 
 
     = link gettext("Create news"),\
-      to: Routes.info_news_path(@conn, :new,  @news),\
+      to: Routes.volunteer_blog_blog_post_path(@conn, :new,  @news),\
       class: "button float-right"
     br/
     | &nbsp;
@@ -28,7 +26,10 @@
         i = date(post.date) <> " - " <> post.author
         h4 = post.title
         p = post.teaser
-        .float-right
-          = link gettext("Read More"),\
-            to: Routes.news_path(@conn, :show, post, %{"blog_id" => @news.title, "locale" => @news.locale}),\
-            class: "button"
+      .card-footer.is-button
+        = link gettext("Read More"),\
+          to: Routes.news_path(\
+            @conn, :show,\
+            post, %{"blog_id" => @news.title, "locale" => @news.locale}\
+          ),\
+          class: "card-footer-item is-button"

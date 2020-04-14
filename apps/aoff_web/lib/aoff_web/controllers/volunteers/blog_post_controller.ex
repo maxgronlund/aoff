@@ -23,7 +23,8 @@ defmodule AOFFWeb.Volunteer.BlogPostController do
       changeset: changeset,
       blog: blog,
       author: conn.assigns.current_user.username,
-      date: Date.utc_today()
+      date: Date.utc_today(),
+      blog_post: false
     )
   end
 
@@ -36,8 +37,8 @@ defmodule AOFFWeb.Volunteer.BlogPostController do
     case Blogs.create_post(blog_post) do
       {:ok, post} ->
         conn
-        |> put_flash(:info, gettext("Post created successfully."))
-        |> redirect(to: Routes.volunteer_blog_blog_post_path(conn, :show, blog, post))
+        |> put_flash(:info, gettext("Time to add an image"))
+        |> redirect(to: Routes.volunteer_blog_blog_post_path(conn, :edit, blog, post))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(
@@ -46,7 +47,8 @@ defmodule AOFFWeb.Volunteer.BlogPostController do
           changeset: changeset,
           blog: blog,
           author: blog_post["author"],
-          date: blog_post["date"]
+          date: blog_post["date"],
+          blog_post: false
         )
     end
   end

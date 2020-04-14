@@ -35,7 +35,7 @@ h2= date(@date.date)
         = product.price
       .card-content
         = text_to_html(product.description)
-      .card-footer.is-botton
+      .card-footer.is-button
         = if @valid_member do
           = link gettext("Add to basket"),\
             to: Routes.user_order_item_path(@conn, :create, @current_user, params: order_item_params(@current_user.id, product, @date.id)),\

@@ -25,7 +25,7 @@
             = product.price
           .card-content
             =text_to_html(product.description)
-          .card-footer.is-black.is-botton
+          .card-footer.is-black.is-button
             = link gettext("Order"),\
               to: Routes.shop_date_path(@conn, :show, @date),\
               class: "card-footer-item is-button is-black"

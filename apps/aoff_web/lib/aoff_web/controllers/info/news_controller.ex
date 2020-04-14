@@ -60,8 +60,8 @@ defmodule AOFFWeb.Info.NewsController do
     case Blogs.create_post(blog_post) do
       {:ok, post} ->
         conn
-        |> put_flash(:info, gettext("News created successfully."))
-        |> redirect(to: Routes.news_path(conn, :show, post, %{"blog_id" => blog.title, "locale" => blog.locale}))
+        |> put_flash(:info, gettext("Time to add an image."))
+        |> redirect(to:  Routes.volunteer_blog_blog_post_path(conn, :edit, blog, post))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(

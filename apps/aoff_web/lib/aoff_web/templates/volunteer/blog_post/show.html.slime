@@ -2,7 +2,9 @@
 .breadcrumb aria-label="breadcrumbs"
   ul
     li
-      = link @post.blog.title, to: Routes.info_path(@conn, :index)
+      = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+    li
+      = link @post.blog.title, to: Routes.volunteer_blog_path(@conn, :show, @post.blog)
     li.is-active
       | &nbsp;
       = @post.title
@@ -27,3 +29,7 @@ i = @post.caption
 
 / | &nbsp;
 / = link "Back", to: Routes.post_path(@conn, :index)
+/ = link gettext("Edit"), to: Routes.volunteer_blog_blog_post_path(@conn, :edit, @blog, post), class: "button button-outline"
+/ | &nbsp;
+/ = link gettext("Delete"), to: Routes.volunteer_blog_blog_post_path(@conn, :delete, @blog, post), method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red"
+/ = link gettext("Read More"), to: Routes.volunteer_blog_blog_post_path(@conn, :show, @blog, post), class: "button float-right"

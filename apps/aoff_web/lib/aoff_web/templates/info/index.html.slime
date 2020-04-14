@@ -15,7 +15,7 @@ br
       .card-content
         = blog.description
 
-      .card-footer.is-botton
+      .card-footer.is-button
         = link gettext("Read More"),\
           to: Routes.info_path(@conn, :show, blog),\
           class: "card-footer-item is-button"

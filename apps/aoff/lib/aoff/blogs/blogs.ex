@@ -108,7 +108,15 @@ defmodule AOFF.Blogs do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_blog(attrs \\ %{}) do
+  def create_blog(attrs \\ %{}, locale \\ "da") do
+    attrs =
+      attrs
+      |> Map.merge(
+        %{
+          "locale" => locale,
+          "identifier" => attrs["title"]
+        }
+      )
     %Blog{}
     |> Blog.changeset(attrs)
     |> Repo.insert()
