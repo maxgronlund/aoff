@@ -1,7 +1,7 @@
 .breadcrumb aria-label="breadcrumbs"
   ul
     li
-      = link gettext("Info"), to: Routes.info_path(@conn, :index)
+      = link gettext("About AOFF"), to: Routes.info_path(@conn, :index)
     li.is-active
       | &nbsp;
       = @blog.title

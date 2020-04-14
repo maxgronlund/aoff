@@ -18,7 +18,7 @@
     .float-right
       = link gettext("Signup"), to: "/users/new", class: "button"
       | &nbsp;
-      = link gettext("Login"), to: "/users/new", class: "button button-outline"
+      = link gettext("Login"), to: "/sessions/new", class: "button button-outline"
   br/
   | &nbsp;
 
