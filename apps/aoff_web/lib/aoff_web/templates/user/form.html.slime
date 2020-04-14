@@ -9,7 +9,7 @@
       = file_input f, :avatar, class: "form-control"
       = error_tag f, :avatar
   .form-group
-    = label f, :username, gettext("Username"), class: "control-label"
+    = label f, :username, gettext("Full name"), class: "control-label"
     = text_input f, :username, class: "form-control"
     = error_tag f, :username
 

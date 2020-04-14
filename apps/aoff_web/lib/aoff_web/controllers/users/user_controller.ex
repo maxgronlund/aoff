@@ -40,7 +40,14 @@ defmodule AOFFWeb.UserController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:ok, message } = System.find_or_create_message("/users/new", Gettext.get_locale())
-        render(conn, "new.html", changeset: changeset, email: user_params["email_confirmation"], message: message)
+        render(
+          conn,
+          "new.html",
+          changeset: changeset,
+          email: user_params["email_confirmation"],
+          message: message,
+          user: false
+        )
     end
   end
 
