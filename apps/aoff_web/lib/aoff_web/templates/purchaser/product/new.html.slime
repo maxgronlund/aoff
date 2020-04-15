@@ -1,3 +1,15 @@
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Shop"), to: Routes.shop_shop_path(@conn, :index)
+        li
+          = link gettext("Products"), to: Routes.purchaser_product_path(@conn, :index)
+        li.is-active
+          | &nbsp;
+          = gettext("New Product")
+
 h2 = gettext("New Product")
 
 = render "form.html", Map.put(assigns, :action, Routes.purchaser_product_path(@conn, :create))

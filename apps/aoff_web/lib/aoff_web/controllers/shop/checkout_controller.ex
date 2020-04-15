@@ -14,8 +14,6 @@ defmodule AOFFWeb.Shop.CheckoutController do
 
     Users.update_order(order, order_params)
 
-    update_account(order)
-
     conn
     |> put_flash(:info, gettext("Your order is processed"))
     |> redirect(to: Routes.user_order_path(conn, :show, order.user, order))
@@ -29,17 +27,5 @@ defmodule AOFFWeb.Shop.CheckoutController do
     #   {:error, %Ecto.Changeset{} = changeset} ->
     #     render(conn, "edit.html", user: order.user, order: order, changeset: changeset)
     # end
-  end
-
-  def update_account(order) do
-
-    for order_item <- order.order_items do
-      if order_item.product.membership do
-        IO.puts "======== OHEY there is a membership ======"
-        IO.inspect order.user
-      else
-        IO.puts " ===== NO membership ====="
-      end
-    end
   end
 end

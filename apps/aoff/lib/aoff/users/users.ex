@@ -153,6 +153,12 @@ defmodule AOFF.Users do
     |> Repo.update()
   end
 
+  def update_membership(%User{} = user, attrs) do
+    user
+    |> User.update_membership_changeset(attrs)
+    |> Repo.update()
+  end
+
   @doc """
   Deletes a user.
 

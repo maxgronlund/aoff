@@ -48,7 +48,7 @@
             .form-group
               = label f, :admin do
                 = checkbox f, :admin, class: "form-control"
-                = label f, :admin, gettext("Admin"), class: "control-label label-inline"
+                = label f, :admin, gettext("Administrator"), class: "control-label label-inline"
           .column
             .form-group
               = label f, :volunteer do
@@ -59,6 +59,7 @@
               = label f, :purchasing_manager do
                 = checkbox f, :purchasing_manager, class: "form-control"
                 = label f, :purchasing_manager, gettext("Purchaser"), class: "control-label label-inline"
+        .row
           .column
             .form-group
               = label f, :shop_assistant do
@@ -66,9 +67,14 @@
                 = label f, :shop_assistant, gettext("Host"),class: "control-label label-inline"
           .column
             .form-group
+              = label f, :manage_membership do
+                = checkbox f, :manage_membership, class: "form-control"
+                = label f, :manage_membership, gettext("Membership Manager"),class: "control-label label-inline"
+          .column
+            .form-group
               = label f, :text_editor do
                 = checkbox f, :text_editor, class: "form-control"
-                = label f, :text_editor, gettext("Host"),class: "control-label label-inline"
+                = label f, :text_editor, gettext("Text Author"),class: "control-label label-inline"
 
   .form-group
     .float-right

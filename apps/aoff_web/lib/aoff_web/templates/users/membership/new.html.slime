@@ -22,4 +22,4 @@
             = text_to_html(product.description)
           .card-footer.is-button
             .card-footer-item.is-button
-              = link gettext("Pay"), to: "/", class: "card-footer-item is-button"
+              = link gettext("Pay"), to: Routes.user_membership_path(@conn, :create, @current_user, %{"product_id" => product.id}), method: :post, class: "card-footer-item is-button"

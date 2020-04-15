@@ -2,8 +2,12 @@ defmodule AOFFWeb.Users.MembershipController do
   use AOFFWeb, :controller
 
   alias AOFF.Users
+  alias AOFF.Users.Order
   alias AOFF.Shop
   alias AOFF.System
+  alias AOFFWeb.Users.Auth
+  plug Auth
+  plug :authenticate when action in [:new, :create]
 
   def new(conn, %{"user_id" => user_id}) do
     conn = assign(conn, :page, :user)
@@ -28,18 +32,55 @@ defmodule AOFFWeb.Users.MembershipController do
     )
   end
 
-  def create(conn, %{"user_id" => user_id, "params" => params}) do
+  def create(conn, %{"user_id" => user_id, "product_id" => product_id}) do
     user = Users.get_user!(user_id)
+    product = Shop.get_product!(product_id)
+    {:ok, %Order{} = order} = Users.current_order(user_id)
 
-    # TODO
-    # Make it look like when a product is added to the basket
-    # but bounce direct to checkout
+    date = Shop.get_next_date(Date.utc_today())
 
-    IO.inspect product = Shop.get_product!(params["product_id"])
-    IO.inspect(params)
+    params =
+      %{
+        "date_id" => date.id,
+        "user_id" => user_id,
+        "username" => user.username,
+        "member_nr" => user.member_nr,
+        "order_id" => order.id,
+        "email" => user.email,
+        "picked_up" => true
+      }
 
+    {:ok, pick_up} = Shop.find_or_create_pick_up(params)
+
+    Users.create_order_item(
+      %{
+        "state" => "initial",
+        "order_id" => order.id,
+        "date_id" => date.id,
+        "user_id" => user.id,
+        "product_id" => product.id,
+        "pick_up_id" => pick_up.id,
+        "price" => Money.to_string(product.price)
+      }
+    )
+    expiration_date = Date.add(Date.utc_today(), 365)
+    Users.update_membership(user, %{"expiration_date" => expiration_date})
     conn
-    |> redirect(to: Routes.page_path(conn, :index))
+    |> redirect(to: Routes.shop_checkout_path(conn, :show, order))
+  end
+
+
+
+  defp authenticate(conn, _opts) do
+    if conn.assigns.current_user do
+      conn
+    else
+      conn
+      |> put_status(401)
+      |> put_view(AOFFWeb.ErrorView)
+      |> render(:"401")
+      |> halt()
+    end
   end
 end
 

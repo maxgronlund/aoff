@@ -30,7 +30,12 @@ defmodule AOFFWeb.Purchaser.ProductController do
         |> redirect(to: Routes.purchaser_product_path(conn, :edit, product))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset, amount: product_params["price"])
+        render(
+          conn,
+          "new.html",
+          changeset: changeset,
+          amount: product_params["price"],
+          product: false)
     end
   end
 

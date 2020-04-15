@@ -2,8 +2,6 @@ defmodule AOFFWeb.Purchaser.DateController do
   use AOFFWeb, :controller
 
   alias AOFF.Shop
-  # alias AOFF.Shop.Date
-  alias AOFF.Users
 
   alias AOFFWeb.Users.Auth
   plug Auth
@@ -36,7 +34,7 @@ defmodule AOFFWeb.Purchaser.DateController do
       conn
       |> put_status(401)
       |> put_view(AOFFWeb.ErrorView)
-      |> render(:"401")
+      |> render("401")
       |> halt()
     end
   end

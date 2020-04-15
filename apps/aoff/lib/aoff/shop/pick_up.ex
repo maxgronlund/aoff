@@ -34,7 +34,7 @@ defmodule AOFF.Shop.PickUp do
       :email,
       :member_nr])
     |> validate_required([
-        :picked_up,
+      :picked_up,
       :date_id,
       :user_id,
       :order_id,

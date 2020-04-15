@@ -27,11 +27,19 @@ defmodule AOFF.Users.User do
     field :text_editor, :boolean, default: false
     field :terms_accepted, :boolean, default: false
     field :registration_date, :date
+    field :manage_membership, :boolean, default: false
 
     has_many :orders, Order
     has_many :pick_ups, PickUp
 
     timestamps()
+  end
+
+  def update_membership_changeset(user, attrs) do
+    user
+    |> cast(attrs,[:expiration_date])
+    |> validate_required([:expiration_date])
+
   end
 
   @doc false
@@ -83,7 +91,8 @@ defmodule AOFF.Users.User do
       :volunteer,
       :purchasing_manager,
       :shop_assistant,
-      :text_editor
+      :text_editor,
+      :manage_membership
     ])
     |> validate_required([
       :username,
@@ -95,7 +104,8 @@ defmodule AOFF.Users.User do
       :volunteer,
       :purchasing_manager,
       :shop_assistant,
-      :text_editor
+      :text_editor,
+      :manage_membership
     ])
     |> validate_confirmation(:email)
     |> validate_format(:email, ~r/@/)
@@ -118,7 +128,8 @@ defmodule AOFF.Users.User do
       :volunteer,
       :purchasing_manager,
       :shop_assistant,
-      :text_editor
+      :text_editor,
+      :manage_membership
     ])
     |> validate_required([
       :username,
@@ -129,7 +140,8 @@ defmodule AOFF.Users.User do
       :volunteer,
       :purchasing_manager,
       :shop_assistant,
-      :text_editor
+      :text_editor,
+      :manage_membership
     ])
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)

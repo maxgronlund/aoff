@@ -4,6 +4,12 @@ defmodule AOFFWeb.ShopAssistant.DateController do
   alias AOFF.Shop
   alias AOFF.Users
 
+
+  alias AOFFWeb.Users.Auth
+  plug Auth
+  plug :authenticate when action in [:show]
+
+
   def show(conn, params) do
     conn = assign(conn, :page, :shop_assistant)
     date = Shop.get_date!(params["id"])
@@ -23,5 +29,17 @@ defmodule AOFFWeb.ShopAssistant.DateController do
       pick_ups: pick_ups
     )
 
+  end
+
+  defp authenticate(conn, _opts) do
+    if conn.assigns.shop_assistant do
+      assign(conn, :page, :shop_assistant)
+    else
+      conn
+      |> put_status(401)
+      |> put_view(AOFFWeb.ErrorView)
+      |> render(:"401")
+      |> halt()
+    end
   end
 end
