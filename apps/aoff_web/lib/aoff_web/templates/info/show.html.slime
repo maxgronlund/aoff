@@ -13,7 +13,7 @@
   .column
     = img_tag AOFF.Uploader.Image.url({@blog.image, @blog}, :original)
 hr
-.blog
+.tiles
   = for post <- @blog.blog_posts do
     .card.is-shady
       .card-image

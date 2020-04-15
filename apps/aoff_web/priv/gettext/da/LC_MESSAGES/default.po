@@ -865,7 +865,7 @@ msgstr "Rediger Kategori"
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/date/edit.html.slime:1
 msgid "Edit Opening day"
-msgstr "Redit Åbningsdag"
+msgstr "Rediger Åbningsdag"
 
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/blog/show.html.slime:7

@@ -24,6 +24,7 @@ defmodule AOFF.Users.User do
     field :volunteer, :boolean, default: false
     field :purchasing_manager, :boolean, default: false
     field :shop_assistant, :boolean, default: false
+    field :text_editor, :boolean, default: false
     field :terms_accepted, :boolean, default: false
     field :registration_date, :date
 
@@ -81,7 +82,8 @@ defmodule AOFF.Users.User do
       :admin,
       :volunteer,
       :purchasing_manager,
-      :shop_assistant
+      :shop_assistant,
+      :text_editor
     ])
     |> validate_required([
       :username,
@@ -92,7 +94,8 @@ defmodule AOFF.Users.User do
       :admin,
       :volunteer,
       :purchasing_manager,
-      :shop_assistant
+      :shop_assistant,
+      :text_editor
     ])
     |> validate_confirmation(:email)
     |> validate_format(:email, ~r/@/)
@@ -114,7 +117,8 @@ defmodule AOFF.Users.User do
       :admin,
       :volunteer,
       :purchasing_manager,
-      :shop_assistant
+      :shop_assistant,
+      :text_editor
     ])
     |> validate_required([
       :username,
@@ -124,7 +128,8 @@ defmodule AOFF.Users.User do
       :admin,
       :volunteer,
       :purchasing_manager,
-      :shop_assistant
+      :shop_assistant,
+      :text_editor
     ])
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)

@@ -1,4 +1,6 @@
-.blog {
+
+
+.tiles {
   display: grid;
   grid-template-columns: repeat(auto-fit, [col-start] minmax(282px, 1fr) [col-end]);
   grid-row-gap: 10px;
@@ -6,6 +8,10 @@
   width: 100%;
   margin: 0 auto;
   list-style: none;
+}
+
+.button-tiles {
+  grid-row-gap: 30px;
 }
 
 .card {
@@ -103,6 +109,7 @@
   position: absolute;
   bottom: 0;
   width: 100%;
+  margin-bottom: -30px;
 }
 
 .card-header-title.is-black {

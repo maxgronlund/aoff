@@ -33,6 +33,11 @@
           /    to: Routes.shop_date_path(@conn, :show, @date),\
           /    class: "card-footer-item is-button is-black"
           /  / = get_next_date(date)
+.row
+  .column
+    = link gettext("Show more products"),\
+      to: Routes.shop_date_path(@conn, :show, @date),\
+      class: "button button-xlarge button-full-width"
 
 = if @current_user == nil do
   .row
@@ -41,11 +46,7 @@
         to: "/users/new",\
         class: "button button-xlarge button-full-width"
 
-.row
-  .column
-    = link gettext("Show more products"),\
-      to: Routes.shop_date_path(@conn, :show, @date),\
-      class: "button button-xlarge button-full-width"
+
 
 
 

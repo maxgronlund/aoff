@@ -4,41 +4,42 @@
       = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
     li
       = link gettext("Categories"), to: Routes.volunteer_blog_path(@conn, :index)
+    li.is-active
+      |&nbsp;
+      = @blog.title
 
-.row
-  .column
-
-    .float-right
-      = link gettext("Edit"),\
-        to: Routes.volunteer_blog_path(@conn, :edit,  @blog),\
-        class: "button"
-      | &nbsp;
-      = link "Delete",\
-        to: Routes.volunteer_blog_path(@conn, :delete, @blog),\
-        method: :delete,\
-        data: [confirm: gettext("Are you sure?")],\
-        class: "button button-red"
 .row
   .column
     h2 = @blog.title
-
   .column
-    = img_tag(AOFF.Uploader.Image.url({@blog.image, @blog}, :original), class: "image")
-p = @blog.description
+    .float-right
+      = link gettext("Edit Category"),\
+        to: Routes.volunteer_blog_path(@conn, :edit,  @blog),\
+        class: "button"
+      | &nbsp;
+      = link "Delete Category",\
+        to: Routes.volunteer_blog_path(@conn, :delete, @blog),\
+        method: :delete,\
+        data: [confirm: gettext("Are you sure? All articles in this categotry will be gone.")],\
+        class: "button button-red"
 
 
 
-= link gettext("New Article"), to: Routes.volunteer_blog_blog_post_path(@conn, :new,  @blog), class: "button float-right"
+= link gettext("New Article"), to: Routes.volunteer_blog_blog_post_path(@conn, :new,  @blog), class: "button"
 
 
 
-.blog
+.tiles.button-tiles
   = for post <- @blog.blog_posts do
     .card.is-shady
+      .card-header
+        .card-header-title.is-centered
+          = post.title
       .card-image
         img.modal-button alt=("#{post.title}") src="#{AOFF.Uploader.Image.url({post.image, post}, :thumb)}"
+
+
       .card-content
-        h4 = post.title
         p = post.teaser
       .card-footer.is-button
         = link gettext("Edit"), to: Routes.volunteer_blog_blog_post_path(@conn, :edit, @blog, post), class: "card-footer-item is-button"

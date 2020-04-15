@@ -3,6 +3,8 @@
   .alert.alert-info
     h3 = @message.title
     = raw @message.text
+    = if @text_editor do
+      = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message)
 
 
     = link gettext("Create news"),\
@@ -16,7 +18,7 @@
     p= @news.description
 
 
-.blog
+.tiles.button-tiles
   = for post <- @blog_posts do
     .card.is-shady
       .card-image

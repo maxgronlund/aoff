@@ -2,8 +2,9 @@
   - message = host_message()
   h3 = message.title
   = raw message.text
-  = if @volunteer do
-    = link gettext("Edit"), to: Routes.volunteer_message_path(@conn, :edit, message)
+  = if @text_editor do
+    | &nbsp;
+    = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, message)
 
   br/
 

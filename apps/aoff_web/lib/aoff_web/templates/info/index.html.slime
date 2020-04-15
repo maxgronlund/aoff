@@ -1,10 +1,9 @@
 h2 = @message.title
 = raw @message.text
-= if @volunteer do
-  | &nbsp;
-  = link gettext("edit"), to: Routes.volunteer_message_path(@conn, :edit, @message)
+= if @text_editor do
+  = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message)
 br
-.blog
+.tiles.button-tiles
   = for blog <- @blogs do
     .card.is-shady
       .card-header

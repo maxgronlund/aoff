@@ -34,10 +34,10 @@
             = number_input f, :member_nr, class: "form-control"
             = error_tag f, :member_nr
     .column
-          .form-group
-            = label f, :expiration_date, gettext("Expiration date"), class: "control-label"
-            = date_select f, :expiration_date, class: "form-control"
-            = error_tag f, :expiration_date
+      .form-group
+        = label f, :expiration_date, gettext("Expiration date"), class: "control-label"
+        = date_select f, :expiration_date, class: "form-control"
+        = error_tag f, :expiration_date
   .row
     .column
       label = gettext("Roles")
@@ -64,6 +64,11 @@
               = label f, :shop_assistant do
                 = checkbox f, :shop_assistant, class: "form-control"
                 = label f, :shop_assistant, gettext("Host"),class: "control-label label-inline"
+          .column
+            .form-group
+              = label f, :text_editor do
+                = checkbox f, :text_editor, class: "form-control"
+                = label f, :text_editor, gettext("Host"),class: "control-label label-inline"
 
   .form-group
     .float-right

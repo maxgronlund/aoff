@@ -9,7 +9,7 @@
 h2= gettext("Categories")
 = link gettext("Create Category"), to: Routes.volunteer_blog_path(@conn, :new), class: "button float-right"
 
-.blog
+.tiles.button-tiles
   = for blog <- @blogs do
     .card.is-shady
       .card-header

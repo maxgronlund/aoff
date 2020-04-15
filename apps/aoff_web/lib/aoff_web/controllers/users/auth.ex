@@ -15,6 +15,7 @@ defmodule AOFFWeb.Users.Auth do
     |> assign(:volunteer, user && user.volunteer)
     |> assign(:purchaser, user && user.purchasing_manager)
     |> assign(:shop_assistant, user && user.shop_assistant)
+    |> assign(:text_editor, user && user.text_editor)
 
   end
 

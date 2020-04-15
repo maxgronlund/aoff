@@ -3,46 +3,63 @@
     .alert.alert-info
       h2= @volunteer.title
       = raw @volunteer.text
-      = link gettext("Edit"), to: Routes.volunteer_message_path(@conn, :edit, @volunteer)
-.blog
+      = if @text_editor do
+        = link gettext("Edit text"),\
+          to: Routes.volunteer_message_path(@conn, :edit, @volunteer)
+.tiles.button-tiles
   .card.is-shady
-    .card-header-title.is-centered
-      = @categories.title
+    .card-header
+      .card-header-title.is-centered
+        = @categories.title
     .card-content
-      = raw @categories.text
+      p = raw @categories.text
+      = if @text_editor do
+        = link gettext("Edit text"),\
+          to: Routes.volunteer_message_path(@conn, :edit, @categories)
     .card-footer.is-button
-      = link gettext("Show"),\
+      = link gettext("Go to"),\
         to: Routes.volunteer_blog_path(@conn, :index),\
         class: "card-footer-item is-button"
 
   .card.is-shady
-    .card-header-title.is-centered
-      = @users.title
+    .card-header
+      .card-header-title.is-centered
+        = @users.title
     .card-content
-      = raw @users.text
+      p = raw @users.text
+      = if @text_editor do
+        = link gettext("Edit text"),\
+          to: Routes.volunteer_message_path(@conn, :edit, @users)
     .card-footer.is-button
-      = link gettext("Show"),\
+      = link gettext("Go to"),\
         to: Routes.volunteer_user_path(@conn, :index),\
         class: "card-footer-item is-button"
 
   .card.is-shady
-    .card-header-title.is-centered
-      = @opening_dates.title
+    .card-header
+      .card-header-title.is-centered
+        = @opening_dates.title
     .card-content
-      = raw @opening_dates.text
+      p = raw @opening_dates.text
+      = if @text_editor do
+        = link gettext("Edit text"),\
+          to: Routes.volunteer_message_path(@conn, :edit, @opening_dates)
     .card-footer.is-button
-      = link gettext("Show"),\
+      = link gettext("Go to"),\
         to: Routes.volunteer_date_path(@conn, :index),\
         class: "card-footer-item is-button"
 
   .card.is-shady
-    .card-header-title.is-centered
-      = @messages.title
+    .card-header
+      .card-header-title.is-centered
+        = @messages.title
     .card-content
-      = raw @messages.text
+      p = raw @messages.text
+      = if @text_editor do
+        = link gettext("Edit text"),\
+          to: Routes.volunteer_message_path(@conn, :edit, @messages)
     .card-footer.is-button
-      = link gettext("Show"),\
+      = link gettext("Go to"),\
         to: Routes.volunteer_message_path(@conn, :index),\
         class: "card-footer-item is-button"
-
 
