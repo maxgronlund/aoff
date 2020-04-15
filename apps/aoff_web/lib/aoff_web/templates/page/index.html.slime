@@ -17,7 +17,7 @@
   .column
     .white-text
       h4 = gettext("Selected items from the shop")
-    .blog
+    .tiles
       = for product <- @products do
         .card.is-black
           /.card-image
