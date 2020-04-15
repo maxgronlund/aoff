@@ -1,13 +1,9 @@
 .row
   .column
-    h2= gettext("Volunteer")
-
-
-.row
-  .column
     .alert.alert-info
-      = @volunteer.title
+      h2= @volunteer.title
       = raw @volunteer.text
+      = link gettext("Edit"), to: Routes.volunteer_message_path(@conn, :edit, @volunteer)
 .blog
   .card.is-shady
     .card-header-title.is-centered

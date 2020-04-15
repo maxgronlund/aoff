@@ -85,13 +85,15 @@
   width: 100%;
 }
 
+/* --- custom --- */
+
+
+
 .card.is-black {
   color: #fff;
   background-color: hsla(180, 50%, 0%, 0.68);
+  margin-bottom: 10px;
 }
-
-
-/* --- custom --- */
 
 .card-footer.is-black {
   border-top: 1px solid #404040;

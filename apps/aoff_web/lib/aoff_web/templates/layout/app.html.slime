@@ -22,7 +22,7 @@ html lang="da" class="<%= backdrop(@conn) %>"
   body
 
     = render AOFFWeb.LayoutView, "navbar.html", assigns
-    main.container.content role="main" lang="de"
+    main.container.content role="main"
       = if @warning.show do
         .alert.alert-danger
           h4= @warning.title

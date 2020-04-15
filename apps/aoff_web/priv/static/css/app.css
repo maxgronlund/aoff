@@ -891,6 +891,7 @@ header {
 
 body {
   height: 100%;
+  /*background: #DDD;*/
 }
 
 .content {
@@ -1263,14 +1264,21 @@ label.panel-block:hover {
   margin-bottom: 0px;
 }
 
-.white-text {
-  color: #fff;
+.white-text  {
+  color: #FFF;
   background-color: hsla(180, 50%, 0%, 0.68);
   padding: 1.5rem;
   margin-bottom: 20px;
   border-radius: 4px;
 }
 
+.white-text h4 {
+  margin-bottom: 0px;
+}
+
+.white-text a {
+  color: #AAA;
+}
 
 .numberCircle {
   border-radius: 50%;
@@ -1405,13 +1413,15 @@ label.panel-block:hover {
   width: 100%;
 }
 
+/* --- custom --- */
+
+
+
 .card.is-black {
   color: #fff;
   background-color: hsla(180, 50%, 0%, 0.68);
+  margin-bottom: 10px;
 }
-
-
-/* --- custom --- */
 
 .card-footer.is-black {
   border-top: 1px solid #404040;

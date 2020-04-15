@@ -10,13 +10,16 @@
         h3 = @message.title
         .auto-columns
           = raw @message.text
+        = if @volunteer do
+          = link gettext("Edit"), to: Routes.volunteer_message_path(@conn, :edit, @message)
 
 .row
   .column
+    .white-text
+      h4 = gettext("Selected items from the shop")
     .blog
       = for product <- @products do
         .card.is-black
-
           /.card-image
           /  img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({/product.image, product}, :thumb)}"
           .card-header-title.is-black.is-centered
@@ -24,12 +27,12 @@
             | &nbsp;
             = product.price
           .card-content
-            =text_to_html(product.description)
-          .card-footer.is-black.is-button
-            = link gettext("Order"),\
-              to: Routes.shop_date_path(@conn, :show, @date),\
-              class: "card-footer-item is-button is-black"
-            / = get_next_date(date)
+            = text_to_html(product.description)
+          /.card-footer.is-black.is-button
+          /  = link gettext("Shop"),\
+          /    to: Routes.shop_date_path(@conn, :show, @date),\
+          /    class: "card-footer-item is-button is-black"
+          /  / = get_next_date(date)
 
 = if @current_user == nil do
   .row

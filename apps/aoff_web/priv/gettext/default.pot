@@ -65,7 +65,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/templates/layout/navbar.html.slime:1
-#: lib/aoff_web/templates/layout/navbar.html.slime:1 lib/aoff_web/templates/page/index.html.slime:3
+#: lib/aoff_web/templates/layout/navbar.html.slime:1 lib/aoff_web/templates/page/index.html.slime:1
 msgid "Become member"
 msgstr ""
 
@@ -932,11 +932,6 @@ msgid "Image caption"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/page/index.html.slime:1
-msgid "Order"
-msgstr ""
-
-#, elixir-format
 #: lib/aoff_web/controllers/info/news_controller.ex:63
 #: lib/aoff_web/controllers/info/news_controller.ex:63 lib/aoff_web/controllers/volunteers/blog_controller.ex:26
 #: lib/aoff_web/controllers/volunteers/blog_controller.ex:26 lib/aoff_web/controllers/volunteers/blog_post_controller.ex:40
@@ -945,7 +940,7 @@ msgid "Please update the default image."
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/page/index.html.slime:5
+#: lib/aoff_web/templates/page/index.html.slime:3
 msgid "Show more products"
 msgstr ""
 
@@ -962,4 +957,9 @@ msgstr ""
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/blog/index.html.slime:1
 msgid "identifier: %{identifier}"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/page/index.html.slime:1
+msgid "Selected items from the shop"
 msgstr ""
