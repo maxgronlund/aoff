@@ -3,7 +3,7 @@
     .breadcrumb aria-label="breadcrumbs"
       ul
         li
-          = link gettext("Pick up dates"), to: Routes.shop_shop_path(@conn, :index)
+          = link gettext("Shop"), to: Routes.shop_shop_path(@conn, :index)
         li.is-active
           | &nbsp;
           = date(@date.date)
@@ -24,7 +24,7 @@ h2= date(@date.date)
     .column
       = render "shopping_list.html", assigns
 
-.blog
+.tiles.button-tiles
   = for product <- @products do
     .card.is-shady
       .card-image

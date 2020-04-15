@@ -184,7 +184,7 @@ defmodule AOFF.Shop do
     query =
       from p in Product,
         order_by: [asc: p.name],
-        where: p.deleted==false
+        where: p.deleted==false and p.membership==false
 
     Repo.all(query)
   end
@@ -202,7 +202,7 @@ defmodule AOFF.Shop do
     query =
       from p in Product,
         order_by: [asc: p.name],
-        where: p.for_sale == true and p.deleted==false
+        where: p.for_sale == true and p.deleted==false and p.membership==false
 
     Repo.all(query)
   end
@@ -248,18 +248,29 @@ defmodule AOFF.Shop do
   end
 
 
-
   def get_memberships() do
     query =
       from p in Product,
-        where: p.membership == true
+      where: p.membership==true and p.deleted==false
+    result = Repo.all(query)
 
-    Repo.all(query)
+    cond do
+      result==[] ->
+        {:ok, product} =
+          create_product(
+            %{
+              "name" => "Membership",
+              "membership" => true,
+              "price" => Money.new(100*100, :DKK),
+              "description" => "One year of membership"
+            }
+          )
+        [product]
+      true -> result
+    end
   end
 
-  @doc """
-  Creates a product.
-
+  """
   ## Examples
 
       iex> create_product(%{field: value})

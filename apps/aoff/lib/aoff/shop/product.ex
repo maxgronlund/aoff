@@ -43,8 +43,7 @@ defmodule AOFF.Shop.Product do
       :price,
       :for_sale,
       :membership,
-      :show_on_landing_page,
-      :this_weeks_content]
+      :show_on_landing_page]
     )
   end
 

@@ -1,9 +1,15 @@
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Products"), to: Routes.purchaser_product_path(@conn, :index)
+
 h2 = gettext("Products")
 = link gettext("New Product"), to: Routes.purchaser_product_path(@conn, :new), class: "button"
-.blog
+.tiles.button-tiles
   = for product <- @products do
     .card.is-shady
-
       .card-image
         img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({product.image, product}, :thumb)}"
       .card-header-title.is-centered
@@ -15,12 +21,13 @@ h2 = gettext("Products")
         = for_sale(product.for_sale)
 
         = text_to_html(product.description)
-        .float-right
-          = link gettext("Show"), to: Routes.purchaser_product_path(@conn, :show, product), class: "button button-small button-outline"
-          | &nbsp;
-          = link gettext("Edit"), to: Routes.purchaser_product_path(@conn, :edit, product), class: "button button-small button-outline"
-          | &nbsp;
-          = link gettext("Delete"), to: Routes.purchaser_product_path(@conn, :delete, product), method: :delete, data: [confirm: "Are you sure?"], class: "button button-small button-red"
+
+      .card-footer.is-button
+        = link gettext("Edit"), to: Routes.purchaser_product_path(@conn, :edit, product), class: "card-footer-item is-button"
+        | &nbsp;
+        / = link gettext("Edit"), to: Routes.purchaser_product_path(@conn, :edit, product), class: "button button-small button-outline"
+        / | &nbsp;
+        / = link gettext("Delete"), to: Routes.purchaser_product_path(@conn, :delete, product), method: :delete, data: [confirm: "Are you sure?"], class: "button button-small button-red"
 
 
 
