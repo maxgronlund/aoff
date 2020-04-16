@@ -945,10 +945,9 @@ select {
  }
 
 .button.button-outline, button.button-outline, input[type='button'].button-outline, input[type='reset'].button-outline, input[type='submit'].button-outline {
-  background-color: transparent;
+  background-color: #FFF;
   color: #007A4B;
 }
-
 
 /* Custom color */
 .button-black {
@@ -1388,7 +1387,6 @@ label.panel-block:hover {
 
 .card-footer {
   background-color: transparent;
-  border-top: 1px solid #dbdbdb;
   align-items: stretch;
   display: flex;
 }

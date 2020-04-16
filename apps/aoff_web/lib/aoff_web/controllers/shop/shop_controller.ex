@@ -6,7 +6,7 @@ defmodule AOFFWeb.Shop.ShopController do
 
   def index(conn, _params) do
     conn = assign(conn, :page, :shop)
-    dates = Shop.list_dates(Date.utc_today(), 0, 6)
+    dates = Shop.list_dates(Date.utc_today(), 0, 4)
 
     unless conn.assigns.valid_member do
       {:ok, expired_message } =

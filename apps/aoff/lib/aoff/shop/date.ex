@@ -10,6 +10,7 @@ defmodule AOFF.Shop.Date do
   @foreign_key_type :binary_id
   schema "dates" do
     field :date, :date
+    field :last_order_date, :date
     field :image, Image.Type
     field :open, :boolean, default: true
     field :shop_assistant_a, :binary
@@ -26,6 +27,7 @@ defmodule AOFF.Shop.Date do
     date
     |> cast(attrs, [
       :date,
+      :last_order_date,
       :open,
       :shop_assistant_a,
       :shop_assistant_b,
@@ -33,7 +35,7 @@ defmodule AOFF.Shop.Date do
       :shop_assistant_d
     ])
     |> validate_required([
-      :date
+      :date, :last_order_date
     ])
     |> unique_constraint(:date)
     |> cast_attachments(attrs, [:image])
@@ -47,6 +49,7 @@ defmodule AOFF.Shop.Date do
             if Date.compare(date, Date.utc_today()) == :gt do
               AOFF.Shop.create_date(%{
                 "date" => date,
+                "last_order_date" => Date.add(date, -4),
                 "open" => true
               })
             end

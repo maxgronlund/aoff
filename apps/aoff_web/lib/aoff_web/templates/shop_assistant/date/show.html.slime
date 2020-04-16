@@ -3,7 +3,7 @@
     .breadcrumb aria-label="breadcrumbs"
       ul
         li
-          = link gettext("Pick up dates"), to: Routes.shop_shop_path(@conn, :index)
+          = link gettext("Shop"), to: Routes.shop_shop_path(@conn, :index)
         li
           = link date(@date.date), to: Routes.shop_date_path(@conn, :show, @date)
         li.is-active
@@ -34,8 +34,9 @@
          gettext("Edit hosts"),\
          to: Routes.volunteer_date_path(@conn, :edit, @date),\
          class: "button float-right"
-hr
-h3 = gettext("Pickup list: %{date}", date: @date.date)
+.row
+  .column
+    h3 = gettext("Pickup list: %{date}", date: @date.date)
 .row
   .column
     = form_for @conn, Routes.shop_assistant_date_path(@conn, :show, @date), [method: :get], fn f ->

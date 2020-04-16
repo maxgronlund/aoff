@@ -1,10 +1,10 @@
-= if @page && @page > 1 do
+= if @page && @page > 0 do
   = link gettext("< Prev"),\
     to: Routes.volunteer_date_path(@conn, :index, page: Integer.to_string(@page - 1)),\
-    class: "button button-small button-outline"
+    class: "button button-outline"
   | &nbsp;
 
 = if @page && @page < @pages do
   = link gettext("Next >"),\
     to: Routes.volunteer_date_path(@conn, :index, page: Integer.to_string(@page + 1)),\
-    class: "button button-small button-outline"
+    class: "button button-outline"

@@ -56,10 +56,9 @@ select {
  }
 
 .button.button-outline, button.button-outline, input[type='button'].button-outline, input[type='reset'].button-outline, input[type='submit'].button-outline {
-  background-color: transparent;
+  background-color: #FFF;
   color: #007A4B;
 }
-
 
 /* Custom color */
 .button-black {

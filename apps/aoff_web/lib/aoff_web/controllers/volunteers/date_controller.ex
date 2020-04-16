@@ -12,9 +12,7 @@ defmodule AOFFWeb.Volunteer.DateController do
 
   def index(conn, params) do
 
-    Shop.secure_dates()
-
-
+    # Shop.secure_dates()
     page =
       if params["query"] do
         false
@@ -40,18 +38,30 @@ defmodule AOFFWeb.Volunteer.DateController do
 
   def new(conn, _params) do
     changeset = Shop.change_date(%AOFF.Shop.Date{})
-    render(conn, "new.html", changeset: changeset, users: shop_assistans())
+    render(
+      conn,
+      "new.html",
+      changeset: changeset,
+      users: shop_assistans(),
+      date: false
+    )
   end
 
   def create(conn, %{"date" => date_params}) do
     case Shop.create_date(date_params) do
       {:ok, date} ->
         conn
-        |> put_flash(:info, "Date created successfully.")
-        |> redirect(to: Routes.volunteer_date_path(conn, :show, date))
+        |> put_flash(:info, gettext("Please add an image"))
+        |> redirect(to: Routes.volunteer_date_path(conn, :edit, date))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset, users: shop_assistans())
+        render(
+          conn,
+          "new.html",
+          changeset: changeset,
+          users: shop_assistans(),
+          date: false
+        )
     end
   end
 

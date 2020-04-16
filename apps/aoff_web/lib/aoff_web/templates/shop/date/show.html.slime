@@ -8,8 +8,6 @@
           | &nbsp;
           = date(@date.date)
 
-h2= date(@date.date)
-
 
 = unless @valid_member do
   .row
@@ -23,7 +21,12 @@ h2= date(@date.date)
   .row
     .column
       = render "shopping_list.html", assigns
-
+= if @date.open do
+  h2= date(@date.date)
+- else
+  .alert.alert-danger
+    h2
+      = gettext("%{date} - closed", date: date(@date.date))
 .tiles.button-tiles
   = for product <- @products do
     .card.is-shady
@@ -36,12 +39,13 @@ h2= date(@date.date)
       .card-content
         = text_to_html(product.description)
       .card-footer.is-button
-        = if @valid_member do
+        = if @valid_member && @date.open do
           = link gettext("Add to basket"),\
             to: Routes.user_order_item_path(@conn, :create, @current_user, params: order_item_params(@current_user.id, product, @date.id)),\
             method: "POST",\
             class: "card-footer-item is-button"
         - else
           .card-footer-item.is-button
+
 
 

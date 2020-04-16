@@ -20,7 +20,7 @@ h2= gettext("Schedules")
 /   = link "Seed dates", to: Routes.shop_date_path(@conn, :index), class: "button"
 
 
-.blog
+.tiles.tiles-button
   = for date <- @dates do
     = link to: Routes.volunteer_date_path(@conn, :edit, date) do
       .card.is-shady
