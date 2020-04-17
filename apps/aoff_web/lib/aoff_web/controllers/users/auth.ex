@@ -23,6 +23,9 @@ defmodule AOFFWeb.Users.Auth do
   end
 
   def login(conn, user) do
+    if Users.current_order(user.id) == nil do
+      Users.create_order(%{"user_id" => user.id})
+    end
     conn
     |> assign(:current_user, user)
     |> put_session(:user_id, user.id)

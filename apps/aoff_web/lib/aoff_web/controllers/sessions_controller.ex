@@ -12,9 +12,7 @@ defmodule AOFFWeb.SessionController do
     case AOFFWeb.Users.Auth.login_by_email_and_pass(conn, email, pass) do
       {:ok, conn} ->
         user = conn.assigns[:current_user]
-        if Users.current_order(user.id) == nil do
-          Users.create_order(%{"user_id" => user.id})
-        end
+
         conn
         |> put_flash(
           :info,

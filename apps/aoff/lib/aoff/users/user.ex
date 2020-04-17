@@ -54,6 +54,7 @@ defmodule AOFF.Users.User do
     |> cast(attrs, [:password, :password_reset_token])
     |> validate_required([:password])
     |> validate_length(:password, min: 6, max: 100)
+    |> validate_confirmation(:password)
     |> put_pass_hash()
   end
 

@@ -16,8 +16,6 @@ defmodule AOFFWeb.Users.OrderItemController do
 
     user = Users.get_user!(params["user_id"])
 
-    IO.inspect Users.current_order(params["user_id"])
-
     order = Users.current_order(params["user_id"])
     {price, _} = params["price"] |> Float.parse()
 
