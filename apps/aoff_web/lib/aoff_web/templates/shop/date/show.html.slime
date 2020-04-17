@@ -52,7 +52,7 @@
 = if @order_items_count > 0 do
   .row.mt-1
     .column
-      = link gettext("Go to basker"),\
+      = link gettext("Show basker"),\
         to: Routes.user_order_path(@conn, :show, @current_user, @current_order),\
         class: "button button-xlarge button-full-width"
 

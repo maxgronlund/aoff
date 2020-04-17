@@ -972,7 +972,7 @@ msgstr "Denne besked kan vises på alle sider"
 msgid "- %{nr} pieces"
 msgstr "stk. %{nr}"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:1
 msgid "Admin √"
 msgstr "Administration"
@@ -987,7 +987,7 @@ msgstr "Administrator"
 msgid "Back to the shop"
 msgstr "Tilbage til butikken"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/purchaser/product/edit.html.slime:1
 #: lib/aoff_web/templates/purchaser/product/edit.html.slime:1
 msgid "Edit Product"
@@ -998,18 +998,12 @@ msgstr "Rediger Indlæg"
 msgid "Enter new password"
 msgstr "Skriv nyt password"
 
-#, elixir-format, fuzzy
-#: lib/aoff_web/templates/shop/date/show.html.slime:4
-#: lib/aoff_web/templates/shop/date/show.html.slime:4
-msgid "Go to basker"
-msgstr "Gå til"
-
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:1
 msgid "Host √"
 msgstr "Vært 1"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/purchaser/product/form.html.slime:1
 msgid "Is a membership"
 msgstr "Betal for medlemskab"
@@ -1019,17 +1013,17 @@ msgstr "Betal for medlemskab"
 msgid "Last order date"
 msgstr "Sidste dag man kan bestille"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:1
 msgid "Manage membership √"
 msgstr "Opret medlemsskab"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
 msgid "Member Nr. %{nr}"
 msgstr "Medlems Nr."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/admin/user/form.html.slime:1
 msgid "Membership Manager"
 msgstr "Opret medlemsskab"
@@ -1039,28 +1033,28 @@ msgstr "Opret medlemsskab"
 msgid "Notes for the shop host"
 msgstr "Noter til butiks værterne"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
 msgid "Order Nr. %{nr}"
 msgstr "Ordre Nr."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/volunteer/date/form.html.slime:1
 msgid "Pick up date"
 msgstr "Afhentningsdatoer"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/controllers/volunteers/date_controller.ex:54
 #: lib/aoff_web/controllers/volunteers/date_controller.ex:54
 msgid "Please add an image"
 msgstr "Upload venligst et billed"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/controllers/purchaser/product_note_controller.ex:42
 msgid "Product is updated"
 msgstr "Varer"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:1
 msgid "Purchaser √"
 msgstr "Indkøber"
@@ -1070,18 +1064,18 @@ msgstr "Indkøber"
 msgid "Select"
 msgstr "Vælg"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/purchaser/date/show.html.slime:1
 #: lib/aoff_web/templates/purchaser/date/show.html.slime:1
 msgid "Shopping List"
 msgstr "Bestillings lister"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/admin/user/form.html.slime:1
 msgid "Text Author"
 msgstr "Redaktør"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:1
 msgid "Text editor √"
 msgstr "Redaktør"
@@ -1092,12 +1086,18 @@ msgstr "Redaktør"
 msgid "This weeks content"
 msgstr "Denne uges indhol"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
 msgid "User"
 msgstr "Brugernavn"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:1
 msgid "Volunteer √"
 msgstr "Frivillig"
+
+#, elixir-format
+#: lib/aoff_web/templates/shop/date/show.html.slime:4
+#: lib/aoff_web/templates/shop/date/show.html.slime:4
+msgid "Show basker"
+msgstr "Vis kurv"

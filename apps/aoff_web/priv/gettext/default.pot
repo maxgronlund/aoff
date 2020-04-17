@@ -998,12 +998,6 @@ msgid "Enter new password"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/shop/date/show.html.slime:4
-#: lib/aoff_web/templates/shop/date/show.html.slime:4
-msgid "Go to basker"
-msgstr ""
-
-#, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:1
 msgid "Host √"
 msgstr ""
@@ -1099,4 +1093,10 @@ msgstr ""
 #, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:1
 msgid "Volunteer √"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/shop/date/show.html.slime:4
+#: lib/aoff_web/templates/shop/date/show.html.slime:4
+msgid "Show basker"
 msgstr ""

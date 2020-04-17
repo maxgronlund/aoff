@@ -972,7 +972,7 @@ msgstr ""
 msgid "- %{nr} pieces"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:1
 msgid "Admin √"
 msgstr ""
@@ -987,7 +987,7 @@ msgstr ""
 msgid "Back to the shop"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/purchaser/product/edit.html.slime:1
 #: lib/aoff_web/templates/purchaser/product/edit.html.slime:1
 msgid "Edit Product"
@@ -998,18 +998,12 @@ msgstr ""
 msgid "Enter new password"
 msgstr ""
 
-#, elixir-format, fuzzy
-#: lib/aoff_web/templates/shop/date/show.html.slime:4
-#: lib/aoff_web/templates/shop/date/show.html.slime:4
-msgid "Go to basker"
-msgstr ""
-
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:1
 msgid "Host √"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/purchaser/product/form.html.slime:1
 msgid "Is a membership"
 msgstr ""
@@ -1019,17 +1013,17 @@ msgstr ""
 msgid "Last order date"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:1
 msgid "Manage membership √"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
 msgid "Member Nr. %{nr}"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/admin/user/form.html.slime:1
 msgid "Membership Manager"
 msgstr ""
@@ -1039,28 +1033,28 @@ msgstr ""
 msgid "Notes for the shop host"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
 msgid "Order Nr. %{nr}"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/volunteer/date/form.html.slime:1
 msgid "Pick up date"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/controllers/volunteers/date_controller.ex:54
 #: lib/aoff_web/controllers/volunteers/date_controller.ex:54
 msgid "Please add an image"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/controllers/purchaser/product_note_controller.ex:42
 msgid "Product is updated"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:1
 msgid "Purchaser √"
 msgstr ""
@@ -1070,18 +1064,18 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/purchaser/date/show.html.slime:1
 #: lib/aoff_web/templates/purchaser/date/show.html.slime:1
 msgid "Shopping List"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/admin/user/form.html.slime:1
 msgid "Text Author"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:1
 msgid "Text editor √"
 msgstr ""
@@ -1092,12 +1086,18 @@ msgstr ""
 msgid "This weeks content"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
 msgid "User"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:1
 msgid "Volunteer √"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/shop/date/show.html.slime:4
+#: lib/aoff_web/templates/shop/date/show.html.slime:4
+msgid "Show basker"
 msgstr ""

@@ -1,3 +1,4 @@
+h2 = @user.username
 .alert.alert-success
   .row
     .column
@@ -5,7 +6,7 @@
         = img_tag AOFF.Uploader.Image.url({@user.avatar, @user}, :avatar)
         br
 
-      h2 = @user.username
+
       = gettext("Email: %{email}", email: @user.email)
       br/
       = gettext("Mobile: %{mobile}", mobile: @user.mobile)
