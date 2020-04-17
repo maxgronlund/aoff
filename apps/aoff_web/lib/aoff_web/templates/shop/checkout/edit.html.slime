@@ -1,0 +1,11 @@
+.row
+  .column
+    .alert.alert-danger
+      h2 = @message.title
+      = raw @message.text
+      = if @text_editor do
+        | &nbsp;
+      = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message)
+
+= render "form.html",\
+  Map.put(assigns, :action, Routes.shop_checkout_path(@conn, :update, @order))

@@ -7,8 +7,6 @@
 
   .column
     .float-right
-      = gettext("Order Nr: %{order_nr}", order_nr: @order.order_nr)
-      br/
       strong = @order.user.username
 
 = if Enum.empty?(@order.order_items) do
@@ -46,5 +44,5 @@
 
 
   = if open?(@order.state) do
-    = link gettext("Checkout"), to: Routes.shop_checkout_path(@conn, :show, @order), class: "button button-large float-right"
+    = link gettext("Checkout"), to: Routes.shop_checkout_path(@conn, :edit, @order), class: "button button-large float-right"
 

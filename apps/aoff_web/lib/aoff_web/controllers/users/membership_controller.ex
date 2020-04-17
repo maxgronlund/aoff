@@ -32,6 +32,7 @@ defmodule AOFFWeb.Users.MembershipController do
     )
   end
 
+
   def create(conn, %{"user_id" => user_id, "product_id" => product_id}) do
     user = Users.get_user!(user_id)
     product = Shop.get_product!(product_id)
@@ -39,18 +40,6 @@ defmodule AOFFWeb.Users.MembershipController do
 
     date = Shop.get_next_date(Date.utc_today())
 
-    params =
-      %{
-        "date_id" => date.id,
-        "user_id" => user_id,
-        "username" => user.username,
-        "member_nr" => user.member_nr,
-        "order_id" => order.id,
-        "email" => user.email,
-        "picked_up" => true
-      }
-
-    {:ok, pick_up} = Shop.find_or_create_pick_up(params)
 
     Users.create_order_item(
       %{
@@ -59,12 +48,10 @@ defmodule AOFFWeb.Users.MembershipController do
         "date_id" => date.id,
         "user_id" => user.id,
         "product_id" => product.id,
-        "pick_up_id" => pick_up.id,
         "price" => Money.to_string(product.price)
       }
     )
-    expiration_date = Date.add(Date.utc_today(), 365)
-    Users.update_membership(user, %{"expiration_date" => expiration_date})
+
     conn
     |> redirect(to: Routes.shop_checkout_path(conn, :show, order))
   end

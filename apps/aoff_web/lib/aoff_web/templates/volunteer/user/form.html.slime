@@ -5,45 +5,51 @@
 
   .row
     .column
-      .form-group
-        = label f, :username, gettext("Username"), class: "control-label"
-        = text_input f, :username, class: "form-control"
-        = error_tag f, :username
+      .alert.alert-box
+        .form-group
+          = label f, :username, gettext("Username"), class: "control-label"
+          = text_input f, :username, class: "form-control"
+          = error_tag f, :username
 
-      .form-group
-        = label f, :email, gettext("Email"), class: "control-label"
-        = email_input f, :email, class: "form-control"
-        = error_tag f, :email
-      .form-group
-        = label f, :email_confirmation, gettext("Email confirmation"), class: "control-label"
-        = email_input f, :email_confirmation, class: "form-control", value: @email
-        = error_tag f, :email_confirmation
-      .form-group
-        = label f, :mobile, gettext("Mobile"), class: "control-label"
-        = telephone_input f, :mobile, class: "form-control"
-        = error_tag f, :mobile
-      .row
-        .column
-          .form-group
-            = label f, :password, gettext("Password"), class: "control-label"
-            = password_input f, :password, class: "form-control"
-            = error_tag f, :password
-        .column
-          .form-group
-            = label f, :member_nr, gettext("Member Nr."), class: "control-label"
-            = number_input f, :member_nr, class: "form-control"
-            = error_tag f, :member_nr
-    .column
-          .form-group
-            = label f, :expiration_date, gettext("Expiration date"), class: "control-label"
-            = date_select f, :expiration_date, class: "form-control"
-            = error_tag f, :expiration_date
+        .form-group
+          = label f, :member_nr, gettext("Member Nr."), class: "control-label"
+          = number_input f, :member_nr, class: "form-control"
+          = error_tag f, :member_nr
+        .form-group
+          = label f, :mobile, gettext("Mobile"), class: "control-label"
+          = telephone_input f, :mobile, class: "form-control"
+          = error_tag f, :mobile
+
+
 
   .row
     .column
-      label = gettext("Roles")
+      .alert.alert-box
+        .form-group
+          = label f, :email, gettext("Email"), class: "control-label"
+          = email_input f, :email, class: "form-control"
+          = error_tag f, :email
+        .form-group
+          = label f, :email_confirmation, gettext("Email confirmation"), class: "control-label"
+          = email_input f, :email_confirmation, class: "form-control", value: @email
+          = error_tag f, :email_confirmation
 
-      .alert.alert-info
+
+        .form-group
+          = label f, :password, gettext("Password"), class: "control-label"
+          = password_input f, :password, class: "form-control"
+          = error_tag f, :password
+    .column
+      .alert.alert-box
+        .form-group
+          = label f, :expiration_date, gettext("Expiration date"), class: "control-label"
+          = date_select f, :expiration_date, class: "form-control"
+          = error_tag f, :expiration_date
+
+  .row
+    .column
+      .alert.alert-box
+        label = gettext("Roles")
         .row
           .column
             .form-group
@@ -65,6 +71,7 @@
               = label f, :text_editor do
                 = checkbox f, :text_editor, class: "form-control"
                 = label f, :text_editor, gettext("Text editor"),class: "control-label label-inline"
+
 
   .form-group
     .float-right

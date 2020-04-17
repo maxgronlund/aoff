@@ -11,7 +11,6 @@ defmodule AOFF.Users.OrderItem do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "order_items" do
-    field :state, :string, default: "initial"
     field :price, Money.Ecto.Amount.Type
     belongs_to :order, Order
     belongs_to :date, Date
@@ -26,7 +25,6 @@ defmodule AOFF.Users.OrderItem do
   def changeset(order_item, attrs) do
     order_item
     |> cast(attrs, [
-      :state,
       :order_id,
       :date_id,
       :user_id,
@@ -35,8 +33,6 @@ defmodule AOFF.Users.OrderItem do
       :price
     ])
     |> validate_required([
-      :state,
-      :order_id,
       :date_id,
       :user_id,
       :product_id,

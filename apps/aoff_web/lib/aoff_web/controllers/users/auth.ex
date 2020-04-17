@@ -17,6 +17,8 @@ defmodule AOFFWeb.Users.Auth do
     |> assign(:shop_assistant, user && user.shop_assistant)
     |> assign(:text_editor, user && user.text_editor)
     |> assign(:manage_membership, user && user.manage_membership)
+    |> assign(:current_order, user && Users.current_order(user_id))
+    |> assign(:order_items_count, user && Users.order_items_count(user_id))
 
   end
 

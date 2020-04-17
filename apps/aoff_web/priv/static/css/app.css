@@ -1030,6 +1030,16 @@ select {
   background-color: #f2dede;
   border-color: #ebccd1;
 }
+.alert-success {
+  color: #284a26;
+  background-color: #eaffe9;
+  border-color: #cfebcc;
+}
+.alert-box {
+    color: #929292;
+    background-color: #ffffff;
+    border-color: #c2c2c2;
+}
 .alert p {
   margin-bottom: 0;
 }

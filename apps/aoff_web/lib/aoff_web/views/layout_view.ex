@@ -38,12 +38,4 @@ defmodule AOFFWeb.LayoutView do
         ""
     end
   end
-
-  alias AOFF.Users
-  alias AOFF.Users.Order
-
-  def current_order(user_id) do
-    {:ok, %Order{} = order} = Users.current_order(user_id)
-    order
-  end
 end

@@ -1,0 +1,44 @@
+= form_for @changeset, @action, fn f ->
+
+  = if @changeset.action do
+    .alert.alert-danger
+      p = gettext("Oops, something went wrong! Please check the errors below.")
+
+  .alert.alert-box
+    .row
+      .column
+        h4 = @this_weeks_content_message.title
+        = raw @this_weeks_content_message.text
+          = if @text_editor do
+            | &nbsp;
+            = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @this_weeks_content_message)
+
+      .column
+        .form-group
+          /= label f,\
+          /  :this_weeks_content,\
+          /  gettext("This weeks content"),\
+          /  class: "control-label"
+          = textarea f, :this_weeks_content, style: "height: 300px;" , class: "form-control"
+          = error_tag f, :this_weeks_content
+  .alert.alert-box
+    .row
+      .column
+        h4 = @notes_for_the_hosts.title
+        = raw @notes_for_the_hosts.text
+          = if @text_editor do
+            | &nbsp;
+            = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @notes_for_the_hosts)
+      .column
+        .form-group
+          = label f, :notes, gettext("Notes for the shop host"), class: "control-label"
+          = textarea f, :notes, style: "height: 300px;" , class: "form-control"
+          = error_tag f, :notes
+
+  .row
+    .column
+      .float-right
+        .form-group
+          = link gettext("Cancel"), to: Routes.purchaser_date_path(@conn, :show, @date), class: "button button-outline"
+          | &nbsp;
+          = submit gettext("Save"), class: "btn btn-primary"

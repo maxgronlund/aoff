@@ -8,7 +8,7 @@
           = link gettext("Schedules"), to: Routes.volunteer_date_path(@conn, :index)
         li.is-active
           | &nbsp;
-          = gettext("Edit Opening day")
+          = gettext("Edit")
 
 h2 = gettext("Edit Opening day")
 = render "form.html", Map.put(assigns, :action, Routes.volunteer_date_path(@conn, :update, @date))

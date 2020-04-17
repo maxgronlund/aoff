@@ -4,7 +4,6 @@
       p = gettext("Oops, something went wrong! Please check the errors below.")
   .row
     .column
-      h4= gettext("Date")
       = if @date do
         .alert.alert-warning
           .row

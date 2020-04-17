@@ -1,4 +1,4 @@
-.alert.alert-info
+.alert.alert-success
   - message = host_message()
   h3 = message.title
   = raw message.text

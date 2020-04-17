@@ -1,4 +1,3 @@
-
 = unless @valid_member do
   .row
     .column

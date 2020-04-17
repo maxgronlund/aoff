@@ -3,7 +3,10 @@
     .alert.alert-danger
       p = gettext("Oops, something went wrong! Please check the errors below.")
 
-  = hidden_input f, :state, value: "closed"
 
 
-  = submit gettext("Save"), class: "button"
+  .row
+    .column
+    .column
+      = submit gettext("Pay"), class: "button button-xlarge button-full-width"
+    .column

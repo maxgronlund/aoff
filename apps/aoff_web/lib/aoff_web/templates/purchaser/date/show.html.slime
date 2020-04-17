@@ -13,22 +13,48 @@
 
 h2 = gettext("Shopping list: %{date}", date: date(@date.date))
 
-.row
-  .column
-    table
-      thead
-        tr
-          th = gettext("Product")
-          th
-            .float-right
-              = gettext("Amount")
-      tbody
-        = for product <- @products do
-          - {%AOFF.Shop.Product{} = product, nr} = product
-            tr
-              td
-                = link product.name, to: Routes.purchaser_product_path(@conn, :show, product)
-              td
-                .float-right
-                  strong = nr
-  .column
+.tiles.button-tiles
+  = for product <- @products do
+
+    .card.is-shady
+      - {%AOFF.Shop.Product{} = product, nr} = product
+
+      /.card-header-title.is-centered
+
+      .card-content
+        h4
+          = product.name
+          | &nbsp;
+          = gettext("- %{nr} pieces", nr: nr)
+
+        = link gettext("Edit"),\
+          to: Routes.purchaser_date_product_note_path(@conn, :edit, @date, product),\
+          class: "button button-outline float-right"
+        br
+        i= gettext("This weeks content")
+
+        hr
+        = text_to_html(product.this_weeks_content)
+
+
+
+
+/ .row
+/   .column
+/     table
+/       thead
+/         tr
+/           th = gettext("Product")
+/           th
+/             .float-right
+/               = gettext("Amount")
+/       tbody
+/         = for product <- @products do
+/           - {%AOFF.Shop.Product{} = product, nr} = product
+/             tr
+/               td
+/                 = link product.name, to: Routes.purchaser_product_path(@conn, :show, product)
+/               td
+/                 .float-right
+/                   strong = nr
+/   .column

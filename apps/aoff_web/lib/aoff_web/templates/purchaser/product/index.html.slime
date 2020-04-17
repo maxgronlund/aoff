@@ -10,7 +10,7 @@
 
 h2 = gettext("Products")
 = link gettext("New Product"), to: Routes.purchaser_product_path(@conn, :new), class: "button"
-.tiles.button-tiles
+.tiles
   = for product <- @products do
     .card.is-shady
       .card-image
@@ -22,12 +22,27 @@ h2 = gettext("Products")
 
       .card-content
         = for_sale(product.for_sale)
-
-        = text_to_html(product.description)
-
-      .card-footer.is-button
-        = link gettext("Edit"), to: Routes.purchaser_product_path(@conn, :edit, product), class: "card-footer-item is-button"
+        .float-right
+          = link gettext("Delete"),\
+            to: Routes.purchaser_product_path(@conn, :delete, product),\
+            method: :delete,\
+            data: [confirm: "Are you sure?"], class: "button button-small  button-red"
+          | &nbsp;
+          = link gettext("Edit"),\
+            to: Routes.purchaser_product_path(@conn, :edit, product),\
+            class: "button button-small"
+        br/
         | &nbsp;
+        hr
+
+        b= gettext("Description")
+        = text_to_html(product.description)
+        hr
+        b= gettext("This weeks content")
+        br
+        = text_to_html(product.this_weeks_content)
+
+
         / = link gettext("Edit"), to: Routes.purchaser_product_path(@conn, :edit, product), class: "button button-small button-outline"
         / | &nbsp;
         / = link gettext("Delete"), to: Routes.purchaser_product_path(@conn, :delete, product), method: :delete, data: [confirm: "Are you sure?"], class: "button button-small button-red"

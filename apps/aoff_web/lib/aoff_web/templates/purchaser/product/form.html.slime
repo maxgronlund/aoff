@@ -11,41 +11,42 @@
             = label f, :image, class: "control-label"
             = file_input f, :image, class: "form-control"
             = error_tag f, :image
+  .row
+    .column
       .form-group
         = label f, :name, gettext("Product name"), class: "control-label"
         = text_input f, :name, class: "form-control"
         = error_tag f, :name
       .form-group
-        = label f, :description, gettext("Description"), class: "control-label"
-        = textarea f, :description, style: "height: 150px;" , class: "form-control"
-        = error_tag f, :description
-      .form-group
-        = label f, :this_weeks_content, gettext("Content this week"), class: "control-label"
-        = textarea f, :this_weeks_content, style: "height: 300px;" , class: "form-control"
-        = error_tag f, :this_weeks_content
-      .form-group
         = label f, gettext("Price"), class: "control-label"
         = number_input f, :price, class: "form-control", min: "0", step: "0.5", value: @amount
         = error_tag f, :price
-
-    .column
-      h3 = gettext("Visibility")
       .form-group
-        = label f, :for_sale, gettext("Show in shop"), class: "control-label label-inline"
-        = checkbox f, :for_sale, class: "form-control"
-        = error_tag f, :for_sale
-      .form-group
-        = label f, :show_on_landing_page, gettext("Show on landing page"), class: "control-label label-inline"
-        = checkbox f, :show_on_landing_page, class: "form-control"
-        = error_tag f, :show_on_landing_page
-    = if @manage_membership do
-      .form-group
-        = label f, :membership, gettext("Membership"), class: "control-label label-inline"
-        = checkbox f, :membership, class: "form-control"
-        = error_tag f, :membership
+        = label f, :description, gettext("Description"), class: "control-label"
+        = textarea f, :description, style: "height: 150px;" , class: "form-control"
+        = error_tag f, :description
+  .alert.alert-box
+    .row
+      .column
+        .form-group
+          = label f, :for_sale, gettext("Show in shop"), class: "control-label label-inline"
+          = checkbox f, :for_sale, class: "form-control"
+          = error_tag f, :for_sale
+      .column
+        .form-group
+          = label f, :show_on_landing_page, gettext("Show on landing page"), class: "control-label label-inline"
+          = checkbox f, :show_on_landing_page, class: "form-control"
+          = error_tag f, :show_on_landing_page
+      .column
+        = if @manage_membership do
+          .form-group
+            = label f, :membership, gettext("Is a membership"), class: "control-label label-inline"
+            = checkbox f, :membership, class: "form-control"
+            = error_tag f, :membership
   .row
     .column
       .form-group
-        = link gettext("Cancel"), to: Routes.purchaser_product_path(@conn, :index), class: "button button-outline"
-        | &nbsp;
-        = submit gettext("Save"), class: "btn btn-primary"
+        .float-right
+          = link gettext("Cancel"), to: Routes.purchaser_product_path(@conn, :index), class: "button button-outline"
+          | &nbsp;
+          = submit gettext("Save"), class: "btn btn-primary"

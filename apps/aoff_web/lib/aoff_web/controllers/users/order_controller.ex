@@ -16,7 +16,6 @@ defmodule AOFFWeb.Users.OrderController do
   end
 
   def show(conn, %{"id" => id}) do
-
     order = Users.get_order!(id)
     conn =
       case order.state do

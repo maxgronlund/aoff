@@ -1,42 +1,65 @@
-.row
-  .column
-    = if @volunteer do
-      = img_tag AOFF.Uploader.Image.url({@user.avatar, @user}, :avatar)
+.alert.alert-success
+  .row
+    .column
+      = if @volunteer do
+        = img_tag AOFF.Uploader.Image.url({@user.avatar, @user}, :avatar)
+        br
+
+      h2 = @user.username
+      = gettext("Email: %{email}", email: @user.email)
+      br/
+      = gettext("Mobile: %{mobile}", mobile: @user.mobile)
+    .column
+      strong = gettext("Member Nr: %{member_nr}", member_nr: @user.member_nr)
       br
-      b = gettext("Volunteer")
-    h2 = @user.username
-    = gettext("Email: %{email}", email: @user.email)
+      = gettext("Member since %{date}", date: date(@user.registration_date))
+      = if @admin do
+        br
+        = link gettext("Admin √"), to: Routes.admin_admin_path(@conn, :index)
+      = if @volunteer do
+        br
+        = link gettext("Volunteer √"), to: Routes.volunteer_volunteer_path(@conn, :index)
+      = if @purchaser do
+        br
+        = link gettext("Purchaser √"), to: Routes.purchaser_product_path(@conn, :index)
+      = if @shop_assistant do
+        br
+        = link gettext("Host √"), to: Routes.shop_shop_path(@conn, :index)
+
+
+      = if @text_editor do
+        br
+        = link gettext("Text editor √"), to: Routes.volunteer_message_path(@conn, :index)
+      = if @manage_membership do
+        br
+        = gettext("Manage membership √")
+  .row
+    .column
+      hr
+      .float-right
+        = link gettext("Edit account"), to: Routes.user_path(@conn, :edit, @user), class: "button"
+        | &nbsp;
+        = link gettext("Delete account"),\
+          to: Routes.user_path(@conn, :delete, @user),\
+          method: :delete,\
+          data: [confirm: "Are you sure?"],\
+          class: "button button-red"
+
+
+= if @valid_member do
+  = gettext("Valid to: %{expiration_date}", expiration_date: date(@user.expiration_date ))
+- else
+  .alert.alert-danger
+    h3= @message.title
+    = raw @message.text
     br/
-    = gettext("Mobile: %{mobile}", mobile: @user.mobile)
-  .column
-    strong = gettext("Member Nr: %{member_nr}", member_nr: @user.member_nr)
-    br
-    = gettext("Member since %{date}", date: date(@user.registration_date))
-    br
-    = if @valid_member do
-      = gettext("Valid to: %{expiration_date}", expiration_date: date(@user.expiration_date))
-    - else
-      .alert.alert-danger
-        h3= @message.title
-        = raw @message.text
-        br/
-        = link gettext("Pay"),\
-          to: Routes.shop_shop_path(@conn, :index),\
-          class: "button float-right"
-        | &nbsp;
-        br/
-        | &nbsp;
-
-.row
-
-  .column
-    = link gettext("Edit account"), to: Routes.user_path(@conn, :edit, @user), class: "button"
+    = link gettext("Pay"),\
+      to: Routes.shop_shop_path(@conn, :index),\
+      class: "button float-right"
     | &nbsp;
-    = link gettext("Delete account"),\
-      to: Routes.user_path(@conn, :delete, @user),\
-      method: :delete,\
-      data: [confirm: "Are you sure?"],\
-      class: "button button-red"
+    br/
+    | &nbsp;
+
 
 hr/
 .row

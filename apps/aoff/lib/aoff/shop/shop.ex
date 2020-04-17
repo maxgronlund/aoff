@@ -356,6 +356,7 @@ defmodule AOFF.Shop do
         where: p.user_id == ^user_id and p.date_id == ^date_id and p.picked_up == false and p.order_id==^order_id,
         limit: 1
 
+
     case Repo.one(query) do
       nil ->
         create_pick_up(%{
@@ -449,6 +450,7 @@ defmodule AOFF.Shop do
     end
   end
 
+
   @doc """
   Creates a pick_up.
 
@@ -531,7 +533,7 @@ defmodule AOFF.Shop do
       from o in OrderItem,
       where: o.date_id==^date_id,
       join: ordr in assoc(o, :order),
-      where: ordr.state==^"closed",
+      where: ordr.state==^"payment_accepted",
       join: p in assoc(o, :product),
       group_by: p.id,
       select: {p, count(o.id)}

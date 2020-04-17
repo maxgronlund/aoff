@@ -32,8 +32,7 @@ header
             /= gettext("Account")
         = if @order_items_count > 0 do
           li class="<%= menu_item(@conn, :order) %>"
-
-            = link to: Routes.user_order_path(@conn, :show, @current_user, current_order(@  current_user.id)) do
+            = link to: Routes.user_order_path(@conn, :show, @current_user, @current_order) do
               i.fa.fa-shopping-cart
               .numberCircle
                 = @order_items_count

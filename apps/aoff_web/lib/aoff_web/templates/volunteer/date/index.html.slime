@@ -8,14 +8,17 @@
           | &nbsp;
           = gettext("Schedules")
 
-h2= gettext("Schedules")
 .row
   .column
-    = link gettext("Create opening date"), to: Routes.volunteer_date_path(@conn, :new), class: "button"
+    h2= gettext("Schedules")
+
   .column
     .float-right
       = render "pagination.html", assigns
-
+= if @purchaser do
+  .row
+    .column
+      = link gettext("Create opening date"), to: Routes.volunteer_date_path(@conn, :new), class: "button"
 / = if @admin do
 /   = link "Seed dates", to: Routes.shop_date_path(@conn, :index), class: "button"
 

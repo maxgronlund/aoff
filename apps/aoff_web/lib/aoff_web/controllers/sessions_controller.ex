@@ -1,6 +1,8 @@
 defmodule AOFFWeb.SessionController do
   use AOFFWeb, :controller
 
+  alias AOFF.Users
+
   def new(conn, _params) do
     conn = assign(conn, :page, :session)
     render(conn, "new.html")
@@ -9,12 +11,16 @@ defmodule AOFFWeb.SessionController do
   def create(conn, %{"session" => %{"email" => email, "password" => pass}}) do
     case AOFFWeb.Users.Auth.login_by_email_and_pass(conn, email, pass) do
       {:ok, conn} ->
+        user = conn.assigns[:current_user]
+        if Users.current_order(user.id) == nil do
+          Users.create_order(%{"user_id" => user.id})
+        end
         conn
         |> put_flash(
           :info,
-          gettext("Welcome back! %{username}", username: conn.assigns[:current_user].username)
+          gettext("Welcome back! %{username}", username: user.username)
         )
-        |> redirect(to: Routes.user_path(conn, :show, conn.assigns[:current_user].id))
+        |> redirect(to: Routes.user_path(conn, :show, user.id))
 
       {:error, _reason, conn} ->
         conn

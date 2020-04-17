@@ -10,7 +10,7 @@ defmodule AOFF.Shop.Product do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "products" do
-    field :description, :string
+    field :description, :string, default: ""
     field :name, :string
     field :image, Image.Type
     field :price, Money.Ecto.Amount.Type
@@ -18,7 +18,8 @@ defmodule AOFF.Shop.Product do
     field :show_on_landing_page, :boolean, default: false
     field :membership, :boolean, default: false
     field :deleted, :boolean, default: false
-    field :this_weeks_content, :string
+    field :this_weeks_content, :string, default: ""
+    field :notes, :string, default: ""
 
     has_many :order_items, OrderItem
 
@@ -29,13 +30,15 @@ defmodule AOFF.Shop.Product do
   def changeset(product, attrs) do
     product
     |> cast(attrs, [
-      :name,
-      :description,
-      :price,
-      :for_sale,
-      :membership,
-      :show_on_landing_page,
-      :this_weeks_content]
+        :name,
+        :description,
+        :price,
+        :for_sale,
+        :membership,
+        :show_on_landing_page,
+        :this_weeks_content,
+        :notes
+      ]
     )
     |> cast_attachments(attrs, [:image])
     |> validate_required([

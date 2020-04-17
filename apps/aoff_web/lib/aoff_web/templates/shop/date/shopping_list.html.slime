@@ -1,4 +1,4 @@
-.alert.alert-info
+.alert.alert-success
 
   - message = purchaser_message()
   h3 = message.title

@@ -34,11 +34,11 @@ defmodule AOFF.Users do
     Integer.floor_div(users, per_page)
   end
 
-  alias AOFF.Shop.Date
+
   def host_dates(date, user_id) do
 
     dates =
-      from d in Date,
+      from d in AOFF.Shop.Date,
         order_by: [asc: d.date],
         where: d.date >= ^date,
         where: d.shop_assistant_a==^user_id or d.shop_assistant_b==^user_id or d.shop_assistant_c==^user_id or d.shop_assistant_d==^user_id
@@ -307,41 +307,36 @@ defmodule AOFF.Users do
   alias AOFF.Users.Order
 
   def current_order(user_id) do
-    find_or_create_order(user_id)
-  end
-
-  def find_or_create_order(user_id) do
     query =
       from o in Order,
-        where: o.user_id == ^user_id and o.state == ^"open",
+        where: o.user_id == ^user_id and o.state==^"open",
         limit: 1
 
-    case Repo.one(query) do
-      nil ->
-        create_order(
-          %{
-            "user_id" => user_id,
-            "order_nr"=> create_order_nr()
-          }
-        )
-      %Order{} = order -> {:ok, order}
-    end
+    Repo.one(query)
   end
 
+  # def find_or_create_order(user_id) do
+  #   query =
+  #     from o in Order,
+  #       where: o.user_id == ^user_id and o.state == ^"open" and o.payment_date==^nil,
+  #       limit: 1
+
+  #   case Repo.one(query) do
+  #     nil ->
+  #       create_order(%{"user_id" => user_id, "order_id" => last_order_id() + 1})
+  #     %Order{} = order -> {:ok, order}
+  #   end
+  # end
 
 
-  def last_order_nr() do
+  def last_order_id() do
     query =
       from o in Order,
-        order_by: [desc: o.order_nr],
-        select: o.order_nr,
+        order_by: [desc: o.order_id],
+        select: o.order_id,
         limit: 1
 
-    Repo.one(query) || 99
-  end
-
-  def create_order_nr() do
-    last_order_nr() + 1
+    Repo.one(query) || 10000
   end
 
   @doc """
@@ -416,7 +411,7 @@ defmodule AOFF.Users do
   """
   def create_order(attrs \\ %{}) do
     %Order{}
-    |> Order.changeset(attrs)
+    |> Order.create_changeset(attrs)
     |> Repo.insert()
   end
 
@@ -432,7 +427,7 @@ defmodule AOFF.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_order(%Order{} = order, attrs) do
+  def  update_order(%Order{} = order, attrs) do
     result =
       order
       |> Order.changeset(attrs)
@@ -473,13 +468,10 @@ defmodule AOFF.Users do
   def order_items_count(user_id) do
     query =
       from o in OrderItem,
-      where: o.state==^"initial",
       join: ordr in assoc(o, :order),
-      where: ordr.state==^"open",
+      where: ordr.state==^"open" and ordr.user_id==^user_id,
       select: count(o.id)
-
     Repo.one(query)
-
   end
 
   @doc """
@@ -528,19 +520,6 @@ defmodule AOFF.Users do
 
   """
   def create_order_item(attrs \\ %{}) do
-
-    {:ok, %Order{} = order} = current_order(attrs["user_id"])
-    {price, _} = attrs["price"] |> Float.parse()
-
-    price = Money.new(trunc(price), :DKK)
-
-    attrs =
-      attrs
-      |> Map.merge(
-        %{
-          "price" => price
-        }
-      )
 
     result = %OrderItem{}
       |> OrderItem.changeset(attrs)
@@ -618,5 +597,17 @@ defmodule AOFF.Users do
   """
   def change_order_item(%OrderItem{} = order_item) do
     OrderItem.changeset(order_item, %{})
+  end
+
+  def payment_accepted(%Order{} = order) do
+    order
+    |> Order.changeset(
+      %{
+        "state" => "payment_accepted",
+        "order_id" => order.order_id,
+        "payment_date" => Date.utc_today()
+      })
+    |> Repo.update()
+
   end
 end

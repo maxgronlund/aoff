@@ -8,7 +8,6 @@ defmodule AOFFWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug AOFFWeb.Users.Auth
-    plug AOFFWeb.Users.OrderItemsInBasketCount
     plug AOFFWeb.System.Warning
   end
 
@@ -25,6 +24,8 @@ defmodule AOFFWeb.Router do
 
     get "/", PageController, :index
     get "/terms", TermsController, :index
+
+
 
     resources "/users", UserController, except: [:index] do
       resources "/order_items", Users.OrderItemController, only: [:create, :delete]
@@ -50,7 +51,11 @@ defmodule AOFFWeb.Router do
     pipe_through :browser
     get "/", AOFFWeb.Shop.ShopController, :index
     resources "/dates", AOFFWeb.Shop.DateController, only: [:show]
-    resources "/checkout/", AOFFWeb.Shop.CheckoutController, only: [:show, :update]
+    resources "/checkout/:id", AOFFWeb.Shop.CheckoutController, only: [:edit, :update]
+
+    get "/payment_accepted/:id", AOFFWeb.Shop.PaymentAcceptedController, :index
+    get "/payment_declined/:id", AOFFWeb.Shop.PaymentDeclinedController, :index
+
   end
 
   scope "/admin", as: :admin do
@@ -76,8 +81,11 @@ defmodule AOFFWeb.Router do
     get "/", AOFFWeb.Purchaser.PurchaserController, :index
 
 
-    resources "/dates", AOFFWeb.Purchaser.DateController, only: [:index, :show]
+    resources "/dates", AOFFWeb.Purchaser.DateController, only: [:index, :show] do
+      resources "/products_notes", AOFFWeb.Purchaser.ProductNoteController
+    end
     resources "/products", AOFFWeb.Purchaser.ProductController
+
   end
 
   scope "/shop_assistant", as: :shop_assistant do

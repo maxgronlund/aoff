@@ -5,6 +5,7 @@ defmodule AOFFWeb.Users.OrderItemController do
   alias AOFF.Users.Order
   # alias AOFF.Users.OrderItem
   alias AOFF.Shop
+  alias AOFF.Shop.PickUp
 
   # def index(conn, _params) do
   #   order_items = Users.list_order_items()
@@ -12,23 +13,34 @@ defmodule AOFFWeb.Users.OrderItemController do
   # end
 
   def create(conn, %{"params" => params}) do
+
     user = Users.get_user!(params["user_id"])
 
-    {:ok, %Order{} = order} = Users.current_order(params["user_id"])
+    IO.inspect Users.current_order(params["user_id"])
 
-    params =
-      params
-      |> Map.merge(%{
+    order = Users.current_order(params["user_id"])
+    {price, _} = params["price"] |> Float.parse()
+
+    {:ok, pick_up} =
+      Shop.find_or_create_pick_up(%{
+        "date_id" => params["date_id"],
+        "user_id" => user.id,
         "username" => user.username,
-        "email" => user.email,
         "member_nr" => user.member_nr,
-        "order_id" => order.id
-      })
+        "order_id" => order.id,
+        "email" => user.email
+      }
+    )
 
-    {:ok, pick_up} = Shop.find_or_create_pick_up(params)
-
-    params = Map.put(params, "pick_up_id", pick_up.id)
-    Users.create_order_item(params)
+    params
+    |> Map.merge(
+      %{
+        "price" => Money.new(trunc(price), :DKK),
+        "order_id" => order.id,
+        "pick_up_id" => pick_up.id
+      }
+    )
+    |> Users.create_order_item()
 
     conn
     |> put_flash(:info, gettext("%{name} is added to your basket.", name: params["product_name"]))
