@@ -33,3 +33,21 @@
 
 = render "form.html",\
   Map.put(assigns, :action, Routes.shop_checkout_path(@conn, :update, @order))
+
+/script src="https://static.bambora.com/checkout-sdk-web/latest/checkout-sdk-web.min.js"
+/javascript:
+/  var checkout = new Bambora.InlineCheckout(
+/    "<<YOUR-SESSION-TOKEN-HERE>>",
+/    {
+/      container: document.body
+/      // For this example, we put the iframe in the body element.
+/    }
+/  );
+/
+/  checkout.on(
+/    Bambora.Event.Authorize,
+/    function(payload) {
+/      console.log(payload.data.txnid);
+/      // The transaction ID is logged to the console upon authorize.
+/    }
+/  );/

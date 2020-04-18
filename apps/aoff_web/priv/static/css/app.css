@@ -1067,6 +1067,7 @@ body.fixed-backdrop {
   background-attachment: fixed;
   background-size: cover;
   background-color: #000;
+  min-height: 100vh;
 }
 
 .backdrop-01 {
