@@ -14,6 +14,5 @@ defmodule AOFF.Repo.Migrations.CreateMessages do
     end
 
     create unique_index(:messages, [:identifier, :locale])
-
   end
 end

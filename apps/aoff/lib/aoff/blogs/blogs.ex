@@ -19,22 +19,19 @@ defmodule AOFF.Blogs do
   """
   def list_blogs(locale \\ "da") do
     secure_defaults()
+
     query =
       from b in Blog,
-      where: b.locale==^locale
+        where: b.locale == ^locale
 
     query
     |> Repo.all()
-
   end
 
   defp secure_defaults(locale \\ "da") do
-    {:ok, manufacturers} =
-      find_or_create_blog("manufacturers", locale)
-    {:ok, calendar} =
-      find_or_create_blog("calendar", locale)
-    {:ok, about_aoff} =
-      find_or_create_blog("about_aoff", locale)
+    {:ok, manufacturers} = find_or_create_blog("manufacturers", locale)
+    {:ok, calendar} = find_or_create_blog("calendar", locale)
+    {:ok, about_aoff} = find_or_create_blog("about_aoff", locale)
   end
 
   alias AOFF.Blogs.BlogPost
@@ -46,7 +43,8 @@ defmodule AOFF.Blogs do
   def all_but_news(locale \\ "da") do
     query =
       from b in Blog,
-      where: b.locale ==^locale and b.identifier !=^"news"
+        where: b.locale == ^locale and b.identifier != ^"news"
+
     query
     |> Repo.all()
     |> Repo.preload(:blog_posts)
@@ -67,31 +65,30 @@ defmodule AOFF.Blogs do
   def find_or_create_blog(identifier, title, locale \\ "da") do
     query =
       from b in Blog,
-      where: b.identifier==^identifier and b.locale==^locale,
-      select: b,
-      preload: [blog_posts: ^from(p in BlogPost, order_by: p.date)]
+        where: b.identifier == ^identifier and b.locale == ^locale,
+        select: b,
+        preload: [blog_posts: ^from(p in BlogPost, order_by: p.date)]
 
     case Repo.one(query) do
       nil ->
-        create_blog(
-          %{
-            "title" => identifier <> "-" <> locale,
-            "description" => identifier <> "-" <> locale <> " : Description",
-            "identifier" => identifier,
-            "locale"=> locale
-          }
-        )
-      %Blog{} = blog -> {:ok, blog}
+        create_blog(%{
+          "title" => identifier <> "-" <> locale,
+          "description" => identifier <> "-" <> locale <> " : Description",
+          "identifier" => identifier,
+          "locale" => locale
+        })
+
+      %Blog{} = blog ->
+        {:ok, blog}
     end
   end
 
   def get_blog!(title, locale \\ "da") do
-
     query =
       from b in Blog,
-      where: b.title==^title and b.locale==^locale,
-      select: b,
-      preload: [blog_posts: ^from(p in BlogPost, order_by: p.date)]
+        where: b.title == ^title and b.locale == ^locale,
+        select: b,
+        preload: [blog_posts: ^from(p in BlogPost, order_by: p.date)]
 
     Repo.one(query)
   end
@@ -111,12 +108,11 @@ defmodule AOFF.Blogs do
   def create_blog(attrs \\ %{}, locale \\ "da") do
     attrs =
       attrs
-      |> Map.merge(
-        %{
-          "locale" => locale,
-          "identifier" => attrs["title"]
-        }
-      )
+      |> Map.merge(%{
+        "locale" => locale,
+        "identifier" => attrs["title"]
+      })
+
     %Blog{}
     |> Blog.changeset(attrs)
     |> Repo.insert()
@@ -201,15 +197,14 @@ defmodule AOFF.Blogs do
   def get_post!(blog_title, title, locale \\ "da") do
     query =
       from p in BlogPost,
-      where: p.title==^title,
-      join: b in assoc(p, :blog),
-      where: b.title==^blog_title and b.locale==^locale,
-      limit: 1
+        where: p.title == ^title,
+        join: b in assoc(p, :blog),
+        where: b.title == ^blog_title and b.locale == ^locale,
+        limit: 1
 
     query
     |> Repo.one()
     |> Repo.preload(:blog)
-
   end
 
   @doc """
@@ -225,7 +220,6 @@ defmodule AOFF.Blogs do
 
   """
   def create_post(attrs \\ %{}) do
-
     %BlogPost{}
     |> BlogPost.changeset(attrs)
     |> Repo.insert()

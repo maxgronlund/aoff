@@ -24,11 +24,13 @@ defmodule AOFFWeb.UserController do
         member_nr: last_member_nr + 1
       })
 
-    {:ok, message } =
+    {:ok, message} =
       System.find_or_create_message(
         "/users/new",
         "Create account",
-        Gettext.get_locale())
+        Gettext.get_locale()
+      )
+
     render(conn, "new.html", changeset: changeset, email: "", message: message, user: false)
   end
 
@@ -43,11 +45,13 @@ defmodule AOFFWeb.UserController do
         |> redirect(to: Routes.user_path(conn, :show, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        {:ok, message } =
+        {:ok, message} =
           System.find_or_create_message(
             "/users/new",
             "Create account",
-            Gettext.get_locale())
+            Gettext.get_locale()
+          )
+
         render(
           conn,
           "new.html",
@@ -64,7 +68,7 @@ defmodule AOFFWeb.UserController do
     user = get_user!(conn, id)
     host_dates = Users.host_dates(Date.utc_today(), user.id)
 
-    {:ok, message } =
+    {:ok, message} =
       System.find_or_create_message(
         "Pay for membership",
         "Pay for membership",

@@ -20,8 +20,6 @@ config :aoff_web, AOFFWeb.Endpoint,
 
 config :gettext, :default_locale, "da"
 
-
-
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
@@ -56,8 +54,8 @@ config :money,
   strip_insignificant_zeros: false
 
 config :ex_cldr,
-   default_locale: "en",
-   json_library: Jason
+  default_locale: "en",
+  json_library: Jason
 
 config :aoff_web,
   basic_auth: [
@@ -82,10 +80,10 @@ config :ex_aws,
     region: System.get_env("AOFF_AWS_REGION")
   ]
 
-  # config/config.exs
-  config :aoff_web, AOFFWeb.Mailer,
-    adapter: Bamboo.SendGridAdapter,
-    api_key: System.get_env("AOFF_SEND_GRID_API_KEY")
+# config/config.exs
+config :aoff_web, AOFFWeb.Mailer,
+  adapter: Bamboo.SendGridAdapter,
+  api_key: System.get_env("AOFF_SEND_GRID_API_KEY")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

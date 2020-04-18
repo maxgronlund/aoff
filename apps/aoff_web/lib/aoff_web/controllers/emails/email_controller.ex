@@ -4,12 +4,13 @@ defmodule AOFFWeb.Email do
   alias AOFF.System
 
   def reset_password_email(username_and_email, reset_password_url) do
-    {:ok, message } =
+    {:ok, message} =
       System.find_or_create_message(
         "/reset_password/:id/create",
         "Reset password",
         Gettext.get_locale()
       )
+
     new_email()
     |> to(username_and_email)
     |> from("max@synthmax.dk")

@@ -13,7 +13,6 @@ defmodule AOFF.Repo.Migrations.CreateBlogs do
       timestamps()
     end
 
-
     create unique_index(:blogs, [:identifier, :locale])
     create unique_index(:blogs, [:title, :locale])
   end

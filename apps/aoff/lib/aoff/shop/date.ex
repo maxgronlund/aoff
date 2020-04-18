@@ -35,7 +35,8 @@ defmodule AOFF.Shop.Date do
       :shop_assistant_d
     ])
     |> validate_required([
-      :date, :last_order_date
+      :date,
+      :last_order_date
     ])
     |> unique_constraint(:date)
     |> cast_attachments(attrs, [:image])

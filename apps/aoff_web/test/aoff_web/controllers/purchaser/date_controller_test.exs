@@ -7,7 +7,6 @@ defmodule AOFFWeb.Purchaser.DateControllerTest do
   import AOFF.Users.UserFixture
 
   describe "volunteer" do
-
     @session Plug.Session.init(
                store: :cookie,
                key: "_app",

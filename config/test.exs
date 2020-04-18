@@ -8,7 +8,7 @@ config :aoff, AOFF.Repo,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
-  # We don't run a server during test. If one is required,
+# We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :aoff_web, AOFFWeb.Endpoint,
   http: [port: 4002],

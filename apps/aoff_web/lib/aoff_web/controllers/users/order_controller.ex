@@ -17,6 +17,7 @@ defmodule AOFFWeb.Users.OrderController do
 
   def show(conn, %{"id" => id}) do
     order = Users.get_order!(id)
+
     conn =
       case order.state do
         "open" -> assign(conn, :page, :order)

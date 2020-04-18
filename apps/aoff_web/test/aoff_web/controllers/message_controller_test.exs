@@ -25,8 +25,6 @@ defmodule AOFFWeb.MessageControllerTest do
     setup do
       user = user_fixture(%{"volunteer" => true})
 
-
-
       conn =
         build_conn()
         |> Plug.Session.call(@session)
@@ -42,16 +40,15 @@ defmodule AOFFWeb.MessageControllerTest do
       assert html_response(conn, 200) =~ gettext("Text used on the site")
     end
 
-
     test "edit message renders form for editing chosen message", %{conn: conn} do
-
       message = message_fixture()
       conn = get(conn, Routes.volunteer_message_path(conn, :edit, message))
+
       assert html_response(conn, 200) =~
-        gettext("Edit: %{identifier}-%{locale}",
-          identifier: message.identifier,
-          locale: message.locale
-        )
+               gettext("Edit: %{identifier}-%{locale}",
+                 identifier: message.identifier,
+                 locale: message.locale
+               )
     end
 
     test "update message redirects when data is valid", %{conn: conn} do
@@ -68,17 +65,19 @@ defmodule AOFFWeb.MessageControllerTest do
       message = message_fixture()
       attrs = invalid_message_attrs()
       conn = put(conn, Routes.volunteer_message_path(conn, :update, message), message: attrs)
+
       assert html_response(conn, 200) =~
-        gettext("Edit: %{identifier}-%{locale}",
-          identifier: message.identifier,
-          locale: message.locale
-        )
+               gettext("Edit: %{identifier}-%{locale}",
+                 identifier: message.identifier,
+                 locale: message.locale
+               )
     end
 
     test "delete message deletes chosen message", %{conn: conn} do
       message = message_fixture()
       conn = delete(conn, Routes.volunteer_message_path(conn, :delete, message))
       assert redirected_to(conn) == Routes.volunteer_message_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.volunteer_message_path(conn, :show, message))
       end

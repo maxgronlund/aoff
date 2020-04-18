@@ -37,15 +37,14 @@ defmodule AOFF.Users.User do
 
   def update_membership_changeset(user, attrs) do
     user
-    |> cast(attrs,[:expiration_date])
+    |> cast(attrs, [:expiration_date])
     |> validate_required([:expiration_date])
-
   end
 
   @doc false
   def password_reset_token_changeset(user, attrs) do
     user
-    |> cast(attrs,[:password_reset_token, :password_reset_expires])
+    |> cast(attrs, [:password_reset_token, :password_reset_expires])
     |> validate_required([:password_reset_token, :password_reset_expires])
   end
 
@@ -160,7 +159,7 @@ defmodule AOFF.Users.User do
       :username,
       :password,
       :password_reset_token,
-      :password_reset_expires,
+      :password_reset_expires
     ])
     |> validate_required([
       :username,

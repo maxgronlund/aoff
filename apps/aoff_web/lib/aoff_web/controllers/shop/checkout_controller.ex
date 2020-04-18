@@ -5,15 +5,18 @@ defmodule AOFFWeb.Shop.CheckoutController do
   alias AOFF.System
 
   def edit(conn, %{"id" => id}) do
-
-    {:ok, message } =
+    {:ok, message} =
       System.find_or_create_message(
         "/shop/checkout/:id/new",
         "Checkout",
         Gettext.get_locale()
       )
+
     order = Users.get_order!(id)
+
+
     changeset = Users.change_order(order)
+
     render(
       conn,
       "edit.html",
@@ -21,21 +24,15 @@ defmodule AOFFWeb.Shop.CheckoutController do
       order: order,
       message: message
     )
-
   end
 
   def update(conn, %{"id" => id}) do
-
     order = Users.get_order!(id)
-
 
     # TODO here we are muging the response from the payment gateway
 
-
     conn
     |> redirect(to: Routes.shop_payment_accepted_path(conn, :index, order))
-
-
 
     # changeset = Users.change_order(order)
   end

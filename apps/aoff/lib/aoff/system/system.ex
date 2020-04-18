@@ -1,11 +1,10 @@
 defmodule AOFF.System do
-
   import Ecto.Query, warn: false
   alias AOFF.Repo
 
   alias AOFF.System.Message
 
-    @doc """
+  @doc """
   Returns the list of messages.
 
   ## Examples
@@ -17,7 +16,8 @@ defmodule AOFF.System do
   def list_messages(locale \\ "da") do
     query =
       from m in Message,
-      where: m.locale==^locale
+        where: m.locale == ^locale
+
     query
     |> Repo.all()
   end
@@ -25,23 +25,22 @@ defmodule AOFF.System do
   def find_or_create_message(identifier, title, locale \\ "da") do
     query =
       from m in Message,
-      where: m.identifier==^identifier and m.locale==^locale,
-      limit: 1
+        where: m.identifier == ^identifier and m.locale == ^locale,
+        limit: 1
 
     case Repo.one(query) do
       nil ->
-        create_message(
-          %{
-            "title" => title,
-            "text" => "-",
-            "identifier" => identifier,
-            "locale"=> locale
-          }
-        )
-      %Message{} = message -> {:ok, message}
+        create_message(%{
+          "title" => title,
+          "text" => "-",
+          "identifier" => identifier,
+          "locale" => locale
+        })
+
+      %Message{} = message ->
+        {:ok, message}
     end
   end
-
 
   @doc """
   Gets a single message.

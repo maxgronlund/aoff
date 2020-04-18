@@ -10,7 +10,7 @@
       strong = @order.user.username
 
 = if Enum.empty?(@order.order_items) do
-  p.alert.alert-info
+  p.alert.alert-success
     = gettext("Your basket is empty")
 - else
   table.table

@@ -4,8 +4,6 @@ defmodule AOFFWeb.ErrorView do
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.
 
-
-
   def render("500.html", _assigns) do
     render("500_page.html", %{})
   end

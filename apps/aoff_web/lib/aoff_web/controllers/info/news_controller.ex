@@ -12,6 +12,7 @@ defmodule AOFFWeb.Info.NewsController do
   def index(conn, _params) do
     conn = assign(conn, :page, :news)
     {:ok, news} = Blogs.find_or_create_blog("news", Gettext.get_locale())
+
     {:ok, message} =
       System.find_or_create_message(
         "/news",
@@ -49,19 +50,15 @@ defmodule AOFFWeb.Info.NewsController do
     )
   end
 
-
-
   def create(conn, %{"info_id" => blog_id, "blog_post" => blog_post}) do
-
     blog = Blogs.get_blog!(blog_id)
     blog_post = Map.put(blog_post, "blog_id", blog.id)
-
 
     case Blogs.create_post(blog_post) do
       {:ok, post} ->
         conn
         |> put_flash(:info, gettext("Please update the default image."))
-        |> redirect(to:  Routes.volunteer_blog_blog_post_path(conn, :edit, blog, post))
+        |> redirect(to: Routes.volunteer_blog_blog_post_path(conn, :edit, blog, post))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(
@@ -75,7 +72,6 @@ defmodule AOFFWeb.Info.NewsController do
         )
     end
   end
-
 
   def show(conn, %{"blog_id" => blog_id, "id" => id, "locale" => locale}) do
     conn = assign(conn, :page, :news)
@@ -101,11 +97,18 @@ defmodule AOFFWeb.Info.NewsController do
   def update(conn, %{"info_id" => blog_id, "id" => id, "blog_post" => post_params}) do
     post = Blogs.get_post!(blog_id, id)
     blog = post.blog
+
     case Blogs.update_post(post, post_params) do
       {:ok, post} ->
         conn
         |> put_flash(:info, gettext("News updated successfully."))
-        |> redirect(to: Routes.news_path(conn, :show, post, %{"blog_id" => blog.title, "locale" => blog.locale}))
+        |> redirect(
+          to:
+            Routes.news_path(conn, :show, post, %{
+              "blog_id" => blog.title,
+              "locale" => blog.locale
+            })
+        )
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(
@@ -142,5 +145,4 @@ defmodule AOFFWeb.Info.NewsController do
       |> halt()
     end
   end
-
 end

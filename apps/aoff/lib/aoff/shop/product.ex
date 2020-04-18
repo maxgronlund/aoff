@@ -6,7 +6,6 @@ defmodule AOFF.Shop.Product do
   alias AOFF.Uploader.Image
   alias AOFF.Users.OrderItem
 
-
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "products" do
@@ -30,24 +29,17 @@ defmodule AOFF.Shop.Product do
   def changeset(product, attrs) do
     product
     |> cast(attrs, [
-        :name,
-        :description,
-        :price,
-        :for_sale,
-        :membership,
-        :show_on_landing_page,
-        :this_weeks_content,
-        :notes
-      ]
-    )
-    |> cast_attachments(attrs, [:image])
-    |> validate_required([
       :name,
+      :description,
       :price,
       :for_sale,
       :membership,
-      :show_on_landing_page]
-    )
+      :show_on_landing_page,
+      :this_weeks_content,
+      :notes
+    ])
+    |> cast_attachments(attrs, [:image])
+    |> validate_required([:name, :price, :for_sale, :membership, :show_on_landing_page])
   end
 
   def delete_changeset(product, attrs) do

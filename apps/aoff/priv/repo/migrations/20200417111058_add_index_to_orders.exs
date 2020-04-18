@@ -4,8 +4,9 @@ defmodule AOFF.Repo.Migrations.AddIndexToOrders do
   def up do
     alter table("orders") do
       modify :order_nr, :integer, default: nil
-      add :order_id, :integer, default: :nil
+      add :order_id, :integer, default: nil
     end
+
     create unique_index(:orders, [:order_id])
 
     alter table("order_items") do
@@ -22,6 +23,5 @@ defmodule AOFF.Repo.Migrations.AddIndexToOrders do
     alter table("order_items") do
       add :state, :string, default: "initial"
     end
-
   end
 end

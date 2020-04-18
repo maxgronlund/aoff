@@ -54,8 +54,9 @@ h2 = @user.username
     h3= @message.title
     = raw @message.text
     br/
-    = link gettext("Pay"),\
-      to: Routes.shop_shop_path(@conn, :index),\
+    = link \
+      gettext("Pay for membership"),\
+      to: Routes.user_membership_path(@conn, :new, @current_user),\
       class: "button float-right"
     | &nbsp;
     br/

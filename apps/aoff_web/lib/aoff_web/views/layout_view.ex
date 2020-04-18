@@ -34,6 +34,7 @@ defmodule AOFFWeb.LayoutView do
           2 -> "full backdrop-03"
           _ -> "full backdrop-04"
         end
+
       true ->
         ""
     end

@@ -6,6 +6,5 @@ defmodule AOFFWeb.Volunteer.MessageView do
       true -> gettext("Visible")
       _ -> gettext("Hidden")
     end
-
   end
 end

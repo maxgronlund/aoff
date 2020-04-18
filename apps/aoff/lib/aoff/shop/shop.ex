@@ -10,6 +10,7 @@ defmodule AOFF.Shop do
 
   def secure_dates() do
     query = from d in Date, limit: 1
+
     if Repo.one(query) == nil do
       Date.build_defaults()
     end
@@ -26,7 +27,6 @@ defmodule AOFF.Shop do
   """
 
   def list_dates do
-
     dates =
       from d in Date,
         order_by: [asc: d.date]
@@ -56,7 +56,6 @@ defmodule AOFF.Shop do
 
     Repo.all(query)
   end
-
 
   def date_pages(per_page \\ @dates_pr_page) do
     dates = Repo.one(from d in Date, select: count(d.id))
@@ -184,7 +183,7 @@ defmodule AOFF.Shop do
     query =
       from p in Product,
         order_by: [asc: p.name],
-        where: p.deleted==false and p.membership==false
+        where: p.deleted == false and p.membership == false
 
     Repo.all(query)
   end
@@ -202,7 +201,7 @@ defmodule AOFF.Shop do
     query =
       from p in Product,
         order_by: [asc: p.name],
-        where: p.for_sale == true and p.deleted==false and p.membership==false
+        where: p.for_sale == true and p.deleted == false and p.membership == false
 
     Repo.all(query)
   end
@@ -241,32 +240,33 @@ defmodule AOFF.Shop do
   def get_products_for_landing_page() do
     query =
       from p in Product,
-      where: p.show_on_landing_page==^true
+        where: p.show_on_landing_page == ^true
 
     query
     |> Repo.all()
   end
 
-
   def get_memberships() do
     query =
       from p in Product,
-      where: p.membership==true and p.deleted==false
+        where: p.membership == true and p.deleted == false
+
     result = Repo.all(query)
 
     cond do
-      result==[] ->
+      result == [] ->
         {:ok, product} =
-          create_product(
-            %{
-              "name" => "Membership",
-              "membership" => true,
-              "price" => Money.new(100*100, :DKK),
-              "description" => "One year of membership"
-            }
-          )
+          create_product(%{
+            "name" => "Membership",
+            "membership" => true,
+            "price" => Money.new(100 * 100, :DKK),
+            "description" => "One year of membership"
+          })
+
         [product]
-      true -> result
+
+      true ->
+        result
     end
   end
 
@@ -280,6 +280,7 @@ defmodule AOFF.Shop do
       {:error, %Ecto.Changeset{}}
 
   """
+
   def create_product(attrs \\ %{}) do
     %Product{}
     |> Product.changeset(attrs)
@@ -319,12 +320,10 @@ defmodule AOFF.Shop do
   def delete_product(%Product{} = product) do
     # Repo.delete(product)
     product
-    |> Product.delete_changeset(
-      %{
-        "deleted" => true,
-        "show_on_landing_page" => false
-      }
-    )
+    |> Product.delete_changeset(%{
+      "deleted" => true,
+      "show_on_landing_page" => false
+    })
     |> Repo.update()
   end
 
@@ -343,6 +342,18 @@ defmodule AOFF.Shop do
 
   alias AOFF.Shop.PickUp
 
+  @doc """
+    Returns a `%PickUp{}` for use in the shop
+
+  ## Examples
+
+    iex> find_or_create_pickup(valid_params)
+    %PickUp{}
+
+    iex> find_or_create_pickup(invalid_params)
+    %Ecto.Changeset{source: %PickUp{}}
+
+  """
   def find_or_create_pick_up(%{
         "date_id" => date_id,
         "user_id" => user_id,
@@ -353,9 +364,10 @@ defmodule AOFF.Shop do
       }) do
     query =
       from p in PickUp,
-        where: p.user_id == ^user_id and p.date_id == ^date_id and p.picked_up == false and p.order_id==^order_id,
+        where:
+          p.user_id == ^user_id and p.date_id == ^date_id and p.picked_up == false and
+            p.order_id == ^order_id,
         limit: 1
-
 
     case Repo.one(query) do
       nil ->
@@ -390,7 +402,10 @@ defmodule AOFF.Shop do
       from(
         p in PickUp,
         where: p.date_id == ^date_id,
-        order_by: p.username
+        order_by: p.username,
+        join: oi in assoc(p, :order_items),
+        join: pr in assoc(oi, :product),
+        where: pr.membership==^false
       )
 
     query
@@ -423,17 +438,17 @@ defmodule AOFF.Shop do
     |> Repo.preload(order_items: [:product])
   end
 
-
   def search_pick_up(query, date_id) do
-
     query =
       if is_numeric(query) do
         from(
           p in PickUp,
-          where: p.member_nr == ^query and p.date_id==^date_id
+          where: p.member_nr == ^query and p.date_id == ^date_id
         )
       else
-        from(p in PickUp, where: like(p.username, ^query) or p.email == ^query and p.date_id==^date_id)
+        from(p in PickUp,
+          where: like(p.username, ^query) or (p.email == ^query and p.date_id == ^date_id)
+        )
       end
 
     query
@@ -449,7 +464,6 @@ defmodule AOFF.Shop do
       _ -> false
     end
   end
-
 
   @doc """
   Creates a pick_up.
@@ -528,18 +542,16 @@ defmodule AOFF.Shop do
 
   """
   def paid_orders_list(date_id) do
-
     query =
       from o in OrderItem,
-      where: o.date_id==^date_id,
-      join: ordr in assoc(o, :order),
-      where: ordr.state==^"payment_accepted",
-      join: p in assoc(o, :product),
-      group_by: p.id,
-      select: {p, count(o.id)}
-
+        where: o.date_id == ^date_id,
+        join: ordr in assoc(o, :order),
+        where: ordr.state == ^"payment_accepted",
+        join: p in assoc(o, :product),
+        where: p.membership==^false,
+        group_by: p.id,
+        select: {p, count(o.id)}
 
     Repo.all(query)
-
   end
 end

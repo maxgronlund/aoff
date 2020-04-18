@@ -4,9 +4,9 @@ defmodule AOFFWeb.Shop.DateView do
   alias AOFF.Users
   alias AOFF.Users.Order
 
-
   def order_item_params(user_id, product, date_id) do
     %Money{amount: price, currency: :DKK} = product.price
+
     %{
       "user_id" => user_id,
       "product_id" => product.id,
@@ -29,7 +29,7 @@ defmodule AOFFWeb.Shop.DateView do
   alias AOFF.System
 
   def host_message() do
-    {:ok, message } =
+    {:ok, message} =
       System.find_or_create_message(
         "/shop/dates/:id - host",
         "For hosts",
@@ -40,7 +40,7 @@ defmodule AOFFWeb.Shop.DateView do
   end
 
   def purchaser_message() do
-    {:ok, message } =
+    {:ok, message} =
       System.find_or_create_message(
         "/shop/dates/:id - purchaser",
         "For purchasers",

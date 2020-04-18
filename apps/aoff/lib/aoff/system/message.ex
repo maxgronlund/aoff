@@ -17,19 +17,8 @@ defmodule AOFF.System.Message do
   @doc false
   def changeset(message, attrs) do
     message
-    |> cast(attrs, [
-      :title,
-      :identifier,
-      :text,
-      :show,
-      :locale]
-    )
-    |> validate_required([
-      :title,
-      :identifier,
-      :show,
-      :locale]
-    )
+    |> cast(attrs, [:title, :identifier, :text, :show, :locale])
+    |> validate_required([:title, :identifier, :show, :locale])
     |> unique_constraint(:identifier, name: :messages_identifier_locale_index)
   end
 end

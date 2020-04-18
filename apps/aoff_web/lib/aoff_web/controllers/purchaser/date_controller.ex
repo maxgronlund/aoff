@@ -7,21 +7,17 @@ defmodule AOFFWeb.Purchaser.DateController do
   plug Auth
   plug :authenticate when action in [:index, :show]
 
-
   def index(conn, _params) do
     dates = Shop.list_dates(Date.utc_today())
     render(conn, "index.html", dates: dates)
   end
 
-
   def show(conn, %{"id" => id}) do
     date = Shop.get_date!(id)
     products = Shop.paid_orders_list(date.id)
 
-    render(conn,"show.html", date: date, products: products)
+    render(conn, "show.html", date: date, products: products)
   end
-
-
 
   # defp shop_assistans() do
   #   Enum.map(Users.list_shop_assistans(), fn u -> {u.username, u.id} end)

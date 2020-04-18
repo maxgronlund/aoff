@@ -35,7 +35,8 @@ defmodule AOFFWeb.Purchaser.ProductController do
           "new.html",
           changeset: changeset,
           amount: product_params["price"],
-          product: false)
+          product: false
+        )
     end
   end
 

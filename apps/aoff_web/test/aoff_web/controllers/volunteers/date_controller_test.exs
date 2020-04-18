@@ -7,7 +7,6 @@ defmodule AOFFWeb.Volunteer.DateControllerTest do
   import AOFF.Users.UserFixture
 
   describe "volunteer dates" do
-
     @session Plug.Session.init(
                store: :cookie,
                key: "_app",
@@ -60,7 +59,6 @@ defmodule AOFFWeb.Volunteer.DateControllerTest do
       assert html_response(conn, 200) =~ gettext("Edit Date")
     end
 
-
     test "update date redirects when data is valid", %{conn: conn, date: date} do
       conn =
         put(
@@ -76,7 +74,9 @@ defmodule AOFFWeb.Volunteer.DateControllerTest do
     end
 
     test "update date renders errors when data is invalid", %{conn: conn, date: date} do
-      conn = put(conn, Routes.volunteer_date_path(conn, :update, date), date: invalid_date_attrs())
+      conn =
+        put(conn, Routes.volunteer_date_path(conn, :update, date), date: invalid_date_attrs())
+
       assert html_response(conn, 200) =~ "Edit Date"
     end
 

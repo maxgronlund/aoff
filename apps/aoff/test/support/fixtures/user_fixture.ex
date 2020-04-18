@@ -15,7 +15,7 @@ defmodule AOFF.Users.UserFixture do
     "shop_assistant" => false,
     "mobile" => "12121212",
     "terms_accepted" => true,
-    "registration_date" => Date.add(Date.utc_today() , -365)
+    "registration_date" => Date.add(Date.utc_today(), -365)
   }
 
   @update_attrs %{

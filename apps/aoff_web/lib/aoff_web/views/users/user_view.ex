@@ -17,22 +17,23 @@ defmodule AOFFWeb.UserView do
     date
   end
 
-
-
   alias AOFF.Users
 
-  @not_found  "<i class='red'>"<> gettext("Missing host") <>"</i>"
+  @not_found "<i class='red'>" <> gettext("Missing host") <> "</i>"
 
   def shop_assistant(user_id) do
     cond do
       user_id == nil ->
         @not_found
+
       user = Users.get_user(user_id) ->
-        "<b>#{user.username}</b> - " <> "<br/>" <>
-        gettext("Mobile: %{mobile}", mobile: user.mobile) #{user.mobile}"
+        # {user.mobile}"
+        "<b>#{user.username}</b> - " <>
+          "<br/>" <>
+          gettext("Mobile: %{mobile}", mobile: user.mobile)
+
       true ->
         @not_found
     end
   end
-
 end

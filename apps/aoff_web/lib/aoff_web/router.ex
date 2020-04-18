@@ -25,15 +25,14 @@ defmodule AOFFWeb.Router do
     get "/", PageController, :index
     get "/terms", TermsController, :index
 
-
-
     resources "/users", UserController, except: [:index] do
       resources "/order_items", Users.OrderItemController, only: [:create, :delete]
       resources "/orders", Users.OrderController, except: [:delete]
-      resources "/membership", Users.MembershipController
+      resources "/membership", Users.MembershipController, only: [:new, :create]
     end
 
-    resources "/reset_password", ResetPasswordController, only: [:new, :create, :edit, :update, :index]
+    resources "/reset_password", ResetPasswordController,
+      only: [:new, :create, :edit, :update, :index]
 
     resources "/sessions", SessionController
 
@@ -41,10 +40,8 @@ defmodule AOFFWeb.Router do
       resources "/about_aoff", Info.AboutController, only: [:show]
       # resources "/news", Info.NewsController, except: [:index, :show]
     end
+
     resources "/news", Info.NewsController, only: [:index, :show]
-
-
-
   end
 
   scope "/shop", as: :shop do
@@ -55,7 +52,6 @@ defmodule AOFFWeb.Router do
 
     get "/payment_accepted/:id", AOFFWeb.Shop.PaymentAcceptedController, :index
     get "/payment_declined/:id", AOFFWeb.Shop.PaymentDeclinedController, :index
-
   end
 
   scope "/admin", as: :admin do
@@ -80,12 +76,11 @@ defmodule AOFFWeb.Router do
     pipe_through :browser
     get "/", AOFFWeb.Purchaser.PurchaserController, :index
 
-
     resources "/dates", AOFFWeb.Purchaser.DateController, only: [:index, :show] do
       resources "/products_notes", AOFFWeb.Purchaser.ProductNoteController
     end
-    resources "/products", AOFFWeb.Purchaser.ProductController
 
+    resources "/products", AOFFWeb.Purchaser.ProductController
   end
 
   scope "/shop_assistant", as: :shop_assistant do

@@ -29,10 +29,8 @@ defmodule AOFFWeb.Volunteer.BlogPostController do
   end
 
   def create(conn, %{"blog_id" => blog_id, "blog_post" => blog_post}) do
-
     blog = Blogs.get_blog!(blog_id)
     blog_post = Map.put(blog_post, "blog_id", blog.id)
-
 
     case Blogs.create_post(blog_post) do
       {:ok, post} ->

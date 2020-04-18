@@ -8,15 +8,18 @@ defmodule AOFFWeb.Volunteer.DateView do
 
   alias AOFF.Users
 
-  @not_found  "<i class='red'>"<> gettext("Missing host") <>"</i>"
+  @not_found "<i class='red'>" <> gettext("Missing host") <> "</i>"
 
   def shop_assistant(user_id) do
     cond do
       user_id == nil ->
         @not_found
+
       user = Users.get_user(user_id) ->
+        # {user.mobile}"
         "<b>#{user.username}</b> - " <>
-        gettext("Mobile: %{mobile}", mobile: user.mobile) #{user.mobile}"
+          gettext("Mobile: %{mobile}", mobile: user.mobile)
+
       true ->
         @not_found
     end

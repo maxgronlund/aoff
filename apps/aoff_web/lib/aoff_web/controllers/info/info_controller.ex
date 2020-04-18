@@ -7,8 +7,7 @@ defmodule AOFFWeb.InfoController do
   def index(conn, _params) do
     conn = assign(conn, :page, :about_aoff)
 
-
-    {:ok, message } =
+    {:ok, message} =
       System.find_or_create_message(
         "/info",
         "Info",
@@ -20,9 +19,7 @@ defmodule AOFFWeb.InfoController do
     # {:ok, calendar} = Blogs.find_or_create_blog("calendar", Gettext.get_locale())
     # {:ok, about_aoff} = Blogs.find_or_create_blog("about_aoff", Gettext.get_locale())
 
-
     render(conn, "index.html", message: message, blogs: blogs)
-
   end
 
   def show(conn, %{"id" => id}) do

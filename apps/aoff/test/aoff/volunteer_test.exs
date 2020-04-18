@@ -8,8 +8,6 @@ defmodule AOFF.VolunteerTest do
   describe "messages" do
     alias AOFF.System.Message
 
-
-
     test "list_messages/0 returns all messages" do
       message = message_fixture()
       assert Volunteers.list_messages() == [message]
@@ -21,7 +19,6 @@ defmodule AOFF.VolunteerTest do
     end
 
     test "create_message/1 with valid data creates a message" do
-
       attrs = valid_message_attrs()
       assert {:ok, %Message{} = message} = Volunteers.create_message(attrs)
       assert message.text == attrs["text"]

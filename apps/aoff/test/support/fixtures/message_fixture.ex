@@ -1,7 +1,5 @@
 defmodule AOFF.System.MessageFixture do
-
   alias AOFF.System.Message
-
 
   @valid_attrs %{
     "text" => "some text",
@@ -45,6 +43,7 @@ defmodule AOFF.System.MessageFixture do
       attrs
       |> Enum.into(@valid_attrs)
       |> AOFF.System.create_message()
+
     message
   end
 end

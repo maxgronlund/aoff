@@ -7,5 +7,29 @@
         | &nbsp;
       = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message)
 
+.row
+  .column
+    table.table
+      thead
+        tr
+          th = gettext("Product")
+          th
+            .float-right
+              = gettext("Price")
+      tbody
+        = for order_item <- @order.order_items do
+          tr
+            td = order_item.product.name
+            td
+              .float-right
+                = order_item.product.price
+
+        tr
+          td
+            b=gettext("Amount")
+          td
+            .float-right
+              b= @order.total
+
 = render "form.html",\
   Map.put(assigns, :action, Routes.shop_checkout_path(@conn, :update, @order))

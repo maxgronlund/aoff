@@ -8,6 +8,7 @@ defmodule AOFFWeb.Users.Auth do
   def call(conn, _opts) do
     user_id = get_session(conn, :user_id)
     user = user_id && Users.get_user(user_id)
+
     conn
     |> assign(:current_user, user)
     |> assign(:valid_member, user && valid_member?(user))
@@ -19,13 +20,13 @@ defmodule AOFFWeb.Users.Auth do
     |> assign(:manage_membership, user && user.manage_membership)
     |> assign(:current_order, user && Users.current_order(user_id))
     |> assign(:order_items_count, user && Users.order_items_count(user_id))
-
   end
 
   def login(conn, user) do
     if Users.current_order(user.id) == nil do
       Users.create_order(%{"user_id" => user.id})
     end
+
     conn
     |> assign(:current_user, user)
     |> put_session(:user_id, user.id)
@@ -45,13 +46,13 @@ defmodule AOFFWeb.Users.Auth do
   end
 
   defp valid_member?(user) do
-
     if user.expiration_date == nil do
       false
     else
       case Date.compare(user.expiration_date, Date.utc_today()) do
         :gt -> true
         :lt -> false
+        :eq -> true
       end
     end
   end

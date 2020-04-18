@@ -15,7 +15,7 @@ defmodule AOFFWeb.Users.MembershipController do
     user = Users.get_user!(user_id)
     products = Shop.get_memberships()
 
-    {:ok, message } =
+    {:ok, message} =
       System.find_or_create_message(
         "/users/:id/membership/new/ - buy new",
         "Buy membership",
@@ -32,31 +32,64 @@ defmodule AOFFWeb.Users.MembershipController do
     )
   end
 
-
   def create(conn, %{"user_id" => user_id, "product_id" => product_id}) do
     user = Users.get_user!(user_id)
+    order = Users.current_order(user_id)
     product = Shop.get_product!(product_id)
-    {:ok, %Order{} = order} = Users.current_order(user_id)
-
     date = Shop.get_next_date(Date.utc_today())
 
 
-    Users.create_order_item(
+    pick_up_params = %{
+      "date_id" => date.id,
+      "user_id" => user.id,
+      "username" => user.username,
+      "member_nr" => user.member_nr,
+      "order_id" => order.id,
+      "email" => user.email
+    }
+
+    order_item_params =
       %{
-        "state" => "initial",
         "order_id" => order.id,
         "date_id" => date.id,
         "user_id" => user.id,
         "product_id" => product.id,
-        "price" => Money.to_string(product.price)
+        "price" => product.price
       }
-    )
+
+
+    result = Users.add_membership_to_basket(pick_up_params, order_item_params)
+
+
+    # case result do
+    #   {:ok, %OrderItem{} = order_item} ->
+    #     conn
+    #     )
+    #     |> redirect(to: Routes.shop_checkout_path(conn, :edit, order))
+
+    #   # {:error, reason} ->
+    #   #   conn
+    #   #   |> put_flash(:error, gettext("Sorry an error occured"))
+    #   #   |> redirect(to: Routes.shop_date_path(conn, :show, params["date_id"]))
+    # end
+
+
+
+    # a pick up date is required
+    # date = Shop.get_next_date(Date.utc_today())
+
+    # IO.inspect Users.create_order_item(%{
+    #   "state" => "initial",
+    #   "order_id" => order.id,
+    #   "date_id" => date.id,
+    #   "user_id" => user.id,
+    #   "product_id" => product.id,
+    #   "price" => Money.to_string(product.price)
+    # })
 
     conn
-    |> redirect(to: Routes.shop_checkout_path(conn, :show, order))
+    |> redirect(to: Routes.shop_checkout_path(conn, :edit, order))
   end
-
-
 
   defp authenticate(conn, _opts) do
     if conn.assigns.current_user do
@@ -70,8 +103,6 @@ defmodule AOFFWeb.Users.MembershipController do
     end
   end
 end
-
-
 
 # with {:ok, order} <- result do
 #       query =

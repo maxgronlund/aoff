@@ -34,14 +34,14 @@ defmodule AOFF.Users do
     Integer.floor_div(users, per_page)
   end
 
-
   def host_dates(date, user_id) do
-
     dates =
       from d in AOFF.Shop.Date,
         order_by: [asc: d.date],
         where: d.date >= ^date,
-        where: d.shop_assistant_a==^user_id or d.shop_assistant_b==^user_id or d.shop_assistant_c==^user_id or d.shop_assistant_d==^user_id
+        where:
+          d.shop_assistant_a == ^user_id or d.shop_assistant_b == ^user_id or
+            d.shop_assistant_c == ^user_id or d.shop_assistant_d == ^user_id
 
     dates
     |> Repo.all()
@@ -99,8 +99,8 @@ defmodule AOFF.Users do
 
   def get_user_by_reset_password_token(token) do
     cond do
-      token=="" -> nil
-      token==nil -> nil
+      token == "" -> nil
+      token == nil -> nil
       true -> Repo.get_by(User, password_reset_token: token)
     end
   end
@@ -148,6 +148,7 @@ defmodule AOFF.Users do
 
   def update_password!(%User{} = user, attrs) do
     attrs = Map.put(attrs, "password_reset_token", "")
+
     user
     |> User.update_password_changeset(attrs)
     |> Repo.update()
@@ -302,14 +303,12 @@ defmodule AOFF.Users do
     Repo.one(query)
   end
 
-
-
   alias AOFF.Users.Order
 
   def current_order(user_id) do
     query =
       from o in Order,
-        where: o.user_id == ^user_id and o.state==^"open",
+        where: o.user_id == ^user_id and o.state == ^"open",
         limit: 1
 
     Repo.one(query)
@@ -327,7 +326,6 @@ defmodule AOFF.Users do
   #     %Order{} = order -> {:ok, order}
   #   end
   # end
-
 
   def last_order_id() do
     query =
@@ -376,6 +374,37 @@ defmodule AOFF.Users do
     |> Repo.get!(id)
     |> Repo.preload(:user)
     |> Repo.preload(order_items: [:product, :date])
+  end
+
+  alias AOFF.Shop.Product
+
+  def extend_memberships(order) do
+    for membership <- memberships_in_order(order.id) do
+      IO.inspect user = order.user
+      today = Date.utc_today()
+
+      expiration_date =
+        if user.expiration_date < today do
+          Date.add(today, 365)
+        else
+          Date.add(user.expiration_date, 365)
+        end
+      User.update_membership_changeset(
+        user,
+        %{"expiration_date" => expiration_date}
+      )
+      |> Repo.update()
+    end
+  end
+
+  defp memberships_in_order(order_id) do
+    query =
+      from p in Product,
+      where: p.membership==^true,
+      join: oi in assoc(p,:order_items),
+      where: oi.order_id==^order_id
+
+    Repo.all(query)
   end
 
   # alias AOFF.Users.OrderItem
@@ -427,28 +456,13 @@ defmodule AOFF.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  def  update_order(%Order{} = order, attrs) do
+  def update_order(%Order{} = order, attrs) do
     result =
       order
       |> Order.changeset(attrs)
       |> Repo.update()
   end
 
-  @doc """
-  Deletes a order.
-
-  ## Examples
-
-      iex> delete_order(order)
-      {:ok, %Order{}}
-
-      iex> delete_order(order)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  # def delete_order(%Order{} = order) do
-  #   Repo.delete(order)
-  # end
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking order changes.
@@ -468,24 +482,13 @@ defmodule AOFF.Users do
   def order_items_count(user_id) do
     query =
       from o in OrderItem,
-      join: ordr in assoc(o, :order),
-      where: ordr.state==^"open" and ordr.user_id==^user_id,
-      select: count(o.id)
+        join: ordr in assoc(o, :order),
+        where: ordr.state == ^"open" and ordr.user_id == ^user_id,
+        select: count(o.id)
+
     Repo.one(query)
   end
 
-  @doc """
-  Returns the list of order_items.
-
-  ## Examples
-
-      iex> list_order_items()
-      [%OrderItem{}, ...]
-
-  """
-  # def list_order_items do
-  #   Repo.all(OrderItem)
-  # end
 
   @doc """
   Gets a single order_item.
@@ -520,8 +523,8 @@ defmodule AOFF.Users do
 
   """
   def create_order_item(attrs \\ %{}) do
-
-    result = %OrderItem{}
+    result =
+      %OrderItem{}
       |> OrderItem.changeset(attrs)
       |> Repo.insert()
 
@@ -531,38 +534,36 @@ defmodule AOFF.Users do
       update_order(order, %{"total" => total})
     end
 
-
     result
   end
 
-  defp order_total(order_id) do
+  alias AOFF.Shop
 
-    q =
-      from i in OrderItem,
-      where: i.order_id==^order_id,
-      select: type(sum(i.price), i.price)
+  def add_membership_to_basket(pick_up_parame, order_item_params) do
+    result =
+      Repo.transaction(fn ->
+        {:ok, pick_up} = Shop.find_or_create_pick_up(pick_up_parame)
 
-    Repo.one(q)
+        order_item_params
+        |> Map.merge(%{"pick_up_id" => pick_up.id})
+        |> create_order_item()
+      end)
 
+    case result do
+      {:ok, result} -> result
+      {:error, error} -> error
+    end
   end
 
-  @doc """
-  Updates a order_item.
+  defp order_total(order_id) do
+    q =
+      from i in OrderItem,
+        where: i.order_id == ^order_id,
+        select: type(sum(i.price), i.price)
 
-  ## Examples
+    Repo.one(q)
+  end
 
-      iex> update_order_item(order_item, %{field: new_value})
-      {:ok, %OrderItem{}}
-
-      iex> update_order_item(order_item, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  # def update_order_item(%OrderItem{} = order_item, attrs) do
-  #   order_item
-  #   |> OrderItem.changeset(attrs)
-  #   |> Repo.update()
-  # end
 
   @doc """
   Deletes a order_item.
@@ -578,11 +579,13 @@ defmodule AOFF.Users do
   """
   def delete_order_item(%OrderItem{} = order_item) do
     result = Repo.delete(order_item)
+
     with {:ok, order_item} <- result do
       order = get_order!(order_item.order_id)
       total = order_total(order.id)
       update_order(order, %{"total" => total})
     end
+
     result
   end
 
@@ -601,13 +604,11 @@ defmodule AOFF.Users do
 
   def payment_accepted(%Order{} = order) do
     order
-    |> Order.changeset(
-      %{
-        "state" => "payment_accepted",
-        "order_id" => order.order_id,
-        "payment_date" => Date.utc_today()
-      })
+    |> Order.changeset(%{
+      "state" => "payment_accepted",
+      "order_id" => order.order_id,
+      "payment_date" => Date.utc_today()
+    })
     |> Repo.update()
-
   end
 end

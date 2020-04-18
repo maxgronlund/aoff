@@ -6,7 +6,6 @@ defmodule AOFF.Blogs.Blog do
   alias AOFF.Uploader.Image
   alias AOFF.Blogs.BlogPost
 
-
   @derive {Phoenix.Param, key: :title}
 
   @primary_key {:id, :binary_id, autogenerate: true}

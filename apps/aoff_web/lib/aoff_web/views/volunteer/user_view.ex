@@ -8,6 +8,7 @@ defmodule AOFFWeb.Volunteer.UserView do
       case Date.compare(user.expiration_date, Date.utc_today()) do
         :gt -> "Valid member"
         :lt -> "Inactive"
+        :eq -> "Valid member"
       end
     end
   end
@@ -19,6 +20,7 @@ defmodule AOFFWeb.Volunteer.UserView do
       case Date.compare(user.expiration_date, Date.utc_today()) do
         :gt -> true
         :lt -> false
+        :eq -> true
       end
     end
   end

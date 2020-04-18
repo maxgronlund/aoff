@@ -11,8 +11,8 @@ defmodule AOFFWeb.Volunteer.DateController do
   plug :navbar when action in [:index, :new, :show, :edit]
 
   def index(conn, params) do
-
     Shop.secure_dates()
+
     page =
       if params["query"] do
         false
@@ -24,7 +24,7 @@ defmodule AOFFWeb.Volunteer.DateController do
       if query = params["query"] do
         Shop.search_date(query)
       else
-        Shop.list_dates( Date.utc_today(), String.to_integer(page), 12)
+        Shop.list_dates(Date.utc_today(), String.to_integer(page), 12)
       end
 
     render(
@@ -38,6 +38,7 @@ defmodule AOFFWeb.Volunteer.DateController do
 
   def new(conn, _params) do
     changeset = Shop.change_date(%AOFF.Shop.Date{})
+
     render(
       conn,
       "new.html",

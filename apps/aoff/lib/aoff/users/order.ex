@@ -22,46 +22,31 @@ defmodule AOFF.Users.Order do
 
   @doc false
   def create_changeset(order, attrs) do
-
     attrs =
       attrs
-      |> Map.merge(
-          %{
-            "order_id" => Users.last_order_id() + 1,
-            "total" => Money.new(0, :DKK)
-          }
-        )
+      |> Map.merge(%{
+        "order_id" => Users.last_order_id() + 1,
+        "total" => Money.new(0, :DKK)
+      })
 
     order
     |> cast(attrs, [
       :user_id,
       :order_id,
       :total
-      ]
-    )
+    ])
     |> validate_required([
       :user_id,
       :state,
       :order_id
-      ]
-    )
+    ])
     |> unique_constraint(:order_id)
   end
 
   @doc false
   def changeset(order, attrs) do
-
     order
-    |> cast(attrs, [
-      :user_id,
-      :state,
-      :order_nr,
-      :order_id,
-      :payment_date,
-      :total])
-    |> validate_required([
-      :user_id,
-      :state,
-      :order_id])
+    |> cast(attrs, [:user_id, :state, :order_nr, :order_id, :payment_date, :total])
+    |> validate_required([:user_id, :state, :order_id])
   end
 end
