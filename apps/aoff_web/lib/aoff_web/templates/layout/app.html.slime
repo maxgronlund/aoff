@@ -1,5 +1,6 @@
 doctype html
-html lang="da" class="<%= backdrop(@conn) %>"
+html lang="da"
+
   head
     meta charset="utf-8"
     meta content="IE=edge" http-equiv="X-UA-Compatible"
@@ -19,7 +20,7 @@ html lang="da" class="<%= backdrop(@conn) %>"
 
 
 
-  body
+  body class="<%= backdrop(@conn) %>"
 
     = render AOFFWeb.LayoutView, "navbar.html", assigns
     main.container.content role="main"

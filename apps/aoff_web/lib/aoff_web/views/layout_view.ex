@@ -29,10 +29,10 @@ defmodule AOFFWeb.LayoutView do
     cond do
       conn.assigns[:backdrop] == :show ->
         case Enum.random(0..3) do
-          0 -> "full backdrop-01"
-          1 -> "full backdrop-02"
-          2 -> "full backdrop-03"
-          _ -> "full backdrop-04"
+          0 -> "fixed-backdrop backdrop-01"
+          1 -> "fixed-backdrop backdrop-02"
+          2 -> "fixed-backdrop backdrop-03"
+          _ -> "fixed-backdrop backdrop-04"
         end
 
       true ->

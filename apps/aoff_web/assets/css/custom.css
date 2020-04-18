@@ -163,28 +163,36 @@ select {
   margin: -1rem 0 2rem;
 }
 
-html.full {
+/*html.full {
 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}*/
+
+body.fixed-backdrop {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #000;
 }
 
 .backdrop-01 {
-  background: url(/images/backdrops/01.jpg) no-repeat center center fixed;
+  background: url(/images/backdrops/01.jpg);
 }
 
 .backdrop-02 {
-  background: url(/images/backdrops/02.jpg) no-repeat center center fixed;
+  background: url(/images/backdrops/02.jpg) ;
 }
 
 .backdrop-03 {
-  background: url(/images/backdrops/03.jpg) no-repeat center center fixed;
+  background: url(/images/backdrops/03.jpg) ;
 }
 
 .backdrop-04 {
-  background: url(/images/backdrops/04.jpg) no-repeat center center fixed;
+  background: url(/images/backdrops/04.jpg) ;
 }
 
 /*.aoff-logo-white {
