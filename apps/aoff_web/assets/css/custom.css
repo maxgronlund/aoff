@@ -265,6 +265,7 @@ header
   background-position: 10px 0px;
   background-size: 100px 60px;
   display: inline-block;
+  position: relative;
 }
 
 .aoff-logo {
