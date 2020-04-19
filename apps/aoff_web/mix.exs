@@ -55,7 +55,8 @@ defmodule AOFFWeb.MixProject do
       {:poison, "~> 3.1"},
       {:sweet_xml, "~> 0.6"},
       {:ex_cldr_dates_times, "~> 2.0"},
-      {:bamboo, "~> 1.4"}
+      {:bamboo, "~> 1.4"},
+      {:tesla, "~> 1.3.0"}
     ]
   end
 

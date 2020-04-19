@@ -31,23 +31,40 @@
             .float-right
               b= @order.total
 
+
+
 = render "form.html",\
   Map.put(assigns, :action, Routes.shop_checkout_path(@conn, :update, @order))
 
-/script src="https://static.bambora.com/checkout-sdk-web/latest/checkout-sdk-web.min.js"
+
+
+
+/script src="https://static.bambora.com/checkout-sdk-web/latest//checkout-sdk-web.min.js"
 /javascript:
-/  var checkout = new Bambora.InlineCheckout(
-/    "<<YOUR-SESSION-TOKEN-HERE>>",
-/    {
-/      container: document.body
-/      // For this example, we put the iframe in the body element.
-/    }
-/  );
+/ var checkout = new Bambora.InlineCheckout(
+/   "SFMyNTY.g3QAAAACZAAEZGF0YWEBZAAGc2lnbmVkbgYA2DtikXEB.2aSbq6hdJgOIwO4oT8i_VVH4Lhiw/ZKR5oxqTAq0VSMQ",
+/   {
+/     container: document.bambora
+/     // For this example, we put the iframe in the body element.
+/   }
+/ );
 /
-/  checkout.on(
-/    Bambora.Event.Authorize,
-/    function(payload) {
-/      console.log(payload.data.txnid);
-/      // The transaction ID is logged to the console upon authorize.
+/ var payload= {
+/    "order": {
+/      "id": "123",
+/      "amount": 9900,
+/      "currency": "EUR"
+/    },
+/    "url": {
+/      "accept": "https://aoff.herokuapp.com/accept",
+/      "cancel": "https://aoff.herokuapp.com/cancel"
 /    }
-/  );/
+/  };
+/
+/ checkout.on(
+/   Bambora.Event.Authorize,
+/   function(payload) {
+/     console.log(payload.data.txnid);
+/     // The transaction ID is logged to the console upon authorize.
+/   }
+/ );/
