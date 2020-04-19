@@ -178,7 +178,6 @@ body.fixed-backdrop {
   background-size: cover;
   background-color: #000;
   min-height: 100vh;
-  background-attachment: fixed;
 }
 
 .backdrop-01 {
@@ -266,7 +265,6 @@ header
   background-position: 10px 0px;
   background-size: 100px 60px;
   display: inline-block;
-  background-attachment: fixed;
 }
 
 .aoff-logo {
