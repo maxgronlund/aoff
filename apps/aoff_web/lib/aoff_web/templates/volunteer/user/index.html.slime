@@ -33,10 +33,6 @@ hr
         = link gettext("Show"),\
           to: Routes.volunteer_user_path(@conn, :show, user),\
           class: "button button-small button-outline"
-
-        = if !user.admin do
-          | &nbsp;
-          = link gettext("Delete"), to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red button-small"
       .column
         = valid_membership(user)
         br/

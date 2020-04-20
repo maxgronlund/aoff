@@ -67,10 +67,12 @@ h2 = @user.username
       .float-right
         = link gettext("Edit account"), to: Routes.volunteer_user_path(@conn, :edit, @user), class: "button"
         | &nbsp;
-        / = link gettext("Delete account"),\
-        /   to: Routes.volunteer_user_path(@conn, :delete, @user),\
-        /   method: :delete,\
-        /   data: [confirm: "Are you sure?"],\
-        /   class: "button button-red"
+        = if !@user.admin do
+          | &nbsp;
+          = link gettext("Delete account"),\
+            to: Routes.volunteer_user_path(@conn, :delete, @user),\
+            method: :delete,\
+            data: [confirm: "Are you sure?"],\
+            class: "button button-red"
 
 

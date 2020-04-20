@@ -38,7 +38,7 @@ msgstr "Butiks vært"
 #: lib/aoff_web/templates/admin/user/index.html.slime:1 lib/aoff_web/templates/volunteer/user/index.html.slime:1
 #: lib/aoff_web/templates/volunteer/user/index.html.slime:1
 msgid "Admin Users"
-msgstr "Brugere admin"
+msgstr "Medlemmer"
 
 #, elixir-format
 #: lib/aoff_web/templates/user/form.html.slime:3
@@ -476,7 +476,7 @@ msgstr "Kontoen er blevet opdateret"
 #: lib/aoff_web/templates/admin/user/form.html.slime:1
 #: lib/aoff_web/templates/volunteer/user/form.html.slime:1
 msgid "Username"
-msgstr "Brugernavn"
+msgstr "Fuldt navn"
 
 #, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:1
@@ -1133,4 +1133,4 @@ msgstr "Der er desværere sket en fejl"
 #: lib/aoff_web/templates/volunteer/user/edit.html.slime:1
 #: lib/aoff_web/templates/volunteer/user/show.html.slime:1
 msgid "Users"
-msgstr "Brugernavn"
+msgstr "Medlemmer"
