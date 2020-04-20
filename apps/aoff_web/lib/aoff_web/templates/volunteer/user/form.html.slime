@@ -75,6 +75,6 @@
 
   .form-group
     .float-right
-      = link gettext("Cancel"), to: Routes.admin_user_path(@conn, :index), class: "button button-outline"
+      = link gettext("Cancel"), to: Routes.volunteer_user_path(@conn, :index), class: "button button-outline"
       | &nbsp;
       = submit gettext("Save"), class: "button"

@@ -1,3 +1,16 @@
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+
+        li
+          = link gettext("Users"), to: Routes.volunteer_user_path(@conn, :index)
+        li.is-active
+          | &nbsp;
+          = @user.username
+
 h2 = gettext("Edit User")
 
 = render "form.html", Map.put(assigns, :action, Routes.volunteer_user_path(@conn, :update, @user))
