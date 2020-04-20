@@ -49,7 +49,7 @@
 
 
 
-= if @order_items_count > 0 do
+= if @current_user && @current_order &&  @order_items_count > 0 do
   .row.mt-1
     .column
       = link gettext("Show basker"),\

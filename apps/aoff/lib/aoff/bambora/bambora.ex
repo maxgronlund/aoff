@@ -2,7 +2,8 @@ defmodule AOFF.Bambora do
   use Tesla
   plug Tesla.Middleware.BaseUrl, "https://api.v1.checkout.bambora.com"
   plug Tesla.Middleware.Headers, [
-    {"authorization", "basic: " <> "MEdUaEd0bEpldm9hTzBSNU5jN1k="}
+    {"authorization", "basic: " <> "MEdUaEd0bEpldm9hTzBSNU5jN1k="},
+    {"content"}
   ]
   plug Tesla.Middleware.JSON
   plug Tesla.Middleware.FormUrlencoded
@@ -11,8 +12,6 @@ defmodule AOFF.Bambora do
     #get("/sessions")
 
     # password = "0GThGtlJevoaO0R5Nc7Y@T356710501:fzxojhtu0mLcgxSCne4WOci4QrQaPPGmiGSasFW9"
-
-
     # IO.inspect Base.encode64(password)
 
 
@@ -24,8 +23,8 @@ defmodule AOFF.Bambora do
           currency: "DKK"
           },
         url: %{
-          accept: "https://aoff.herokupp.com/accept",
-          cancel: "https://aoff.herokua.com/cancel"
+          accept: "https://aoff.herokupp.com/shop/payment_accepted",
+          cancel: "https://aoff.herokua.com/shop/payment_declined"
         }
       }
     IO.inspect request_body
