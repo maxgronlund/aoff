@@ -36,7 +36,7 @@ hr
 
         = if !user.admin do
           | &nbsp;
-          = link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red button-small"
+          = link gettext("Delete"), to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red button-small"
       .column
         = valid_membership(user)
         br/

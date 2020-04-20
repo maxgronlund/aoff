@@ -15,10 +15,6 @@
 
       .column
         .form-group
-          /= label f,\
-          /  :this_weeks_content,\
-          /  gettext("This weeks content"),\
-          /  class: "control-label"
           = textarea f, :this_weeks_content, style: "height: 300px;" , class: "form-control"
           = error_tag f, :this_weeks_content
   .alert.alert-box
@@ -31,7 +27,7 @@
             = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @notes_for_the_hosts)
       .column
         .form-group
-          = label f, :notes, gettext("Notes for the shop host"), class: "control-label"
+
           = textarea f, :notes, style: "height: 300px;" , class: "form-control"
           = error_tag f, :notes
 
