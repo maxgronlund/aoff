@@ -8,7 +8,7 @@ defmodule AOFF.Bambora do
   plug Tesla.Middleware.JSON
   plug Tesla.Middleware.FormUrlencoded
 
-  def session() do
+  def go() do
     #get("/sessions")
 
     # password = "0GThGtlJevoaO0R5Nc7Y@T356710501:fzxojhtu0mLcgxSCne4WOci4QrQaPPGmiGSasFW9"
@@ -35,7 +35,7 @@ defmodule AOFF.Bambora do
   end
 
 
-  def build() do
+  def get() do
 
       accessToken = "0GThGtlJevoaO0R5Nc7Y"
       merchantNumber = "T356710501";

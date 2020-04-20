@@ -1,9 +1,16 @@
+javascript:
+  tinymce.init({
+    selector: '#blog_description',
+    menubar: false,
+    height : 300
+  });
+
 = form_for @changeset, @action, [multipart: true], fn f ->
   = if @changeset.action do
     .alert.alert-danger
       p Oops, something went wrong! Please check the errors below.
   = if @blog do
-    .alert.alert-warning
+    .alert.alert-success
       = img_tag(AOFF.Uploader.Image.url({@blog.image, @blog}, :stamp), class: "image")
       .form-group
         = label f, :image, gettext("Image"), class: "control-label"
@@ -17,5 +24,7 @@
     = label f, :description, gettext("Description"), class: "control-label"
     = textarea f, :description, class: "form-control"
     = error_tag f, :description
-  .form-group
-    = submit gettext("Save"), class: "button"
+    i= gettext("Make the description short. max 32 words")
+  .form-group.mt-1
+    .float-right
+      = submit gettext("Save"), class: "button"

@@ -1,0 +1,33 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link @blog.title, to: Routes.news_path(@conn, :index)
+    li.is-active
+      | &nbsp;
+      = @post.title
+
+
+
+.row
+  .column
+    h2= @post.title
+    = if @text_editor do
+     .float-right
+       = link gettext("Edit"),\
+         to: Routes.volunteer_blog_blog_post_path(@conn, :edit, @blog, @post),\
+         class: "button float-right"
+.row
+  .column
+
+    b = @post.teaser
+
+  .column
+
+    = img_tag AOFF.Uploader.Image.url({@post.image, @post}, :original)
+    .image-caption
+      = @post.caption
+.row
+  .column
+    .auto-columns
+      = raw(@post.text)
+

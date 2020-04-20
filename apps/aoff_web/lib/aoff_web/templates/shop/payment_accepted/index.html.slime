@@ -1,4 +1,4 @@
-.alert.alert-info
+.alert.alert-success
   h2 = @message.title
   = raw @message.text
   = if @text_editor do

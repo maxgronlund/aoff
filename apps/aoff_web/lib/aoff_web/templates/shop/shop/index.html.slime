@@ -12,20 +12,19 @@ h2= gettext("Please select a pickup date")
   = for date <- @dates do
 
       .card.is-shady
+        = link to: Routes.shop_date_path(@conn, :show, date) do
+          = if date.open do
+            .card-header-title.is-centered
+              = date(date.date)
+          - else
+            .card-header-title.is-centered.is-red
+              = gettext("%{date} - closed", date: date(date.date))
 
-        = if date.open do
-          .card-header-title.is-centered
-            = date(date.date)
-        - else
-          .card-header-title.is-centered.is-red
-            = gettext("%{date} - closed", date: date(date.date))
-
-        .card-image
-          img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({date.image, date}, :thumb)}"
-        .card-footer.is-button
-          = link gettext("Select"),\
-            to: Routes.shop_date_path(@conn, :show, date),\
-            class: "card-footer-item is-button"
+          .card-image
+            img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({date.image, date}, :thumb)}"
+          .card-footer.is-button
+            .card-footer-item.is-button
+              = gettext("Select")
 
 
 

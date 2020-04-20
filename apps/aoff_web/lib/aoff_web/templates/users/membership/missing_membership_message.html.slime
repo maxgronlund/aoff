@@ -1,5 +1,5 @@
 
-.alert.alert-warning
+.alert.alert-success
   = if @current_user do
     h3 = @expired_message.title
     = raw @expired_message.text

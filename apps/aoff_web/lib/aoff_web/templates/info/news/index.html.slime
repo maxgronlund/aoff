@@ -1,8 +1,10 @@
 
 = if @volunteer do
-  .alert.alert-info
+  .alert.alert-success
     h3 = @message.title
-    = raw @message.text
+
+    .auto-columns
+      = raw @message.text
     = if @text_editor do
       = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message)
 
@@ -15,23 +17,29 @@
 .row
   .column
     h2 = @news.title
-    p= @news.description
+    .auto-columns
+      = raw @news.description
+    = if @text_editor do
+      .float-right
+        = link gettext("Edit Category"),\
+          to: Routes.volunteer_blog_path(@conn, :edit,  @news),\
+          class: "button"
+.row.mt-2
+  .column
+    .tiles.button-tiles
+      = for post <- @blog_posts do
+        .card.is-shady
+          = link to: Routes.news_path(\
+                  @conn, :show,\
+                  post, %{"blog_id" => @news.title, "locale" => @news.locale}\
+                ) do
+            .card-image
+              img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({post.image, post}, :thumb)}"
 
-
-.tiles.button-tiles
-  = for post <- @blog_posts do
-    .card.is-shady
-      .card-image
-        img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({post.image, post}, :thumb)}"
-
-      .card-content
-        i = date(post.date) <> " - " <> post.author
-        h4 = post.title
-        p = post.teaser
-      .card-footer.is-button
-        = link gettext("Read More"),\
-          to: Routes.news_path(\
-            @conn, :show,\
-            post, %{"blog_id" => @news.title, "locale" => @news.locale}\
-          ),\
-          class: "card-footer-item is-button"
+            .card-content
+              i = date(post.date) <> " - " <> post.author
+              h4 = post.title
+              = raw post.teaser
+            .card-footer.is-button
+              .card-footer-item.is-button
+                = gettext("Read More")

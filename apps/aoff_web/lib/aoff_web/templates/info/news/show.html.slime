@@ -8,11 +8,17 @@
 
 
 
+= if @volunteer do
+  .row
+    .column
+      = link gettext("Edit"),\
+        to: Routes.volunteer_blog_blog_post_path(@conn, :edit, @blog, @post),\
+        class: "button float-right"
 .row
   .column
-    = @post.author <> " - " <> date(@post.date)
 
     h2= @post.title
+    = @post.author <> " - " <> date(@post.date)
   .column
 
     = img_tag AOFF.Uploader.Image.url({@post.image, @post}, :original)
@@ -20,15 +26,13 @@
       = @post.caption
 .row
   .column
-    = raw(@post.text)
+    .auto-columns
+      = raw(@post.text)
 
 
 
 = if @volunteer do
   .column
-    = link gettext("Edit"),\
-      to: Routes.volunteer_blog_blog_post_path(@conn, :edit, @blog, @post),\
-      class: "button float-right"
   / = if @volunteer do
   /   = link gettext("Delete"),\
   /     to: Routes.info_news_path(@conn, :delete, @news, post),\

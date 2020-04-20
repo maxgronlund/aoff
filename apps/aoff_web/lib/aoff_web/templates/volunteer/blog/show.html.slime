@@ -8,11 +8,12 @@
       |&nbsp;
       = @blog.title
 
+
 .row
   .column
     h2 = @blog.title
   .column
-    .float-right
+    .float-right.mt-2
       = link gettext("Edit Category"),\
         to: Routes.volunteer_blog_path(@conn, :edit,  @blog),\
         class: "button"
@@ -22,7 +23,13 @@
         method: :delete,\
         data: [confirm: gettext("Are you sure? All articles in this categotry will be gone.")],\
         class: "button button-red"
+.row
+  .column
+    = raw @blog.description
 
+
+  .column
+    = img_tag AOFF.Uploader.Image.url({@blog.image, @blog}, :original)
 
 
 = link gettext("New Article"), to: Routes.volunteer_blog_blog_post_path(@conn, :new,  @blog), class: "button"

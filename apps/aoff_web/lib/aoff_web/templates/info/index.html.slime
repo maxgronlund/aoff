@@ -1,7 +1,11 @@
 h2 = @message.title
-= raw @message.text
+.auto-columns
+  = raw @message.text
 = if @text_editor do
-  = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message)
+  .float-right.mt-2
+    = link gettext("Edit text"),\
+      to: Routes.volunteer_message_path(@conn, :edit, @message),\
+      class: "button"
 br
 .tiles.button-tiles
   = for blog <- @blogs do
@@ -12,7 +16,7 @@ br
       .card-image
         img.modal-button alt=("#{blog.title}") src="#{ AOFF.Uploader.Image.url({blog.image, blog}, :original)}"
       .card-content
-        = blog.description
+        = raw blog.description
 
       .card-footer.is-button
         = link gettext("Read More"),\

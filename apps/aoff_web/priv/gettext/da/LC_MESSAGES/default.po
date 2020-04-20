@@ -871,7 +871,7 @@ msgstr "Forfatter"
 #: lib/aoff_web/controllers/volunteers/blog_controller.ex:51
 #: lib/aoff_web/controllers/volunteers/blog_controller.ex:51
 msgid "Category updated successfully."
-msgstr "Kontoen er blevet opdateret"
+msgstr "Kategorien er blevet opdateret"
 
 #, elixir-format
 #: lib/aoff_web/templates/user/form.html.slime:3

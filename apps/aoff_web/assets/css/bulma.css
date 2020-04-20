@@ -76,7 +76,10 @@
 
 /* --- custom --- */
 
+ a .card-content {
 
+  color: #606c76;
+}
 
 .card.is-black {
   color: #fff;

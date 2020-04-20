@@ -34,8 +34,9 @@ javascript:
     = textarea f, :text, class: "form-control"
     = error_tag f, :text
 
-  .form-group
-    = link gettext("Cancel"),\
-      to: Routes.volunteer_message_path(@conn, :index), class: "button button-outline"
-    | &nbsp;
-    = submit gettext("Save"), class: "button"
+  .form-group.mt-1
+    .float-right
+      = link gettext("Cancel"),\
+        to: Routes.volunteer_message_path(@conn, :index), class: "button button-outline"
+      | &nbsp;
+      = submit gettext("Save"), class: "button"

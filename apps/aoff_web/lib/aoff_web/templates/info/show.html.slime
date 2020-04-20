@@ -9,17 +9,29 @@
 .row
   .column
     h2 = @blog.title
-    p= @blog.description
+  = if @text_editor do
+    .float-right
+      = link gettext("Edit text"),\
+        to: Routes.volunteer_blog_path(@conn, :edit,  @blog),\
+        class: "button"
+.row
+
+  .column
+    = raw @blog.description
   .column
     = img_tag AOFF.Uploader.Image.url({@blog.image, @blog}, :original)
 hr
-.tiles
+.tiles.button-tiles
   = for post <- @blog.blog_posts do
     .card.is-shady
-      .card-image
-        img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({post.image, post}, :thumb)}"
+      = link to: Routes.info_about_path(@conn, :show, @blog, post) do
+        .card-image
+          img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({post.image, post}, :thumb)}"
 
-      .card-content
-        h4 = post.title
-        p = post.teaser
-        = link gettext("Read More"), to: Routes.info_about_path(@conn, :show, @blog, post), class: "button float-right"
+        .card-content
+          h4 = post.title
+          p = post.teaser
+
+        .card-footer.is-button
+          .card-footer-item.is-button
+            = gettext("Read More")
