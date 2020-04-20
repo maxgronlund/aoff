@@ -1,0 +1,76 @@
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+
+        li
+          = link gettext("Users"), to: Routes.volunteer_user_path(@conn, :index)
+        li.is-active
+          | &nbsp;
+          = @user.username
+
+h2 = @user.username
+= if @valid_member do
+  = gettext("Valid to: %{expiration_date}", expiration_date: date(@user.expiration_date ))
+- else
+  .alert.alert-danger
+    h3= @message.title
+    = raw @message.text
+    br/
+    = link \
+      gettext("Pay for membership"),\
+      to: Routes.user_membership_path(@conn, :new, @current_user),\
+      class: "button float-right"
+    | &nbsp;
+    br/
+    | &nbsp;
+.alert.alert-success
+  .row
+    .column
+      = if @volunteer do
+        = img_tag AOFF.Uploader.Image.url({@user.avatar, @user}, :avatar)
+        br
+
+
+      = gettext("Email: %{email}", email: @user.email)
+      br/
+      = gettext("Mobile: %{mobile}", mobile: @user.mobile)
+    .column
+      strong = gettext("Member Nr: %{member_nr}", member_nr: @user.member_nr)
+      br
+      = gettext("Member since %{date}", date: date(@user.registration_date))
+      = if @admin do
+        br
+        = gettext("Admin √")
+      = if @volunteer do
+        br
+        = gettext("Volunteer √")
+      = if @purchaser do
+        br
+        = gettext("Purchaser √")
+      = if @shop_assistant do
+        br
+        = gettext("Host √")
+
+
+      = if @text_editor do
+        br
+        = gettext("Text editor √")
+      = if @manage_membership do
+        br
+        = gettext("Manage membership √")
+  .row
+    .column
+      hr
+      .float-right
+        = link gettext("Edit account"), to: Routes.volunteer_user_path(@conn, :edit, @user), class: "button"
+        | &nbsp;
+        / = link gettext("Delete account"),\
+        /   to: Routes.volunteer_user_path(@conn, :delete, @user),\
+        /   method: :delete,\
+        /   data: [confirm: "Are you sure?"],\
+        /   class: "button button-red"
+
+

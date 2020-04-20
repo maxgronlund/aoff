@@ -23,35 +23,39 @@
       = link gettext("Show all"), to: Routes.volunteer_user_path(@conn, :index), class: "button button-outline"
 hr
 = for user <- @users do
-  .row
-    .column
-      strong = user.username
-      br
-      = gettext("Member Nr: %{member_nr}", member_nr: user.member_nr)
-    .column
-      = valid_membership(user)
-      br/
-      = if user.admin do
-        = gettext("Admin")
-        br/
-      = if user.purchasing_manager do
-        = gettext("Purchaser")
-        br/
-      = if user.volunteer do
-        = gettext("Volunteer")
-        br/
-      = if user.shop_assistant do
-        = gettext("Shop assistant")
-        br/
-    .column
+  .alert.alert-box
+    .row
+      .column
+        strong = user.username
+        br
+        = gettext("Member Nr: %{member_nr}", member_nr: user.member_nr)
+        br
+        = link gettext("Show"),\
+          to: Routes.volunteer_user_path(@conn, :show, user),\
+          class: "button button-small button-outline"
 
-      = link gettext("Edit"),\
-        to: Routes.volunteer_user_path(@conn, :edit, user),\
-        class: "button button-small button-outline"
-      = if !user.admin do
-        | &nbsp;
-        = link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red button-small"
-  hr
+        = if !user.admin do
+          | &nbsp;
+          = link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red button-small"
+      .column
+        = valid_membership(user)
+        br/
+        = if user.admin do
+          = gettext("Admin")
+          br/
+        = if user.purchasing_manager do
+          = gettext("Purchaser")
+          br/
+        = if user.volunteer do
+          = gettext("Volunteer")
+          br/
+        = if user.shop_assistant do
+          = gettext("Shop assistant")
+          br/
+
+
+
+
 
 = for page <- 0..@pages do
   - s = Integer.to_string(page)

@@ -6,7 +6,7 @@ defmodule AOFFWeb.Volunteer.UserController do
 
   alias AOFFWeb.Users.Auth
   plug Auth
-  plug :authenticate when action in [:index, :edit, :update, :delete]
+  plug :authenticate when action in [:index, :show, :edit, :update, :delete]
 
   def index(conn, params) do
     users =
@@ -24,6 +24,11 @@ defmodule AOFFWeb.Volunteer.UserController do
     user = Volunteers.get_user!(id)
     changeset = Volunteers.change_user(user)
     render(conn, "edit.html", user: user, changeset: changeset, email: user.email)
+  end
+
+  def show(conn, %{"id" => id}) do
+    user = Volunteers.get_user!(id)
+    render(conn, "show.html", user: user)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
