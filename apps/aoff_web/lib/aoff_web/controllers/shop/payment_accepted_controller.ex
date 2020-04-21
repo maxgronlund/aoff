@@ -9,9 +9,9 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
     order = Users.get_order!(id)
 
     if order.state == "open" do
-      Users.payment_accepted(order)
-      Users.create_order(%{"user_id" => order.user_id})
-      Users.extend_memberships(order)
+      inspect Users.payment_accepted(order)
+      inspect Users.create_order(%{"user_id" => order.user_id})
+      inspect Users.extend_memberships(order)
     end
 
     {:ok, message} =

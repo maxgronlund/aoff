@@ -379,8 +379,9 @@ defmodule AOFF.Users do
   alias AOFF.Shop.Product
 
   def extend_memberships(order) do
+
     for membership <- memberships_in_order(order.id) do
-      IO.inspect user = order.user
+      user = order.user
       today = Date.utc_today()
 
       expiration_date =
@@ -540,7 +541,7 @@ defmodule AOFF.Users do
   alias AOFF.Shop
 
   def add_membership_to_basket(pick_up_parame, order_item_params) do
-
+    add_order_item_to_basket(pick_up_parame, order_item_params)
   end
 
   def add_order_item_to_basket(pick_up_parame, order_item_params) do

@@ -66,6 +66,7 @@ defmodule AOFFWeb.Router do
     resources "/dates", AOFFWeb.Volunteer.DateController
     resources "/users", AOFFWeb.Volunteer.UserController
     resources "/messages", AOFFWeb.Volunteer.MessageController, except: [:new, :create]
+    resources "/memberships", AOFFWeb.Volunteer.MembershipController, only: [:index, :edit, :update]
 
     resources "/blogs", AOFFWeb.Volunteer.BlogController do
       resources "/posts", AOFFWeb.Volunteer.BlogPostController

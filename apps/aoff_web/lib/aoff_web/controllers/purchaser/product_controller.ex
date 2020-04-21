@@ -61,9 +61,15 @@ defmodule AOFFWeb.Purchaser.ProductController do
 
     case Shop.update_product(product, product_params) do
       {:ok, product} ->
-        conn
-        |> put_flash(:info, gettext("Product updated successfully."))
-        |> redirect(to: Routes.purchaser_product_path(conn, :index))
+        if product.membership do
+          conn
+          |> put_flash(:info, gettext("Product updated successfully."))
+          |> redirect(to: Routes.volunteer_membership_path(conn, :index))
+        else
+          conn
+          |> put_flash(:info, gettext("Product updated successfully."))
+          |> redirect(to: Routes.purchaser_product_path(conn, :index))
+        end
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html",

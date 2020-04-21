@@ -58,7 +58,7 @@ defmodule AOFFWeb.Users.MembershipController do
       }
 
 
-    result = Users.add_membership_to_basket(pick_up_params, order_item_params)
+    IO.inspect result = Users.add_membership_to_basket(pick_up_params, order_item_params)
 
 
     # case result do

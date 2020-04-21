@@ -207,6 +207,24 @@ defmodule AOFF.Shop do
   end
 
   @doc """
+  Returns the list of products.
+
+  ## Examples
+
+      iex> list_products()
+      [%Product{}, ...]
+
+  """
+  def list_memberships() do
+    query =
+      from p in Product,
+        order_by: [asc: p.name],
+        where: p.deleted == false and p.membership == true
+
+    Repo.all(query)
+  end
+
+  @doc """
   Gets a single product.
 
   Raises `Ecto.NoResultsError` if the Product does not exist.

@@ -1001,7 +1001,7 @@ msgstr "Tilbage til butikken"
 #: lib/aoff_web/templates/purchaser/product/edit.html.slime:1
 #: lib/aoff_web/templates/purchaser/product/edit.html.slime:1
 msgid "Edit Product"
-msgstr "Rediger Indlæg"
+msgstr "Rediger Varer"
 
 #, elixir-format
 #: lib/aoff_web/templates/reset_password/edit.html.slime:1

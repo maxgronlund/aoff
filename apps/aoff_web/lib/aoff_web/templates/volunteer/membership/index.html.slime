@@ -1,0 +1,48 @@
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Volunteer"), to: Routes.shop_shop_path(@conn, :index)
+        li.is-active
+          | &nbsp;
+          = gettext("Memberships")
+
+h2 = gettext("Memberships")
+/ = link gettext("New Product"), to: Routes.purchaser_product_path(@conn, :new), class: "button"
+.tiles
+  = for membership <- @memberships do
+    .card.is-shady
+      / .card-image
+      /   img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({product.image, product}, :thumb)}"
+      .card-header-title.is-centered
+        = membership.name
+        | &nbsp;
+        = membership.price
+
+      .card-content
+        = for_sale(membership.for_sale)
+          .float-right
+            = link gettext("Delete"),\
+              to: Routes.purchaser_product_path(@conn, :delete, membership),\
+              method: :delete,\
+              data: [confirm: "Are you sure?"], class: "button button-small  button-red"
+            | &nbsp;
+            = link gettext("Edit"),\
+              to: Routes.purchaser_product_path(@conn, :edit, membership),\
+              class: "button button-small"
+        br/
+        | &nbsp;
+        hr
+
+        b= gettext("Description")
+        = text_to_html(membership.description)
+        hr
+        b= gettext("This weeks content")
+        br
+        = text_to_html(membership.this_weeks_content)
+
+
+
+
+
