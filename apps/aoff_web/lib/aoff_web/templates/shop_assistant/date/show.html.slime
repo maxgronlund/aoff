@@ -10,23 +10,22 @@
           | &nbsp;
           = gettext("Pick up list")
 
-.row
-  .column
-    .card.is-shady
-      .card-header-title.is-centered
-          = gettext("Hosts early shift")
-      .card-content
-        = raw shop_assistant(@date.shop_assistant_a)
-        br/
-        = raw shop_assistant(@date.shop_assistant_b)
-  .column
-    .card.is-shady
-      .card-header-title.is-centered
-          = gettext("Hosts late shift")
-      .card-content
-        = raw shop_assistant(@date.shop_assistant_c)
-        br/
-        = raw shop_assistant(@date.shop_assistant_d)
+.tiles
+  .card
+    .card-header-title.is-centered
+        = gettext("Hosts early shift")
+    .card-content
+      = raw shop_assistant(@date.shop_assistant_a)
+      br/
+      = raw shop_assistant(@date.shop_assistant_b)
+
+  .card
+    .card-header-title.is-centered
+        = gettext("Hosts late shift")
+    .card-content
+      = raw shop_assistant(@date.shop_assistant_c)
+      br/
+      = raw shop_assistant(@date.shop_assistant_d)
 = if @volunteer do
   .row
     .column

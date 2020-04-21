@@ -18,46 +18,56 @@
         = label f, :open do
           = checkbox f, :open, class: "form-control"
           = label f, :open, gettext("Open"),class: "control-label label-inline"
-      .form-group
-        = label f,:date, gettext("Pick up date"), class: "control-label"
-        = date_select f, :date, class: "form-control"
-        = error_tag f, :date
-      .form-group
-        = label f, :last_order_date, gettext("Last order date"), class: "control-label"
-        = date_select f, :last_order_date, class: "form-control"
-        = error_tag f, :last_order_date
+  .row
     .column
-      h3 =gettext("Early shift")
-      .form-group
-        = label f, :shop_assistant_a, gettext("Host 1"), class: "control-label"
-        = select f, :shop_assistant_a, \
-          @users,\
-          prompt: gettext("select shop assistant"),\
-          class: "form-control"
-        = error_tag f, :shop_assistant_a
-      .form-group
-        = label f, :shop_assistant_b, gettext("Host 2"), class: "control-label"
-        = select f, :shop_assistant_b, \
-          @users,\
-          prompt: gettext("select shop assistant"),\
-          class: "form-control"
-        = error_tag f, :shop_assistant_b
-      h3 =gettext("Late shift")
-      .form-group
-        = label f, :shop_assistant_c, gettext("Host 1"), class: "control-label"
-        = select f, :shop_assistant_c, \
-          @users,\
-          prompt: gettext("select shop assistant"),\
-          class: "form-control"
-        = error_tag f, :shop_assistant_c
-      .form-group
-        = label f, :shop_assistant_d, gettext("Host 2"), class: "control-label"
-        = select f, :shop_assistant_d, \
-          @users,\
-          prompt: gettext("select shop assistant"),\
-          class: "form-control"
-        = error_tag f, :shop_assistant_d
-  .form-group
-    = link "Cancel", to: Routes.volunteer_date_path(@conn, :index), class: "button button-outline"
-    | &nbsp;
-    = submit gettext("Save"), class: "button"
+      .alert.alert-box
+        .form-group
+          = label f,:date, gettext("Pick up date"), class: "control-label"
+          = date_select f, :date, class: "form-control"
+          = error_tag f, :date
+    .column
+      .alert.alert-box
+        .form-group
+          = label f, :last_order_date, gettext("Last order date"), class: "control-label"
+          = date_select f, :last_order_date, class: "form-control"
+          = error_tag f, :last_order_date
+  .row
+    .column
+      .alert.alert-box
+        h3 =gettext("Early shift")
+        .form-group
+          = label f, :shop_assistant_a, gettext("Host 1"), class: "control-label"
+          = select f, :shop_assistant_a, \
+            @users,\
+            prompt: gettext("select shop assistant"),\
+            class: "form-control"
+          = error_tag f, :shop_assistant_a
+        .form-group
+          = label f, :shop_assistant_b, gettext("Host 2"), class: "control-label"
+          = select f, :shop_assistant_b, \
+            @users,\
+            prompt: gettext("select shop assistant"),\
+            class: "form-control"
+          = error_tag f, :shop_assistant_b
+    .column
+      .alert.alert-box
+        h3 =gettext("Late shift")
+        .form-group
+          = label f, :shop_assistant_c, gettext("Host 1"), class: "control-label"
+          = select f, :shop_assistant_c, \
+            @users,\
+            prompt: gettext("select shop assistant"),\
+            class: "form-control"
+          = error_tag f, :shop_assistant_c
+        .form-group
+          = label f, :shop_assistant_d, gettext("Host 2"), class: "control-label"
+          = select f, :shop_assistant_d, \
+            @users,\
+            prompt: gettext("select shop assistant"),\
+            class: "form-control"
+          = error_tag f, :shop_assistant_d
+  .float-right
+    .form-group
+      = link "Cancel", to: Routes.volunteer_date_path(@conn, :index), class: "button button-outline"
+      | &nbsp;
+      = submit gettext("Save"), class: "button"
