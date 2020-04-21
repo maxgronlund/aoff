@@ -46,7 +46,18 @@ defmodule AOFF.Users.Order do
   @doc false
   def changeset(order, attrs) do
     order
-    |> cast(attrs, [:user_id, :state, :order_nr, :order_id, :payment_date, :total])
-    |> validate_required([:user_id, :state, :order_id])
+    |> cast(attrs, [
+      :user_id,
+      :state,
+      :order_nr,
+      :order_id,
+      :payment_date,
+      :total]
+    )
+    |> validate_required([
+      :user_id,
+      :state,
+      :order_id]
+    )
   end
 end

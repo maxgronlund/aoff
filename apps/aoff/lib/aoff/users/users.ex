@@ -540,6 +540,10 @@ defmodule AOFF.Users do
   alias AOFF.Shop
 
   def add_membership_to_basket(pick_up_parame, order_item_params) do
+
+  end
+
+  def add_order_item_to_basket(pick_up_parame, order_item_params) do
     result =
       Repo.transaction(fn ->
         {:ok, pick_up} = Shop.find_or_create_pick_up(pick_up_parame)
@@ -606,9 +610,22 @@ defmodule AOFF.Users do
     order
     |> Order.changeset(%{
       "state" => "payment_accepted",
-      "order_id" => order.order_id,
+      "order_nr" => last_order_nr() + 1,
       "payment_date" => Date.utc_today()
     })
     |> Repo.update()
   end
+
+  def last_order_nr() do
+    query =
+      from o in Order,
+        where: not is_nil(o.order_nr),
+        order_by: [desc: o.order_nr],
+        select: o.order_nr,
+        limit: 1
+
+    Repo.one(query) || 10001
+  end
+
+
 end

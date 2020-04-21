@@ -405,7 +405,8 @@ defmodule AOFF.Shop do
         order_by: p.username,
         join: oi in assoc(p, :order_items),
         join: pr in assoc(oi, :product),
-        where: pr.membership==^false
+        where: pr.membership==^false,
+        distinct: true
       )
 
     query

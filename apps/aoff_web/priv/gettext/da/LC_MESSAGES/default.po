@@ -1033,7 +1033,7 @@ msgstr "Opret medlemsskab"
 #, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
 msgid "Member Nr. %{nr}"
-msgstr "Medlems Nr."
+msgstr "Medlems Nr. %{nr}"
 
 #, elixir-format
 #: lib/aoff_web/templates/admin/user/form.html.slime:1
@@ -1048,7 +1048,7 @@ msgstr "Noter til butiks værterne"
 #, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
 msgid "Order Nr. %{nr}"
-msgstr "Ordre Nr."
+msgstr "Ordre Nr. %{nr}"
 
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/date/form.html.slime:1

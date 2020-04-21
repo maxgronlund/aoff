@@ -56,7 +56,7 @@ table
         .float-right = gettext("Pickup state")
   tbody
     = for pick_up <- @pick_ups do
-      = if pick_up.order.state=="payment_accepted" do
+      = if pick_up do
         tr
           td
             b = pick_up.username

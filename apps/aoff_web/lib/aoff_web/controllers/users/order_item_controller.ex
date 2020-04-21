@@ -29,7 +29,7 @@ defmodule AOFFWeb.Users.OrderItemController do
         "order_id" => order.id
       })
 
-    result = Users.add_membership_to_basket(pick_up_params, order_item_params)
+    result = Users.add_order_item_to_basket(pick_up_params, order_item_params)
 
     case result do
       {:ok, %OrderItem{} = order_item} ->
