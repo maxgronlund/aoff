@@ -1074,7 +1074,7 @@ body.fixed-backdrop {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  background-color: #000;
+  background-color: #333;
   min-height: 100vh;
 }
 
@@ -1093,14 +1093,6 @@ body.fixed-backdrop {
 .backdrop-04 {
   background: url(/images/backdrops/04.jpg) ;
 }
-
-/*.aoff-logo-white {
-  width: 300px;
-  height: auto;
-}*/
-
-
-
 
 /* fixes for the menubar */
 li.menu-item {
@@ -1126,12 +1118,12 @@ input[type='email'], input[type='number'], input[type='password'], input[type='s
 /* ------------------------------------------
   FIXED HEADER
 --------------------------------------------- */
-
+/*
 header {
   background: #000;
 }
 
-header
+header*/
 
 .nav-collapse a {
   background: #000;
@@ -1157,21 +1149,26 @@ header
 }
 
 .aoff-nav-logo {
-  background: url(/images/aoff-logo-small-white.svg) no-repeat center center fixed;
+  background: url(/images/aoff-logo-small-white.svg);
+
+  background-repeat: no-repeat;
+  background-position: top left;
   width: 130px;
   height: 50px;
   background-position: 10px 0px;
   background-size: 100px 60px;
   display: inline-block;
-  position: relative;
+  position: absolute;
+  z-index: -10;
+
 }
 
 .aoff-logo {
-    background: url(/images/aoff-logo-white.svg);
-    background-repeat: no-repeat;
-    background-position: top left;
-    height: 200px;
-    width: auto;
+  background: url(/images/aoff-logo-white.svg);
+  background-repeat: no-repeat;
+  background-position: top left;
+  height: 200px;
+  width: auto;
 }
 /*@media screen and (min-width: 80em)
 .nav-collapse a {
@@ -1365,6 +1362,10 @@ label.panel-block:hover {
 
 .button-tiles {
   grid-row-gap: 30px;
+}
+
+blockquote, dl, figure, form, ol, p, pre, table, ul {
+margin-bottom: 1.5rem;
 }
 
 .card {

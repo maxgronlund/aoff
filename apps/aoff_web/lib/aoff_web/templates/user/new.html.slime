@@ -1,11 +1,12 @@
 h2 = @message.title
-.tiles
-  .card
-    .card-content
+.row
+  .column
+    .auto-columns
       = raw @message.text
       = if @text_editor do
         | &nbsp;
           = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message)
-  .card
-    .card-content
-      = render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create))
+
+.row
+  .column
+    = render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create))
