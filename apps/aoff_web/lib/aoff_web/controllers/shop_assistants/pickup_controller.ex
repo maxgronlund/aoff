@@ -13,7 +13,7 @@ defmodule AOFFWeb.ShopAssistant.PickUpController do
       Shop.update_pick_up(pick_up, %{"picked_up" => true})
 
       conn
-      |> put_flash(:info, "PickUp updated successfully.")
+      |> put_flash(:info, gettext("PickUp updated successfully."))
       |> redirect(to: Routes.shop_assistant_date_path(conn, :show, pick_up.date))
     end
   end

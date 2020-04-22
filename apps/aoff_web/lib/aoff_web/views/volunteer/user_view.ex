@@ -3,12 +3,12 @@ defmodule AOFFWeb.Volunteer.UserView do
 
   def valid_membership(user) do
     if user.expiration_date == nil do
-      "Inactive"
+      gettext("Inactive membership")
     else
       case Date.compare(user.expiration_date, Date.utc_today()) do
-        :gt -> "Valid member"
-        :lt -> "Inactive"
-        :eq -> "Valid member"
+        :gt -> gettext("Valid member")
+        :lt -> gettext("Inactive membership")
+        :eq -> gettext("Valid member")
       end
     end
   end

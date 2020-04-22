@@ -67,7 +67,7 @@ defmodule AOFF.Blogs do
       from b in Blog,
         where: b.identifier == ^identifier and b.locale == ^locale,
         select: b,
-        preload: [blog_posts: ^from(p in BlogPost, order_by: p.date)]
+        preload: [blog_posts: ^from(p in BlogPost, order_by: [desc: p.date])]
 
     case Repo.one(query) do
       nil ->

@@ -53,7 +53,6 @@ msgstr ""
 #, elixir-format
 #: lib/aoff_web/templates/admin/user/index.html.slime:1
 #: lib/aoff_web/templates/users/order/show.html.slime:4 lib/aoff_web/templates/volunteer/message/index.html.slime:4
-#: lib/aoff_web/templates/volunteer/user/index.html.slime:3
 msgid "Are you sure?"
 msgstr ""
 
@@ -89,13 +88,15 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/templates/admin/user/index.html.slime:1
-#: lib/aoff_web/templates/purchaser/product/index.html.slime:1 lib/aoff_web/templates/volunteer/message/index.html.slime:1
+#: lib/aoff_web/templates/purchaser/product/index.html.slime:1 lib/aoff_web/templates/volunteer/membership/index.html.slime:1
+#: lib/aoff_web/templates/volunteer/message/index.html.slime:1
 msgid "Delete"
 msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/templates/purchaser/product/form.html.slime:1
 #: lib/aoff_web/templates/purchaser/product/index.html.slime:6 lib/aoff_web/templates/volunteer/blog/form.html.slime:5
+#: lib/aoff_web/templates/volunteer/membership/index.html.slime:6
 msgid "Description"
 msgstr ""
 
@@ -114,8 +115,8 @@ msgstr ""
 #: lib/aoff_web/templates/terms/index.html.slime:1 lib/aoff_web/templates/volunteer/blog/edit.html.slime:1
 #: lib/aoff_web/templates/volunteer/blog/index.html.slime:1 lib/aoff_web/templates/volunteer/blog/show.html.slime:7
 #: lib/aoff_web/templates/volunteer/blog_post/show.html.slime:1 lib/aoff_web/templates/volunteer/date/edit.html.slime:1
-#: lib/aoff_web/templates/volunteer/date/index.html.slime:1 lib/aoff_web/templates/volunteer/message/index.html.slime:1
-#: lib/aoff_web/templates/volunteer/message/show.html.slime:1
+#: lib/aoff_web/templates/volunteer/date/index.html.slime:1 lib/aoff_web/templates/volunteer/membership/index.html.slime:4
+#: lib/aoff_web/templates/volunteer/message/index.html.slime:1 lib/aoff_web/templates/volunteer/message/show.html.slime:1
 msgid "Edit"
 msgstr ""
 
@@ -320,8 +321,8 @@ msgid "Product"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/controllers/purchaser/product_controller.ex:82
-#: lib/aoff_web/controllers/purchaser/product_controller.ex:82
+#: lib/aoff_web/controllers/purchaser/product_controller.ex:88
+#: lib/aoff_web/controllers/purchaser/product_controller.ex:88
 msgid "Product deleted successfully."
 msgstr ""
 
@@ -331,8 +332,9 @@ msgid "Product name"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/controllers/purchaser/product_controller.ex:65
-#: lib/aoff_web/controllers/purchaser/product_controller.ex:65
+#: lib/aoff_web/controllers/purchaser/product_controller.ex:66
+#: lib/aoff_web/controllers/purchaser/product_controller.ex:66 lib/aoff_web/controllers/purchaser/product_controller.ex:70
+#: lib/aoff_web/controllers/purchaser/product_controller.ex:70
 msgid "Product updated successfully."
 msgstr ""
 
@@ -383,6 +385,7 @@ msgstr ""
 #, elixir-format
 #: lib/aoff_web/templates/admin/user/index.html.slime:1
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4 lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
+#: lib/aoff_web/templates/volunteer/user/index.html.slime:1 lib/aoff_web/templates/volunteer/user/index.html.slime:1
 msgid "Search"
 msgstr ""
 
@@ -490,10 +493,11 @@ msgstr ""
 #: lib/aoff_web/templates/volunteer/blog/index.html.slime:1 lib/aoff_web/templates/volunteer/blog/show.html.slime:1
 #: lib/aoff_web/templates/volunteer/blog_post/show.html.slime:1 lib/aoff_web/templates/volunteer/date/edit.html.slime:1
 #: lib/aoff_web/templates/volunteer/date/index.html.slime:1 lib/aoff_web/templates/volunteer/date/new.html.slime:1
-#: lib/aoff_web/templates/volunteer/message/edit.html.slime:1 lib/aoff_web/templates/volunteer/message/index.html.slime:1
-#: lib/aoff_web/templates/volunteer/message/show.html.slime:1 lib/aoff_web/templates/volunteer/user/edit.html.slime:1
-#: lib/aoff_web/templates/volunteer/user/form.html.slime:1 lib/aoff_web/templates/volunteer/user/index.html.slime:1
-#: lib/aoff_web/templates/volunteer/user/index.html.slime:3 lib/aoff_web/templates/volunteer/user/show.html.slime:1
+#: lib/aoff_web/templates/volunteer/membership/index.html.slime:1 lib/aoff_web/templates/volunteer/message/edit.html.slime:1
+#: lib/aoff_web/templates/volunteer/message/index.html.slime:1 lib/aoff_web/templates/volunteer/message/show.html.slime:1
+#: lib/aoff_web/templates/volunteer/user/edit.html.slime:1 lib/aoff_web/templates/volunteer/user/form.html.slime:1
+#: lib/aoff_web/templates/volunteer/user/index.html.slime:1 lib/aoff_web/templates/volunteer/user/index.html.slime:3
+#: lib/aoff_web/templates/volunteer/user/show.html.slime:1
 msgid "Volunteer"
 msgstr ""
 
@@ -556,6 +560,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:4
+#: lib/aoff_web/templates/volunteer/user/show.html.slime:4
 msgid "Delete account"
 msgstr ""
 
@@ -737,7 +742,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/views/purchaser/product_view.ex:5
-#: lib/aoff_web/views/volunteer/message_view.ex:7
+#: lib/aoff_web/views/volunteer/membership_view.ex:5 lib/aoff_web/views/volunteer/message_view.ex:7
 msgid "Hidden"
 msgstr ""
 
@@ -780,11 +785,13 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/views/purchaser/product_view.ex:5
+#: lib/aoff_web/views/volunteer/membership_view.ex:5
 msgid "Show in shop √"
 msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/views/admin/user_view.ex:9
+#: lib/aoff_web/views/volunteer/user_view.ex:9 lib/aoff_web/views/volunteer/user_view.ex:11
 msgid "Valid member"
 msgstr ""
 
@@ -943,7 +950,7 @@ msgstr ""
 #: lib/aoff_web/templates/users/membership/new.html.slime:1 lib/aoff_web/templates/users/purchaser/purchaser_message.html.slime:1
 #: lib/aoff_web/templates/volunteer/volunteer/index.html.slime:1 lib/aoff_web/templates/volunteer/volunteer/index.html.slime:2
 #: lib/aoff_web/templates/volunteer/volunteer/index.html.slime:5 lib/aoff_web/templates/volunteer/volunteer/index.html.slime:8
-#: lib/aoff_web/templates/volunteer/volunteer/index.html.slime:11
+#: lib/aoff_web/templates/volunteer/volunteer/index.html.slime:11 lib/aoff_web/templates/volunteer/volunteer/index.html.slime:14
 msgid "Edit text"
 msgstr ""
 
@@ -955,7 +962,7 @@ msgstr ""
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/volunteer/index.html.slime:3
 #: lib/aoff_web/templates/volunteer/volunteer/index.html.slime:6 lib/aoff_web/templates/volunteer/volunteer/index.html.slime:9
-#: lib/aoff_web/templates/volunteer/volunteer/index.html.slime:12
+#: lib/aoff_web/templates/volunteer/volunteer/index.html.slime:12 lib/aoff_web/templates/volunteer/volunteer/index.html.slime:15
 msgid "Go to"
 msgstr ""
 
@@ -1040,11 +1047,6 @@ msgid "Membership Manager"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/purchaser/product_note/form.html.slime:1
-msgid "Notes for the shop host"
-msgstr ""
-
-#, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
 msgid "Order Nr. %{nr}"
 msgstr ""
@@ -1097,6 +1099,7 @@ msgstr ""
 #, elixir-format
 #: lib/aoff_web/templates/purchaser/date/show.html.slime:3
 #: lib/aoff_web/templates/purchaser/date/show.html.slime:3 lib/aoff_web/templates/purchaser/product/index.html.slime:6
+#: lib/aoff_web/templates/volunteer/membership/index.html.slime:6
 msgid "This weeks content"
 msgstr ""
 
@@ -1132,4 +1135,16 @@ msgstr ""
 #: lib/aoff_web/templates/volunteer/user/edit.html.slime:1
 #: lib/aoff_web/templates/volunteer/user/show.html.slime:1
 msgid "Users"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/views/volunteer/user_view.ex:6
+#: lib/aoff_web/views/volunteer/user_view.ex:10
+msgid "Inactive membership"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/volunteer/membership/index.html.slime:1
+#: lib/aoff_web/templates/volunteer/membership/index.html.slime:1
+msgid "Memberships"
 msgstr ""
