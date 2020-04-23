@@ -189,19 +189,19 @@ body.fixed-backdrop {
 }
 
 .backdrop-01 {
-  background: url(/images/backdrops/01.jpg);
+  background: url(https://aoff.s3-eu-west-1.amazonaws.com/backdrops/01.jpg);
 }
 
 .backdrop-02 {
-  background: url(/images/backdrops/02.jpg) ;
+  background: url(https://aoff.s3-eu-west-1.amazonaws.com/backdrops/02.jpg) ;
 }
 
 .backdrop-03 {
-  background: url(/images/backdrops/03.jpg) ;
+  background: url(https://aoff.s3-eu-west-1.amazonaws.com/backdrops/03.jpg) ;
 }
 
 .backdrop-04 {
-  background: url(/images/backdrops/04.jpg) ;
+  background: url(https://aoff.s3-eu-west-1.amazonaws.com/backdrops/04.jpg) ;
 }
 
 /* fixes for the menubar */
