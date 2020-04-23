@@ -45,7 +45,7 @@ javascript:
 
 
        paymentwindow = new PaymentWindow({
-           'merchantnumber': "8020677",
+           'merchantnumber': "#{@merchantnumber}",
            'amount': "#{amount(@order.total)}",
            'currency': "DKK",
            'accepturl': "https://7530fcf5.ngrok.io/shop/payment_accepted/#{@order.order_id}",
