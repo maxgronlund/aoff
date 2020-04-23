@@ -48,9 +48,9 @@ javascript:
            'merchantnumber': "#{@merchantnumber}",
            'amount': "#{amount(@order.total)}",
            'currency': "DKK",
-           'accepturl': "https://7530fcf5.ngrok.io/shop/payment_accepted/#{@order.order_id}",
-           'cancelurl': "https://7530fcf5.ngrok.io/shop/payment_declined/#{@order.order_id}",
-           'callbackurl': "https://7530fcf5.ngrok.io/shop/payment_callback/#{@order.order_id}",
+           'accepturl': "https://aoff.herokuapp.com/shop/payment_accepted/#{@order.order_id}",
+           'cancelurl': "https://aoff.herokuapp.com/shop/payment_declined/#{@order.order_id}",
+           'callbackurl': "https://aoff.herokuapp.com/shop/payment_callback/#{@order.order_id}",
            'orderid': "#{@order.order_id}",
            'language': "1",
            'instantcallback': "1"
