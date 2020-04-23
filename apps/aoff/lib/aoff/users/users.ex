@@ -366,6 +366,24 @@ defmodule AOFF.Users do
       %Order{}
 
       iex> get_order!(456)
+      nil
+
+  """
+  def get_order(id) do
+    Order|> Repo.get(id)
+  end
+
+  @doc """
+  Gets a single order.
+
+  Raises `Ecto.NoResultsError` if the Order does not exist.
+
+  ## Examples
+
+      iex> get_order!(123)
+      %Order{}
+
+      iex> get_order!(456)
       ** (Ecto.NoResultsError)
 
   """
@@ -374,6 +392,26 @@ defmodule AOFF.Users do
     |> Repo.get!(id)
     |> Repo.preload(:user)
     |> Repo.preload(order_items: [:product, :date])
+  end
+
+  @doc """
+  Gets a single order.
+
+  Raises `Ecto.NoResultsError` if the Order does not exist.
+
+  ## Examples
+
+      iex> get_order!(123)
+      %Order{}
+
+      iex> get_order!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_order_by_id!(order_id) do
+    Order
+    |> Repo.get_by!(order_id: order_id)
+    |> Repo.preload(:user)
   end
 
   alias AOFF.Shop.Product
@@ -615,6 +653,19 @@ defmodule AOFF.Users do
       "payment_date" => Date.utc_today()
     })
     |> Repo.update()
+  end
+
+  def payment_declined(%Order{} = order) do
+
+    unless order.state == "payment_accepted" do
+
+    order
+    |> Order.changeset(%{
+      "state" => "payment_declined",
+      "payment_date" => Date.utc_today()
+    })
+    |> Repo.update()
+    end
   end
 
   def last_order_nr() do

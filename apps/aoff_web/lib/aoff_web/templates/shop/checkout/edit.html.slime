@@ -33,38 +33,34 @@
 
 
 
-= render "form.html",\
-  Map.put(assigns, :action, Routes.shop_checkout_path(@conn, :update, @order))
+/ = render "form.html",\
+/   Map.put(assigns, :action, Routes.shop_checkout_path(@conn, :update, @order))
 
 
 
 
-/script src="https://static.bambora.com/checkout-sdk-web/latest//checkout-sdk-web.min.js"
-/javascript:
-/ var checkout = new Bambora.InlineCheckout(
-/   "SFMyNTY.g3QAAAACZAAEZGF0YWEBZAAGc2lnbmVkbgYA2DtikXEB.2aSbq6hdJgOIwO4oT8i_VVH4Lhiw/ZKR5oxqTAq0VSMQ",
-/   {
-/     container: document.bambora
-/     // For this example, we put the iframe in the body element.
-/   }
-/ );
-/
-/ var payload= {
-/    "order": {
-/      "id": "123",
-/      "amount": 9900,
-/      "currency": "EUR"
-/    },
-/    "url": {
-/      "accept": "https://aoff.herokuapp.com/accept",
-/      "cancel": "https://aoff.herokuapp.com/cancel"
-/    }
-/  };
-/
-/ checkout.on(
-/   Bambora.Event.Authorize,
-/   function(payload) {
-/     console.log(payload.data.txnid);
-/     // The transaction ID is logged to the console upon authorize.
-/   }
-/ );/
+/ script src="https://static.bambora.com/checkout-sdk-web/latest//checkout-sdk-web.min.js"
+script charset="UTF-8" src="https://ssl.ditonlinebetalingssystem.dk/integration/ewindow/paymentwindow.js" type="text/javascript"
+javascript:
+
+
+       paymentwindow = new PaymentWindow({
+           'merchantnumber': "8020677",
+           'amount': "#{amount(@order.total)}",
+           'currency': "DKK",
+           'accepturl': "https://7530fcf5.ngrok.io/shop/payment_accepted/#{@order.order_id}",
+           'cancelurl': "https://7530fcf5.ngrok.io/shop/payment_declined/#{@order.order_id}",
+           'callbackurl': "https://7530fcf5.ngrok.io/shop/payment_callback/#{@order.order_id}",
+           'orderid': "#{@order.order_id}",
+           'language': "1",
+           'instantcallback': "1"
+       });
+
+.row
+  .column
+    input class="button-xlarge button button-full-width" onclick="javascript: paymentwindow.open()" type="button" value="Go to payment"
+
+
+
+
+

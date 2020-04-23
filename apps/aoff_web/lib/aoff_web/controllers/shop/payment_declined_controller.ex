@@ -1,4 +1,4 @@
-defmodule AOFFWeb.Shop.PaymentAcceptedController do
+defmodule AOFFWeb.Shop.PaymentDeclinedController do
   use AOFFWeb, :controller
 
   alias AOFF.Users
@@ -6,18 +6,16 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
   alias AOFF.Shop
 
   def index(conn, %{"id" => id}) do
-    order = Users.get_order_by_id!(id)
 
-    if order.state == "open" do
-      Users.payment_accepted(order)
-      Users.create_order(%{"user_id" => order.user_id})
-      Users.extend_memberships(order)
+
+    if order = User.get_order(id) do
+      User.payment_declined(order)
     end
 
     {:ok, message} =
       System.find_or_create_message(
-        "shop/payment_accepted",
-        "Payment accepted",
+        "shop/payment_declined",
+        "Payment declined",
         Gettext.get_locale()
       )
 

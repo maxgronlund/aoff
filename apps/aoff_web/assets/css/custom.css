@@ -111,10 +111,10 @@ select {
 }
 
 .button-xlarge {
-  font-size: 2.8rem;
-  height: 9.0rem;
-  line-height: 9.0rem;
-  padding: 0 4rem;
+  font-size: 2.8rem !important;
+  height: 9.0rem !important;
+  line-height: 9.0rem !important;
+  padding: 0 4rem !important;
 }
 
 .button-full-width {

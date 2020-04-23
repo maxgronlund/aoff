@@ -52,6 +52,7 @@ defmodule AOFFWeb.Router do
 
     get "/payment_accepted/:id", AOFFWeb.Shop.PaymentAcceptedController, :index
     get "/payment_declined/:id", AOFFWeb.Shop.PaymentDeclinedController, :index
+    get "/payment_callback/:id", AOFFWeb.Shop.PaymentCallbackController, :index
   end
 
   scope "/admin", as: :admin do

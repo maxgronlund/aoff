@@ -1,4 +1,4 @@
-defmodule AOFFWeb.Shop.PaymentAcceptedController do
+defmodule AOFFWeb.Shop.PaymentCallbackController do
   use AOFFWeb, :controller
 
   alias AOFF.Users
@@ -14,16 +14,9 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
       Users.extend_memberships(order)
     end
 
-    {:ok, message} =
-      System.find_or_create_message(
-        "shop/payment_accepted",
-        "Payment accepted",
-        Gettext.get_locale()
-      )
-
     conn
     |> assign(:order_items_count, 0)
-    |> render("index.html", order: order, message: message)
+    |> render("index.html")
   end
 
 end
