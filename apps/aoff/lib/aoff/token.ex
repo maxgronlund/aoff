@@ -1,3 +1,3 @@
 defmodule AOFF.Token do
-  use(Puid, bits: 138, charset: :alphanum)
+  use(Puid, bits: 92, charset: :alphanum)
 end

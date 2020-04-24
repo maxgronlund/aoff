@@ -13,8 +13,6 @@ defmodule AOFFWeb.Shop.CheckoutController do
       )
 
     order = Users.get_order!(id)
-    merchantnumber = System.get_env("EPAY_MERCHANT_NR")
-
 
 
     changeset = Users.change_order(order)
@@ -25,7 +23,7 @@ defmodule AOFFWeb.Shop.CheckoutController do
       changeset: changeset,
       order: order,
       message: message,
-      merchantnumber: merchantnumber
+      merchantnumber: Application.get_env(:aoff_web, :epay)[:merchantnumber]
     )
   end
 

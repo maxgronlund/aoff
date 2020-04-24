@@ -44,7 +44,7 @@ javascript:
            'accepturl': "https://aoff.herokuapp.com/shop/payment_accepted/#{@order.token}",
            'cancelurl': "https://aoff.herokuapp.com/shop/payment_declined/#{@order.token}",
            'callbackurl': "https://aoff.herokuapp.com/shop/payment_callback/#{@order.token}",
-           'orderid': "#{@order.order_nr}",
+           'orderid': "#{@order.token}",
            'language': "1",
            'instantcallback': "1"
        });
