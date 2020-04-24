@@ -11,7 +11,7 @@ defmodule AOFF.Users.Order do
   schema "orders" do
     field :state, :string, default: "open"
     field :order_nr, :integer
-    field :order_id, :integer
+    field :token, :string
     field :payment_date, :date
     field :total, Money.Ecto.Amount.Type
     belongs_to :user, User
@@ -25,22 +25,26 @@ defmodule AOFF.Users.Order do
     attrs =
       attrs
       |> Map.merge(%{
-        "order_id" => Users.last_order_id() + 1,
+        "token" => AOFF.Token.generate(),
+        "order_nr" => AOFF.Users.last_order_nr() + 1,
         "total" => Money.new(0, :DKK)
       })
 
     order
     |> cast(attrs, [
       :user_id,
-      :order_id,
+      :order_nr,
+      :token,
       :total
     ])
     |> validate_required([
       :user_id,
+      :order_nr,
       :state,
-      :order_id
+      :token
     ])
-    |> unique_constraint(:order_id)
+    |> unique_constraint(:token)
+    |> unique_constraint(:order_nr)
   end
 
   @doc false
@@ -50,14 +54,14 @@ defmodule AOFF.Users.Order do
       :user_id,
       :state,
       :order_nr,
-      :order_id,
+      :token,
       :payment_date,
       :total]
     )
     |> validate_required([
       :user_id,
       :state,
-      :order_id]
+      :token]
     )
   end
 end

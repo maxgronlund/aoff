@@ -311,27 +311,17 @@ defmodule AOFF.Users do
         where: o.user_id == ^user_id and o.state == ^"open",
         limit: 1
 
-    Repo.one(query)
+    case Repo.one(query) do
+      %Order{} = order -> order
+      _ -> create_order(%{"user_id" => user_id})
+    end
   end
 
-  # def find_or_create_order(user_id) do
-  #   query =
-  #     from o in Order,
-  #       where: o.user_id == ^user_id and o.state == ^"open" and o.payment_date==^nil,
-  #       limit: 1
-
-  #   case Repo.one(query) do
-  #     nil ->
-  #       create_order(%{"user_id" => user_id, "order_id" => last_order_id() + 1})
-  #     %Order{} = order -> {:ok, order}
-  #   end
-  # end
-
-  def last_order_id() do
+  def last_order_nr() do
     query =
       from o in Order,
-        order_by: [desc: o.order_id],
-        select: o.order_id,
+        order_by: [desc: o.order_nr],
+        select: o.order_nr,
         limit: 1
 
     Repo.one(query) || 10000
@@ -408,9 +398,9 @@ defmodule AOFF.Users do
       ** (Ecto.NoResultsError)
 
   """
-  def get_order_by_id!(order_id) do
+  def get_order_by_token!(token) do
     Order
-    |> Repo.get_by!(order_id: order_id)
+    |> Repo.get_by!(token: token)
     |> Repo.preload(:user)
   end
 
@@ -446,24 +436,7 @@ defmodule AOFF.Users do
     Repo.all(query)
   end
 
-  # alias AOFF.Users.OrderItem
-  # alias AOFF.Shop.Product
 
-  # def order_total(order_id) do
-  #   q =
-  #     from o in Order,
-  #     where: o.id==^order_id,
-  #     left_join: oi in assoc(o, :order_items),
-  #     select: oi.product_id
-
-  #   ids = Repo.all(q)
-
-  #   q = from p in Product,
-  #     where: p.id in ^ids,
-  #     select: type(sum(p.price), p.price)
-
-  #   Repo.one(q)
-  # end
 
   @doc """
   Creates a order.

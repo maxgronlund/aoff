@@ -13,8 +13,8 @@ defmodule AOFFWeb.Shop.CheckoutController do
       )
 
     order = Users.get_order!(id)
-    merchantnumber = "8020677"
-    # System.get_env("EPAY_MERCHANT_NR")
+    merchantnumber = System.get_env("EPAY_MERCHANT_NR")
+
 
 
     changeset = Users.change_order(order)

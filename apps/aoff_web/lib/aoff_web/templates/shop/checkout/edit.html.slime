@@ -33,13 +33,6 @@
 
 
 
-/ = render "form.html",\
-/   Map.put(assigns, :action, Routes.shop_checkout_path(@conn, :update, @order))
-
-
-
-
-/ script src="https://static.bambora.com/checkout-sdk-web/latest//checkout-sdk-web.min.js"
 script charset="UTF-8" src="https://ssl.ditonlinebetalingssystem.dk/integration/ewindow/paymentwindow.js" type="text/javascript"
 javascript:
 
@@ -48,17 +41,18 @@ javascript:
            'merchantnumber': "#{@merchantnumber}",
            'amount': "#{amount(@order.total)}",
            'currency': "DKK",
-           'accepturl': "https://aoff.herokuapp.com/shop/payment_accepted/#{@order.order_id}",
-           'cancelurl': "https://aoff.herokuapp.com/shop/payment_declined/#{@order.order_id}",
-           'callbackurl': "https://aoff.herokuapp.com/shop/payment_callback/#{@order.order_id}",
-           'orderid': "#{@order.order_id}",
+           'accepturl': "https://aoff.herokuapp.com/shop/payment_accepted/#{@order.token}",
+           'cancelurl': "https://aoff.herokuapp.com/shop/payment_declined/#{@order.token}",
+           'callbackurl': "https://aoff.herokuapp.com/shop/payment_callback/#{@order.token}",
+           'orderid': "#{@order.order_nr}",
            'language': "1",
            'instantcallback': "1"
        });
 
 .row
   .column
-    input class="button-xlarge button button-full-width" onclick="javascript: paymentwindow.open()" type="button" value="Go to payment"
+    - button_text = gettext("Go to payment")
+    input class="button-xlarge button button-full-width" onclick="javascript: paymentwindow.open()" type="button" value="#{button_text}"
 
 
 

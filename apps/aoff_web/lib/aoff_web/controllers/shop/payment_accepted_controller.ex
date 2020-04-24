@@ -6,7 +6,7 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
   alias AOFF.Shop
 
   def index(conn, %{"id" => id}) do
-    order = Users.get_order_by_id!(id)
+    order = Users.get_order_by_token!(id)
 
     if order.state == "open" do
       Users.payment_accepted(order)

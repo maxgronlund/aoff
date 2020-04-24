@@ -38,6 +38,7 @@ defmodule AOFF.MixProject do
     [
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
+      {:jason, "~> 1.0"},
       {:phoenix_slime, "~> 0.12.0"},
       {:comeonin, "~> 5.1.2"},
       {:bcrypt_elixir, "~> 2.0"},
@@ -49,7 +50,8 @@ defmodule AOFF.MixProject do
       {:ex_aws_s3, "~> 2.0"},
       {:hackney, "~> 1.6"},
       {:poison, "~> 3.1"},
-      {:sweet_xml, "~> 0.6"}
+      {:sweet_xml, "~> 0.6"},
+      {:puid, "~> 1.0"}
     ]
   end
 

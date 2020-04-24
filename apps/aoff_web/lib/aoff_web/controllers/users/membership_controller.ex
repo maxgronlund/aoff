@@ -58,34 +58,7 @@ defmodule AOFFWeb.Users.MembershipController do
       }
 
 
-    IO.inspect result = Users.add_membership_to_basket(pick_up_params, order_item_params)
-
-
-    # case result do
-    #   {:ok, %OrderItem{} = order_item} ->
-    #     conn
-    #     )
-    #     |> redirect(to: Routes.shop_checkout_path(conn, :edit, order))
-
-    #   # {:error, reason} ->
-    #   #   conn
-    #   #   |> put_flash(:error, gettext("Sorry an error occured"))
-    #   #   |> redirect(to: Routes.shop_date_path(conn, :show, params["date_id"]))
-    # end
-
-
-
-    # a pick up date is required
-    # date = Shop.get_next_date(Date.utc_today())
-
-    # IO.inspect Users.create_order_item(%{
-    #   "state" => "initial",
-    #   "order_id" => order.id,
-    #   "date_id" => date.id,
-    #   "user_id" => user.id,
-    #   "product_id" => product.id,
-    #   "price" => Money.to_string(product.price)
-    # })
+    Users.add_membership_to_basket(pick_up_params, order_item_params)
 
     conn
     |> redirect(to: Routes.shop_checkout_path(conn, :edit, order))
@@ -104,20 +77,3 @@ defmodule AOFFWeb.Users.MembershipController do
   end
 end
 
-# with {:ok, order} <- result do
-#       query =
-#         from p in Product,
-#           where: p.membership == true,
-#           limit: 1
-
-#       if product = Repo.one(query) do
-#         query =
-#           from oi in OrderItem,
-#             where: oi.order_id == ^order.id and oi.product_id == ^product.id,
-#             limit: 1
-
-#         if Repo.one(query) do
-#           IO.puts "====== OHEY there was a membership time to extend the users membership"
-#         end
-#       end
-#     end
