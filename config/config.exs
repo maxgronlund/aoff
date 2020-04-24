@@ -87,7 +87,8 @@ config :aoff_web, AOFFWeb.Mailer,
 
 config :aoff_web,
   epay: [
-    merchantnumber: System.get_env("EPAY_MERCHANT_NR")
+    merchantnumber: System.get_env("EPAY_MERCHANT_NR"),
+    endpoint: System.get_env("EPAY_ENDPOINT")
   ]
 
 

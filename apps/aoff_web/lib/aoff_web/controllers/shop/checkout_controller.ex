@@ -23,7 +23,8 @@ defmodule AOFFWeb.Shop.CheckoutController do
       changeset: changeset,
       order: order,
       message: message,
-      merchantnumber: Application.get_env(:aoff_web, :epay)[:merchantnumber]
+      merchantnumber: Application.get_env(:aoff_web, :epay)[:merchantnumber],
+      endpoint: Application.get_env(:aoff_web, :epay)[:endpoint]
     )
   end
 

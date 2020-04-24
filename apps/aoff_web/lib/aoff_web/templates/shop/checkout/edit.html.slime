@@ -41,10 +41,10 @@ javascript:
            'merchantnumber': "#{@merchantnumber}",
            'amount': "#{amount(@order.total)}",
            'currency': "DKK",
-           'accepturl': "https://synthmax.dk/shop/payment_accepted/#{@order.token}",
-           'cancelurl': "https://synthmax.dk/shop/payment_declined/#{@order.token}",
-           'callbackurl': "https://aoff.herokuapp.com/shop/payment_callback/#{@order.token}",
-           'orderid': "#{@order.order_id}",
+           'accepturl': "#{@endpoint}/shop/payment_accepted/#{@order.token}",
+           'cancelurl': "#{@endpoint}/shop/payment_declined/#{@order.token}",
+           'callbackurl': "#{@endpoint}/shop/payment_callback/#{@order.token}",
+           'orderid': "#{@order.order_nr}",
            'language': "1",
            'instantcallback': "1"
        });
