@@ -8,8 +8,8 @@ defmodule AOFFWeb.Shop.PaymentDeclinedController do
   def index(conn, %{"id" => id}) do
 
 
-    if order = User.get_order_by_token!(id) do
-      User.payment_declined(order)
+    if order = Users.get_order_by_token!(id) do
+      Users.payment_declined(order)
     end
 
     {:ok, message} =

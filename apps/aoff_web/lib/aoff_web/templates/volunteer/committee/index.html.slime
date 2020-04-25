@@ -1,0 +1,33 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+    li.is-active
+      | &nbsp;
+      = gettext("Categories")
+
+h2 = gettext("Listing Committees")
+= link "New Committee",\
+  to: Routes.volunteer_committee_path(@conn, :new),\
+  class: "button float-right"
+
+.tiles.button-tiles
+  = for committee <- @committees do
+    .card.is-shady
+      = link to: Routes.volunteer_committee_path(@conn, :show, committee) do
+        .card-header
+          .card-header-title.is-centered
+            = committee.name
+        .card-image
+
+        .card-content
+          = raw committee.description
+        .card-footer.is-button
+          .card-footer-item.is-button
+            = gettext("Show")
+
+
+
+
+
+

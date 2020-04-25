@@ -3,6 +3,9 @@ defmodule AOFFWeb.Purchaser.ProductNoteController do
 
   alias AOFF.Shop
   alias AOFF.System
+  alias AOFFWeb.Users.Auth
+  plug Auth
+  plug :authenticate when action in [:edit, :update]
 
   def edit(conn, %{
         "date_id" => date_id,
@@ -42,5 +45,17 @@ defmodule AOFFWeb.Purchaser.ProductNoteController do
     conn
     |> put_flash(:info, gettext("Product is updated"))
     |> redirect(to: Routes.purchaser_date_path(conn, :show, date_id))
+  end
+
+  defp authenticate(conn, _opts) do
+    if conn.assigns.current_user && conn.assigns.current_user.purchasing_manager do
+      assign(conn, :page, :purchaser)
+    else
+      conn
+      |> put_status(401)
+      |> put_view(AOFFWeb.ErrorView)
+      |> render(:"401")
+      |> halt()
+    end
   end
 end

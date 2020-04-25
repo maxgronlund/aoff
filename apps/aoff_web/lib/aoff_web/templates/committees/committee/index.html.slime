@@ -1,0 +1,25 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("About AOFF"), to: Routes.info_path(@conn, :index)
+    li.is-active
+      | &nbsp;
+      = gettext("Listing Committees")
+
+h2 = gettext("Listing Committees")
+
+
+.tiles
+  = for committee <- @committees do
+    .card.is-shady
+      = link to: Routes.committee_committee_path(@conn, :show, committee) do
+        .card-header
+          .card-header-title.is-centered
+            = committee.name
+        .card-image
+
+        .card-content
+          = raw committee.description
+        .card-footer.is-button
+          .card-footer-item.is-button
+            = gettext("Show")

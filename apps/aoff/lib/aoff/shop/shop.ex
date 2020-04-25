@@ -455,6 +455,7 @@ defmodule AOFF.Shop do
     |> Repo.preload(:date)
     |> Repo.preload(:order)
     |> Repo.preload(order_items: [:product])
+
   end
 
   def search_pick_up(query, date_id) do

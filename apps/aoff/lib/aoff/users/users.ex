@@ -52,7 +52,21 @@ defmodule AOFF.Users do
 
   ## Examples
 
-      iex> list_users()
+      iex> list_volunteers()
+      [%User{}, ...]
+
+  """
+  def list_volunteers() do
+    query = from(u in User, order_by: [asc: u.username], where: u.volunteer == ^true)
+    Repo.all(query)
+  end
+
+  @doc """
+  Returns the list of users.
+
+  ## Examples
+
+      iex> list_shop_assistans()
       [%User{}, ...]
 
   """

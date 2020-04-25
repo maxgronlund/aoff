@@ -14,12 +14,23 @@ defmodule AOFFWeb.InfoController do
         Gettext.get_locale()
       )
 
+    {:ok, committees} =
+      System.find_or_create_message(
+        "/info - committees",
+        "Committees",
+        Gettext.get_locale()
+      )
+
     blogs = Blogs.all_but_news(Gettext.get_locale())
     # {:ok, manufacturers} = Blogs.find_or_create_blog("manufacturers", Gettext.get_locale())
     # {:ok, calendar} = Blogs.find_or_create_blog("calendar", Gettext.get_locale())
     # {:ok, about_aoff} = Blogs.find_or_create_blog("about_aoff", Gettext.get_locale())
 
-    render(conn, "index.html", message: message, blogs: blogs)
+    render(conn, "index.html",
+      message: message,
+      blogs: blogs,
+      committees: committees
+    )
   end
 
   def show(conn, %{"id" => id}) do

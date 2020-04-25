@@ -1,3 +1,18 @@
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Shop"), to: Routes.shop_shop_path(@conn, :index)
+        li
+          = link date(@pick_up.date.date), to: Routes.shop_date_path(@conn, :show, @pick_up.date)
+        li
+          = link gettext("Pick up list"), to: Routes.shop_assistant_date_path(@conn, :show, @pick_up.date)
+        li.is-active
+          | &nbsp;
+          = gettext("Pick up")
+
+
 h2 = gettext("Pick up")
 
 

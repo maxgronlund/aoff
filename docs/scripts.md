@@ -38,3 +38,7 @@ mix phx.gen.html.slime Shop OrderItem order_items order_id:references:order date
 
 mix phx.gen.html.slime Volunteer Message messages title:string identifier:string body:text show:boolean locale:string
 
+mix phx.gen.html.slime Committees Committee committees name:string description:text
+mix phx.gen.html.slime Committees Meeting meetings name:string description:text summary:text committee_id:references:commitee
+
+mix phx.gen.html.slime Committees Member members role:string  committee_id:references:committee user_id:references:user

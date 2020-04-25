@@ -8,17 +8,34 @@ h2 = @message.title
       class: "button"
 br
 .tiles.button-tiles
-  = for blog <- @blogs do
-    .card.is-shady
+  .card.is-shady
+    = link to: Routes.committee_committee_path(@conn, :index) do
       .card-header
         .card-header-title.is-centered
-          = blog.title
+          = @committees.title
       .card-image
-        img.modal-button alt=("#{blog.title}") src="#{ AOFF.Uploader.Image.url({blog.image, blog}, :original)}"
+        = img_tag(Routes.static_path(@conn, "/images/committees.jpg"))
+
       .card-content
-        = raw blog.description
+        = raw @committees.text
+        = if @text_editor do
+          .float-right
+            = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @committees)
 
       .card-footer.is-button
-        = link gettext("Read More"),\
-          to: Routes.info_path(@conn, :show, blog),\
-          class: "card-footer-item is-button"
+        = link gettext("Read More"), to: Routes.committee_committee_path(@conn, :index), class: "card-footer-item is-button"
+
+  = for blog <- @blogs do
+    .card.is-shady
+      = link to: Routes.info_path(@conn, :show, blog) do
+        .card-header
+          .card-header-title.is-centered
+            = blog.title
+        .card-image
+          img.modal-button alt=("#{blog.title}") src="#{ AOFF.Uploader.Image.url({blog.image, blog}, :original)}"
+        .card-content
+          = raw blog.description
+
+        .card-footer.is-button
+          .card-footer-item.is-button
+            = gettext("Read More")

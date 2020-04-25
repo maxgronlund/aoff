@@ -1,0 +1,6 @@
+h2 = gettext("New Committee")
+
+= render "form.html",\
+  Map.put(assigns, :action, Routes.volunteer_committee_path(@conn, :create))
+
+/= link "Back", to: Routes.committee_committee_path(@conn, :index)

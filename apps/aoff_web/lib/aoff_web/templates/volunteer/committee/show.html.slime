@@ -1,0 +1,69 @@
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+        li
+          = link gettext("Committees"), to: Routes.volunteer_message_path(@conn, :index)
+        li.is-active
+          | &nbsp;
+          = @committee.name
+
+.row
+  .column
+    h2 = @committee.name
+  .column
+    .float-right
+      = link gettext("Edit committee"),\
+        to: Routes.committee_committee_path(@conn, :edit, @committee),\
+        class: "button"
+
+
+      = if @admin do
+        | &nbsp;
+        = link gettext("Delete"),\
+          to: Routes.volunteer_committee_path(@conn, :delete, @committee),\
+          method: :delete,\
+          data: [confirm: gettext("Are you / sure?")],\
+          class: "button button-red"
+.auto-columns
+  = raw @committee.description
+
+
+hr
+.row
+  .column
+    h4 = gettext("Committee members")
+  .column
+    = link gettext("Add committee member"),\
+      to: Routes.committee_committee_member_path(@conn, :new, @committee),\
+      class: "button float-right"
+.tiles
+  = for member <- @committee.members do
+    .card.is-shady
+      .card-image
+        = img_tag AOFF.Uploader.Image.url({member.user.avatar, member.user}, :avatar)
+      .card-header-title.is-centered
+        = member.user.username
+      .card-content
+        b = member.role
+        br
+        = member.user.email
+        br
+        = member.user.mobile
+
+        .float-right
+          = link gettext("Edit"),\
+            to: Routes.committee_committee_member_path(@conn, :edit, @committee, member),\
+            class: "button"
+          | &nbsp;
+          = link gettext("Remove"),\
+            to: Routes.committee_committee_member_path(@conn, :delete, @committee, member),\
+            method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red"
+
+
+
+/= link "Edit", to: Routes.committee_committee_path(@conn, :edit, @committee)
+| &nbsp;
+/= link "Back", to: Routes.committee_committee_path(@conn, :index)

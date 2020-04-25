@@ -77,6 +77,20 @@
         to: Routes.volunteer_membership_path(@conn, :index),\
         class: "card-footer-item is-button"
 
+  .card.is-shady
+    .card-header
+      .card-header-title.is-centered
+        = @committees.title
+    .card-content
+      p = raw @committees.text
+      = if @text_editor do
+        = link gettext("Edit text"),\
+          to: Routes.volunteer_message_path(@conn, :edit, @committees)
+    .card-footer.is-button
+      = link gettext("Go to"),\
+        to: Routes.volunteer_committee_path(@conn, :index),\
+        class: "card-footer-item is-button"
+
 
 
 

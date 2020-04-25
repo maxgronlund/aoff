@@ -1,0 +1,6 @@
+h2 = gettext("New Member")
+
+= render "form.html", \
+  Map.put(assigns, :action, Routes.committee_committee_member_path(@conn, :create, @committee))
+
+/= link "Back", to: Routes.committee_committee_member_path(@conn, :index)

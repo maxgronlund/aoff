@@ -1,5 +1,0 @@
-h2 Edit Pickup
-
-= render "form.html", Map.put(assigns, :action, Routes.pickup_path(@conn, :update, @pickup))
-
-= link "Back", to: Routes.pickup_path(@conn, :index)

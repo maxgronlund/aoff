@@ -9,7 +9,7 @@ defmodule AOFFWeb.ShopAssistant.DateController do
   plug :authenticate when action in [:show]
 
   def show(conn, params) do
-    conn = assign(conn, :page, :shop_assistant)
+
     date = Shop.get_date!(params["id"])
     query = params["query"]
 
@@ -30,7 +30,7 @@ defmodule AOFFWeb.ShopAssistant.DateController do
 
   defp authenticate(conn, _opts) do
     if conn.assigns.shop_assistant do
-      assign(conn, :page, :shop_assistant)
+      assign(conn, :page, :shop)
     else
       conn
       |> put_status(401)

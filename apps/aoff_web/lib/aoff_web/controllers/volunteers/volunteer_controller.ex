@@ -49,6 +49,13 @@ defmodule AOFFWeb.Volunteer.VolunteerController do
         Gettext.get_locale()
       )
 
+    {:ok, committees} =
+      System.find_or_create_message(
+        "/volunteer - committees",
+        "Committees",
+        Gettext.get_locale()
+      )
+
     conn = assign(conn, :page, :volunteer)
 
     render(
@@ -59,7 +66,8 @@ defmodule AOFFWeb.Volunteer.VolunteerController do
       messages: messages,
       opening_dates: opening_dates,
       categories: categories,
-      membership: membership
+      membership: membership,
+      committees: committees
     )
   end
 

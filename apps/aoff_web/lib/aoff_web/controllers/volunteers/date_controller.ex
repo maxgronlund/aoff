@@ -13,19 +13,11 @@ defmodule AOFFWeb.Volunteer.DateController do
   def index(conn, params) do
     Shop.secure_dates()
 
-    page =
-      if params["query"] do
-        false
-      else
-        params["page"] || "0"
-      end
+    page = params["page"] || "0"
 
-    dates =
-      if query = params["query"] do
-        Shop.search_date(query)
-      else
-        Shop.list_dates(Date.utc_today(), String.to_integer(page), 12)
-      end
+
+    dates = Shop.list_dates(Date.utc_today(), String.to_integer(page), 12)
+
 
     render(
       conn,
@@ -87,7 +79,7 @@ defmodule AOFFWeb.Volunteer.DateController do
     date = Shop.get_date!(id)
 
     case Shop.update_date(date, date_params) do
-      {:ok, date} ->
+      {:ok, _date} ->
         conn
         |> put_flash(:info, "Date updated successfully.")
         |> redirect(to: Routes.volunteer_date_path(conn, :index))
@@ -123,6 +115,6 @@ defmodule AOFFWeb.Volunteer.DateController do
   end
 
   defp navbar(conn, _opts) do
-    conn = assign(conn, :page, :volunteer)
+    assign(conn, :page, :volunteer)
   end
 end

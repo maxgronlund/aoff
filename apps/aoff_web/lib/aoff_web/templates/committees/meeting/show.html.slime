@@ -1,0 +1,16 @@
+h2 Show Meeting
+
+ul
+  li
+    strong Name:&nbsp;
+    = @meeting.name
+  li
+    strong Description:&nbsp;
+    = @meeting.description
+  li
+    strong Summary:&nbsp;
+    = @meeting.summary
+
+= link "Edit", to: Routes.meeting_path(@conn, :edit, @meeting)
+| &nbsp;
+= link "Back", to: Routes.meeting_path(@conn, :index)

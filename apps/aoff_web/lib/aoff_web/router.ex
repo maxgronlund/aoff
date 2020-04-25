@@ -44,6 +44,32 @@ defmodule AOFFWeb.Router do
     resources "/news", Info.NewsController, only: [:index, :show]
   end
 
+
+  scope "/admin", as: :admin do
+    pipe_through :browser
+    get "/", AOFFWeb.Admin.AdminController, :index
+    resources "/users", AOFFWeb.Admin.UserController
+  end
+
+  scope "/committee", as: :committee do
+    pipe_through :browser
+    resources "/", AOFFWeb.Committees.CommitteeController do
+      resources "/members", AOFFWeb.Committees.MemberController, except: [:index, :show]
+      # resources "/meetings", AOFFWeb.Committees.MeetingController
+    end
+  end
+
+  scope "/purchaser", as: :purchaser do
+    pipe_through :browser
+    get "/", AOFFWeb.Purchaser.PurchaserController, :index
+
+    resources "/dates", AOFFWeb.Purchaser.DateController, only: [:index, :show] do
+      resources "/products_notes", AOFFWeb.Purchaser.ProductNoteController
+    end
+
+    resources "/products", AOFFWeb.Purchaser.ProductController
+  end
+
   scope "/shop", as: :shop do
     pipe_through :browser
     get "/", AOFFWeb.Shop.ShopController, :index
@@ -53,12 +79,6 @@ defmodule AOFFWeb.Router do
     get "/payment_accepted/:id", AOFFWeb.Shop.PaymentAcceptedController, :index
     get "/payment_declined/:id", AOFFWeb.Shop.PaymentDeclinedController, :index
     get "/payment_callback/:id", AOFFWeb.Shop.PaymentCallbackController, :index
-  end
-
-  scope "/admin", as: :admin do
-    pipe_through :browser
-    get "/", AOFFWeb.Admin.AdminController, :index
-    resources "/users", AOFFWeb.Admin.UserController
   end
 
   scope "/volunteer", as: :volunteer do
@@ -72,17 +92,11 @@ defmodule AOFFWeb.Router do
     resources "/blogs", AOFFWeb.Volunteer.BlogController do
       resources "/posts", AOFFWeb.Volunteer.BlogPostController
     end
-  end
 
-  scope "/purchaser", as: :purchaser do
-    pipe_through :browser
-    get "/", AOFFWeb.Purchaser.PurchaserController, :index
-
-    resources "/dates", AOFFWeb.Purchaser.DateController, only: [:index, :show] do
-      resources "/products_notes", AOFFWeb.Purchaser.ProductNoteController
+    resources "/committees", AOFFWeb.Volunteer.CommitteeController do
+      resources "/members", AOFFWeb.Volunteer.MemberController, except: [:index, :show]
+      # resources "/meetings", AOFFWeb.Committees.MeetingController
     end
-
-    resources "/products", AOFFWeb.Purchaser.ProductController
   end
 
   scope "/shop_assistant", as: :shop_assistant do

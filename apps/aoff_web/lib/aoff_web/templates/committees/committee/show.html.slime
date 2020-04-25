@@ -1,0 +1,40 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("About AOFF"), to: Routes.info_path(@conn, :index)
+    li
+      = link gettext("Listing Committees"), to: Routes.committee_committee_path(@conn, :index)
+    li.is-active
+      | &nbsp;
+      = @committee.name
+
+h2 = @committee.name
+
+.auto-columns
+  = raw @committee.description
+
+
+hr
+
+h4 = gettext("Committee members")
+
+.tiles
+  = for member <- @committee.members do
+    .card.is-shady
+      .card-image
+        = img_tag AOFF.Uploader.Image.url({member.user.avatar, member.user}, :avatar)
+      .card-header-title.is-centered
+        = member.user.username
+      .card-content
+        b = member.role
+        br
+        = member.user.email
+        br
+        = member.user.mobile
+
+
+
+
+/= link "Edit", to: Routes.committee_committee_path(@conn, :edit, @committee)
+| &nbsp;
+/= link "Back", to: Routes.committee_committee_path(@conn, :index)
