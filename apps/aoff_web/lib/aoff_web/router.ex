@@ -27,7 +27,7 @@ defmodule AOFFWeb.Router do
 
     resources "/users", UserController, except: [:index] do
       resources "/order_items", Users.OrderItemController, only: [:create, :delete]
-      resources "/orders", Users.OrderController, except: [:delete]
+      resources "/orders", Users.OrderController
       resources "/membership", Users.MembershipController, only: [:new, :create]
     end
 

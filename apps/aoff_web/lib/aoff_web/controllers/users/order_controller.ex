@@ -27,6 +27,14 @@ defmodule AOFFWeb.Users.OrderController do
     render(conn, "show.html", user: order.user, order: order)
   end
 
+  def delete(conn, %{"id" => id}) do
+    order = Users.get_order!(id)
+    {:ok, _order} = Users.delete_order(order)
+    conn
+    |> put_flash(:info, gettext("Order deleted successfully."))
+    |> redirect(to: Routes.shop_shop_path(conn, :index))
+  end
+
   defp get_user!(conn, id) do
     user = Users.get_user!(id)
 

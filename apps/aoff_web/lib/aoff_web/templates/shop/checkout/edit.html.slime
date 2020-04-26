@@ -1,12 +1,11 @@
 .row
   .column
-    .alert.alert-danger
-      h2 = @message.title
-      = raw @message.text
-      = if @text_editor do
-        | &nbsp;
-        = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message)
-
+    h2 = @message.title
+    = raw @message.text
+    = if @text_editor do
+      | &nbsp;
+      = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message)
+hr
 .row
   .column
     table.table
@@ -32,7 +31,7 @@
               b= @order.total
 
 
-
+- IO.inspect @order
 script charset="UTF-8" src="https://ssl.ditonlinebetalingssystem.dk/integration/ewindow/paymentwindow.js" type="text/javascript"
 javascript:
 

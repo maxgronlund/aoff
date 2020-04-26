@@ -16,7 +16,7 @@
   .column
     .float-right
       = link gettext("Edit committee"),\
-        to: Routes.committee_committee_path(@conn, :edit, @committee),\
+        to: Routes.volunteer_committee_path(@conn, :edit, @committee),\
         class: "button"
 
 
@@ -52,7 +52,7 @@ hr
         = member.user.email
         br
         = member.user.mobile
-
+        hr
         .float-right
           = link gettext("Edit"),\
             to: Routes.committee_committee_member_path(@conn, :edit, @committee, member),\

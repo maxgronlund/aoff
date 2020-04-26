@@ -1,3 +1,17 @@
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+        li
+          = link gettext("Committees"), to: Routes.volunteer_message_path(@conn, :index)
+        li
+          = link @committee.name, to: Routes.volunteer_message_path(@conn, :show, @committee)
+        li.is-active
+          | &nbsp;
+          = gettext("Edit")
+
 h2 = gettext("Edit Committee")
 
 = render "form.html", Map.put(assigns, :action, Routes.volunteer_committee_path(@conn, :update, @committee))

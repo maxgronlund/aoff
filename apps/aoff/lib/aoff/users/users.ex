@@ -353,7 +353,7 @@ defmodule AOFF.Users do
   def list_orders(user_id) do
     query =
       from o in Order,
-        where: o.user_id == ^user_id,
+        where: o.user_id == ^user_id and o.state==^"payment_accepted",
         order_by: [asc: o.order_nr]
 
     Repo.all(query)
@@ -416,6 +416,19 @@ defmodule AOFF.Users do
     Order
     |> Repo.get_by!(token: token)
     |> Repo.preload(:user)
+  end
+
+  def delete_order(%Order{} = order) do
+
+    unless order.state == "deleted" do
+
+    order
+    |> Order.changeset(%{
+      "state" => "deleted",
+      "payment_date" => Date.utc_today()
+    })
+    |> Repo.update()
+    end
   end
 
   alias AOFF.Shop.Product
