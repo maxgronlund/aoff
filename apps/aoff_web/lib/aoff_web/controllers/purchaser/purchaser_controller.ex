@@ -2,8 +2,8 @@ defmodule AOFFWeb.Purchaser.PurchaserController do
   use AOFFWeb, :controller
 
   alias AOFF.Shop
-  alias AOFF.Shop.Product
   alias AOFFWeb.Users.Auth
+
   plug Auth
   plug :authenticate when action in [:index]
 
@@ -15,7 +15,7 @@ defmodule AOFFWeb.Purchaser.PurchaserController do
   end
 
   defp authenticate(conn, _opts) do
-    if conn.assigns.current_user && conn.assigns.current_user.purchasing_manager do
+    if conn.assigns.purchasing_manager do
       conn
     else
       conn

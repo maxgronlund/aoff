@@ -20,7 +20,7 @@ defmodule AOFF.Vulenteers.PostsTest do
 
     test "get_post!/1 returns the post with given id", %{blog: blog} do
       post = post_fixture(blog.id)
-      assert Blogs.get_post!(post.id).id == post.id
+      assert Blogs.get_post!(blog.title, post.title).id == post.id
     end
 
     test "create_post/1 with valid data creates a post", %{blog: blog} do
@@ -55,13 +55,13 @@ defmodule AOFF.Vulenteers.PostsTest do
       post = post_fixture(blog.id)
       attrs = invalid_post_attrs()
       assert {:error, %Ecto.Changeset{}} = Blogs.update_post(post, attrs)
-      assert post.id == Blogs.get_post!(post.id).id
+      assert post.id == Blogs.get_post!(blog.title, post.title).id
     end
 
     test "delete_post/1 deletes the post", %{blog: blog} do
       post = post_fixture(blog.id)
       assert {:ok, %BlogPost{}} = Blogs.delete_post(post)
-      assert_raise Ecto.NoResultsError, fn -> Blogs.get_post!(post.id) end
+      assert Blogs.get_post!(blog.title, post.title)==nil
     end
 
     test "change_post/1 returns a post changeset", %{blog: blog} do

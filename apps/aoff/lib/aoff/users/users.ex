@@ -331,16 +331,6 @@ defmodule AOFF.Users do
     end
   end
 
-  def last_order_nr() do
-    query =
-      from o in Order,
-        order_by: [desc: o.order_nr],
-        select: o.order_nr,
-        limit: 1
-
-    Repo.one(query) || 10000
-  end
-
   @doc """
   Returns the list of orders.
 
@@ -353,7 +343,7 @@ defmodule AOFF.Users do
   def list_orders(user_id) do
     query =
       from o in Order,
-        where: o.user_id == ^user_id and o.state==^"payment_accepted",
+        where: o.user_id == ^user_id and o.state == ^"payment_accepted",
         order_by: [asc: o.order_nr]
 
     Repo.all(query)
@@ -374,7 +364,7 @@ defmodule AOFF.Users do
 
   """
   def get_order(id) do
-    Order|> Repo.get(id)
+    Order |> Repo.get(id)
   end
 
   @doc """
@@ -419,23 +409,20 @@ defmodule AOFF.Users do
   end
 
   def delete_order(%Order{} = order) do
-
     unless order.state == "deleted" do
-
-    order
-    |> Order.changeset(%{
-      "state" => "deleted",
-      "payment_date" => Date.utc_today()
-    })
-    |> Repo.update()
+      order
+      |> Order.changeset(%{
+        "state" => "deleted",
+        "payment_date" => Date.utc_today()
+      })
+      |> Repo.update()
     end
   end
 
   alias AOFF.Shop.Product
 
   def extend_memberships(order) do
-
-    for membership <- memberships_in_order(order.id) do
+    for _membership <- memberships_in_order(order.id) do
       user = order.user
       today = Date.utc_today()
 
@@ -445,6 +432,7 @@ defmodule AOFF.Users do
         else
           Date.add(user.expiration_date, 365)
         end
+
       User.update_membership_changeset(
         user,
         %{"expiration_date" => expiration_date}
@@ -456,14 +444,12 @@ defmodule AOFF.Users do
   defp memberships_in_order(order_id) do
     query =
       from p in Product,
-      where: p.membership==^true,
-      join: oi in assoc(p,:order_items),
-      where: oi.order_id==^order_id
+        where: p.membership == ^true,
+        join: oi in assoc(p, :order_items),
+        where: oi.order_id == ^order_id
 
     Repo.all(query)
   end
-
-
 
   @doc """
   Creates a order.
@@ -496,12 +482,10 @@ defmodule AOFF.Users do
 
   """
   def update_order(%Order{} = order, attrs) do
-    result =
-      order
-      |> Order.changeset(attrs)
-      |> Repo.update()
+    order
+    |> Order.changeset(attrs)
+    |> Repo.update()
   end
-
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking order changes.
@@ -527,7 +511,6 @@ defmodule AOFF.Users do
 
     Repo.one(query)
   end
-
 
   @doc """
   Gets a single order_item.
@@ -607,7 +590,6 @@ defmodule AOFF.Users do
     Repo.one(q)
   end
 
-
   @doc """
   Deletes a order_item.
 
@@ -656,18 +638,23 @@ defmodule AOFF.Users do
   end
 
   def payment_declined(%Order{} = order) do
-
     unless order.state == "payment_accepted" do
-
-    order
-    |> Order.changeset(%{
-      "state" => "payment_declined",
-      "payment_date" => Date.utc_today()
-    })
-    |> Repo.update()
+      order
+      |> Order.changeset(%{
+        "state" => "payment_declined",
+        "payment_date" => Date.utc_today()
+      })
+      |> Repo.update()
     end
   end
 
+  @doc """
+  Return the last order number
+
+  ## Examples
+    iex> last_order_nr()
+    10004
+  """
   def last_order_nr() do
     query =
       from o in Order,
@@ -678,6 +665,4 @@ defmodule AOFF.Users do
 
     Repo.one(query) || 10001
   end
-
-
 end

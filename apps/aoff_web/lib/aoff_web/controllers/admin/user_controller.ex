@@ -46,7 +46,7 @@ defmodule AOFFWeb.Admin.UserController do
     user = Admins.get_user!(id)
 
     case Admins.update_user(user, user_params) do
-      {:ok, user} ->
+      {:ok, _user} ->
         conn
         |> put_flash(:info, gettext("User updated successfully."))
         |> redirect(to: Routes.admin_user_path(conn, :index))

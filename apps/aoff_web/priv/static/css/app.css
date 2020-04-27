@@ -1368,6 +1368,48 @@ blockquote, dl, figure, form, ol, p, pre, table, ul {
 margin-bottom: 1.5rem;
 }
 
+.profiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, [col-start] minmax(423px, 1fr) [col-end]);
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
+  width: 100%;
+  margin: 0 auto;
+  list-style: none;
+}
+
+.profiles .profile {
+  max-width: 100%;
+  position: relative;
+}
+
+.profiles .profile {
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.profiles .profile .profile-avatar {
+  display: inline-block;
+  float: left;
+
+}
+
+.profiles .profile .profile-content {
+  display: inline-block;
+  margin: 10px;
+  float: left;
+
+}
+
+.profiles .profile .edit-profile {
+  display: block;
+  width: 100%;
+}
+
+hr {
+  border-top: 0.1rem solid #dbdbdb;
+}
+
+
 .card {
   background-color: white;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);

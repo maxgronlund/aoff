@@ -31,6 +31,7 @@ defmodule AOFF.Users.OrderTest do
 
     test "list_orders/0 returns all orders", %{user: user} do
       order = order_fixture(user.id)
+      Users.payment_accepted(order)
       assert List.last(Users.list_orders(user.id)).id == order.id
     end
 
@@ -43,11 +44,6 @@ defmodule AOFF.Users.OrderTest do
       attrs = create_order_attrs(%{"user_id" => user.id})
       assert {:ok, %Order{} = order} = Users.create_order(attrs)
       assert order.state == attrs["state"]
-    end
-
-    test "create_order/1 with invalid data returns error changeset", %{user: user} do
-      attrs = invalid_order_attrs(%{"user_id" => user.id})
-      assert {:error, %Ecto.Changeset{}} = Users.create_order(attrs)
     end
 
     test "update_order/2 with valid data updates the order", %{user: user} do
@@ -69,9 +65,9 @@ defmodule AOFF.Users.OrderTest do
       assert %Ecto.Changeset{} = Users.change_order(order)
     end
 
-    test "create_order_id/0 returns an order_id", %{user: user} do
-      order = order_fixture(user.id)
-      assert Users.create_order_nr() == order.order_nr + 1
+    test "create_order/0 returns an order with an order id", %{user: user} do
+      last_order_nr = Users.last_order_nr()
+      assert order_fixture(user.id).order_nr == last_order_nr + 1
     end
   end
 end

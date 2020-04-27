@@ -3,6 +3,7 @@ defmodule AOFF.Committees.Committee do
   import Ecto.Changeset
 
   alias AOFF.Committees.Member
+  alias AOFF.Committees.Meeting
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -12,6 +13,7 @@ defmodule AOFF.Committees.Committee do
     field :identifier
 
     has_many :members, Member
+    has_many :meetings, Meeting
 
     timestamps()
   end

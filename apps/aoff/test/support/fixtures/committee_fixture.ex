@@ -1,4 +1,4 @@
-defmodule AOFF.Committess.CommitteeFixture do
+defmodule AOFF.Committees.CommitteeFixture do
   alias AOFF.Committees
 
   @valid_attrs %{

@@ -2,10 +2,7 @@ defmodule AOFFWeb.Users.OrderItemController do
   use AOFFWeb, :controller
 
   alias AOFF.Users
-  alias AOFF.Users.Order
-  # alias AOFF.Users.OrderItem
   alias AOFF.Shop
-  alias AOFF.Shop.PickUp
   alias AOFF.Users.OrderItem
 
   def create(conn, %{"params" => params}) do
@@ -32,7 +29,7 @@ defmodule AOFFWeb.Users.OrderItemController do
     result = Users.add_order_item_to_basket(pick_up_params, order_item_params)
 
     case result do
-      {:ok, %OrderItem{} = order_item} ->
+      {:ok, %OrderItem{} = _order_item} ->
         conn
         |> put_flash(
           :info,
@@ -40,7 +37,7 @@ defmodule AOFFWeb.Users.OrderItemController do
         )
         |> redirect(to: Routes.shop_date_path(conn, :show, params["date_id"]))
 
-      {:error, reason} ->
+      {:error, _reason} ->
         conn
         |> put_flash(:error, gettext("Sorry an error occured"))
         |> redirect(to: Routes.shop_date_path(conn, :show, params["date_id"]))

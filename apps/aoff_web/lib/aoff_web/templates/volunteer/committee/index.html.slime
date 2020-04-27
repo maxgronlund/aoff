@@ -4,7 +4,7 @@
       = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
     li.is-active
       | &nbsp;
-      = gettext("Committeess")
+      = gettext("Committees")
 
 h2 = gettext("Listing Committees")
 = link "New Committee",\

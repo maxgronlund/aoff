@@ -40,17 +40,17 @@ defmodule AOFF.Uploader.Image do
   end
 
   # Override the persisted filenames:
-  def filename(version, {file, scope}) do
+  def filename(version, {_file, _scope}) do
     version
   end
 
   # Override the storage directory:
-  def storage_dir(version, {file, scope}) do
+  def storage_dir(_version, {_file, scope}) do
     "uploads/post/images/#{scope.id}"
   end
 
   # Provide a default URL if there hasn't been a file uploaded
-  def default_url(version, scope) do
+  def default_url(version, _scope) do
     "https://aoff.s3-eu-west-1.amazonaws.com/default/image/#{version}.jpg"
   end
 
@@ -59,7 +59,7 @@ defmodule AOFF.Uploader.Image do
   #    :content_encoding, :content_length, :content_type,
   #    :expect, :expires, :storage_class, :website_redirect_location]
   #
-  def s3_object_headers(version, {file, scope}) do
+  def s3_object_headers(_version, {file, _scope}) do
     [content_type: MIME.from_path(file.file_name)]
   end
 end

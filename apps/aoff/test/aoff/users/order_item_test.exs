@@ -24,7 +24,10 @@ defmodule AOFF.Users.OrderItemTest do
           "date_id" => date.id,
           "user_id" => user.id,
           "username" => user.username,
-          "member_nr" => user.member_nr
+          "member_nr" => user.member_nr,
+          "order_id" => order.id,
+          "email" => user.email,
+          "price" => product.price
         })
 
       {:ok, user: user, product: product, order: order, pick_up: pick_up, date: date}
@@ -43,7 +46,8 @@ defmodule AOFF.Users.OrderItemTest do
           "product_id" => product.id,
           "user_id" => user.id,
           "pick_up_id" => pick_up.id,
-          "date_id" => date.id
+          "date_id" => date.id,
+          "price" => product.price
         })
 
       assert Users.get_order_item!(order_item.id).id == order_item.id
@@ -57,32 +61,17 @@ defmodule AOFF.Users.OrderItemTest do
           "product_id" => product.id,
           "user_id" => user.id,
           "pick_up_id" => pick_up.id,
-          "date_id" => date.id
+          "date_id" => date.id,
+          "price" => product.price
         })
 
       assert {:ok, %OrderItem{} = order_item} = Users.create_order_item(attrs)
-      assert order_item.state == attrs["state"]
+      assert order_item.order_id == order.id
     end
 
     test "create_order_item/1 with invalid data returns error changeset" do
       attrs = invalid_order_item_attrs()
       assert {:error, %Ecto.Changeset{}} = Users.create_order_item(attrs)
-    end
-
-    test "update_order_item/2 with valid data updates the order_item",
-         %{user: user, product: product, order: order, pick_up: pick_up, date: date} do
-      order_item =
-        order_item_fixture(%{
-          "order_id" => order.id,
-          "product_id" => product.id,
-          "user_id" => user.id,
-          "pick_up_id" => pick_up.id,
-          "date_id" => date.id
-        })
-
-      attrs = update_order_item_attrs()
-      assert {:ok, %OrderItem{} = order_item} = Users.update_order_item(order_item, attrs)
-      assert order_item.state == attrs["state"]
     end
 
     test "delete_order_item/1 deletes the order_item",
@@ -93,7 +82,8 @@ defmodule AOFF.Users.OrderItemTest do
           "product_id" => product.id,
           "user_id" => user.id,
           "pick_up_id" => pick_up.id,
-          "date_id" => date.id
+          "date_id" => date.id,
+          "price" => product.price
         })
 
       assert {:ok, %OrderItem{}} = Users.delete_order_item(order_item)
@@ -108,7 +98,8 @@ defmodule AOFF.Users.OrderItemTest do
           "product_id" => product.id,
           "user_id" => user.id,
           "pick_up_id" => pick_up.id,
-          "date_id" => date.id
+          "date_id" => date.id,
+          "price" => product.price
         })
 
       assert %Ecto.Changeset{} = Users.change_order_item(order_item)

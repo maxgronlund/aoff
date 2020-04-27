@@ -14,7 +14,6 @@ defmodule AOFFWeb.Shop.CheckoutController do
 
     order = Users.get_order!(id)
 
-
     changeset = Users.change_order(order)
 
     render(

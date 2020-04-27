@@ -1,8 +1,6 @@
 defmodule AOFFWeb.SessionController do
   use AOFFWeb, :controller
 
-  alias AOFF.Users
-
   def new(conn, _params) do
     conn = assign(conn, :page, :session)
     render(conn, "new.html")
@@ -27,15 +25,13 @@ defmodule AOFFWeb.SessionController do
     end
   end
 
-  def show(conn, params) do
+  def show(conn, _params) do
     conn
     |> AOFFWeb.Users.Auth.logout()
     |> redirect(to: Routes.page_path(conn, :index))
   end
 
-  def delete(conn, %{"id" => id}) do
-    IO.inspect("delete")
-
+  def delete(conn, _params) do
     conn
     |> AOFFWeb.Users.Auth.logout()
     |> redirect(to: Routes.page_path(conn, :index))

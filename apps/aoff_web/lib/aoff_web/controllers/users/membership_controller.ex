@@ -2,7 +2,6 @@ defmodule AOFFWeb.Users.MembershipController do
   use AOFFWeb, :controller
 
   alias AOFF.Users
-  alias AOFF.Users.Order
   alias AOFF.Shop
   alias AOFF.System
   alias AOFFWeb.Users.Auth
@@ -38,7 +37,6 @@ defmodule AOFFWeb.Users.MembershipController do
     product = Shop.get_product!(product_id)
     date = Shop.get_next_date(Date.utc_today())
 
-
     pick_up_params = %{
       "date_id" => date.id,
       "user_id" => user.id,
@@ -48,15 +46,13 @@ defmodule AOFFWeb.Users.MembershipController do
       "email" => user.email
     }
 
-    order_item_params =
-      %{
-        "order_id" => order.id,
-        "date_id" => date.id,
-        "user_id" => user.id,
-        "product_id" => product.id,
-        "price" => product.price
-      }
-
+    order_item_params = %{
+      "order_id" => order.id,
+      "date_id" => date.id,
+      "user_id" => user.id,
+      "product_id" => product.id,
+      "price" => product.price
+    }
 
     Users.add_membership_to_basket(pick_up_params, order_item_params)
 
@@ -76,4 +72,3 @@ defmodule AOFFWeb.Users.MembershipController do
     end
   end
 end
-

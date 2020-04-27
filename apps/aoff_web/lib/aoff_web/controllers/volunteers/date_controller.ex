@@ -15,9 +15,7 @@ defmodule AOFFWeb.Volunteer.DateController do
 
     page = params["page"] || "0"
 
-
     dates = Shop.list_dates(Date.utc_today(), String.to_integer(page), 12)
-
 
     render(
       conn,
@@ -103,7 +101,7 @@ defmodule AOFFWeb.Volunteer.DateController do
   end
 
   defp authenticate(conn, _opts) do
-    if conn.assigns.current_user && conn.assigns.current_user.volunteer do
+    if conn.assigns.volunteer do
       conn
     else
       conn

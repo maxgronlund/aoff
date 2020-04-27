@@ -6,18 +6,14 @@ defmodule AOFFWeb.Committees.MemberController do
   alias AOFF.Users
 
   def index(conn, %{"committee_id" => committee_id}) do
-
     committee = Committees.get_committee!(committee_id)
     members = Committees.list_members()
     render(conn, "index.html", committee: committee, members: members)
   end
 
   def new(conn, %{"committee_id" => committee_id}) do
-
     committee = Committees.get_committee!(committee_id)
     changeset = Committees.change_member(%Member{})
-
-
 
     render(conn, "new.html",
       changeset: changeset,
@@ -27,7 +23,6 @@ defmodule AOFFWeb.Committees.MemberController do
   end
 
   def create(conn, %{"member" => member_params}) do
-
     case Committees.create_member(member_params) do
       {:ok, member} ->
         conn
@@ -36,6 +31,7 @@ defmodule AOFFWeb.Committees.MemberController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         committee = Committees.get_committee!(member_params["committee_id"])
+
         render(conn, "new.html",
           changeset: changeset,
           committee: committee,
@@ -49,10 +45,10 @@ defmodule AOFFWeb.Committees.MemberController do
     render(conn, "show.html", member: member)
   end
 
-  def edit(conn, %{"committee_id" => committee_id, "id" => id}) do
-
+  def edit(conn, %{"id" => id}) do
     member = Committees.get_member!(id)
     changeset = Committees.change_member(member)
+
     render(conn, "edit.html",
       committee: member.committee,
       member: member,

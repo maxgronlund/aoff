@@ -13,14 +13,13 @@
 .row
   .column
     h2 = @committee.name
-  .column
-    .float-right
-      = link gettext("Edit committee"),\
-        to: Routes.volunteer_committee_path(@conn, :edit, @committee),\
-        class: "button"
-
-
-      = if @admin do
+= if @admin do
+  .row
+    .column
+      .float-right
+        = link gettext("Edit"),\
+          to: Routes.volunteer_committee_path(@conn, :edit, @committee),\
+          class: "button"
         | &nbsp;
         = link gettext("Delete"),\
           to: Routes.volunteer_committee_path(@conn, :delete, @committee),\
@@ -30,40 +29,59 @@
 .auto-columns
   = raw @committee.description
 
-
+br
 hr
 .row
   .column
     h4 = gettext("Committee members")
-  .column
-    = link gettext("Add committee member"),\
-      to: Routes.committee_committee_member_path(@conn, :new, @committee),\
-      class: "button float-right"
-.tiles
+  = if @admin do
+    .column
+      = link gettext("Add committee member"),\
+        to: Routes.volunteer_committee_member_path(@conn, :new, @committee),\
+        class: "button float-right"
+
+
+.profiles.mt-2
   = for member <- @committee.members do
-    .card.is-shady
-      .card-image
+    .profile
+      = if @admin do
+        .edit-profile
+          = link gettext("Remove"),\
+            to: Routes.committee_committee_member_path(@conn, :delete, @committee, member),\
+            method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red button-small"
+          | &nbsp;
+          = link gettext("Edit"),\
+            to: Routes.committee_committee_member_path(@conn, :edit, @committee, member),\
+            class: "button button-small"
+      .profile-avatar
         = img_tag AOFF.Uploader.Image.url({member.user.avatar, member.user}, :avatar)
-      .card-header-title.is-centered
-        = member.user.username
-      .card-content
+      .profile-content
+        h4 = member.user.username
         b = member.role
         br
         = member.user.email
         br
         = member.user.mobile
-        hr
-        .float-right
-          = link gettext("Edit"),\
-            to: Routes.committee_committee_member_path(@conn, :edit, @committee, member),\
-            class: "button"
-          | &nbsp;
-          = link gettext("Remove"),\
-            to: Routes.committee_committee_member_path(@conn, :delete, @committee, member),\
-            method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red"
 
 
 
-/= link "Edit", to: Routes.committee_committee_path(@conn, :edit, @committee)
-| &nbsp;
-/= link "Back", to: Routes.committee_committee_path(@conn, :index)
+
+.row.mt-2
+  .column
+    h4 = gettext("Meetings")
+  .column
+    = link gettext("New Meeting"),\
+      to: Routes.volunteer_committee_meeting_path(@conn, :new, @committee),\
+      class: "button float-right"
+
+= for meeting <- @committee.meetings do
+  .alert.alert-box
+    h4 = meeting.name
+    .row
+      .column
+
+        i = date(meeting.date)
+      .column
+        = link gettext("Show"),\
+          to: Routes.volunteer_committee_meeting_path(@conn, :show, @committee, meeting),\
+          class: "button button-outline float-right"

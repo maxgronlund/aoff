@@ -35,7 +35,7 @@ defmodule AOFFWeb.Volunteer.UserController do
     user = get_user!(conn, id)
 
     case Volunteers.update_user(user, user_params) do
-      {:ok, user} ->
+      {:ok, _user} ->
         conn
         |> put_flash(:info, gettext("User updated successfully."))
         |> redirect(to: Routes.volunteer_user_path(conn, :index))

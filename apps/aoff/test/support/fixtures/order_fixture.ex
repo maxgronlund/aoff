@@ -2,7 +2,7 @@ defmodule AOFF.Users.OrderFixture do
   alias AOFF.Users
 
   @create_attrs %{
-    "state" => "pending"
+    "state" => "open"
   }
 
   @update_attrs %{

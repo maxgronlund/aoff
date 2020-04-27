@@ -1,5 +1,5 @@
-h2 Edit Meeting
+h2 = gettext("Edit Meeting")
 
-= render "form.html", Map.put(assigns, :action, Routes.meeting_path(@conn, :update, @meeting))
+= render "form.html", Map.put(assigns, :action, Routes.volunteer_committee_meeting_path(@conn, :update, @committee, @meeting))
 
-= link "Back", to: Routes.meeting_path(@conn, :index)
+/= link "Back", to: Routes.meeting_path(@conn, :index)

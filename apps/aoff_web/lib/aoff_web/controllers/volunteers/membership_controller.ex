@@ -4,7 +4,7 @@ defmodule AOFFWeb.Volunteer.MembershipController do
   alias AOFF.Shop
 
   def index(conn, params) do
-    IO.inspect params
+    IO.inspect(params)
 
     memberships = Shop.list_memberships()
     render(conn, "index.html", memberships: memberships)

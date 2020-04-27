@@ -18,10 +18,12 @@ defmodule AOFF.UsersTest do
       assert List.first(Users.list_users()).id == user.id
     end
 
-    test "username/1 returns the username for a given shop_assistans" do
-      user = user_fixture(%{"shop_assistans" => true, "username" => "assistant 1"})
+    test "get_users_by_username/1 returns the users with the given username" do
+      user = user_fixture()
 
-      assert Users.username(user.id) == user.username
+      assert List.first(
+          Users.get_users_by_username(user.username)
+        ).id == user.id
     end
 
     test "get_user!/1 returns the user with given id" do

@@ -9,7 +9,6 @@ defmodule AOFF.Committees.Member do
   schema "members" do
     field :role, :string
 
-
     belongs_to :user, User
     belongs_to :committee, Committee
 

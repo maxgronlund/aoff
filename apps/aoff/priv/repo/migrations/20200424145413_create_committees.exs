@@ -10,6 +10,5 @@ defmodule AOFF.Repo.Migrations.CreateCommittees do
 
       timestamps()
     end
-
   end
 end

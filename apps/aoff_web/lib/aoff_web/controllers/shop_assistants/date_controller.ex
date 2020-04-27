@@ -2,14 +2,12 @@ defmodule AOFFWeb.ShopAssistant.DateController do
   use AOFFWeb, :controller
 
   alias AOFF.Shop
-  alias AOFF.Users
-
   alias AOFFWeb.Users.Auth
+
   plug Auth
   plug :authenticate when action in [:show]
 
   def show(conn, params) do
-
     date = Shop.get_date!(params["id"])
     query = params["query"]
 

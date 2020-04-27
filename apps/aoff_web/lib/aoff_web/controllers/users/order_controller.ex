@@ -2,9 +2,9 @@ defmodule AOFFWeb.Users.OrderController do
   use AOFFWeb, :controller
 
   alias AOFF.Users
-  alias AOFF.Users.Order
   alias AOFFWeb.Users.Auth
   plug Auth
+
   plug :authenticate when action in [:index, :show]
   plug :navbar when action in [:index, :show]
 
@@ -30,6 +30,7 @@ defmodule AOFFWeb.Users.OrderController do
   def delete(conn, %{"id" => id}) do
     order = Users.get_order!(id)
     {:ok, _order} = Users.delete_order(order)
+
     conn
     |> put_flash(:info, gettext("Order deleted successfully."))
     |> redirect(to: Routes.shop_shop_path(conn, :index))
@@ -78,6 +79,6 @@ defmodule AOFFWeb.Users.OrderController do
   end
 
   defp navbar(conn, _opts) do
-    conn = assign(conn, :page, :user)
+    assign(conn, :page, :user)
   end
 end

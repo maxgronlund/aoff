@@ -6,7 +6,9 @@ defmodule AOFF.Blogs.BlogPostFixture do
     "caption" => "some caption",
     "image" => "some image url",
     "date" => Date.utc_today(),
-    "title" => "some title",
+    "title" => "sometitle",
+    "teaser" => "some teaser",
+    "tag" => "some tag",
     "text" => "some text"
   }
 
@@ -15,7 +17,9 @@ defmodule AOFF.Blogs.BlogPostFixture do
     "caption" => "some updated caption",
     "image" => "some updated image url",
     "date" => Date.add(Date.utc_today(), 20),
-    "title" => "some updated title",
+    "title" => "someupdatedtitle",
+    "teaser" => "some updated teaser",
+    "tag" => "some updated tag",
     "text" => "some updated text"
   }
 
@@ -25,6 +29,8 @@ defmodule AOFF.Blogs.BlogPostFixture do
     "image" => nil,
     "date" => nil,
     "title" => nil,
+    "teaser" => nil,
+    "tag" => nil,
     "text" => nil
   }
 

@@ -64,9 +64,6 @@ defmodule AOFFWeb.Volunteer.CommitteeController do
     |> redirect(to: Routes.volunteer_committee_path(conn, :index))
   end
 
-
-
-
   # defp authenticate(conn, _opts) do
   #   if conn.assigns.shop_assistant do
   #     assign(conn, :page, :shop_assistant)

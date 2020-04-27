@@ -2,7 +2,6 @@ defmodule AOFFWeb.Volunteer.MessageController do
   use AOFFWeb, :controller
 
   alias AOFF.System
-  alias AOFF.System.Message
 
   alias AOFFWeb.Users.Auth
   plug Auth
@@ -56,7 +55,7 @@ defmodule AOFFWeb.Volunteer.MessageController do
   end
 
   defp authenticate(conn, _opts) do
-    if conn.assigns.current_user && conn.assigns.current_user.volunteer do
+    if conn.assigns.volunteer do
       conn
     else
       conn

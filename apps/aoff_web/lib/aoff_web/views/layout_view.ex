@@ -11,7 +11,7 @@ defmodule AOFFWeb.LayoutView do
     end
   end
 
-  def user_menu(conn, page \\ :na) do
+  def user_menu(_conn, _page \\ :na) do
     "selected"
   end
 

@@ -26,7 +26,7 @@ defmodule AOFF.Users.Order do
       attrs
       |> Map.merge(%{
         "token" => AOFF.Token.generate(),
-        "order_nr" => AOFF.Users.last_order_nr() + 1,
+        "order_nr" => Users.last_order_nr() + 1,
         "total" => Money.new(0, :DKK)
       })
 
@@ -50,18 +50,7 @@ defmodule AOFF.Users.Order do
   @doc false
   def changeset(order, attrs) do
     order
-    |> cast(attrs, [
-      :user_id,
-      :state,
-      :order_nr,
-      :token,
-      :payment_date,
-      :total]
-    )
-    |> validate_required([
-      :user_id,
-      :state,
-      :token]
-    )
+    |> cast(attrs, [:user_id, :state, :order_nr, :token, :payment_date, :total])
+    |> validate_required([:user_id, :state, :token])
   end
 end

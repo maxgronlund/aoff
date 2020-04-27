@@ -288,7 +288,9 @@ defmodule AOFF.Shop do
     end
   end
 
-  """
+  @doc """
+  Creates a product.
+
   ## Examples
 
       iex> create_product(%{field: value})
@@ -298,7 +300,6 @@ defmodule AOFF.Shop do
       {:error, %Ecto.Changeset{}}
 
   """
-
   def create_product(attrs \\ %{}) do
     %Product{}
     |> Product.changeset(attrs)
@@ -404,8 +405,6 @@ defmodule AOFF.Shop do
     end
   end
 
-  alias AOFF.Users.Order
-
   @doc """
   Returns the list of pick_ups.
 
@@ -423,7 +422,7 @@ defmodule AOFF.Shop do
         order_by: p.username,
         join: oi in assoc(p, :order_items),
         join: pr in assoc(oi, :product),
-        where: pr.membership==^false,
+        where: pr.membership == ^false,
         distinct: true
       )
 
@@ -455,7 +454,6 @@ defmodule AOFF.Shop do
     |> Repo.preload(:date)
     |> Repo.preload(:order)
     |> Repo.preload(order_items: [:product])
-
   end
 
   def search_pick_up(query, date_id) do
@@ -568,7 +566,7 @@ defmodule AOFF.Shop do
         join: ordr in assoc(o, :order),
         where: ordr.state == ^"payment_accepted",
         join: p in assoc(o, :product),
-        where: p.membership==^false,
+        where: p.membership == ^false,
         group_by: p.id,
         select: {p, count(o.id)}
 

@@ -29,9 +29,12 @@ defmodule AOFF.Blogs do
   end
 
   defp secure_defaults(locale \\ "da") do
-    {:ok, manufacturers} = find_or_create_blog("manufacturers", locale)
-    {:ok, calendar} = find_or_create_blog("calendar", locale)
-    {:ok, about_aoff} = find_or_create_blog("about_aoff", locale)
+    {:ok, _manufacturers} =
+      find_or_create_blog("manufacturers", "Manufacturers", locale)
+    {:ok, _calendar} =
+      find_or_create_blog("calendar", "Calendar", locale)
+    {:ok, _about_aoff} =
+      find_or_create_blog("about_aoff", "About AOFF", locale)
   end
 
   alias AOFF.Blogs.BlogPost
@@ -72,7 +75,7 @@ defmodule AOFF.Blogs do
     case Repo.one(query) do
       nil ->
         create_blog(%{
-          "title" => identifier <> "-" <> locale,
+          "title" => title <> "-" <> locale,
           "description" => identifier <> "-" <> locale <> " : Description",
           "identifier" => identifier,
           "locale" => locale

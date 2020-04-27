@@ -1,16 +1,29 @@
-h2 Show Meeting
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("About AOFF"), to: Routes.info_path(@conn, :index)
+    li
+      = link gettext("Listing Committees"), to: Routes.committee_committee_path(@conn, :index)
+    li
+      = link @meeting.committee.name, to: Routes.committee_committee_path(@conn, :show, @meeting.committee)
+    li.is-active
+      | &nbsp;
+      = @meeting.name
 
-ul
-  li
-    strong Name:&nbsp;
-    = @meeting.name
-  li
-    strong Description:&nbsp;
-    = @meeting.description
-  li
-    strong Summary:&nbsp;
-    = @meeting.summary
+.row
+  .column
+    h2 = @meeting.name
+    i = date(@meeting.date)
+    br
+      = @meeting.location
 
-= link "Edit", to: Routes.meeting_path(@conn, :edit, @meeting)
-| &nbsp;
-= link "Back", to: Routes.meeting_path(@conn, :index)
+hr
+h4.mt-2 = gettext("Meeting agenda")
+.auto-columns
+  = raw @meeting.agenda
+br
+hr
+h4.mt-2 = gettext("Meeting summary")
+.auto-columns
+  = raw @meeting.summary
+

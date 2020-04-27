@@ -2,15 +2,18 @@ defmodule AOFF.Shop.DateFixture do
   alias AOFF.Shop
 
   @valid_attrs %{
-    "date" => Date.add(Date.utc_today(), 365)
+    "date" => Date.add(Date.utc_today(), 365),
+    "last_order_date" => Date.add(Date.utc_today(), 362)
   }
 
   @update_attrs %{
-    "date" => Date.add(Date.utc_today(), 165)
+    "date" => Date.add(Date.utc_today(), 165),
+    "last_order_date" => Date.add(Date.utc_today(), 162)
   }
 
   @invalid_attrs %{
-    "date" => nil
+    "date" => nil,
+    "last_order_date" => nil
   }
 
   def valid_date_attrs(attrs \\ %{}) do

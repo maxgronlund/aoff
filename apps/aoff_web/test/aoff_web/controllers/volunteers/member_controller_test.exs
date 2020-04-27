@@ -1,4 +1,4 @@
-defmodule AOFFWeb.MemberControllerTest do
+defmodule AOFFWeb.Committees.MemberControllerTest do
   use AOFFWeb.ConnCase
 
   alias AOFF.Committees
@@ -75,6 +75,7 @@ defmodule AOFFWeb.MemberControllerTest do
     test "deletes chosen member", %{conn: conn, member: member} do
       conn = delete(conn, Routes.member_path(conn, :delete, member))
       assert redirected_to(conn) == Routes.member_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.member_path(conn, :show, member))
       end

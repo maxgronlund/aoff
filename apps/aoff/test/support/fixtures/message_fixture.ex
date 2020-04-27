@@ -4,14 +4,14 @@ defmodule AOFF.System.MessageFixture do
   @valid_attrs %{
     "text" => "some text",
     "identifier" => "some identifier",
-    "locale" => "some locale",
+    "locale" => "da",
     "show" => true,
     "title" => "some title"
   }
   @update_attrs %{
     "text" => "some updated text",
     "identifier" => "some updated identifier",
-    "locale" => "some updated locale",
+    "locale" => "en",
     "show" => false,
     "title" => "some updated title"
   }

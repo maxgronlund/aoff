@@ -84,7 +84,7 @@ defmodule AOFFWeb.ResetPasswordController do
 
   def update(conn, user, user_params) do
     case Users.update_password!(user, user_params) do
-      {:ok, user} ->
+      {:ok, _user} ->
         redirect(conn, to: Routes.session_path(conn, :new))
 
       {:error, %Ecto.Changeset{} = changeset} ->

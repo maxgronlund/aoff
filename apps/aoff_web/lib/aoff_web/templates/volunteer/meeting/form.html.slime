@@ -1,18 +1,48 @@
+javascript:
+  tinymce.init({
+    selector: '#meeting_summary',
+    menubar: false,
+    height : 300
+  });
+
+javascript:
+  tinymce.init({
+    selector: '#meeting_agenda',
+    menubar: false,
+    height : 300
+  });
+
+
 = form_for @changeset, @action, fn f ->
   = if @changeset.action do
     .alert.alert-danger
-      p Oops, something went wrong! Please check the errors below.
+      p = gettext("Oops, something went wrong! Please check the errors below.")
+  .row
+    .column
+      .form-group
+        = label f, :name, gettext("Meeting name"), class: "control-label"
+        = text_input f, :name, class: "form-control"
+        = error_tag f, :name
+      .form-group
+        = label f, :location, gettext("Meeting location"), class: "control-label"
+        = textarea f, :location, class: "form-control", style: "height: 118px;"
+        = error_tag f, :location
+    .column
+      .form-group
+        = label f, :date, gettext("Meeting date"), class: "control-label"
+        = date_select f, :date, class: "form-control"
+        = error_tag f, :date
   .form-group
-    = label f, :name, class: "control-label"
-    = text_input f, :name, class: "form-control"
-    = error_tag f, :name
+    = label f, :agenda, gettext("Meeting agenda"), class: "control-label"
+    = textarea f, :agenda, class: "form-control"
+    .mt-1
+      = error_tag f, :agenda
   .form-group
-    = label f, :description, class: "control-label"
-    = textarea f, :description, class: "form-control"
-    = error_tag f, :description
-  .form-group
-    = label f, :summary, class: "control-label"
+    = label f, :summary, gettext("Meeting summary"), class: "control-label"
     = textarea f, :summary, class: "form-control"
     = error_tag f, :summary
-  .form-group
-    = submit "Submit", class: "btn btn-primary"
+
+
+    = hidden_input f, :committee_id, value: @committee.id
+  .form-group.mt-1
+    = submit gettext("Save"), class: "button float-right"

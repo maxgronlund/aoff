@@ -150,6 +150,6 @@ defmodule AOFFWeb.UserController do
   end
 
   defp navbar(conn, _opts) do
-    conn = assign(conn, :page, :user)
+    assign(conn, :page, :user)
   end
 end

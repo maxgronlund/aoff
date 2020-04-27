@@ -1,16 +1,58 @@
-h2 Show Meeting
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+        li
+          = link gettext("Committees"), to: Routes.volunteer_message_path(@conn, :index)
+        li
+          = link @committee.name, to: Routes.volunteer_committee_path(@conn, :show, @committee)
+        li.is-active
+          | &nbsp;
+          = @committee.name
 
-ul
-  li
-    strong Name:&nbsp;
-    = @meeting.name
-  li
-    strong Description:&nbsp;
-    = @meeting.description
-  li
-    strong Summary:&nbsp;
-    = @meeting.summary
+.row
+  .column
+    h2 = @meeting.name
+    i = date(@meeting.date)
+    br
+      = @meeting.location
+.row
+  .column
+    .float-right
+      = link gettext("Edit"),\
+        to: Routes.volunteer_committee_meeting_path(@conn, :edit, @committee, @meeting),\
+        class: "button"
+      | &nbsp;
+      = link gettext("Delete"),\
+        to: Routes.volunteer_committee_meeting_path(@conn, :delete, @committee, @meeting),\
+        data: [confirm: gettext("Are you sure?")],\
+        method: :delete,
+        class: "button button-red"
+hr
+h4.mt-2 = gettext("Meeting agenda")
+.auto-columns
+  = raw @meeting.agenda
+br
+hr
+h4.mt-2 = gettext("Meeting summary")
+.auto-columns
+  = raw @meeting.summary
 
-= link "Edit", to: Routes.meeting_path(@conn, :edit, @meeting)
-| &nbsp;
-= link "Back", to: Routes.meeting_path(@conn, :index)
+/ h2 Show Meeting
+
+/ ul
+/   li
+/     strong Name:&nbsp;
+/     = @meeting.name
+/   li
+/     strong Description:&nbsp;
+/     = @meeting.description
+/   li
+/     strong Summary:&nbsp;
+/     = @meeting.summary
+
+/ = link "Edit", to: Routes.meeting_path(@conn, :edit, @meeting)
+/ | &nbsp;
+/ = link "Back", to: Routes.meeting_path(@conn, :index)

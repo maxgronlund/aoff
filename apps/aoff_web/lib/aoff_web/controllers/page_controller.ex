@@ -5,7 +5,6 @@ defmodule AOFFWeb.PageController do
   alias AOFF.Shop
 
   def index(conn, _params) do
-
     {:ok, message} =
       System.find_or_create_message(
         "/",

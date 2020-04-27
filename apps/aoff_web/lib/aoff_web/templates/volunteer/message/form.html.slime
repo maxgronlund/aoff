@@ -5,8 +5,6 @@ javascript:
     height : 300
   });
 
-
-
 = form_for @changeset, @action, fn f ->
   = if @changeset.action do
     .alert.alert-danger

@@ -1,3 +1,3 @@
-defmodule AOFFWeb.Committees.MemberView do
+defmodule AOFFWeb.Volunteer.MemberView do
   use AOFFWeb, :view
 end

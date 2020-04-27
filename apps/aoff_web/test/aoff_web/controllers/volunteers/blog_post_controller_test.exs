@@ -29,17 +29,17 @@ defmodule AOFFWeb.Volunteers.BlogPostControllerTest do
 
     test "post renders form", %{conn: conn, blog: blog} do
       conn = get(conn, Routes.volunteer_blog_blog_post_path(conn, :new, blog))
-      assert html_response(conn, 200) =~ gettext("New Post")
+      assert html_response(conn, 200) =~ gettext("New Article")
     end
 
-    test "create post redirects to show when data is valid", %{conn: conn, blog: blog} do
+    test "create post redirects to edit when data is valid", %{conn: conn, blog: blog} do
       attrs = create_post_attrs()
 
       conn =
         post(conn, Routes.volunteer_blog_blog_post_path(conn, :create, blog), blog_post: attrs)
 
       assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.volunteer_blog_blog_post_path(conn, :show, blog, id)
+      assert redirected_to(conn) == Routes.volunteer_blog_blog_post_path(conn, :edit, blog, id)
 
       conn = get(conn, Routes.volunteer_blog_blog_post_path(conn, :show, blog, id))
       assert html_response(conn, 200) =~ attrs["title"]
@@ -51,13 +51,13 @@ defmodule AOFFWeb.Volunteers.BlogPostControllerTest do
       conn =
         post(conn, Routes.volunteer_blog_blog_post_path(conn, :create, blog), blog_post: attrs)
 
-      assert html_response(conn, 200) =~ gettext("New Post")
+      assert html_response(conn, 200) =~ gettext("New Article")
     end
 
     test "edit post renders form for editing chosen post", %{conn: conn, blog: blog} do
       post = post_fixture(blog.id)
       conn = get(conn, Routes.volunteer_blog_blog_post_path(conn, :edit, blog, post))
-      assert html_response(conn, 200) =~ gettext("Edit Post")
+      assert html_response(conn, 200) =~ gettext("Edit Article")
     end
 
     test "update blog redirects when data is valid", %{conn: conn, blog: blog} do
@@ -84,7 +84,7 @@ defmodule AOFFWeb.Volunteers.BlogPostControllerTest do
           blog_post: attrs
         )
 
-      assert html_response(conn, 200) =~ gettext("Edit Post")
+      assert html_response(conn, 200) =~ gettext("Edit Article")
     end
 
     alias AOFF.Blogs

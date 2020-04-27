@@ -1,3 +1,17 @@
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+        li
+          = link gettext("Committees"), to: Routes.volunteer_committee_path(@conn, :index)
+        li.is-active
+          | &nbsp;
+          = gettext("New Committee")
+
+
+
 h2 = gettext("New Committee")
 
 = render "form.html",\

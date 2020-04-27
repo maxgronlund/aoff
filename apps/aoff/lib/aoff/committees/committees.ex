@@ -8,6 +8,9 @@ defmodule AOFF.Committees do
 
   alias AOFF.Committees.Committee
   alias AOFF.Committees.Member
+  alias AOFF.Committees.Meeting
+
+
 
   @doc """
   Returns the list of committees.
@@ -37,11 +40,19 @@ defmodule AOFF.Committees do
 
   """
   def get_committee!(id) do
-    Committee
-    |> Repo.get!(id)
-    |> Repo.preload(members: [:user])
-
-  end
+  query =
+    from(
+      c in Committee,
+      where: c.id == ^id,
+      select: c,
+      preload: [
+        members: [:user],
+        meetings:
+          ^from(m in Meeting,order_by: [desc: m.date])
+      ]
+    )
+  Repo.one!(query)
+end
 
   @doc """
   Creates a committee.
@@ -137,7 +148,10 @@ defmodule AOFF.Committees do
       ** (Ecto.NoResultsError)
 
   """
-  def get_meeting!(id), do: Repo.get!(Meeting, id)
+  def get_meeting!(id) do
+    Repo.get!(Meeting, id)
+    |> Repo.preload(:committee)
+  end
 
   @doc """
   Creates a meeting.
@@ -235,7 +249,6 @@ defmodule AOFF.Committees do
     Member
     |> Repo.get!(id)
     |> Repo.preload(:committee)
-
   end
 
   @doc """

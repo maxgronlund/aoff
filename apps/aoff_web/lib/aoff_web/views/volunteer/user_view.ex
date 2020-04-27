@@ -49,5 +49,4 @@ defmodule AOFFWeb.Volunteer.UserView do
         @not_found
     end
   end
-
 end

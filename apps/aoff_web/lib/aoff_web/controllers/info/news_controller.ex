@@ -126,8 +126,7 @@ defmodule AOFFWeb.Info.NewsController do
 
   def delete(conn, %{"info_id" => blog_id, "id" => id}) do
     post = Blogs.get_post!(blog_id, id)
-    blog = post.blog
-    {:ok, post} = Blogs.delete_post(post)
+    {:ok, _post} = Blogs.delete_post(post)
 
     conn
     |> put_flash(:info, gettext("News deleted successfully."))
@@ -135,7 +134,7 @@ defmodule AOFFWeb.Info.NewsController do
   end
 
   defp authenticate(conn, _opts) do
-    if conn.assigns.current_user && conn.assigns.current_user.volunteer do
+    if conn.assigns.volunteer do
       assign(conn, :page, :volunteer)
     else
       conn

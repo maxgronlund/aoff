@@ -1,10 +1,14 @@
-defmodule AOFFWeb.MeetingControllerTest do
+defmodule AOFFWeb.Committees.MeetingControllerTest do
   use AOFFWeb.ConnCase
 
   alias AOFF.Committees
 
   @create_attrs %{description: "some description", name: "some name", summary: "some summary"}
-  @update_attrs %{description: "some updated description", name: "some updated name", summary: "some updated summary"}
+  @update_attrs %{
+    description: "some updated description",
+    name: "some updated name",
+    summary: "some updated summary"
+  }
   @invalid_attrs %{description: nil, name: nil, summary: nil}
 
   def fixture(:meeting) do
@@ -75,6 +79,7 @@ defmodule AOFFWeb.MeetingControllerTest do
     test "deletes chosen meeting", %{conn: conn, meeting: meeting} do
       conn = delete(conn, Routes.meeting_path(conn, :delete, meeting))
       assert redirected_to(conn) == Routes.meeting_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.meeting_path(conn, :show, meeting))
       end

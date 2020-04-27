@@ -1,23 +1,24 @@
-defmodule AOFFWeb.Committees.MemberController do
+defmodule AOFFWeb.Volunteer.MemberController do
   use AOFFWeb, :controller
 
   alias AOFF.Committees
   alias AOFF.Committees.Member
   alias AOFF.Users
 
-  def index(conn, %{"committee_id" => committee_id}) do
+  alias AOFFWeb.Users.Auth
+  plug Auth
+  plug :authenticate when action in [:edit, :new, :update, :create, :delete]
+  plug :navbar when action in [:index, :new, :show, :edit]
 
+  def index(conn, %{"committee_id" => committee_id}) do
     committee = Committees.get_committee!(committee_id)
     members = Committees.list_members()
     render(conn, "index.html", committee: committee, members: members)
   end
 
   def new(conn, %{"committee_id" => committee_id}) do
-
     committee = Committees.get_committee!(committee_id)
     changeset = Committees.change_member(%Member{})
-
-
 
     render(conn, "new.html",
       changeset: changeset,
@@ -27,7 +28,6 @@ defmodule AOFFWeb.Committees.MemberController do
   end
 
   def create(conn, %{"member" => member_params}) do
-
     case Committees.create_member(member_params) do
       {:ok, member} ->
         conn
@@ -36,6 +36,7 @@ defmodule AOFFWeb.Committees.MemberController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         committee = Committees.get_committee!(member_params["committee_id"])
+
         render(conn, "new.html",
           changeset: changeset,
           committee: committee,
@@ -49,10 +50,10 @@ defmodule AOFFWeb.Committees.MemberController do
     render(conn, "show.html", member: member)
   end
 
-  def edit(conn, %{"committee_id" => committee_id, "id" => id}) do
-
+  def edit(conn, %{"id" => id}) do
     member = Committees.get_member!(id)
     changeset = Committees.change_member(member)
+
     render(conn, "edit.html",
       committee: member.committee,
       member: member,
@@ -91,5 +92,21 @@ defmodule AOFFWeb.Committees.MemberController do
 
   defp list_volunteers() do
     Enum.map(Users.list_volunteers(), fn u -> {u.username, u.id} end)
+  end
+
+  defp authenticate(conn, _opts) do
+    if conn.assigns.volunteer do
+      conn
+    else
+      conn
+      |> put_status(401)
+      |> put_view(AOFFWeb.ErrorView)
+      |> render(:"401")
+      |> halt()
+    end
+  end
+
+  defp navbar(conn, _opts) do
+    assign(conn, :page, :volunteer)
   end
 end

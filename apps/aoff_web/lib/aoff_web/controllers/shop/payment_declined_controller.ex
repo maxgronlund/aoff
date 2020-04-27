@@ -3,11 +3,8 @@ defmodule AOFFWeb.Shop.PaymentDeclinedController do
 
   alias AOFF.Users
   alias AOFF.System
-  alias AOFF.Shop
 
   def index(conn, %{"id" => id}) do
-
-
     if order = Users.get_order_by_token!(id) do
       Users.payment_declined(order)
     end
@@ -23,5 +20,4 @@ defmodule AOFFWeb.Shop.PaymentDeclinedController do
     |> assign(:order_items_count, 0)
     |> render("index.html", order: order, message: message)
   end
-
 end

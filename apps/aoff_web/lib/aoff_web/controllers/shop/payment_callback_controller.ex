@@ -2,8 +2,6 @@ defmodule AOFFWeb.Shop.PaymentCallbackController do
   use AOFFWeb, :controller
 
   alias AOFF.Users
-  alias AOFF.System
-  alias AOFF.Shop
 
   def index(conn, %{"id" => id}) do
     order = Users.get_order_by_token!(id)
@@ -18,5 +16,4 @@ defmodule AOFFWeb.Shop.PaymentCallbackController do
     |> assign(:order_items_count, 0)
     |> render("index.html")
   end
-
 end

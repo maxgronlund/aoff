@@ -72,7 +72,7 @@ defmodule AOFFWeb.Volunteer.VolunteerController do
   end
 
   defp authenticate(conn, _opts) do
-    if conn.assigns.current_user && conn.assigns.current_user.volunteer do
+    if conn.assigns.volunteer do
       conn
     else
       conn

@@ -30,7 +30,7 @@ defmodule AOFFWeb.Volunteer.DateControllerTest do
 
     test "lists all dates", %{conn: conn} do
       conn = get(conn, Routes.volunteer_date_path(conn, :index))
-      assert html_response(conn, 200) =~ gettext("Opening dates")
+      assert html_response(conn, 200) =~ gettext("Schedules")
     end
 
     test "renders form", %{conn: conn} do
@@ -38,15 +38,14 @@ defmodule AOFFWeb.Volunteer.DateControllerTest do
       assert html_response(conn, 200) =~ gettext("New Date")
     end
 
-    test "create date redirects to show when data is valid", %{conn: conn} do
+    test "create date redirects to edit when data is valid", %{conn: conn} do
       attrs = valid_date_attrs(%{"date" => Date.add(Date.utc_today(), 165)})
       conn = post(conn, Routes.volunteer_date_path(conn, :create), date: attrs)
 
       assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.volunteer_date_path(conn, :show, id)
 
-      conn = get(conn, Routes.volunteer_date_path(conn, :show, id))
-      assert html_response(conn, 200) =~ gettext("Early shift")
+
+      assert redirected_to(conn) == Routes.volunteer_date_path(conn, :edit, id)
     end
 
     test "create date renders errors when data is invalid", %{conn: conn} do
@@ -56,7 +55,7 @@ defmodule AOFFWeb.Volunteer.DateControllerTest do
 
     test "edit date renders form for editing chosen date", %{conn: conn, date: date} do
       conn = get(conn, Routes.volunteer_date_path(conn, :edit, date))
-      assert html_response(conn, 200) =~ gettext("Edit Date")
+      assert html_response(conn, 200) =~ gettext("Edit Opening day")
     end
 
     test "update date redirects when data is valid", %{conn: conn, date: date} do
@@ -67,26 +66,19 @@ defmodule AOFFWeb.Volunteer.DateControllerTest do
           date: update_date_attrs()
         )
 
-      assert redirected_to(conn) == Routes.volunteer_date_path(conn, :show, date)
-
-      conn = get(conn, Routes.volunteer_date_path(conn, :show, date))
-      assert html_response(conn, 200)
+      assert redirected_to(conn) == Routes.volunteer_date_path(conn, :index)
     end
 
     test "update date renders errors when data is invalid", %{conn: conn, date: date} do
       conn =
         put(conn, Routes.volunteer_date_path(conn, :update, date), date: invalid_date_attrs())
 
-      assert html_response(conn, 200) =~ "Edit Date"
+      assert html_response(conn, 200) =~ gettext("Edit Opening day")
     end
 
     test "delete date deletes chosen date", %{conn: conn, date: date} do
       conn = delete(conn, Routes.volunteer_date_path(conn, :delete, date))
       assert redirected_to(conn) == Routes.volunteer_date_path(conn, :index)
-
-      assert_error_sent 404, fn ->
-        get(conn, Routes.volunteer_date_path(conn, :show, date))
-      end
     end
   end
 end

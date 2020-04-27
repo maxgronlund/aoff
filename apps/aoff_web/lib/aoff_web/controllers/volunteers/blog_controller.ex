@@ -66,7 +66,7 @@ defmodule AOFFWeb.Volunteer.BlogController do
   end
 
   defp authenticate(conn, _opts) do
-    if conn.assigns.current_user && conn.assigns.current_user.volunteer do
+    if conn.assigns.volunteer do
       conn
     else
       conn
@@ -78,6 +78,6 @@ defmodule AOFFWeb.Volunteer.BlogController do
   end
 
   defp navbar(conn, _opts) do
-    conn = assign(conn, :page, :volunteer)
+    assign(conn, :page, :volunteer)
   end
 end
