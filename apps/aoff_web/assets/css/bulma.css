@@ -128,6 +128,11 @@
   background-color: hsla(180, 50%, 0%, 0.68);
 }
 
+.card-footer-item.is-button.is-curry {
+  color: #fff;
+  background-color: #ae7a05;
+}
+
 .card-footer-item.is-green:hover{
   background-color: #005a38;
 }

@@ -49,4 +49,26 @@ defmodule AOFFWeb.Shop.DateView do
 
     message
   end
+
+  def closed_for_orders_message() do
+    {:ok, message} =
+      System.find_or_create_message(
+        "/shop/dates/:id - closed for orders",
+        "Closed for orders",
+        Gettext.get_locale()
+      )
+
+    message
+  end
+
+  def open_for_orders(date) do
+    case Date.compare(date.last_order_date, Date.utc_today()) do
+      :gt -> true
+      _ -> false
+    end
+  end
+
+  def next_opening_date(date) do
+
+  end
 end
