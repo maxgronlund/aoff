@@ -26,14 +26,11 @@ h2= date(@date.date)
   .row
     .column
       = render AOFFWeb.Users.MembershipView, "missing_membership_message.html", assigns
-.row
+.tiles
   = if @volunteer do
-    .column
-      = render "host_message.html", assigns
+    = render "host_message.html", assigns
   = if @purchaser do
-
-    .column
-      = render "shopping_list.html", assigns
+    = render "shopping_list.html", assigns
 = if @date.open do
 
 - else
