@@ -7,11 +7,14 @@
 
         li
           = link gettext("Users"), to: Routes.volunteer_user_path(@conn, :index)
+
+        li
+          = link @user.username, to: Routes.volunteer_user_path(@conn, :show, @user)
         li.is-active
           | &nbsp;
-          = @user.username
+          = gettext "Edit Account"
 
-h2 = gettext("Edit User")
+h2 = gettext("Edit Account")
 
 = render "form.html", Map.put(assigns, :action, Routes.volunteer_user_path(@conn, :update, @user))
 

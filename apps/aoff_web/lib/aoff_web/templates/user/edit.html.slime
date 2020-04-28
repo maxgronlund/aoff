@@ -1,4 +1,4 @@
-h2 = gettext("Edit User")
+h2 = gettext("Edit Account")
 
 = render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :update, @user))
 

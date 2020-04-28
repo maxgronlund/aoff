@@ -1,11 +1,12 @@
 .row
   .column
-    .alert.alert-info
-      h2= @volunteer.title
+    h2= @volunteer.title
+    .auto-comumns
       = raw @volunteer.text
-      = if @text_editor do
-        = link gettext("Edit text"),\
-          to: Routes.volunteer_message_path(@conn, :edit, @volunteer)
+    = if @text_editor do
+      = link gettext("Edit text"),\
+        to: Routes.volunteer_message_path(@conn, :edit, @volunteer)
+.mt-1
 .tiles.button-tiles
   .card.is-shady
     .card-header

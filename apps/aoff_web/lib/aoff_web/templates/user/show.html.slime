@@ -13,13 +13,12 @@ h2 = @user.username
     | &nbsp;
     br/
     | &nbsp;
-.alert.alert-success
+.alert.alert-box
   .row
     .column
       = if @volunteer do
         = img_tag AOFF.Uploader.Image.url({@user.avatar, @user}, :avatar)
         br
-
 
       = gettext("Email: %{email}", email: @user.email)
       br/
@@ -49,8 +48,7 @@ h2 = @user.username
         br
         = gettext("Manage membership √")
   .row
-    .column
-      hr
+    .column.mt-1
       .float-right
         = link gettext("Edit account"), to: Routes.user_path(@conn, :edit, @user), class: "button"
         | &nbsp;
@@ -62,8 +60,8 @@ h2 = @user.username
 
 
 
-hr/
-.row
+
+.row.mt-1
   .column
     = link gettext("Invoices"), to: Routes.user_order_path(@conn, :index, @user), class: "button button-outline"
 h3 = gettext("Upcoming host dates")
