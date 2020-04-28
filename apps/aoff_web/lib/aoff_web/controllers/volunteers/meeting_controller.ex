@@ -4,6 +4,11 @@ defmodule AOFFWeb.Volunteer.MeetingController do
   alias AOFF.Committees
   alias AOFF.Committees.Meeting
 
+  alias AOFFWeb.Users.Auth
+  plug Auth
+  plug :authenticate when action in [:index, :edit, :new, :update, :create, :delete]
+
+
   def index(conn, _params) do
     meetings = Committees.list_meetings()
     render(conn, "index.html", meetings: meetings)
@@ -63,4 +68,17 @@ defmodule AOFFWeb.Volunteer.MeetingController do
     |> put_flash(:info, gettext("Meeting deleted successfully."))
     |> redirect(to: Routes.volunteer_committee_path(conn, :index, meeting.committee_id))
   end
+
+  defp authenticate(conn, _opts) do
+    if conn.assigns.volunteer do
+      assign(conn, :page, :volunteer)
+    else
+      conn
+      |> put_status(401)
+      |> put_view(AOFFWeb.ErrorView)
+      |> render(:"401")
+      |> halt()
+    end
+  end
+
 end

@@ -7,7 +7,7 @@
       = gettext("Committees")
 
 h2 = gettext("Listing Committees")
-= link "New Committee",\
+= link gettext("New Committee"),\
   to: Routes.volunteer_committee_path(@conn, :new),\
   class: "button float-right"
 

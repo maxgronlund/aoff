@@ -70,7 +70,7 @@ defmodule AOFFWeb.Volunteer.UserController do
 
   defp authenticate(conn, _opts) do
     if conn.assigns.current_user do
-      conn
+      assign(conn, :page, :volunteer)
     else
       conn
       |> put_status(401)

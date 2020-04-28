@@ -8,7 +8,7 @@ defmodule AOFFWeb.Volunteer.MemberController do
   alias AOFFWeb.Users.Auth
   plug Auth
   plug :authenticate when action in [:edit, :new, :update, :create, :delete]
-  plug :navbar when action in [:index, :new, :show, :edit]
+
 
   def index(conn, %{"committee_id" => committee_id}) do
     committee = Committees.get_committee!(committee_id)
@@ -32,7 +32,7 @@ defmodule AOFFWeb.Volunteer.MemberController do
       {:ok, member} ->
         conn
         |> put_flash(:info, gettext("Member created successfully."))
-        |> redirect(to: Routes.committee_committee_path(conn, :show, member.committee_id))
+        |> redirect(to: Routes.volunteer_committee_path(conn, :show, member.committee_id))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         committee = Committees.get_committee!(member_params["committee_id"])
@@ -96,7 +96,7 @@ defmodule AOFFWeb.Volunteer.MemberController do
 
   defp authenticate(conn, _opts) do
     if conn.assigns.volunteer do
-      conn
+      assign(conn, :page, :volunteer)
     else
       conn
       |> put_status(401)
@@ -104,9 +104,5 @@ defmodule AOFFWeb.Volunteer.MemberController do
       |> render(:"401")
       |> halt()
     end
-  end
-
-  defp navbar(conn, _opts) do
-    assign(conn, :page, :volunteer)
   end
 end

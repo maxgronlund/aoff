@@ -6,7 +6,7 @@ defmodule AOFFWeb.Volunteer.MessageController do
   alias AOFFWeb.Users.Auth
   plug Auth
   plug :authenticate when action in [:index, :edit, :new, :update, :create, :delete]
-  plug :navbar when action in [:index, :new, :show, :edit]
+
 
   def index(conn, _params) do
     {:ok, instructions} =
@@ -56,7 +56,7 @@ defmodule AOFFWeb.Volunteer.MessageController do
 
   defp authenticate(conn, _opts) do
     if conn.assigns.volunteer do
-      conn
+      assign(conn, :page, :volunteer)
     else
       conn
       |> put_status(401)
@@ -64,9 +64,5 @@ defmodule AOFFWeb.Volunteer.MessageController do
       |> render(:"401")
       |> halt()
     end
-  end
-
-  defp navbar(conn, _opts) do
-    conn = assign(conn, :page, :volunteer)
   end
 end
