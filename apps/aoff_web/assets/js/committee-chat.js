@@ -1,0 +1,35 @@
+let CommitteeChat = {
+  init(socket) {
+
+    let channel = socket.channel('committee:lobby', {})
+    channel.join()
+    this.listenForChats(channel)
+  },
+
+  listenForChats(channel) {
+    document.getElementById('chat-form').addEventListener('submit', function(e){
+      console.log("a message was send")
+
+      e.preventDefault()
+
+      let userName = document.getElementById('user-name').value
+      let userMsg = document.getElementById('user-msg').value
+
+      channel.push('shout', {name: userName, body: userMsg})
+
+      // document.getElementById('user-name').value = ''
+      document.getElementById('user-msg').value = ''
+    })
+
+    channel.on('shout', payload => {
+      let chatBox = document.querySelector('#chat-box')
+      let msgBlock = document.createElement('p')
+
+      msgBlock.insertAdjacentHTML('beforeend', `${payload.name}: ${payload.body}`)
+      chatBox.appendChild(msgBlock)
+    })
+  }
+}
+
+export default CommitteeChat
+

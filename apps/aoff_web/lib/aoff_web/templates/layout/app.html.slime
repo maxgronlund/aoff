@@ -21,6 +21,8 @@ html lang="da"
 
 
   body class="<%= backdrop(@conn) %>"
+    javascript:
+      window.userToken = "#{assigns[:user_token]}";
 
     = render AOFFWeb.LayoutView, "navbar.html", assigns
     main.container.content role="main"
@@ -29,15 +31,15 @@ html lang="da"
           h4= @warning.title
           = raw @warning.text
       = render AOFFWeb.LayoutView, "flash.html", assigns
+
       = render @view_module, @view_template, assigns
-
-
 
     script src="#{Routes.static_path(@conn, "/js/app.js")}"
     script src="#{Routes.static_path(@conn, "/js/fastclick.js")}"
     script src="#{Routes.static_path(@conn, "/js/scroll.js")}"
     script src="#{Routes.static_path(@conn, "/js/fixed-responsive-nav.js")}"
     script src="#{Routes.static_path(@conn, "/js/cokkie-consent.js")}"
+
 
 
 

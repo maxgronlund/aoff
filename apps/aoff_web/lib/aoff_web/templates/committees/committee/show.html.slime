@@ -14,8 +14,8 @@ h2 = @committee.name
   = raw @committee.description
 
 br
-hr
-.profiles.mt-2
+
+.profiles
   = for member <- @committee.members do
     .profile
       .profile-avatar
@@ -28,6 +28,18 @@ hr
         br
         = member.user.mobile
 
+
+.row.mt-1
+  .column
+    h4 = gettext("Live chat")
+
+    #chat-box
+    form#chat-form
+      input#user-name placeholder="#{@current_user.username}" type="text" value="#{@current_user.username}" disabled="disabled"
+      br
+      textarea#user-msg placeholder=("Your comment")
+      br
+      button type="submit"  Post
 
 .row.mt-1
   .column

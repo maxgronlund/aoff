@@ -1,7 +1,5 @@
-h2 = @user.username
-= if @valid_member do
-  = gettext("Valid to: %{expiration_date}", expiration_date: date(@user.expiration_date ))
-- else
+
+- unless @valid_member do
   .alert.alert-danger
     h3= @message.title
     = raw @message.text
@@ -14,12 +12,15 @@ h2 = @user.username
     br/
     | &nbsp;
 .alert.alert-box
+  h2 = @user.username
   .row
     .column
       = if @volunteer do
         = img_tag AOFF.Uploader.Image.url({@user.avatar, @user}, :avatar)
         br
-
+      = if @valid_member do
+        = gettext("Valid to: %{expiration_date}", expiration_date: date(@user.expiration_date ))
+      br/
       = gettext("Email: %{email}", email: @user.email)
       br/
       = gettext("Mobile: %{mobile}", mobile: @user.mobile)
