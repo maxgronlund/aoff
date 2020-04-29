@@ -6,11 +6,11 @@
   .row
     .column
       = if @product do
-        .alert.alert-warning
-          .form-group
-            = label f, :image, class: "control-label"
-            = file_input f, :image, class: "form-control"
-            = error_tag f, :image
+
+        .form-group
+          = label f, :image, class: "control-label"
+          = file_input f, :image, class: "form-control"
+          = error_tag f, :image
   .row
     .column
       .form-group
@@ -26,22 +26,23 @@
         = textarea f, :description, style: "height: 150px;" , class: "form-control"
         = error_tag f, :description
   .alert.alert-box
-    .row
+    .tiles
       .column
         .form-group
-          = label f, :for_sale, gettext("Show in shop"), class: "control-label label-inline"
           = checkbox f, :for_sale, class: "form-control"
+          = label f, :for_sale, gettext("Show in shop"), class: "control-label label-inline"
           = error_tag f, :for_sale
       .column
         .form-group
-          = label f, :show_on_landing_page, gettext("Show on landing page"), class: "control-label label-inline"
           = checkbox f, :show_on_landing_page, class: "form-control"
+          = label f, :show_on_landing_page, gettext("Show on landing page"), class: "control-label label-inline"
           = error_tag f, :show_on_landing_page
       .column
         = if @manage_membership do
           .form-group
-            = label f, :membership, gettext("Is a membership"), class: "control-label label-inline"
             = checkbox f, :membership, class: "form-control"
+            = label f, :membership, gettext("Is a membership"), class: "control-label label-inline"
+
             = error_tag f, :membership
   .row
     .column

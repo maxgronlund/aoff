@@ -10,8 +10,13 @@ import css from "../css/app.css"
 // Import dependencies
 //
 import "phoenix_html"
+// import AddToBasket from "./add_to_basket"
 
 // Import local files
-//
+import CommitteeChat from "./committee-chat"
 // Local files can be imported directly using relative paths, for example:
-// import socket from "./socket"
+import socket from "./socket"
+
+CommitteeChat.init(socket)
+
+// AddToBasket.init()

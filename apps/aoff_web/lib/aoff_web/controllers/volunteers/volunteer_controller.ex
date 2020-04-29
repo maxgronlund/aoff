@@ -56,8 +56,6 @@ defmodule AOFFWeb.Volunteer.VolunteerController do
         Gettext.get_locale()
       )
 
-    conn = assign(conn, :page, :volunteer)
-
     render(
       conn,
       "index.html",
@@ -73,7 +71,7 @@ defmodule AOFFWeb.Volunteer.VolunteerController do
 
   defp authenticate(conn, _opts) do
     if conn.assigns.volunteer do
-      conn
+      assign(conn, :page, :volunteer)
     else
       conn
       |> put_status(401)

@@ -6,10 +6,12 @@
           = link gettext("Volunteer"), to: Routes.shop_shop_path(@conn, :index)
         li.is-active
           | &nbsp;
-          = gettext("Memberships")
+          = gettext("Manage Membership")
 
-h2 = gettext("Memberships")
-/ = link gettext("New Product"), to: Routes.purchaser_product_path(@conn, :new), class: "button"
+h2 = gettext("Manage membership")
+= unless @manage_membership do
+  .alert.alert-danger
+
 .tiles
   = for membership <- @memberships do
     .card.is-shady
@@ -21,16 +23,18 @@ h2 = gettext("Memberships")
         = membership.price
 
       .card-content
-        = for_sale(membership.for_sale)
-          .float-right
-            = link gettext("Delete"),\
-              to: Routes.purchaser_product_path(@conn, :delete, membership),\
-              method: :delete,\
-              data: [confirm: "Are you sure?"], class: "button button-small  button-red"
-            | &nbsp;
-            = link gettext("Edit"),\
-              to: Routes.purchaser_product_path(@conn, :edit, membership),\
-              class: "button button-small"
+        = if @manage_membership do
+          = for_sale(membership.for_sale)
+            .float-right
+              = link gettext("Delete"),\
+                to: Routes.purchaser_product_path(@conn, :delete, membership),\
+                method: :delete,\
+                data: [confirm: "Are you sure?"], class: "button button-small  button-red"
+              | &nbsp;
+              = link gettext("Edit"),\
+                to: Routes.purchaser_product_path(@conn, :edit, membership),\
+                class: "button button-small"
+
         br/
         | &nbsp;
         hr
