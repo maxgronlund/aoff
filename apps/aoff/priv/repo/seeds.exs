@@ -56,6 +56,8 @@ end
 
 alias AOFF.Shop
 
+Shop.secure_dates()
+
 # for n <- 1..5 do
 #   s = Integer.to_string(n)
 
