@@ -45,7 +45,8 @@ br
               to: Routes.committee_committee_meeting_path(@conn, :show, @committee, meeting),\
               class: "button button-outline float-right"
 
-  = if committee_member(@committee, @current_user) do
+= if committee_member(@committee, @current_user) do
+  .row
     .column
       h4 = gettext("Live chat")
 
