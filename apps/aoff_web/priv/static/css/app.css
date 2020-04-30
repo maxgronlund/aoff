@@ -517,7 +517,7 @@ header {
  input[type='url']:focus,
  textarea:focus,
  select:focus {
-   border-color: #9b4dca;
+   border-color: #578264;
    outline: 0;
  }
 
@@ -1448,6 +1448,65 @@ hr {
   text-decoration: none;
   cursor: pointer;
 }
+
+#chat-box {
+  overflow-y: scroll;
+
+  border: 1px solid #dbdbdb;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+#chat-box .message {
+  background-color: #fff;
+  padding: 0px 10px 0px 10px;
+}
+
+#chat-box .date {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 0.7em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  clear: both;
+}
+
+#chat-box .date::before {
+  display: block;
+  content: "";
+  flex-grow: 1;
+  border-top: 1px solid rgba(0,0,0,.15);
+}
+
+#chat-box .date::after {
+  display: block;
+  content: "";
+  flex-grow: 1;
+  border-top: 1px solid rgba(0,0,0,.15);
+}
+
+
+
+
+/*containerx {
+  overflow-y: scroll;
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y mandatory;
+}
+
+.containerx > div > div:last-child {
+  scroll-snap-align: end;
+}
+
+.containerx > div > div {
+  background: lightgray;
+  height: 3rem;
+  font-size: 1.5rem;
+}
+.containerx > div > div:nth-child(2n) {
+  background: gray;
+}*/
 
 .card {
   background-color: white;

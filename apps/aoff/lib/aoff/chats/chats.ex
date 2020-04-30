@@ -22,6 +22,23 @@ defmodule AOFF.Chats do
   end
 
   @doc """
+  Returns the list of messages.
+
+  ## Examples
+
+      iex> list_messages()
+      [%Message{}, ...]
+
+  """
+  def list_messages(committee_id) do
+    query =
+      from m in Message,
+      where: m.committee_id==^committee_id,
+      order_by: [asc: m.posted_at]
+    Repo.all(query)
+  end
+
+  @doc """
   Gets a single message.
 
   Raises `Ecto.NoResultsError` if the Message does not exist.

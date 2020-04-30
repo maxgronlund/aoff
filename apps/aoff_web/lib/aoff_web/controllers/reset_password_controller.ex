@@ -40,7 +40,7 @@ defmodule AOFFWeb.ResetPasswordController do
           user,
           %{
             "password_reset_token" => token,
-            "password_reset_expires" => NaiveDateTime.utc_now()
+            "password_reset_expires" => AOFF.Time.now()
           }
         )
 
@@ -73,9 +73,9 @@ defmodule AOFFWeb.ResetPasswordController do
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Users.get_user!(id)
 
-    case NaiveDateTime.compare(
-           NaiveDateTime.utc_now(),
-           NaiveDateTime.add(user.password_reset_expires, 900, :second)
+    case DateTime.compare(
+           AOFF.Time.now(),
+           DateTime.add(user.password_reset_expires, 900, :second)
          ) do
       :gt -> render(conn, "expired.html")
       :lt -> update(conn, user, user_params)

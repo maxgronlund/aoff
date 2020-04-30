@@ -51,7 +51,8 @@ defmodule AOFF.MixProject do
       {:hackney, "~> 1.6"},
       {:poison, "~> 3.1"},
       {:sweet_xml, "~> 0.6"},
-      {:puid, "~> 1.0"}
+      {:puid, "~> 1.0"},
+      {:tzdata, "~> 1.0.3"}
     ]
   end
 

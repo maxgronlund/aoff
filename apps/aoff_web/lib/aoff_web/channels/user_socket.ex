@@ -1,8 +1,18 @@
 defmodule AOFFWeb.UserSocket do
   use Phoenix.Socket
 
+
+  # channel "ping" AOFFWeb.PingChannel
+
+  # def connect(_params, socket, _connect_info) do
+  #   {:ok, socket}
+  # end
+
+
   ## Channels
   channel "committee:lobby", AOFFWeb.CommitteeChannel
+
+
 
   # channel "room:*", AOFFWeb.RoomChannel
 
@@ -21,8 +31,9 @@ defmodule AOFFWeb.UserSocket do
   #   {:ok, socket}
   # end
 
+  # max_age: 1209600 is equivalent to two weeks in seconds
   def connect(%{"token" => token}, socket, _connect_info) do
-    # max_age: 1209600 is equivalent to two weeks in seconds
+
     case Phoenix.Token.verify(socket, "user socket", token, max_age: 1209600) do
       {:ok, user_id} ->
         {:ok, assign(socket, :user, user_id)}

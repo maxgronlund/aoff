@@ -3,6 +3,8 @@ defmodule AOFFWeb.Email do
   use Bamboo.Phoenix, view: AOFFWeb.EmailView
   alias AOFF.System
 
+  @email_from Application.get_env(:aoff_web,AOFFWeb.Mailer)[:email_from]
+
   def reset_password_email(username_and_email, reset_password_url) do
     {:ok, message} =
       System.find_or_create_message(
@@ -13,9 +15,9 @@ defmodule AOFFWeb.Email do
 
     new_email()
     |> to(username_and_email)
-    |> from("max@synthmax.dk")
+    |> from(@email_from)
     |> subject("Reset password")
-    |> put_header("Reply-To", "max@synthmax.dk")
+    |> put_header("Reply-To", @email_from)
     |> put_layout({AOFFWeb.EmailView, :reset_password})
     |> render(:reset_password, reset_password_url: reset_password_url, message: message)
   end

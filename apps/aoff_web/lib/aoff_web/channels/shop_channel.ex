@@ -1,9 +1,9 @@
-defmodule AOFFWeb.CommitteeChannel do
-  use AOFFWeb, :channel
+defmodule AOFFWeb.ShopChannel do
 
-  alias AOFF.Chats
 
-  def join("committee:lobby", payload, socket) do
+  use Phoenix.Channel
+
+  def join("shop:date", payload, socket) do
     if authorized?(payload) do
       {:ok, socket}
     else
@@ -20,16 +20,7 @@ defmodule AOFFWeb.CommitteeChannel do
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (committee:lobby).
   def handle_in("shout", payload, socket) do
-    payload = Map.merge(
-      payload,
-      %{
-        "posted_at" => AOFF.Time.now(),
-        "posted" => AOFF.Time.today_as_string()
-      }
-    )
-    {:ok, %AOFF.Chats.Message{id: id}} = Chats.create_message(payload)
-
-    broadcast socket, "shout", Map.put(payload, "id", id)
+    broadcast socket, "shout", payload
     {:noreply, socket}
   end
 

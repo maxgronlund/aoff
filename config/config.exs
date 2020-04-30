@@ -35,6 +35,9 @@ config :phoenix, :template_engines,
   # If you want to use LiveView
   slimleex: PhoenixSlime.LiveViewEngine
 
+config :elixir,
+  :time_zone_database, Tzdata.TimeZoneDatabase
+
 config :money,
   # this allows you to do Money.new(100)
   default_currency: :DKK,
@@ -83,7 +86,8 @@ config :ex_aws,
 # config/config.exs
 config :aoff_web, AOFFWeb.Mailer,
   adapter: Bamboo.SendGridAdapter,
-  api_key: System.get_env("AOFF_SEND_GRID_API_KEY")
+  api_key: System.get_env("AOFF_SEND_GRID_API_KEY"),
+  email_from: System.get_env("AOFF_EMAIL_FROM")
 
 config :aoff_web,
   epay: [

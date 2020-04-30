@@ -39,7 +39,7 @@
             .card-content
               i = date(post.date) <> " - " <> post.author
               h4 = post.title
-              = raw post.teaser
+              = text_to_html(post.teaser)
             .card-footer.is-button
               .card-footer-item.is-button
                 = gettext("Read More")

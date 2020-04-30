@@ -3,6 +3,7 @@ defmodule AOFFWeb.Committees.CommitteeController do
 
   alias AOFF.Committees
   alias AOFF.Committees.Committee
+  alias AOFF.Chats
 
   # alias AOFFWeb.Users.Auth
   # plug Auth
@@ -32,7 +33,8 @@ defmodule AOFFWeb.Committees.CommitteeController do
 
   def show(conn, %{"id" => id}) do
     committee = Committees.get_committee!(id)
-    render(conn, "show.html", committee: committee)
+    messages = Chats.list_messages(id)
+    render(conn, "show.html", committee: committee, messages: messages)
   end
 
   def edit(conn, %{"id" => id}) do

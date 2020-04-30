@@ -7,27 +7,42 @@ let CommitteeChat = {
   },
 
   listenForChats(channel) {
-    document.getElementById('chat-form').addEventListener('submit', function(e){
-      console.log("a message was send")
+    let chat_form = document.getElementById('chat-form')
+    if(chat_form != null) {
+      chat_form.addEventListener('submit', function(e){
+        e.preventDefault()
 
-      e.preventDefault()
+        let userName = document.getElementById('user-name').value
+        let committeeId = document.getElementById('committee-id').value
+        let userMsg = document.getElementById('user-msg').value
 
-      let userName = document.getElementById('user-name').value
-      let userMsg = document.getElementById('user-msg').value
+        channel.push('shout', {committee_id: committeeId, username: userName, body: userMsg})
 
-      channel.push('shout', {name: userName, body: userMsg})
+        // document.getElementById('user-name').value = ''
+        document.getElementById('user-msg').value = ''
+      })
 
-      // document.getElementById('user-name').value = ''
-      document.getElementById('user-msg').value = ''
-    })
+      channel.on('shout', payload => {
 
-    channel.on('shout', payload => {
-      let chatBox = document.querySelector('#chat-box')
-      let msgBlock = document.createElement('p')
+        console.log(payload.body)
 
-      msgBlock.insertAdjacentHTML('beforeend', `${payload.name}: ${payload.body}`)
-      chatBox.appendChild(msgBlock)
-    })
+        let chatBox = document.querySelector('#chat-box')
+        let msgBlock = document.createElement('div')
+
+        msgBlock
+          .insertAdjacentHTML(
+            'beforeend',
+            `<div class='date'>${payload.posted}</div>` +
+            `<div class='message'><b>${payload.username}</b><br />` +
+            `${payload.body.replace(/\r?\n/g, '<br />')}` +
+            `</div><br />`
+          )
+        chatBox.appendChild(msgBlock)
+
+        let scroll_pane = document.getElementById('chat-box')
+        scroll_pane.scrollTop = scroll_pane.scrollHeight;
+      })
+    }
   }
 }
 

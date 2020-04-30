@@ -15,6 +15,9 @@ h2 = @committee.name
 
 br
 
+
+
+
 .profiles
   = for member <- @committee.members do
     .profile
@@ -27,33 +30,53 @@ br
         = member.user.email
         br
         = member.user.mobile
-
-
-.row.mt-1
-  .column
-    h4 = gettext("Live chat")
-
-    #chat-box
-    form#chat-form
-      input#user-name placeholder="#{@current_user.username}" type="text" value="#{@current_user.username}" disabled="disabled"
-      br
-      textarea#user-msg placeholder=("Your comment")
-      br
-      button type="submit"  Post
-
 .row.mt-1
   .column
     h4 = gettext("Meetings")
 
+    = for meeting <- @committee.meetings do
+      .alert.alert-box
+        h4 = meeting.name
+        .row
+          .column
+            i = date(meeting.date)
+          .column
+            = link gettext("Show"),\
+              to: Routes.committee_committee_meeting_path(@conn, :show, @committee, meeting),\
+              class: "button button-outline float-right"
 
-= for meeting <- @committee.meetings do
-  .alert.alert-box
-    h4 = meeting.name
-    .row
-      .column
-        i = date(meeting.date)
-      .column
-        = link gettext("Show"),\
-          to: Routes.committee_committee_meeting_path(@conn, :show, @committee, meeting),\
-          class: "button button-outline float-right"
+  = if committee_member(@committee, @current_user) do
+    .column
+      h4 = gettext("Live chat")
 
+
+      #chat-box style="height: 500px; max-width: 500px;"
+
+        = for message <- @messages do
+          .date
+            = message.posted
+          .message
+            b = message.username
+            br/
+            = text_to_html(message.body)
+
+      form#chat-form
+        div style="height: 0px; overflow: hidden;"
+          input#user-name placeholder="#{@current_user.username}" type="text" value="#{@current_user.username}" disabled="disabled" style="visibility: hidden;"
+
+          input#committee-id  type="text" value="#{@committee.id}" disabled="disabled" style="visibility: hidden;"
+
+        textarea#user-msg placeholder=(gettext("Write here"))
+        br
+        .float-right
+          button type="submit" #{gettext("Send")}
+
+
+
+
+
+
+
+javascript:
+  var scroll_pane = document.getElementById('chat-box')
+  scroll_pane.scrollTop = scroll_pane.scrollHeight;
