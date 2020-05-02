@@ -30,13 +30,16 @@ header
             i.fa.fa-user
             /| &nbsp;
             /= gettext("Account")
-        = if @order_items_count > 0 do
-          li class="<%= menu_item(@conn, :order) %>"
-            = link to: Routes.user_order_path(@conn, :show, @current_user, @current_order) do
-              i.fa.fa-shopping-cart
-              #numberCircle
-                = @order_items_count
 
+        li class="<%= menu_item(@conn, :order) %>"
+          = link to: Routes.user_order_path(@conn, :show, @current_user, @current_order) do
+            i.fa.fa-shopping-cart
+            #numberCircle style="#{style(@order_items_count)}"
+              = @order_items_count
+        / - else
+        /   li class="<%= menu_item(@conn, :order) %>"
+        /     = link to: "#" do
+        /       i.fa.fa-shopping-cart
 
 
       - else
@@ -45,6 +48,6 @@ header
         li class="<%= menu_item(@conn, :session) %>"
           = link gettext("Login"), to: "/sessions/new"
         li class="<%= menu_item(@conn, :order) %>"
-          = link to: "/sessions/new" do
+          = link to: "#" do
             i.fa.fa-shopping-cart
 

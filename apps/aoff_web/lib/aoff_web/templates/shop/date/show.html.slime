@@ -1,23 +1,23 @@
+= if @current_user do
+  #shop-dialog.shop-dialog
+    .shop-dialog-content
+      span.close-dialog &times;
 
-#shop-dialog.shop-dialog
-  .shop-dialog-content
-    span.close-dialog &times;
-    h4
       span#shop-dialog-text
 
       span
         | &nbsp;
         = gettext("is added to basket")
-    .float-right
-      .button.button-outline
-        = gettext("Close dialog")
-      | &nbsp;
-      = link gettext("Show basker"),\
-        to: Routes.user_order_path(@conn, :show, @current_user, @current_order),\
-        class: "button"
-    | &nbsp;
-    br/
-    | &nbsp;
+      div
+        .float-right
+          .button.button-outline
+            = gettext("Close dialog")
+          | &nbsp;
+          = link gettext("Show basker"),\
+            to: Routes.user_order_path(@conn, :show, @current_user, @current_order),\
+            class: "button"
+        br/
+        | &nbsp;
 
 
 

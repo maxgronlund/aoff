@@ -327,7 +327,9 @@ defmodule AOFF.Users do
 
     case Repo.one(query) do
       %Order{} = order -> order
-      _ -> create_order(%{"user_id" => user_id})
+      _ ->
+        {:ok, order} = create_order(%{"user_id" => user_id})
+        order
     end
   end
 

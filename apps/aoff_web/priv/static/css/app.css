@@ -958,6 +958,15 @@ select {
   color: #007A4B;
 }
 
+.button.button-outline:hover,
+button.button-outline:hover,
+input[type='button'].button-outline:hover,
+input[type='reset'].button-outline:hover,
+input[type='submit'].button-outline:hover {
+  background-color: #e5f5e9;
+  color: #005937;
+}
+
 /* Custom color */
 .button-black {
   background-color: black;
@@ -1320,8 +1329,8 @@ label.panel-block:hover {
   z-index: 99;
   display: inline-block;
   position: relative;
-  top: -4px;
-  left: 7px;
+  top: -19px;
+  left: 14px;
 }
 
 .red {
@@ -1440,11 +1449,16 @@ hr {
   background-color: #eaffe9;
   border-color: #cfebcc;
   margin: 15% auto;
-  padding: 10px;
+  padding: 10px 10px 0px 10px;
   width: 80%;
 
   border: 1px solid transparent;
   border-radius: 4px;
+}
+
+.shop-dialog .shop-dialog-content {
+  font-style: 2px;
+    font-weight: 700;
 }
 
 /* The Close Button */
@@ -1453,6 +1467,7 @@ hr {
   font-size: 28px;
   font-weight: bold;
   float: right;
+  line-height: 8px;
 }
 
 .shop-dialog .close-dialog:hover,
@@ -1460,6 +1475,10 @@ hr {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+#shop-dialog-text {
+  font-weight: 700;
 }
 
 #chat-box {

@@ -41,6 +41,8 @@ let ShopDate = {
         shopDialog.css('display', 'none')
       })
 
+      $('#numberCircle').css('display', 'block')
+
       $('#shop-dialog-text').empty()
       $('#shop-dialog-text').append(product_name)
 

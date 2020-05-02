@@ -25,6 +25,14 @@ defmodule AOFFWeb.LayoutView do
     end
   end
 
+  def style(order_items_count) do
+    if order_items_count > 0 do
+      "display: block;"
+    else
+      "display: none;"
+    end
+  end
+
   def backdrop(conn) do
     cond do
       conn.assigns[:backdrop] == :show ->
