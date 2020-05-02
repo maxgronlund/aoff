@@ -34,12 +34,17 @@ header
           li class="<%= menu_item(@conn, :order) %>"
             = link to: Routes.user_order_path(@conn, :show, @current_user, @current_order) do
               i.fa.fa-shopping-cart
-              .numberCircle
+              #numberCircle
                 = @order_items_count
+
+
 
       - else
         li class="<%= menu_item(@conn, :user) %>"
           = link gettext("Become member"), to: "/users/new"
         li class="<%= menu_item(@conn, :session) %>"
           = link gettext("Login"), to: "/sessions/new"
+        li class="<%= menu_item(@conn, :order) %>"
+          = link to: "/sessions/new" do
+            i.fa.fa-shopping-cart
 

@@ -11,6 +11,7 @@ defmodule AOFFWeb.UserSocket do
 
   ## Channels
   channel "committee:lobby", AOFFWeb.CommitteeChannel
+  channel "shop:date", AOFFWeb.ShopChannel
 
 
 

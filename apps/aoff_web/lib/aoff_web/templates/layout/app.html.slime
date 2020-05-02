@@ -34,6 +34,7 @@ html lang="da"
 
       = render @view_module, @view_template, assigns
 
+    script src="https://code.jquery.com/jquery-3.5.0.slim.min.js" integrity="sha256-MlusDLJIP1GRgLrOflUQtshyP0TwT/RHXsI1wWGnQhs=" crossorigin="anonymous"
     script src="#{Routes.static_path(@conn, "/js/app.js")}"
     script src="#{Routes.static_path(@conn, "/js/fastclick.js")}"
     script src="#{Routes.static_path(@conn, "/js/scroll.js")}"

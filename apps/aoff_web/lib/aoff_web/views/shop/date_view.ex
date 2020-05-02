@@ -16,6 +16,11 @@ defmodule AOFFWeb.Shop.DateView do
     }
   end
 
+  def product_price(product) do
+    %Money{amount: price, currency: :DKK} = product.price
+    price
+  end
+
   def date(date) do
     {:ok, date} = AOFFWeb.Cldr.Date.to_string(date, locale: "da")
     date
@@ -64,6 +69,7 @@ defmodule AOFFWeb.Shop.DateView do
   def open_for_orders(date) do
     case Date.compare(date.last_order_date, Date.utc_today()) do
       :gt -> true
+      :eq -> true
       _ -> false
     end
   end

@@ -24,8 +24,6 @@ let CommitteeChat = {
 
       channel.on('shout', payload => {
 
-        console.log(payload.body)
-
         let chatBox = document.querySelector('#chat-box')
         let msgBlock = document.createElement('div')
 

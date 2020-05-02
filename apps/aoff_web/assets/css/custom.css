@@ -73,6 +73,7 @@ select {
   background-color: black;
   border-color: black;
 }
+
 .button-black.button-clear,
 .button-black.button-outline {
   background-color: transparent;
@@ -86,6 +87,7 @@ select {
   background-color: red;
   border-color: red;
 }
+
 .button-red.button-clear,
 .button-red.button-outline {
   background-color: transparent;
@@ -415,7 +417,7 @@ label.panel-block:hover {
   color: #AAA;
 }
 
-.numberCircle {
+#numberCircle {
   border-radius: 50%;
   width: 15px;
   height: 15px;
@@ -522,7 +524,11 @@ hr {
 
 /*https://www.w3schools.com/howto/howto_css_modals.asp*/
 /* The Modal (background) */
-.modal {
+.shop-dialog {
+
+  padding: 15px;
+  /*margin-bottom: 10px;*/
+
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -533,27 +539,34 @@ hr {
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+
 }
 
 /* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+.shop-dialog .shop-dialog-content {
+
+  color: #284a26;
+  background-color: #eaffe9;
+  border-color: #cfebcc;
+  margin: 15% auto;
+  padding: 10px;
+  width: 80%;
+
+  border: 1px solid transparent;
+  border-radius: 4px;
 }
 
 /* The Close Button */
-.close {
+.shop-dialog .close-dialog {
   color: #aaa;
-  float: right;
   font-size: 28px;
   font-weight: bold;
+  float: right;
 }
 
-.close:hover,
-.close:focus {
+.shop-dialog .close-dialog:hover,
+.shop-dialog .close-dialog:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
