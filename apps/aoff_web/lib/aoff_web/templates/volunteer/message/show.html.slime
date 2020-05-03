@@ -15,21 +15,26 @@
 .row
   .column
     h2 = @message.title
-    = raw @message.text
-
-    = link gettext("Edit"),\
-      to: Routes.volunteer_message_path(@conn, :edit, @message),\
-      class: "button"
-
+.row
   .column
     = gettext("Identifier: %{identifier}", identifier: @message.identifier)
-    br
+  .column
     = if @message.show do
       = gettext("Show on page: Yes")
     - else
       = gettext("Show on page: No")
-    br
+  .column
     = gettext("Locale: %{locale}", locale: @message.locale)
+hr
+.row
+  .column.auto-columns
+    = raw @message.text
+.row
+  .column
+    = link gettext("Edit"),\
+      to: Routes.volunteer_message_path(@conn, :edit, @message),\
+      class: "float-right button"
+
 
 
 

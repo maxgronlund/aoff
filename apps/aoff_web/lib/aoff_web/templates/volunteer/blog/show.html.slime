@@ -5,20 +5,21 @@
     li
       = link gettext("Categories"), to: Routes.volunteer_blog_path(@conn, :index)
     li.is-active
-      |&nbsp;
+      |&nbsp;&nbsp;
       = @blog.title
 
 
 .row
   .column
     h2 = @blog.title
+.row
   .column
-    .float-right.mt-2
+    .float-right
       = link gettext("Edit Category"),\
         to: Routes.volunteer_blog_path(@conn, :edit,  @blog),\
         class: "button"
       | &nbsp;
-      = link "Delete Category",\
+      = link gettext("Delete Category"),\
         to: Routes.volunteer_blog_path(@conn, :delete, @blog),\
         method: :delete,\
         data: [confirm: gettext("Are you sure? All articles in this categotry will be gone.")],\

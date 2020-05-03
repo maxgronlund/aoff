@@ -3,7 +3,7 @@
     li
       = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
     li.is-active
-      | &nbsp;
+      |&nbsp;&nbsp;
       = gettext("Categories")
 
 h2= gettext("Categories")
@@ -21,7 +21,7 @@ h2= gettext("Categories")
         = if @admin do
           i = gettext("identifier: %{identifier}", identifier: blog.identifier)
           br
-        = blog.description
+        = raw blog.description
 
       .card-footer.is-button
         = link gettext("Edit"),\

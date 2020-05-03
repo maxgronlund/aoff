@@ -658,14 +658,14 @@ html, body {
 .page-wrap {
   min-height: 100%;
   /* equal to footer height */
-    margin-bottom: -142px;
+    margin-bottom: -130px;
 }
 .page-wrap:after {
   content: "";
   display: block;
 }
 .site-footer, .page-wrap:after {
-  margin-top: 20px;
+  margin-top: 28px;
   /* .push must be the same height as footer */
     height: 142px;
 }
