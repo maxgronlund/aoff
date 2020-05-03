@@ -3,6 +3,8 @@ defmodule AOFFWeb.PageController do
 
   alias AOFF.System
   alias AOFF.Shop
+  alias AOFF.Blogs
+
 
   def index(conn, _params) do
     {:ok, message} =
@@ -12,10 +14,17 @@ defmodule AOFFWeb.PageController do
         Gettext.get_locale()
       )
 
-    date = Shop.get_next_date(Date.utc_today())
+
+    date = Shop.get_next_date(AOFF.Time.today())
     products = Shop.get_products_for_landing_page()
+    blog_posts = Blogs.get_landing_page_posts()
     conn = assign(conn, :backdrop, :show)
     conn = assign(conn, :page, :home)
-    render(conn, "index.html", products: products, date: date, message: message)
+    render(conn, "index.html",
+      products: products,
+      date: date,
+      message: message,
+      blog_posts: blog_posts
+    )
   end
 end
