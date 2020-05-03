@@ -34,7 +34,7 @@ header
         li class="<%= menu_item(@conn, :order) %>"
           = link to: Routes.user_order_path(@conn, :show, @current_user, @current_order) do
             i.fa.fa-shopping-cart
-            #numberCircle style="#{style(@order_items_count)}"
+            #numberCircle
               = @order_items_count
         / - else
         /   li class="<%= menu_item(@conn, :order) %>"
@@ -50,4 +50,12 @@ header
         li class="<%= menu_item(@conn, :order) %>"
           = link to: "#" do
             i.fa.fa-shopping-cart
+
+javascript:
+  if("<%=@order_items_count%>" > 0 ) {
+    $('#numberCircle').show()
+  } else {
+    $('#numberCircle').hide()
+  }
+
 

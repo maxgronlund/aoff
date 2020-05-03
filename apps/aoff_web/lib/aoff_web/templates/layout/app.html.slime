@@ -15,6 +15,8 @@ html lang="da"
 
     script referrerpolicy="origin" src="https://cdn.tiny.cloud/1/tzlwj2zjulv5ip3mavrlk4ljknmkqv7n8yyivelsou29j4eg/tinymce/5/tinymce.min.js"
 
+    script src="https://code.jquery.com/jquery-3.5.0.slim.min.js" integrity="sha256-MlusDLJIP1GRgLrOflUQtshyP0TwT/RHXsI1wWGnQhs=" crossorigin="anonymous"
+
 
     / meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"
 
@@ -25,7 +27,7 @@ html lang="da"
       window.userToken = "#{assigns[:user_token]}";
 
     = render AOFFWeb.LayoutView, "navbar.html", assigns
-    main.container.content role="main"
+    main.container.content.page-wrap role="main"
       = if @warning.show do
         .alert.alert-danger
           h4= @warning.title
@@ -33,8 +35,11 @@ html lang="da"
       = render AOFFWeb.LayoutView, "flash.html", assigns
 
       = render @view_module, @view_template, assigns
+    footer.site-footer
+      - footer = footer()
+      = footer.title
+      = raw(footer.text)
 
-    script src="https://code.jquery.com/jquery-3.5.0.slim.min.js" integrity="sha256-MlusDLJIP1GRgLrOflUQtshyP0TwT/RHXsI1wWGnQhs=" crossorigin="anonymous"
     script src="#{Routes.static_path(@conn, "/js/app.js")}"
     script src="#{Routes.static_path(@conn, "/js/fastclick.js")}"
     script src="#{Routes.static_path(@conn, "/js/scroll.js")}"

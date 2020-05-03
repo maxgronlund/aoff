@@ -439,8 +439,8 @@ label.panel-block:hover {
   z-index: 99;
   display: inline-block;
   position: relative;
-  top: -19px;
-  left: 14px;
+  top: -10px;
+  left: -2px;
 }
 
 .red {
@@ -649,3 +649,29 @@ hr {
 .containerx > div > div:nth-child(2n) {
   background: gray;
 }*/
+* {
+    margin: 0;
+}
+html, body {
+    height: 100%;
+}
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+    margin-bottom: -142px;
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+.site-footer, .page-wrap:after {
+  margin-top: 20px;
+  /* .push must be the same height as footer */
+    height: 142px;
+}
+.site-footer {
+  padding: 20px;
+  background: #333;
+  color: #fff;
+  text-align: center;
+}

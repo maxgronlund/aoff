@@ -41,7 +41,7 @@ let ShopDate = {
         shopDialog.css('display', 'none')
       })
 
-      $('#numberCircle').css('display', 'block')
+      $('#numberCircle').css('visibility', 'visibil')
 
       $('#shop-dialog-text').empty()
       $('#shop-dialog-text').append(product_name)
@@ -53,6 +53,7 @@ let ShopDate = {
 
       numberCircle.empty()
       numberCircle.append(basketCount)
+      numberCircle.show()
 
     })
   }

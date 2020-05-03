@@ -25,12 +25,18 @@ defmodule AOFFWeb.LayoutView do
     end
   end
 
-  def style(order_items_count) do
-    if order_items_count > 0 do
-      "display: block;"
-    else
-      "display: none;"
-    end
+
+  alias  AOFF.System
+
+  def footer() do
+    {:ok, message} =
+      System.find_or_create_message(
+        "footer",
+        "Footer",
+        Gettext.get_locale()
+      )
+
+    message
   end
 
   def backdrop(conn) do
