@@ -47,7 +47,7 @@ defmodule AOFF.Shop.Date do
       case Date.new(year, month, date) do
         {:ok, date} ->
           if Date.day_of_week(date) == 3 do
-            if Date.compare(date, Date.utc_today()) == :gt do
+            if Date.compare(date, AOFF.Time.today()) == :gt do
               AOFF.Shop.create_date(%{
                 "date" => date,
                 "last_order_date" => Date.add(date, -4),

@@ -18,6 +18,8 @@ defmodule AOFF.Blogs.BlogPost do
     field :text, :string
     field :title, :string
     field :tag, :string
+    field :show_on_landing_page, :boolean, default: false
+    field :locale, :string, default: "da"
     belongs_to :blog, Blog
     timestamps()
   end
@@ -33,7 +35,9 @@ defmodule AOFF.Blogs.BlogPost do
       :teaser,
       :text,
       :author,
-      :tag
+      :tag,
+      :show_on_landing_page,
+      :locale
     ])
     |> cast_attachments(attrs, [:image])
     |> validate_required([
@@ -41,7 +45,8 @@ defmodule AOFF.Blogs.BlogPost do
       :date,
       :title,
       :text,
-      :author
+      :author,
+      :show_on_landing_page
     ])
     |> unique_constraint(:title, name: :blog_posts_blog_id_title_index)
   end

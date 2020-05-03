@@ -62,6 +62,23 @@ defmodule AOFF.Shop do
     Integer.floor_div(dates, per_page)
   end
 
+  def products_ordered() do
+    today = AOFF.Time.today()
+
+    query =
+      from d in Date,
+      where: d.date >= ^today,
+      order_by: [asc: d.date],
+      limit: 1
+
+    date = Repo.one(query)
+
+    case Elixir.Date.compare(today, date.last_order_date) do
+      :gt -> true
+      _ -> false
+    end
+  end
+
   @doc """
   Gets a single date.
 
@@ -93,10 +110,10 @@ defmodule AOFF.Shop do
       ** (Ecto.NoResultsError)
 
   """
-  def get_next_date(date) do
+  def get_next_date(last_order_date) do
     query =
       from d in Date,
-        where: d.date >= ^date,
+        where: d.last_order_date >= ^last_order_date,
         order_by: [asc: d.date],
         limit: 1
 

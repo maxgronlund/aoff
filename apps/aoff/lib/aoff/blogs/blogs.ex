@@ -274,4 +274,12 @@ defmodule AOFF.Blogs do
   def change_post(%BlogPost{} = post) do
     BlogPost.changeset(post, %{})
   end
+
+  def get_landing_page_posts() do
+    query =
+      from p in BlogPost,
+      where: p.show_on_landing_page==^true
+    Repo.all(query)
+    |> Repo.preload(:blog)
+  end
 end
