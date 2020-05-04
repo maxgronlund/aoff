@@ -22,14 +22,12 @@ h2= gettext("Please select a pickup date")
         .card-image
           img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({date.image, date}, :thumb)}"
         .card-footer.is-button
-          = if open_for_orders(date) do
-
-            .card-footer-item.is-button
-              = gettext("Select date")
-          - else
-
+          = if products_ordered(date) do
             .card-footer-item.is-button.is-curry
-              = gettext("Pick up order")
+              = gettext("Pick up")
+          - else
+            .card-footer-item.is-button
+              = gettext("Order")
 
 
 

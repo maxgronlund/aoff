@@ -65,16 +65,4 @@ defmodule AOFFWeb.Shop.DateView do
 
     message
   end
-
-  def open_for_orders(date) do
-    case Date.compare(date.last_order_date, Date.utc_today()) do
-      :gt -> true
-      :eq -> true
-      _ -> false
-    end
-  end
-
-  def next_opening_date(date) do
-
-  end
 end

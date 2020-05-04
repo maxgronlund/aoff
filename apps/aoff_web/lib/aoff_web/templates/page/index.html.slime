@@ -16,7 +16,7 @@
 .row
   .column
     .white-text
-      = if products_ordered() do
+      = if @products_ordered do
         h4 = gettext("This weeks bags")
       - else
         h4 = gettext("Last week bags")

@@ -30,10 +30,22 @@ defmodule AOFFWeb.Shop.DateController do
         expired_message: expired_message,
         login_message: login_message,
         date: date,
-        products: products
+        products: products,
+        products_ordered: Shop.products_ordered()
       )
     else
-      render(conn, "show.html", date: date, products: products)
+      render(conn, "show.html",
+        date: date,
+        products: products,
+        products_ordered: products_ordered(date)
+      )
+    end
+  end
+
+  defp products_ordered(date) do
+    case Elixir.Date.compare(AOFF.Time.today(), date.last_order_date) do
+      :gt -> true
+      _ -> false
     end
   end
 
