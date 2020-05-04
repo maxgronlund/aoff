@@ -8,7 +8,6 @@
 
 h2 = gettext("Listing Committees")
 
-
 .tiles
   = for committee <- @committees do
     .card.is-shady

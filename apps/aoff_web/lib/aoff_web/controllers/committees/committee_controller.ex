@@ -4,12 +4,16 @@ defmodule AOFFWeb.Committees.CommitteeController do
   alias AOFF.Committees
   alias AOFF.Committees.Committee
   alias AOFF.Chats
+  alias AOFF.System
 
   # alias AOFFWeb.Users.Auth
   # plug Auth
   # plug :authenticate when action in [:show]
 
   def index(conn, _params) do
+
+
+
     committees = Committees.list_committees()
     render(conn, "index.html", committees: committees)
   end
@@ -34,7 +38,13 @@ defmodule AOFFWeb.Committees.CommitteeController do
   def show(conn, %{"id" => id}) do
     committee = Committees.get_committee!(id)
     messages = Chats.list_messages(id)
-    render(conn, "show.html", committee: committee, messages: messages)
+    {:ok, committees_text} =
+      System.find_or_create_message(
+        "/info - committees",
+        "Committees",
+        Gettext.get_locale()
+      )
+    render(conn, "show.html", committee: committee, messages: messages, committees_text: committees_text)
   end
 
   def edit(conn, %{"id" => id}) do

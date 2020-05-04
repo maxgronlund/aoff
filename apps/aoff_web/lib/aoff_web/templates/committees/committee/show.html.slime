@@ -13,6 +13,13 @@ h2 = @committee.name
 .auto-columns
   = raw @committee.description
 
+= if @text_editor do
+  .row
+    .column
+      .float-right
+        = link gettext("Edit text"),\
+          to: Routes.volunteer_message_path(@conn, :edit, @committees_text),\
+          class: "button"
 br
 
 

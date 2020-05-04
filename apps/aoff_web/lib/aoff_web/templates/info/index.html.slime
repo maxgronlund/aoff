@@ -8,22 +8,6 @@ h2 = @message.title
       class: "button"
 br
 .tiles.button-tiles
-  .card.is-shady
-    = link to: Routes.committee_committee_path(@conn, :index) do
-      .card-header
-        .card-header-title.is-centered
-          = @committees.title
-      .card-image
-        = img_tag(Routes.static_path(@conn, "/images/committees.jpg"))
-
-      .card-content
-        = raw @committees.text
-        = if @text_editor do
-          .float-right
-            = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @committees)
-
-      .card-footer.is-button
-        = link gettext("Read More"), to: Routes.committee_committee_path(@conn, :index), class: "card-footer-item is-button"
 
   = for blog <- @blogs do
     .card.is-shady
@@ -39,3 +23,19 @@ br
         .card-footer.is-button
           .card-footer-item.is-button
             = gettext("Read More")
+
+  .card.is-shady
+    = link to: Routes.committee_committee_path(@conn, :index) do
+      .card-header
+        .card-header-title.is-centered
+          = @committees.title
+      .card-image
+        = img_tag(Routes.static_path(@conn, "/images/committees.jpg"))
+
+      .card-content
+        = raw @committees.text
+        /= if @text_editor do
+        /  = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @committees)
+
+      .card-footer.is-button
+        = link gettext("Read More"), to: Routes.committee_committee_path(@conn, :index), class: "card-footer-item is-button"
