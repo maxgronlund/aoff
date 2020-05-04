@@ -26,14 +26,16 @@
         class: "button button-red"
 .row
   .column
-    = raw @blog.description
+    .auto-columns
+      = raw @blog.description
 
 
+
+
+.row
   .column
-    = img_tag AOFF.Uploader.Image.url({@blog.image, @blog}, :original)
-
-
-= link gettext("New Article"), to: Routes.volunteer_blog_blog_post_path(@conn, :new,  @blog), class: "button"
+    .float-right
+      = link gettext("New Article"), to: Routes.volunteer_blog_blog_post_path(@conn, :new,  @blog), class: "button"
 
 
 
@@ -48,11 +50,22 @@
 
 
       .card-content
+
+        .float-right
+          = link gettext("Edit"), to: Routes.volunteer_blog_blog_post_path(@conn, :edit, @blog, post), class: "button button-small"
+          | &nbsp;
+          = link gettext("Delete"),\
+            to: Routes.volunteer_blog_blog_post_path(@conn, :delete, @blog, post),\
+            method: :delete,\
+            data: [confirm: "Are you sure?"],\
+            class: "button button-red button-small"
+        br
+
         p = post.teaser
       .card-footer.is-button
-        = link gettext("Edit"), to: Routes.volunteer_blog_blog_post_path(@conn, :edit, @blog, post), class: "card-footer-item is-button"
+        = link gettext("Show"), to: Routes.volunteer_blog_blog_post_path(@conn, :show, @blog, post), class: "card-footer-item is-button"
 
-        /= link gettext("Delete"), to: Routes.volunteer_blog_blog_post_path(@conn, :delete, @blog, post), method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red"
-        /= link gettext("Read More"), to: Routes.volunteer_blog_blog_post_path(@conn, :show, @blog, post), class: "button float-right"
+
+        /= link gettext("Show"), to: Routes.volunteer_blog_blog_post_path(@conn, :show, @blog, post), class: "button float-right"
 
 

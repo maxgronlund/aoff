@@ -1564,6 +1564,7 @@ html, body {
   background: #333;
   color: #fff;
   text-align: center;
+  font-size: 0.9em;
 }
 .card {
   background-color: white;

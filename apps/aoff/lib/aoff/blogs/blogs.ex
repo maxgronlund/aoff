@@ -18,7 +18,7 @@ defmodule AOFF.Blogs do
 
   """
   def list_blogs(locale \\ "da") do
-    secure_defaults()
+    # secure_defaults()
 
     query =
       from b in Blog,
@@ -28,14 +28,14 @@ defmodule AOFF.Blogs do
     |> Repo.all()
   end
 
-  defp secure_defaults(locale \\ "da") do
-    {:ok, _manufacturers} =
-      find_or_create_blog("manufacturers", "Manufacturers", locale)
-    {:ok, _calendar} =
-      find_or_create_blog("calendar", "Calendar", locale)
-    {:ok, _about_aoff} =
-      find_or_create_blog("about_aoff", "About AOFF", locale)
-  end
+  # defp secure_defaults(locale \\ "da") do
+  #   {:ok, _manufacturers} =
+  #     find_or_create_blog("manufacturers", "Manufacturers", locale)
+  #   {:ok, _calendar} =
+  #     find_or_create_blog("calendar", "Calendar", locale)
+  #   {:ok, _about_aoff} =
+  #     find_or_create_blog("about_aoff", "About AOFF", locale)
+  # end
 
   alias AOFF.Blogs.BlogPost
 
