@@ -49,13 +49,14 @@
     .tiles
       = for blog_post <- @blog_posts do
         .card.is-black
-          .card-header-title.is-black.is-centered
-            = blog_post.blog.title
-            | &nbsp;::&nbsp;
-            = blog_post.title
+          = link to: Routes.info_about_path(@conn, :show, blog_post.blog, blog_post) do
+            .card-header-title.is-black.is-centered
+              = blog_post.blog.title
+              | &nbsp;::&nbsp;
+              = blog_post.title
 
-          .card-content
-            = text_to_html(blog_post.teaser)
+            .card-content
+              = text_to_html(blog_post.teaser)
 
 
 
