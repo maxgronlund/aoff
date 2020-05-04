@@ -1644,15 +1644,17 @@ html, body {
 /* --- custom --- */
 
  a .card-content {
-
   color: #606c76;
 }
+
 
 .card.is-black {
   color: #fff;
   background-color: hsla(180, 50%, 0%, 0.68);
   margin-bottom: 10px;
 }
+
+
 
 .card-footer.is-black {
   border-top: 1px solid #404040;
@@ -1666,6 +1668,10 @@ html, body {
 }
 
 .card-header-title.is-black {
+  color: #fff;
+}
+
+.card-content.is-black {
   color: #fff;
 }
 
