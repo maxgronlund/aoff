@@ -4,7 +4,8 @@ h2 = @message.title
 = if @text_editor do
   .float-right.mt-2
     = link gettext("Edit text"),\
-      to: Routes.volunteer_message_path(@conn, :edit, @message),\
+      to: Routes.volunteer_message_path(@conn, :edit,\
+        @message, %{"request_url" => @conn.request_path}),\
       class: "button"
 br
 .tiles.button-tiles
@@ -34,8 +35,8 @@ br
 
       .card-content
         = raw @committees.text
-        /= if @text_editor do
-        /  = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @committees)
+        = if @text_editor do
+          = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @committees, %{"request_url" => @conn.request_path})
 
       .card-footer.is-button
         = link gettext("Read More"), to: Routes.committee_committee_path(@conn, :index), class: "card-footer-item is-button"

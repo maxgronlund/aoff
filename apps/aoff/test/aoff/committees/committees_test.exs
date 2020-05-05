@@ -167,5 +167,7 @@ defmodule AOFF.CommitteesTest do
       member = member_fixture(%{"user_id" => user.id, "committee_id" => committee.id})
       assert %Ecto.Changeset{} = Committees.change_member(member)
     end
+
+
   end
 end

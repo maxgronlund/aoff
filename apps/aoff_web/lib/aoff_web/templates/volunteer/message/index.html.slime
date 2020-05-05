@@ -33,7 +33,7 @@ table.table
           .float-right
             = link gettext("Show"), to: Routes.volunteer_message_path(@conn, :show, message), class: "button button-small"
             | &nbsp;
-            = link gettext("Edit"), to: Routes.volunteer_message_path(@conn, :edit, message), class: "button button-outline button-small"
+            = link gettext("Edit"), to: Routes.volunteer_message_path(@conn, :edit, message, %{"request_url" => @conn.request_path}), class: "button button-outline button-small"
             = if @admin do
               | &nbsp;
               = link gettext("Delete"),\

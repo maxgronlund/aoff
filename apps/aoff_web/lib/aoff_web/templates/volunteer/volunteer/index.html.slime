@@ -5,7 +5,7 @@
       = raw @volunteer.text
     = if @text_editor do
       = link gettext("Edit text"),\
-        to: Routes.volunteer_message_path(@conn, :edit, @volunteer)
+        to: Routes.volunteer_message_path(@conn, :edit, @volunteer, %{"request_url" => @conn.request_path})
 .mt-1
 .tiles.button-tiles
   .card.is-shady
@@ -16,7 +16,7 @@
       p = raw @categories.text
       = if @text_editor do
         = link gettext("Edit text"),\
-          to: Routes.volunteer_message_path(@conn, :edit, @categories)
+          to: Routes.volunteer_message_path(@conn, :edit, @categories, %{"request_url" => @conn.request_path})
     .card-footer.is-button
       = link gettext("Go to"),\
         to: Routes.volunteer_blog_path(@conn, :index),\
@@ -30,7 +30,7 @@
       p = raw @users.text
       = if @text_editor do
         = link gettext("Edit text"),\
-          to: Routes.volunteer_message_path(@conn, :edit, @users)
+          to: Routes.volunteer_message_path(@conn, :edit, @users, %{"request_url" => @conn.request_path})
     .card-footer.is-button
       = link gettext("Go to"),\
         to: Routes.volunteer_user_path(@conn, :index),\
@@ -44,7 +44,7 @@
       p = raw @opening_dates.text
       = if @text_editor do
         = link gettext("Edit text"),\
-          to: Routes.volunteer_message_path(@conn, :edit, @opening_dates)
+          to: Routes.volunteer_message_path(@conn, :edit, @opening_dates, %{"request_url" => @conn.request_path})
     .card-footer.is-button
       = link gettext("Go to"),\
         to: Routes.volunteer_date_path(@conn, :index),\
@@ -58,7 +58,7 @@
       p = raw @messages.text
       = if @text_editor do
         = link gettext("Edit text"),\
-          to: Routes.volunteer_message_path(@conn, :edit, @messages)
+          to: Routes.volunteer_message_path(@conn, :edit, @messages, %{"request_url" => @conn.request_path})
     .card-footer.is-button
       = link gettext("Go to"),\
         to: Routes.volunteer_message_path(@conn, :index),\
@@ -72,7 +72,7 @@
       p = raw @membership.text
       = if @text_editor do
         = link gettext("Edit text"),\
-          to: Routes.volunteer_message_path(@conn, :edit, @membership)
+          to: Routes.volunteer_message_path(@conn, :edit, @membership, %{"request_url" => @conn.request_path})
     .card-footer.is-button
       = link gettext("Go to"),\
         to: Routes.volunteer_membership_path(@conn, :index),\
@@ -86,7 +86,7 @@
       p = raw @committees.text
       = if @text_editor do
         = link gettext("Edit text"),\
-          to: Routes.volunteer_message_path(@conn, :edit, @committees)
+          to: Routes.volunteer_message_path(@conn, :edit, @committees, %{"request_url" => @conn.request_path})
     .card-footer.is-button
       = link gettext("Go to"),\
         to: Routes.volunteer_committee_path(@conn, :index),\

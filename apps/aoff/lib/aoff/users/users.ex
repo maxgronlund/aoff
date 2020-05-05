@@ -667,4 +667,15 @@ defmodule AOFF.Users do
 
     Repo.one(query) || 10001
   end
+
+  def set_bounce_to_url(user, url) do
+    User.bounce_to_changeset(user, %{"bounce_to_url" => url})
+    |> Repo.update()
+  end
+
+  def get_bounce_to_url(user) do
+    User.bounce_to_changeset(user, %{"bounce_to_url" => ""})
+    |> Repo.update()
+    user.bounce_to_url
+  end
 end

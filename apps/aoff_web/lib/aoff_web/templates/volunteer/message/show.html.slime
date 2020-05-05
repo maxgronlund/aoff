@@ -32,7 +32,7 @@ hr
 .row
   .column
     = link gettext("Edit"),\
-      to: Routes.volunteer_message_path(@conn, :edit, @message),\
+      to: Routes.volunteer_message_path(@conn, :edit, @message, %{"request_url" => @conn.request_path}),\
       class: "float-right button"
 
 

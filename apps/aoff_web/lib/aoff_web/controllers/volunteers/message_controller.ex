@@ -2,7 +2,7 @@ defmodule AOFFWeb.Volunteer.MessageController do
   use AOFFWeb, :controller
 
   alias AOFF.System
-
+  alias AOFF.Users
   alias AOFFWeb.Users.Auth
   plug Auth
   plug :authenticate when action in [:index, :edit, :new, :update, :create, :delete]
@@ -25,7 +25,10 @@ defmodule AOFFWeb.Volunteer.MessageController do
     render(conn, "show.html", message: message)
   end
 
-  def edit(conn, %{"id" => id}) do
+  def edit(conn, %{"id" => id, "request_url" => request_url}) do
+
+    Users.set_bounce_to_url(conn.assigns.current_user, request_url)
+
     message = System.get_message!(id)
     changeset = System.change_message(message)
     render(conn, "edit.html", message: message, changeset: changeset)
@@ -37,8 +40,8 @@ defmodule AOFFWeb.Volunteer.MessageController do
     case System.update_message(message, message_params) do
       {:ok, message} ->
         conn
-        |> put_flash(:info, gettext("Message updated successfully."))
-        |> redirect(to: Routes.volunteer_message_path(conn, :show, message))
+        |> put_flash(:info, gettext("%{title} updated successfully.", title: message.title))
+        |> redirect(to: Users.get_bounce_to_url(conn.assigns.current_user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", message: message, changeset: changeset)

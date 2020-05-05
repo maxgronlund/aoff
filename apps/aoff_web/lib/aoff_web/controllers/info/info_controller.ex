@@ -6,6 +6,7 @@ defmodule AOFFWeb.InfoController do
 
   def index(conn, _params) do
     conn = assign(conn, :page, :about_aoff)
+    IO.inspect conn
 
     {:ok, message} =
       System.find_or_create_message(

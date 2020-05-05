@@ -28,11 +28,18 @@ defmodule AOFF.Users.User do
     field :terms_accepted, :boolean, default: false
     field :registration_date, :date
     field :manage_membership, :boolean, default: false
+    field :bounce_to_url, :string, default: ""
 
     has_many :orders, Order
     has_many :pick_ups, PickUp
 
     timestamps()
+  end
+
+  def bounce_to_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:bounce_to_url])
+    |> validate_required([:bounce_to_url])
   end
 
   def update_membership_changeset(user, attrs) do

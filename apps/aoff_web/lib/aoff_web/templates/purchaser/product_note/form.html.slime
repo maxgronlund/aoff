@@ -11,7 +11,7 @@
         = raw @this_weeks_content_message.text
           = if @text_editor do
             | &nbsp;
-            = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @this_weeks_content_message)
+            = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @this_weeks_content_message, %{"request_url" => @conn.request_path})
 
       .column
         .form-group
@@ -24,7 +24,7 @@
         = raw @notes_for_the_hosts.text
           = if @text_editor do
             | &nbsp;
-            = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @notes_for_the_hosts)
+            = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @notes_for_the_hosts, %{"request_url" => @conn.request_path})
       .column
         .form-group
 

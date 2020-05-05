@@ -13,19 +13,8 @@ h2 = @committee.name
 .auto-columns
   = raw @committee.description
 
-= if @text_editor do
-  .row
-    .column
-      .float-right
-        = link gettext("Edit text"),\
-          to: Routes.volunteer_message_path(@conn, :edit, @committees_text),\
-          class: "button"
 br
-
-
-
-
-.profiles
+.profiles.mt-2
   = for member <- @committee.members do
     .profile
       .profile-avatar
@@ -58,7 +47,7 @@ br
       h4 = gettext("Live chat")
 
 
-      #chat-box style="height: 500px; max-width: 500px;"
+      #chat-box style="height: 500px; max-width: 100%;"
 
         = for message <- @messages do
           .date

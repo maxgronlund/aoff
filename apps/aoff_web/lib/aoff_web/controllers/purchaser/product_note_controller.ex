@@ -48,7 +48,7 @@ defmodule AOFFWeb.Purchaser.ProductNoteController do
   end
 
   defp authenticate(conn, _opts) do
-    if conn.assigns.purchasing_manager do
+    if conn.assigns.purchaser do
       assign(conn, :page, :purchaser)
     else
       conn

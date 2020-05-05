@@ -3,8 +3,8 @@ h3 = @message.title
   .row
     .column
       = raw @message.text
-      = if @text_editor do
-        | &nbsp;
-        = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message)
+      / = if @text_editor do
+      /   | &nbsp;
+      /   = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message, %{"request_url" => @conn.request_path})
     .column
       = render "email_form.html", Map.put(assigns, :action, Routes.reset_password_path(@conn, :create))

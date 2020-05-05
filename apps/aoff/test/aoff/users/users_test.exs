@@ -88,6 +88,21 @@ defmodule AOFF.UsersTest do
       assert %Ecto.Changeset{} = Users.change_user(user)
     end
 
+    test "set_bounce_to_url/2 set the bounce_to_url" do
+      user = user_fixture()
+      some_url = "https://some_url.com/nowhere"
+      assert {:ok, %User{} = user} = Users.set_bounce_to_url(user, some_url)
+      assert user.bounce_to_url == some_url
+    end
+
+    test "get_bounce_to_url/12 gets the bounce_to_url and reset the " do
+      user = user_fixture()
+      some_url = "https://some_url.com/nowhere"
+      assert {:ok, %User{} = user} = Users.set_bounce_to_url(user, some_url)
+      assert Users.get_bounce_to_url(user) == some_url
+    end
+
+
     # test "last_member_nr/0 returne the last member_nr" do
     #   _user = user_fixture()
     #   user = user_fixture(%{"member_nr" => 2})
