@@ -482,7 +482,7 @@ defmodule AOFF.Shop do
         )
       else
         from(p in PickUp,
-          where: like(p.username, ^query) or (p.email == ^query and p.date_id == ^date_id)
+          where: ilike(p.username, ^"%#{query}%") or (ilike(p.email, ^"%#{query}%") and p.date_id == ^date_id)
         )
       end
 

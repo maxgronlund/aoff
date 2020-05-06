@@ -64,6 +64,10 @@ table
             = gettext("Member Nr. %{nr}", nr: pick_up.member_nr)
             br
             = gettext("Order Nr. %{nr}", nr: pick_up.order.order_nr)
+            br
+            = gettext("Email: %{email}", email: pick_up.user.email)
+            br
+            = gettext("Mobile: %{phone}", phone: pick_up.user.mobile)
           td
             = for order_item <- pick_up.order_items do
               = order_item.product.name

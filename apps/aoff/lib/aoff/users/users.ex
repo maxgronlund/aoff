@@ -268,10 +268,11 @@ defmodule AOFF.Users do
   end
 
   def search_users(query) do
+
     if is_numeric(query) do
       get_users_by_member_nr(String.to_integer(query))
     else
-      from(u in User, where: like(u.username, ^query) or u.email == ^query)
+      from(u in User, where: ilike(u.username, ^"%#{query}%") or ilike(u.email, ^"%#{query}%"))
       |> Repo.all()
     end
   end
