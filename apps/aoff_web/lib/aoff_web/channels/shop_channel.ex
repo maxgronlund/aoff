@@ -20,15 +20,6 @@ defmodule AOFFWeb.ShopChannel do
   alias AOFF.Users
   alias AOFF.Shop
 
-
-  # %{
-  #     "date_id" => "41f6fcb9-b87f-4c74-a553-0023deeaafd0",
-  #     "price" => "2300",
-  #     "product_id" => "1a75f882-e3ba-4815-b46f-467472329258",
-  #     "product_name" => "30 æg",
-  #     "user_id" => "c64035c8-3c91-4c81-8993-d03b4b9b396c"
-  # }
-
   def handle_in("add_to_basked", payload, socket) do
 
     user = Users.get_user!(payload["user_id"])
@@ -54,8 +45,6 @@ defmodule AOFFWeb.ShopChannel do
       })
 
     Users.add_order_item_to_basket(pick_up_params, order_item_params)
-
-
 
     {:reply, {:ok, payload}, socket}
   end

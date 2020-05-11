@@ -73,9 +73,18 @@ table
               = order_item.product.name
               br
           td
-            = if pick_up.picked_up do
-              = link gettext("Handed"), to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up), class: "button button-outline button-small float-right"
-            - else
-              = link gettext("Awaits"), to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up), class: "button float-right button-small"
+            .float-right
+              = if pick_up.picked_up do
+                = link gettext("Handed"), to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up), class: "button button-outline button-small float-right"
+              - else
+                .button.button-small.pick_up_botton  pick_up_id="#{pick_up.id}"
+                  = gettext("Awaits")
+                .button.button-outline.button-small.hidden id="#{pick_up.id}"
+                  = gettext("Handed")
+                = if pick_up.send_sms_notification do
+                  | &nbsp;
+                  .button.button-small.sms_button.button-outline pick_up_id="#{pick_up.id}" id="sms-#{pick_up.id}"
+
+                    = gettext("Send Reminder")
 
 

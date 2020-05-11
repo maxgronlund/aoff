@@ -2,7 +2,6 @@ defmodule AOFFWeb.Volunteer.DateController do
   use AOFFWeb, :controller
 
   alias AOFF.Shop
-  # alias AOFF.Shop.Date
   alias AOFF.Users
 
   alias AOFFWeb.Users.Auth

@@ -16,6 +16,7 @@ table.table
   thead
     tr
       th = gettext("Title")
+      th = gettext("Locale")
       = if @admin do
         th = gettext("Identifier")
       th
@@ -24,11 +25,13 @@ table.table
     = for message <- @messages do
       tr
         td= message.title
+        td = message.locale
         = if @admin do
           td = message.identifier
         td
           = if message.identifier == "System warning" do
             b.red = gettext("Emergency message")
+
         td
           .float-right
             = link gettext("Show"), to: Routes.volunteer_message_path(@conn, :show, message), class: "button button-small"

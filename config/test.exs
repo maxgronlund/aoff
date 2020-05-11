@@ -16,3 +16,5 @@ config :aoff_web, AOFFWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :aoff, :sms_api, AOFF.Test.SMSApi

@@ -15,11 +15,13 @@ import "phoenix_html"
 // Import local files
 import CommitteeChat from "./committee-chat"
 import ShopDate from "./shop-date"
+import PickUp from "./pick-up"
 // Local files can be imported directly using relative paths, for example:
 import socket from "./socket"
 
 CommitteeChat.init(socket)
 ShopDate.init(socket)
+PickUp.init(socket)
 
 // AddToBasket.init()
 

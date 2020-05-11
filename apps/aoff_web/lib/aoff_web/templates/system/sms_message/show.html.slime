@@ -1,0 +1,11 @@
+h2 Show Sms message
+
+ul
+  li
+    strong Sms:&nbsp;
+    = @sms_message.mobile
+  li
+    strong Text:&nbsp;
+    = @sms_message.text
+
+= link "Back", to: Routes.system_sms_message_path(@conn, :index)

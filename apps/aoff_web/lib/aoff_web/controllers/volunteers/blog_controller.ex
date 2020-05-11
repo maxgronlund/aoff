@@ -10,7 +10,7 @@ defmodule AOFFWeb.Volunteer.BlogController do
   plug :navbar when action in [:index, :new, :show, :edit]
 
   def index(conn, _params) do
-    blogs = Blogs.list_blogs()
+    blogs = Blogs.list_blogs(Gettext.get_locale())
     render(conn, "index.html", blogs: blogs)
   end
 

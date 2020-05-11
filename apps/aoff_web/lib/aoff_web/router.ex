@@ -9,6 +9,7 @@ defmodule AOFFWeb.Router do
     plug :put_secure_browser_headers
     plug AOFFWeb.Users.Auth
     plug AOFFWeb.System.Warning
+    plug AOFFWeb.System.SetLocale
     plug :put_user_token
   end
 
@@ -89,6 +90,11 @@ defmodule AOFFWeb.Router do
     get "/payment_accepted/:id", AOFFWeb.Shop.PaymentAcceptedController, :index
     get "/payment_declined/:id", AOFFWeb.Shop.PaymentDeclinedController, :index
     get "/payment_callback/:id", AOFFWeb.Shop.PaymentCallbackController, :index
+  end
+
+  scope "/system", as: :system do
+    pipe_through :browser
+    resources "/sms_messages", AOFFWeb.System.SMSMessageController
   end
 
   scope "/volunteer", as: :volunteer do

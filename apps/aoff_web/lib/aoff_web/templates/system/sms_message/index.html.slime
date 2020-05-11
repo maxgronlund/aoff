@@ -1,0 +1,21 @@
+h2 Listing Sms messages
+
+table.table
+  thead
+    tr
+      th Mobile
+      th Text
+      th User id
+      th
+  tbody
+    = for sms_message <- @sms_messages do
+      tr
+        td= sms_message.mobile
+        td= sms_message.text
+        td= sms_message.user_id
+        td class="text-right"
+          = link "Show", to: Routes.system_sms_message_path(@conn, :show, sms_message), class: "btn btn-default btn-xs"
+          | &nbsp;
+          = link "Delete", to: Routes.system_sms_message_path(@conn, :delete, sms_message), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
+
+= link "New Sms message", to: Routes.system_sms_message_path(@conn, :new)

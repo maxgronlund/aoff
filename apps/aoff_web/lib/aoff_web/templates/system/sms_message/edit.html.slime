@@ -1,0 +1,5 @@
+h2 Edit Sms message
+
+= render "form.html", Map.put(assigns, :action, Routes.system_sms_message_path(@conn, :update, @sms_message))
+
+= link "Back", to: Routes.system_sms_message_path(@conn, :index)

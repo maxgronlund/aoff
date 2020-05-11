@@ -8,7 +8,7 @@ defmodule AOFFWeb.ShopAssistant.PickUpController do
   plug :authenticate when action in [:show]
 
   def show(conn, %{"id" => id}) do
-    IO.inspect(pick_up = Shop.get_pick_up!(id))
+    pick_up = Shop.get_pick_up!(id)
 
     if pick_up.picked_up do
       render(conn, "show.html", pick_up: pick_up)

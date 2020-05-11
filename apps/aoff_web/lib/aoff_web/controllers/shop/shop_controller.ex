@@ -5,9 +5,6 @@ defmodule AOFFWeb.Shop.ShopController do
   alias AOFF.System
 
   def index(conn, _params) do
-    IO.puts "============== INDEX ============="
-    IO.inspect Shop.products_ordered()
-    IO.puts "=================================="
     conn = assign(conn, :page, :shop)
     dates = Shop.list_dates(Date.utc_today(), 0, 4)
 

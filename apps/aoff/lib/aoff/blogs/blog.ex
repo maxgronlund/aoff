@@ -16,6 +16,7 @@ defmodule AOFF.Blogs.Blog do
     field :image, Image.Type
     field :identifier, :string
     field :locale, :string, default: "da"
+    field :position, :integer, default: 0
     has_many :blog_posts, BlogPost
     timestamps()
   end
@@ -23,9 +24,9 @@ defmodule AOFF.Blogs.Blog do
   @doc false
   def changeset(blog, attrs) do
     blog
-    |> cast(attrs, [:title, :description, :identifier])
+    |> cast(attrs, [:title, :description, :identifier, :locale, :position])
     |> cast_attachments(attrs, [:image])
-    |> validate_required([:title, :description, :identifier])
+    |> validate_required([:title, :description, :identifier, :locale])
     |> unique_constraint(:identifier, name: :blogs_identifier_locale_index)
     |> unique_constraint(:title, name: :blogs_title_locale_index)
   end

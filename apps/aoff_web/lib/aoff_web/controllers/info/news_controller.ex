@@ -10,8 +10,10 @@ defmodule AOFFWeb.Info.NewsController do
   plug :authenticate when action in [:edit, :new, :update, :create, :delete]
 
   def index(conn, _params) do
+
     conn = assign(conn, :page, :news)
-    {:ok, news} = Blogs.find_or_create_blog("news", Gettext.get_locale())
+    identifier = "News-" <> Gettext.get_locale()
+    {:ok, news} = Blogs.find_or_create_blog(identifier, "News", Gettext.get_locale())
 
     {:ok, message} =
       System.find_or_create_message(

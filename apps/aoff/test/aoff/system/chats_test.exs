@@ -1,4 +1,4 @@
-defmodule AOFF.ChatsTest do
+defmodule AOFF.System.ChatsTest do
   use AOFF.DataCase
 
   alias AOFF.Chats

@@ -28,9 +28,11 @@
     = password_input f, :password, class: "form-control"
     = error_tag f, :password
 
-  .form-group
+  .form-group.inline
+    = telephone_input f, :mobile_country_code, class: "form-control", style: "width: 50px; margin-right: 6px"
+  .form-group.inline
     = label f, :mobile, gettext("Mobile"), class: "control-label"
-    = telephone_input f, :mobile, class: "form-control"
+    = telephone_input f, :mobile, class: "form-control", style: "width: 200px;"
     = error_tag f, :mobile
   .form-group
     = unless @current_user do

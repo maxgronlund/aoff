@@ -269,9 +269,25 @@ header*/
   }
 }
 
+.flag {
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+}
+
+.flag.dk {
+  background: url(/images/dk-flag.png);
+
+}
+
+.flag.uk {
+  background: url(/images/uk-flag.png);
+}
+
+
+
 .aoff-nav-logo {
   background: url(/images/aoff-logo-small-white.svg);
-
   background-repeat: no-repeat;
   background-position: top left;
   width: 130px;
@@ -281,7 +297,6 @@ header*/
   display: inline-block;
   position: absolute;
   z-index: -10;
-
 }
 
 .aoff-logo {
@@ -675,4 +690,12 @@ html, body {
   color: #fff;
   text-align: center;
   font-size: 0.9em;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
 }

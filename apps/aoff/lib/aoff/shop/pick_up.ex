@@ -14,6 +14,7 @@ defmodule AOFF.Shop.PickUp do
     field :username, :string
     field :email, :string
     field :member_nr, :integer
+    field :send_sms_notification, :boolean
     belongs_to :date, Date
     belongs_to :user, User
     belongs_to :order, Order
@@ -25,7 +26,17 @@ defmodule AOFF.Shop.PickUp do
   @doc false
   def changeset(pick_up, attrs) do
     pick_up
-    |> cast(attrs, [:picked_up, :date_id, :user_id, :order_id, :username, :email, :member_nr])
+    |> cast(attrs, [
+        :picked_up,
+        :date_id,
+        :user_id,
+        :order_id,
+        :username,
+        :email,
+        :member_nr,
+        :send_sms_notification
+      ]
+    )
     |> validate_required([
       :picked_up,
       :date_id,

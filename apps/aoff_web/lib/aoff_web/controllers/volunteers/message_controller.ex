@@ -16,7 +16,7 @@ defmodule AOFFWeb.Volunteer.MessageController do
         Gettext.get_locale()
       )
 
-    messages = System.list_messages("da")
+    messages = System.list_messages(Gettext.get_locale())
     render(conn, "index.html", messages: messages, instructions: instructions)
   end
 

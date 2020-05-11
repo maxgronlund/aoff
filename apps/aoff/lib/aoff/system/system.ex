@@ -122,4 +122,85 @@ defmodule AOFF.System do
   def change_message(%Message{} = message) do
     Message.changeset(message, %{})
   end
+
+
+  alias AOFF.System.SMSMessage
+
+  @doc """
+  Returns the list of sms_messages.
+
+  ## Examples
+
+      iex> list_sms_messages()
+      [%SMSMessage{}, ...]
+
+  """
+  def list_sms_messages do
+    Repo.all(SMSMessage)
+  end
+
+  @doc """
+  Gets a single sms_message.
+
+  Raises `Ecto.NoResultsError` if the Sms message does not exist.
+
+  ## Examples
+
+      iex> get_sms_message!(123)
+      %SMSMessage{}
+
+      iex> get_sms_message!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_sms_message!(id), do: Repo.get!(SMSMessage, id)
+
+  @doc """
+  Creates a sms_message.
+
+  ## Examples
+
+      iex> create_sms_message(%{field: value})
+      {:ok, %SMSMessage{}}
+
+      iex> create_sms_message(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_sms_message(attrs \\ %{}) do
+    %SMSMessage{}
+    |> SMSMessage.changeset(attrs)
+    |> Repo.insert()
+  end
+
+
+  @doc """
+  Deletes a sms_message.
+
+  ## Examples
+
+      iex> delete_sms_message(sms_message)
+      {:ok, %SMSMessage{}}
+
+      iex> delete_sms_message(sms_message)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_sms_message(%SMSMessage{} = sms_message) do
+    Repo.delete(sms_message)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking sms_message changes.
+
+  ## Examples
+
+      iex> change_sms_message(sms_message)
+      %Ecto.Changeset{source: %SMSMessage{}}
+
+  """
+  def change_sms_message(%SMSMessage{} = sms_message) do
+    SMSMessage.changeset(sms_message, %{})
+  end
+
 end

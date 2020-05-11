@@ -52,6 +52,10 @@ config :aoff_web, AOFFWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :aoff, :sms_api, AOFF.SMSApi
+
 # Finally import the config/prod.secret.exs which loads secrets
 # and configuration from environment variables.
 import_config "prod.secret.exs"
+
+

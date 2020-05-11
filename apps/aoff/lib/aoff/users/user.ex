@@ -17,6 +17,7 @@ defmodule AOFF.Users.User do
     field :password_reset_token, :string
     field :password_reset_expires, :utc_datetime_usec
     field :mobile, :string
+    field :mobile_country_code, :string, default: "45"
     field :password, :string, virtual: true
     field :password_hash, :string
     field :expiration_date, :date
@@ -93,6 +94,7 @@ defmodule AOFF.Users.User do
       :member_nr,
       :password,
       :mobile,
+      :mobile_country_code,
       :expiration_date,
       :admin,
       :volunteer,
@@ -128,6 +130,7 @@ defmodule AOFF.Users.User do
       :id,
       :email,
       :mobile,
+      :mobile_country_code,
       :username,
       :member_nr,
       :expiration_date,
@@ -163,6 +166,7 @@ defmodule AOFF.Users.User do
       :id,
       :email,
       :mobile,
+      :mobile_country_code,
       :username,
       :password,
       :password_reset_token,
@@ -201,6 +205,7 @@ defmodule AOFF.Users.User do
       :username,
       :password,
       :mobile,
+      :mobile_country_code,
       :member_nr,
       :expiration_date,
       :terms_accepted,
@@ -241,6 +246,7 @@ defmodule AOFF.Users.User do
       :id,
       :email,
       :mobile,
+      :mobile_country_code,
       :username
     ])
     |> validate_required([

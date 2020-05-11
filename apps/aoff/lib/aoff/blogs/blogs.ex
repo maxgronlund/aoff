@@ -18,8 +18,6 @@ defmodule AOFF.Blogs do
 
   """
   def list_blogs(locale \\ "da") do
-    # secure_defaults()
-
     query =
       from b in Blog,
         where: b.locale == ^locale
@@ -66,9 +64,10 @@ defmodule AOFF.Blogs do
 
   """
   def find_or_create_blog(identifier, title, locale \\ "da") do
+
     query =
       from b in Blog,
-        where: b.identifier == ^identifier and b.locale == ^locale,
+        where: b.identifier == ^identifier,
         select: b,
         preload: [blog_posts: ^from(p in BlogPost, order_by: [desc: p.date])]
 
@@ -76,7 +75,7 @@ defmodule AOFF.Blogs do
       nil ->
         create_blog(%{
           "title" => title <> "-" <> locale,
-          "description" => identifier <> "-" <> locale <> " : Description",
+          "description" => identifier <>" : Description",
           "identifier" => identifier,
           "locale" => locale
         })

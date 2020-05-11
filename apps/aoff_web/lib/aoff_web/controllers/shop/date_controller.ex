@@ -31,7 +31,7 @@ defmodule AOFFWeb.Shop.DateController do
         login_message: login_message,
         date: date,
         products: products,
-        products_ordered: Shop.products_ordered()
+        products_ordered: products_ordered(date)
       )
     else
       render(conn, "show.html",

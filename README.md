@@ -51,8 +51,6 @@ The [aspect ratio](https://en.wikipedia.org/wiki/Aspect_ratio_(image)) for image
 - original 720x445
 
 
-
-
 ## Gettext
 Translations: when a new translaton is added or one is modified
 
@@ -62,6 +60,16 @@ mix gettext.extract --merge
 Then look in side apps/aoff_web/priv/gettext/da/LC_MESSAGES/default.po
 
 ## Operations
+The system relies on a couple of external serveces:
+
+- Heroku: production server
+- Sendgrid: send email
+- Amazon S3: Storage for images and large files
+- Bambora: Payment gateway
+- Cloudflare: DNS and firewall
+- CPSMS: sending emails
+
+
 Run migration on heroku
 ```
 heroku run "POOL_SIZE=2 mix ecto.migrate"
@@ -78,7 +86,14 @@ heroku run "POOL_SIZE=2 iex -S mix"
 
 ## Push to git
 ```
-git push heroku master
+git push origin master
 ```
 
 heroku run "POOL_SIZE=2 mix run apps/aoff/priv/repo/seeds.exs" --app aoff
+
+## ngrok
+Test payment on local host
+install ngrok in your user folder
+
+./ngrok http 4000
+

@@ -13,15 +13,10 @@ let ShopDate = {
 
     $(document).on('click', '.basket-button', function (e) {
 
-
-
       let userId = $(this).attr('user_id')
       let productId = $(this).attr('product_id')
       let dateId = $(this).attr('date_id')
       let product_name = $(this).attr('product_name')
-      // let basketCount = $(this).attr('basket_count')
-
-
 
       let params =
         {
