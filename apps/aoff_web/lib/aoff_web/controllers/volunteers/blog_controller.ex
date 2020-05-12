@@ -32,14 +32,24 @@ defmodule AOFFWeb.Volunteer.BlogController do
   end
 
   def show(conn, %{"id" => id}) do
-    blog = Blogs.get_blog!(id)
-    render(conn, "show.html", blog: blog)
+    if blog = Blogs.get_blog!(id) do
+      render(conn, "show.html", blog: blog)
+    else
+      conn
+      |> put_flash(:error, gettext("You can only show a category in one language."))
+      |> redirect(to: Routes.volunteer_blog_path(conn, :index))
+    end
   end
 
   def edit(conn, %{"id" => id}) do
-    blog = Blogs.get_blog!(id)
-    changeset = Blogs.change_blog(blog)
-    render(conn, "edit.html", blog: blog, changeset: changeset)
+    if blog = Blogs.get_blog!(id) do
+      changeset = Blogs.change_blog(blog)
+      render(conn, "edit.html", blog: blog, changeset: changeset)
+    else
+      conn
+      |> put_flash(:error, gettext("You can only edit a category in one language."))
+      |> redirect(to: Routes.volunteer_blog_path(conn, :index))
+    end
   end
 
   def update(conn, %{"id" => id, "blog" => blog_params}) do

@@ -18,10 +18,6 @@ javascript:
           = checkbox f, :show, class: "form-control"
           = label f, :show, gettext("Show on all pages"), class: "control-label label-inline"
 
-
-
-
-
   .form-group
     = label f, :title, gettext("Title"), class: "control-label"
     = text_input f, :title, class: "form-control"
@@ -31,6 +27,12 @@ javascript:
     = label f, :text, gettext("Text"), class: "control-label"
     = textarea f, :text, class: "form-control"
     = error_tag f, :text
+
+
+  .form-group
+    = label f, :show do
+      = checkbox f, :show, class: "form-control"
+      = label f, :show, gettext("Show"), class: "control-label label-inline"
 
   .form-group.mt-1
     .float-right

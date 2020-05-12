@@ -76,8 +76,7 @@ defmodule AOFF.Blogs do
         create_blog(%{
           "title" => title <> "-" <> locale,
           "description" => identifier <>" : Description",
-          "identifier" => identifier,
-          "locale" => locale
+          "identifier" => identifier
         })
 
       %Blog{} = blog ->
@@ -85,10 +84,10 @@ defmodule AOFF.Blogs do
     end
   end
 
-  def get_blog!(title, locale \\ "da") do
+  def get_blog!(title) do
     query =
       from b in Blog,
-        where: b.title == ^title and b.locale == ^locale,
+        where: b.title == ^title and b.locale ==^Gettext.get_locale(),
         select: b,
         preload: [blog_posts: ^from(p in BlogPost, order_by: p.date)]
 
@@ -107,11 +106,11 @@ defmodule AOFF.Blogs do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_blog(attrs \\ %{}, locale \\ "da") do
+  def create_blog(attrs \\ %{}) do
     attrs =
       attrs
       |> Map.merge(%{
-        "locale" => locale,
+        "locale" => Gettext.get_locale(),
         "identifier" => attrs["title"]
       })
 
@@ -201,7 +200,7 @@ defmodule AOFF.Blogs do
       from p in BlogPost,
         where: p.title == ^title,
         join: b in assoc(p, :blog),
-        where: b.title == ^blog_title and b.locale == ^locale,
+        where: b.title == ^blog_title and b.locale == ^Gettext.get_locale(),
         limit: 1
 
     query
@@ -222,6 +221,7 @@ defmodule AOFF.Blogs do
 
   """
   def create_post(attrs \\ %{}) do
+    attrs = Map.put(attrs, "locale", Gettext.get_locale())
     %BlogPost{}
     |> BlogPost.changeset(attrs)
     |> Repo.insert()
@@ -277,7 +277,7 @@ defmodule AOFF.Blogs do
   def get_landing_page_posts() do
     query =
       from p in BlogPost,
-      where: p.show_on_landing_page==^true
+      where: p.show_on_landing_page==^true and p.locale==^Gettext.get_locale()
     Repo.all(query)
     |> Repo.preload(:blog)
   end

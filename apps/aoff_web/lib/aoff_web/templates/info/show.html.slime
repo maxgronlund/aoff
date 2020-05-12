@@ -9,17 +9,21 @@
 .row
   .column
     h2 = @blog.title
-  = if @text_editor do
-    .float-right
-      = link gettext("Edit text"),\
-        to: Routes.volunteer_blog_path(@conn, :edit,  @blog),\
-        class: "button"
+  .column
+    = if @volunteer do
+      .float-right
+        = link gettext("New article"),\
+          to: Routes.volunteer_blog_blog_post_path(@conn, :new, @blog),\
+          class: "button button-outline"
+        | &nbsp;
+        = link gettext("Edit"),\
+          to: Routes.volunteer_blog_path(@conn, :edit,  @blog),\
+          class: "button"
 .row
+  .column
+    .auto-columns
+      = raw @blog.description
 
-  .column
-    = raw @blog.description
-  .column
-    = img_tag AOFF.Uploader.Image.url({@blog.image, @blog}, :original)
 hr
 .tiles.button-tiles
   = for post <- @blog.blog_posts do
@@ -34,4 +38,4 @@ hr
 
         .card-footer.is-button
           .card-footer-item.is-button
-            = gettext("Read More")
+            = gettext("Show")

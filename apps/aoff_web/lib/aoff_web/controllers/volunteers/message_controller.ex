@@ -27,11 +27,17 @@ defmodule AOFFWeb.Volunteer.MessageController do
 
   def edit(conn, %{"id" => id, "request_url" => request_url}) do
 
+    message = System.get_message!(id)
     Users.set_bounce_to_url(conn.assigns.current_user, request_url)
 
-    message = System.get_message!(id)
     changeset = System.change_message(message)
     render(conn, "edit.html", message: message, changeset: changeset)
+  end
+
+  def edit(conn, _params) do
+      conn
+      |> put_flash(:error, gettext("You can only edit a message in one language."))
+      |> redirect(to: Routes.volunteer_message_path(conn, :index))
   end
 
   def update(conn, %{"id" => id, "message" => message_params}) do

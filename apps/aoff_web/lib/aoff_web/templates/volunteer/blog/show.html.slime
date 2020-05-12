@@ -12,30 +12,16 @@
 .row
   .column
     h2 = @blog.title
-.row
   .column
     .float-right
-      = link gettext("Edit Category"),\
-        to: Routes.volunteer_blog_path(@conn, :edit,  @blog),\
-        class: "button"
-      | &nbsp;
-      = link gettext("Delete Category"),\
-        to: Routes.volunteer_blog_path(@conn, :delete, @blog),\
-        method: :delete,\
-        data: [confirm: gettext("Are you sure? All articles in this categotry will be gone.")],\
-        class: "button button-red"
+      = link gettext("New Article"), to: Routes.volunteer_blog_blog_post_path(@conn, :new,  @blog), class: "button button-outline"
+
 .row
   .column
     .auto-columns
       = raw @blog.description
 
 
-
-
-.row
-  .column
-    .float-right
-      = link gettext("New Article"), to: Routes.volunteer_blog_blog_post_path(@conn, :new,  @blog), class: "button"
 
 
 

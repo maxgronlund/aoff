@@ -23,4 +23,10 @@ defmodule AOFF.Time do
   def today() do
     now() |> DateTime.to_date()
   end
+
+  def date_as_string(date) do
+    {:ok, date} =
+      date |> AOFFWeb.Cldr.Date.to_string(locale: "da")
+    date
+  end
 end

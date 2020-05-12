@@ -1,12 +1,12 @@
 h2 = @message.title
 .auto-columns
   = raw @message.text
-= if @text_editor do
-  .float-right.mt-2
+= if @text_editor && @volunteer do
+  .mt-2
     = link gettext("Edit text"),\
       to: Routes.volunteer_message_path(@conn, :edit,\
-        @message, %{"request_url" => @conn.request_path}),\
-      class: "button"
+        @message, %{"request_url" => @conn.request_path})
+
 br
 .tiles.button-tiles
 
