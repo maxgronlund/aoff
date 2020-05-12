@@ -32,8 +32,8 @@ defmodule AOFFWeb.InfoController do
   end
 
   def show(conn, %{"id" => id}) do
-    conn = assign(conn, :page, :about_aoff)
     if blog = Blogs.get_blog!(id) do
+      conn = assign(conn, :page, :about_aoff)
       render(conn, "show.html", blog: blog)
     else
       conn

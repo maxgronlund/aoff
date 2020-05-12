@@ -81,6 +81,11 @@ defmodule AOFFWeb.Info.NewsController do
     render(conn, "show.html", post: post, blog: post.blog)
   end
 
+  def show(conn, _params) do
+    conn
+    |> redirect(to: Routes.news_path(conn, :index))
+  end
+
   def edit(conn, %{"info_id" => blog_id, "id" => id}) do
     blog_post = Blogs.get_post!(blog_id, id)
     changeset = Blogs.change_post(blog_post)

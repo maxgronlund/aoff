@@ -6,10 +6,10 @@
       = link gettext("Categories"), to: Routes.volunteer_blog_path(@conn, :index)
     li.is-active
       |&nbsp;&nbsp;
-      = gettext("Create Category")
+      = gettext("New Category")
 
 
-h2 = gettext("Create Category")
+h2 = gettext("New Category")
 
 = render "form.html", Map.put(assigns, :action, Routes.volunteer_blog_path(@conn, :create))
 

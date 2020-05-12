@@ -7,4 +7,4 @@
 = if @page && @page < @pages do
   = link gettext("Next >"),\
     to: Routes.volunteer_date_path(@conn, :index, page: Integer.to_string(@page + 1)),\
-    class: "button button-outline"
+    class: "button button-outline float-right"

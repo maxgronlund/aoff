@@ -6,19 +6,18 @@
           = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
         li.is-active
           | &nbsp;
-          = gettext("Schedules")
+          = gettext("Opening dates")
 
 .row
   .column
-    h2= gettext("Schedules")
-
+    h2= gettext("Opening dates")
+.row
   .column
+    = if @purchaser do
+      = link gettext("New opening date"), to: Routes.volunteer_date_path(@conn, :new), class: "button button-outline"
     .float-right
+      | &nbsp;
       = render "pagination.html", assigns
-= if @purchaser do
-  .row
-    .column
-      = link gettext("Create opening date"), to: Routes.volunteer_date_path(@conn, :new), class: "button"
 / = if @admin do
 /   = link "Seed dates", to: Routes.shop_date_path(@conn, :index), class: "button"
 

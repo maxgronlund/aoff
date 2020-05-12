@@ -9,9 +9,9 @@
       = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message, %{"request_url" => @conn.request_path})
 
 
-    = link gettext("Create article"),\
+    = link gettext("New article"),\
       to: Routes.volunteer_blog_blog_post_path(@conn, :new,  @news),\
-      class: "button float-right"
+      class: "button button-outline float-right"
     br/
     | &nbsp;
 .row
@@ -40,7 +40,7 @@
             .card-content
               i = date(post.date) <> " - " <> post.author
               h4 = post.title
-              = text_to_html(post.teaser)
+              = raw(post.teaser)
             .card-footer.is-button
               .card-footer-item.is-button
                 = gettext("Read More")

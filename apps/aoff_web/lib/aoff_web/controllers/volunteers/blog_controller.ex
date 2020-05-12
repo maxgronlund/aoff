@@ -36,7 +36,7 @@ defmodule AOFFWeb.Volunteer.BlogController do
       render(conn, "show.html", blog: blog)
     else
       conn
-      |> put_flash(:error, gettext("You can only show a category in one language."))
+      |> put_flash(:error, gettext("The category for the selected language does not exist."))
       |> redirect(to: Routes.volunteer_blog_path(conn, :index))
     end
   end
@@ -47,7 +47,7 @@ defmodule AOFFWeb.Volunteer.BlogController do
       render(conn, "edit.html", blog: blog, changeset: changeset)
     else
       conn
-      |> put_flash(:error, gettext("You can only edit a category in one language."))
+      |> put_flash(:error, gettext("The category for the selected language does not exist."))
       |> redirect(to: Routes.volunteer_blog_path(conn, :index))
     end
   end

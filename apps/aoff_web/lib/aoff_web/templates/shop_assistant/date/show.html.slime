@@ -47,44 +47,81 @@
       = link gettext("Show all"), to: Routes.shop_assistant_date_path(@conn, :show, @date), class: "button button-outline"
   .column
 
-table
-  thead
-    tr
-      th = gettext("User")
-      th = gettext("Products")
-      th
-        .float-right = gettext("Pickup state")
-  tbody
-    = for pick_up <- @pick_ups do
-      = if pick_up do
-        tr
-          td
-            b = pick_up.username
-            br
-            = gettext("Member Nr. %{nr}", nr: pick_up.member_nr)
-            br
-            = gettext("Order Nr. %{nr}", nr: pick_up.order.order_nr)
-            br
-            = gettext("Email: %{email}", email: pick_up.user.email)
-            br
-            = gettext("Mobile: %{phone}", phone: pick_up.user.mobile)
-          td
-            = for order_item <- pick_up.order_items do
-              = order_item.product.name
-              br
-          td
-            .float-right
-              = if pick_up.picked_up do
-                = link gettext("Handed"), to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up), class: "button button-outline button-small float-right"
-              - else
-                .button.button-small.pick_up_botton  pick_up_id="#{pick_up.id}"
-                  = gettext("Awaits")
-                .button.button-outline.button-small.hidden id="#{pick_up.id}"
-                  = gettext("Handed")
-                = if pick_up.send_sms_notification do
-                  | &nbsp;
-                  .button.button-small.sms_button.button-outline pick_up_id="#{pick_up.id}" id="sms-#{pick_up.id}"
+= for pick_up <- @pick_ups do
+  .alert.alert-box
+    .row
+      .column
+        b = pick_up.username
+        br/
+        = gettext("Member Nr. %{nr}", nr: pick_up.member_nr)
+        br/
+        = gettext("Email: %{email}", email: pick_up.user.email)
+        br/
+        = gettext("Mobile: %{mobile}", mobile: pick_up.user.mobile)
+      .column
+        = gettext("Order Nr. %{nr}", nr: pick_up.order.order_nr)
+        br
+        b = gettext("Products")
+        br/
+        = for order_item <- pick_up.order_items do
+          = order_item.product.name
+          br
+      .column
 
-                    = gettext("Send Reminder")
+        .float-right
+          = if pick_up.picked_up do
+            = link gettext("Handed"),\
+              to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up),\
+              class: "button button-outline button-small float-right"
+          - else
+            .button.button-small.pick_up_botton  pick_up_id="#{pick_up.id}"
+              = gettext("Awaits")
+            .button.button-outline.button-small.hidden id="#{pick_up.id}"
+              = gettext("Handed")
+            = if pick_up.send_sms_notification do
+              | &nbsp;
+              .button.button-small.sms_button.button-outline pick_up_id="#{pick_up.id}" id="sms-#{pick_up.id}"
+
+                = gettext("Send Reminder")
+
+/ table
+/   thead
+/     tr
+/       th = gettext("User")
+/       th = gettext("Products")
+/       th
+/         .float-right = gettext("Pickup state")
+/   tbody
+/     = for pick_up <- @pick_ups do
+/       = if pick_up do
+/         tr
+/           td
+/             b = pick_up.username
+/             br
+/             = gettext("Member Nr. %{nr}", nr: pick_up.member_nr)
+/             br
+/             = gettext("Order Nr. %{nr}", nr: pick_up.order.order_nr)
+/             br
+/             = gettext("Email: %{email}", email: pick_up.user.email)
+/             br
+/             = gettext("Mobile: %{phone}", phone: pick_up.user.mobile)
+/           td
+/             = for order_item <- pick_up.order_items do
+/               = order_item.product.name
+/               br
+/           td
+             .float-right
+               = if pick_up.picked_up do
+                 = link gettext("Handed"), to: / Routes.shop_assistant_pick_up_path(@conn, :show, pick_up), class: / "button button-outline button-small float-right"
+               - else
+                 .button.button-small.pick_up_botton  pick_up_id="#{pick_up.id}"
+                   = gettext("Awaits")
+                 .button.button-outline.button-small.hidden id="#{pick_up.id}"
+                   = gettext("Handed")
+                 = if pick_up.send_sms_notification do
+                   | &nbsp;
+                   .button.button-small.sms_button.button-outline pick_up_id="#{/ ick_up.id}" id="sms-#{pick_up.id}"
+
+                     = gettext("Send Reminder")
 
 

@@ -57,19 +57,25 @@ defmodule AOFFWeb.Volunteer.BlogPostController do
   end
 
   def edit(conn, %{"blog_id" => blog_id, "id" => id}) do
-    blog_post = Blogs.get_post!(blog_id, id)
-    changeset = Blogs.change_post(blog_post)
+    if blog_post = Blogs.get_post!(blog_id, id) do
+      changeset = Blogs.change_post(blog_post)
 
-    render(
-      conn,
-      "edit.html",
-      blog: blog_post.blog,
-      blog_post: blog_post,
-      changeset: changeset,
-      author: blog_post.author,
-      date: blog_post.date
-    )
+      render(
+        conn,
+        "edit.html",
+        blog: blog_post.blog,
+        blog_post: blog_post,
+        changeset: changeset,
+        author: blog_post.author,
+        date: blog_post.date
+      )
+    else
+    conn
+    |> put_flash(:error, gettext("The category for the selected language does not exist."))
+    |> redirect(to: Routes.volunteer_blog_path(conn, :index))
+    end
   end
+
 
   def update(conn, %{"blog_id" => blog_id, "id" => id, "blog_post" => post_params}) do
     post = Blogs.get_post!(blog_id, id)
