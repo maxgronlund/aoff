@@ -29,9 +29,9 @@
         = error_tag f, :description
     .column
       .form-group
-        /= label f, :this_weeks_content, gettext("This weeks content"), class: "control-label"
-        /= textarea f, :this_weeks_content, style: "height: 150px;" , class: "form-control full-width"
-        /= error_tag f, :this_weeks_content
+        = label f, :this_weeks_content, gettext("This weeks content"), class: "control-label"
+        = textarea f, :this_weeks_content, style: "height: 150px;" , class: "form-control full-width"
+        = error_tag f, :this_weeks_content
   .alert.alert-box
     .tiles
       .column
