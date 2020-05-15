@@ -21,25 +21,25 @@ javascript:
     .column
       .form-group
         = label f, :name, gettext("Meeting name"), class: "control-label"
-        = text_input f, :name, class: "form-control"
+        = text_input f, :name, class: "form-control full-width"
         = error_tag f, :name
       .form-group
         = label f, :location, gettext("Meeting location"), class: "control-label"
-        = textarea f, :location, class: "form-control", style: "height: 118px;"
+        = textarea f, :location, class: "form-control full-width", style: "height: 118px;"
         = error_tag f, :location
     .column
       .form-group
         = label f, :date, gettext("Meeting date"), class: "control-label"
-        = date_select f, :date, class: "form-control"
+        = date_select f, :date, class: "form-control full-width"
         = error_tag f, :date
   .form-group
     = label f, :agenda, gettext("Meeting agenda"), class: "control-label"
-    = textarea f, :agenda, class: "form-control"
+    = textarea f, :agenda, class: "form-control full-width"
     .mt-1
       = error_tag f, :agenda
   .form-group
     = label f, :summary, gettext("Meeting summary"), class: "control-label"
-    = textarea f, :summary, class: "form-control"
+    = textarea f, :summary, class: "form-control full-width"
     = error_tag f, :summary
 
 

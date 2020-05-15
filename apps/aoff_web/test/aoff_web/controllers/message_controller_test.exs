@@ -37,12 +37,12 @@ defmodule AOFFWeb.MessageControllerTest do
 
     test "index lists all messages", %{conn: conn} do
       conn = get(conn, Routes.volunteer_message_path(conn, :index))
-      assert html_response(conn, 200) =~ gettext("Text used on the site")
+      assert html_response(conn, 200) =~ gettext("Messages")
     end
 
     test "edit message renders form for editing chosen message", %{conn: conn} do
       message = message_fixture()
-      conn = get(conn, Routes.volunteer_message_path(conn, :edit, message))
+      conn = get(conn, Routes.volunteer_message_path(conn, :edit, message, %{request_url: "/"}))
 
       assert html_response(conn, 200) =~
                gettext("Edit: %{identifier}-%{locale}",

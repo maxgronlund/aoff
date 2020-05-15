@@ -14,15 +14,15 @@ javascript:
       = img_tag(AOFF.Uploader.Image.url({@blog.image, @blog}, :stamp), class: "image")
       .form-group
         = label f, :image, gettext("Image"), class: "control-label"
-        = file_input f, :image, class: "form-control"
+        = file_input f, :image, class: "form-control full-width"
         = error_tag f, :image
   .form-group
     = label f, :title, gettext("Title"), class: "control-label"
-    = text_input f, :title, class: "form-control"
+    = text_input f, :title, class: "form-control full-width"
     = error_tag f, :title
   .form-group
     = label f, :description, gettext("Description"), class: "control-label"
-    = textarea f, :description, class: "form-control"
+    = textarea f, :description, class: "form-control full-width"
     = error_tag f, :description
     i= gettext("Make the description short. max 32 words")
   .form-group.mt-1

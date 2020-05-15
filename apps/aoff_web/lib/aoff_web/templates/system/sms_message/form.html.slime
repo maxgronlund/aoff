@@ -4,11 +4,11 @@
       p Oops, something went wrong! Please check the errors below.
   .form-group
     = label f, :mobile, class: "control-label"
-    = text_input f, :mobile, class: "form-control"
+    = text_input f, :mobile, class: "form-control full-width"
     = error_tag f, :mobile
   .form-group
     = label f, :text, class: "control-label"
-    = textarea f, :text, class: "form-control"
+    = textarea f, :text, class: "form-control full-width"
     = error_tag f, :text
   .form-group
     = submit "Submit", class: "btn btn-primary"

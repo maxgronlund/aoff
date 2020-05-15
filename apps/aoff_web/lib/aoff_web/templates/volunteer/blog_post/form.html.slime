@@ -15,38 +15,38 @@ javascript:
         .alert.alert-warning
           .form-group
             = label f, :image, gettext("Image"), class: "control-label"
-            = file_input f, :image, class: "form-control"
+            = file_input f, :image, class: "form-control full-width"
             = error_tag f, :image
 
           .form-group
             = label f, :caption, gettext("Image caption"), class: "control-label"
-            = text_input f, :caption, class: "form-control", placeholder: gettext("About the image")
+            = text_input f, :caption, class: "form-control full-width", placeholder: gettext("About the image")
             = error_tag f, :caption
       .form-group
         = label f, :title, gettext("Title"), class: "control-label"
-        = text_input f, :title, class: "form-control"
+        = text_input f, :title, class: "form-control full-width"
         = error_tag f, :title
       .form-group
         = label f, :author, gettext("Author"), class: "control-label"
-        = text_input f, :author, class: "form-control", value: @author
+        = text_input f, :author, class: "form-control full-width", value: @author
         = error_tag f, :author
       .form-group
         = label f, :teaser, gettext("Teaser"), class: "control-label"
         = textarea f, :teaser, \
-          class: "form-control",\
+          class: "form-control full-width",\
           style: "height: 85px;", \
           placeholder: gettext("Short intro")
         = error_tag f, :teaser
     .column
       .form-group
         = label f, :date, gettext("Date"), class: "control-label"
-        = date_select f, :date, class: "form-control", value: @date
+        = date_select f, :date, class: "form-control full-width", value: @date
         = error_tag f, :date
   .row
     .column
       .form-group
         = label f, :text, gettext("Text"), class: "control-label"
-        = textarea f, :text, class: "form-control", style: "height: 175px;"
+        = textarea f, :text, class: "form-control full-width", style: "height: 175px;"
         = error_tag f, :text
   .row
     .column

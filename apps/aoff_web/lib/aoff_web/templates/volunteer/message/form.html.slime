@@ -20,18 +20,18 @@ javascript:
 
   .form-group
     = label f, :title, gettext("Title"), class: "control-label"
-    = text_input f, :title, class: "form-control"
+    = text_input f, :title, class: "form-control full-width"
     = error_tag f, :title
 
   .form-group
     = label f, :text, gettext("Text"), class: "control-label"
-    = textarea f, :text, class: "form-control"
+    = textarea f, :text, class: "form-control full-width"
     = error_tag f, :text
 
 
   .form-group
     = label f, :show do
-      = checkbox f, :show, class: "form-control"
+      = checkbox f, :show, class: "form-controldth"
       = label f, :show, gettext("Show"), class: "control-label label-inline"
 
   .form-group.mt-1

@@ -106,9 +106,9 @@ msgid "Description"
 msgstr "Beskrivelse"
 
 #, elixir-format
-#: lib/aoff_web/templates/user/show.html.slime:8
-#: lib/aoff_web/templates/volunteer/date/form.html.slime:1 lib/aoff_web/templates/volunteer/date/index.html.slime:1
-#: lib/aoff_web/templates/volunteer/date/show.html.slime:1
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:1
+#: lib/aoff_web/templates/user/show.html.slime:8 lib/aoff_web/templates/volunteer/date/form.html.slime:1
+#: lib/aoff_web/templates/volunteer/date/index.html.slime:1 lib/aoff_web/templates/volunteer/date/show.html.slime:1
 msgid "Early shift"
 msgstr "Tidlig butiksvagt"
 
@@ -179,9 +179,9 @@ msgid "Invoices"
 msgstr "Fakturaer"
 
 #, elixir-format
-#: lib/aoff_web/templates/user/show.html.slime:8
-#: lib/aoff_web/templates/volunteer/date/form.html.slime:7 lib/aoff_web/templates/volunteer/date/index.html.slime:1
-#: lib/aoff_web/templates/volunteer/date/show.html.slime:1
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:1
+#: lib/aoff_web/templates/user/show.html.slime:8 lib/aoff_web/templates/volunteer/date/form.html.slime:7
+#: lib/aoff_web/templates/volunteer/date/index.html.slime:1 lib/aoff_web/templates/volunteer/date/show.html.slime:1
 msgid "Late shift"
 msgstr "Sen butiksvagt"
 
@@ -210,10 +210,10 @@ msgid "Member Nr: %{member_nr}"
 msgstr "Medlems Nr: %{member_nr}"
 
 #, elixir-format
-#: lib/aoff_web/templates/user/show.html.slime:4
-#: lib/aoff_web/templates/volunteer/user/show.html.slime:1 lib/aoff_web/views/shop_assistant/date_view.ex:25
-#: lib/aoff_web/views/users/user_view.ex:33 lib/aoff_web/views/volunteer/date_view.ex:21
-#: lib/aoff_web/views/volunteer/user_view.ex:46
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
+#: lib/aoff_web/templates/user/show.html.slime:4 lib/aoff_web/templates/volunteer/user/show.html.slime:1
+#: lib/aoff_web/views/shop_assistant/date_view.ex:25 lib/aoff_web/views/users/user_view.ex:33
+#: lib/aoff_web/views/volunteer/date_view.ex:21 lib/aoff_web/views/volunteer/user_view.ex:46
 msgid "Mobile: %{mobile}"
 msgstr "Telefon: %{mobile}"
 
@@ -278,11 +278,6 @@ msgstr "Afhentnings dato"
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
 msgid "Pickup list: %{date}"
 msgstr "Afhentnings liste: %{date}"
-
-#, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
-msgid "Pickup state"
-msgstr "Status"
 
 #, elixir-format
 #: lib/aoff_web/templates/shop/shop/index.html.slime:1
@@ -587,7 +582,7 @@ msgid "News"
 msgstr "Nyheder"
 
 #, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:6
 msgid "Awaits"
 msgstr "Afventer"
 
@@ -650,16 +645,6 @@ msgid "< Prev"
 msgstr "< Forrige"
 
 #, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:1
-msgid "Hosts early shift"
-msgstr "Værter: Tidlig vagt"
-
-#, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:1
-msgid "Hosts late shift"
-msgstr "Værter: Sen vagt"
-
-#, elixir-format
 #: lib/aoff_web/templates/volunteer/date/pagination.html.slime:3
 msgid "Next >"
 msgstr "Næste >"
@@ -676,7 +661,7 @@ msgstr "Komende dage hvor du er vært"
 
 #, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:6
 msgid "Handed"
 msgstr "Udleveret"
 
@@ -951,7 +936,7 @@ msgstr "Vært √"
 #, elixir-format
 #: lib/aoff_web/templates/purchaser/product/form.html.slime:1
 msgid "Is a membership"
-msgstr "Betal for medlemskab"
+msgstr "Medlemskab"
 
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/date/form.html.slime:1
@@ -1013,14 +998,10 @@ msgstr "Redaktør √"
 
 #, elixir-format
 #: lib/aoff_web/templates/purchaser/date/show.html.slime:3
-#: lib/aoff_web/templates/purchaser/product/index.html.slime:6 lib/aoff_web/templates/volunteer/membership/index.html.slime:6
+#: lib/aoff_web/templates/purchaser/product/form.html.slime:1 lib/aoff_web/templates/purchaser/product/index.html.slime:6
+#: lib/aoff_web/templates/volunteer/membership/index.html.slime:6
 msgid "This weeks content"
 msgstr "Denne uges indhold"
-
-#, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
-msgid "User"
-msgstr "Brugernavn"
 
 #, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:4
@@ -1298,12 +1279,7 @@ msgid "%{title} updated successfully."
 msgstr "Kontoen er blevet opdateret"
 
 #, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
-msgid "Mobile: %{phone}"
-msgstr "Telefon: %{mobile}"
-
-#, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:6
 msgid "Send Reminder"
 msgstr "Send påmindelse"
 
@@ -1335,13 +1311,36 @@ msgstr "Opret Artikel"
 msgid "New opening date"
 msgstr "Opret åbningsdag"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/controllers/volunteers/blog_controller.ex:39
 #: lib/aoff_web/controllers/volunteers/blog_controller.ex:50 lib/aoff_web/controllers/volunteers/blog_post_controller.ex:74
 msgid "The category for the selected language does not exist."
 msgstr "Kategorien for det valget sprog findes ikke."
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/controllers/volunteers/message_controller.ex:39
 msgid "The message for the selected language does not exist."
 msgstr "Kategorien for det valget sprog findes ikke."
+
+#, elixir-format
+#: lib/aoff_web/views/shop_assistant/date_view.ex:33
+#: lib/aoff_web/views/volunteer/date_view.ex:29
+msgid " - %{from} to %{to}"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/error/401_page.html.slime:1
+msgid "Access denied"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/volunteer/date/form.html.slime:1
+#: lib/aoff_web/templates/volunteer/date/form.html.slime:7
+msgid "From"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/volunteer/date/form.html.slime:1
+#: lib/aoff_web/templates/volunteer/date/form.html.slime:7
+msgid "To"
+msgstr ""

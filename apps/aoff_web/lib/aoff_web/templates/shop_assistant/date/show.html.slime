@@ -13,7 +13,8 @@
 .tiles
   .card
     .card-header-title.is-centered
-        = gettext("Hosts early shift")
+        = gettext("Early shift")
+        = shift_time(@date.early_shift_from, @date.early_shift_to)
     .card-content
       = raw shop_assistant(@date.shop_assistant_a)
       br/
@@ -21,7 +22,8 @@
 
   .card
     .card-header-title.is-centered
-        = gettext("Hosts late shift")
+        = gettext("Late shift")
+        = shift_time(@date.late_shift_from, @date.late_shift_to)
     .card-content
       = raw shop_assistant(@date.shop_assistant_c)
       br/
@@ -36,16 +38,22 @@
 .row
   .column
     h3 = gettext("Pickup list: %{date}", date: @date.date)
-.row
-  .column
-    = form_for @conn, Routes.shop_assistant_date_path(@conn, :show, @date), [method: :get], fn f ->
-      = label f, gettext("Search"), class: "control-label"
-      = search_input f, :query, placeholder: gettext("Username / Member Nr. / email")
-      = hidden_input f, :page, value: "1"
-      = submit gettext("Search")
-      | &nbsp;
-      = link gettext("Show all"), to: Routes.shop_assistant_date_path(@conn, :show, @date), class: "button button-outline"
-  .column
+
+= form_for @conn, Routes.shop_assistant_date_path(@conn, :show, @date), [method: :get], fn f ->
+
+    = hidden_input f, :page, value: "1"
+    .row
+      .column
+        = label f, gettext("Search"), class: "control-label"
+        = search_input f, :query, placeholder: gettext("Username / Member Nr. / email"), class: "full-width"
+      .column
+    .row
+      .column
+        .float-right
+          = link gettext("Show all"), to: Routes.shop_assistant_date_path(@conn, :show, @date), class: "button button-outline"
+          | &nbsp;
+          = submit gettext("Search")
+      .column
 
 = for pick_up <- @pick_ups do
   .alert.alert-box
@@ -66,6 +74,7 @@
         = for order_item <- pick_up.order_items do
           = order_item.product.name
           br
+    .row
       .column
 
         .float-right

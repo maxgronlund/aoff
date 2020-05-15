@@ -22,12 +22,14 @@ h2 = @user.username
     br/
     = gettext("Mobile: %{mobile}", mobile: @user.mobile)
   .column
+    strong = gettext("Member Nr: %{member_nr}", member_nr: @user.member_nr)
+    br
+
     = if @valid_member do
       = gettext("Valid to: %{expiration_date}", expiration_date: date(@user.expiration_date ))
     - else
       .red
         = gettext("Inactive")
-    strong = gettext("Member Nr: %{member_nr}", member_nr: @user.member_nr)
     br
     = gettext("Member since %{date}", date: date(@user.registration_date))
     hr

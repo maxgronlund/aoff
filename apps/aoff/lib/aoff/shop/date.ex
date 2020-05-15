@@ -13,6 +13,10 @@ defmodule AOFF.Shop.Date do
     field :last_order_date, :date
     field :image, Image.Type
     field :open, :boolean, default: true
+    field :early_shift_from, :time, default: ~T[15:15:00]
+    field :early_shift_to, :time, default: ~T[17:15:00]
+    field :late_shift_from, :time, default: ~T[17:00:00]
+    field :late_shift_to, :time, default: ~T[18:00:00]
     field :shop_assistant_a, :binary
     field :shop_assistant_b, :binary
     field :shop_assistant_c, :binary
@@ -29,6 +33,10 @@ defmodule AOFF.Shop.Date do
       :date,
       :last_order_date,
       :open,
+      :early_shift_from,
+      :early_shift_to,
+      :late_shift_from,
+      :late_shift_to,
       :shop_assistant_a,
       :shop_assistant_b,
       :shop_assistant_c,
@@ -51,7 +59,8 @@ defmodule AOFF.Shop.Date do
               AOFF.Shop.create_date(%{
                 "date" => date,
                 "last_order_date" => Date.add(date, -4),
-                "open" => true
+                "open" => true,
+                "early_shift_from" => ~T[15:00:00]
               })
             end
           end

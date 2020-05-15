@@ -1,5 +1,5 @@
 .row
   .column
     .white-text.mt-4.is-center
-      h1 404
-      = gettext("Not found")
+      h1 401
+      = gettext("Access denied")

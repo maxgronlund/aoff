@@ -5,7 +5,7 @@
 
   .form-group
     = label f, :email, class: "control-label"
-    = email_input f, :email, class: "form-control"
+    = email_input f, :email, class: "form-control full-width"
     = error_tag f, :email
 
 

@@ -28,4 +28,12 @@ defmodule AOFFWeb.ShopAssistant.DateView do
         @not_found
     end
   end
+
+  def shift_time(from_time, to_time) do
+    gettext(
+      " - %{from} to %{to}",
+      from: AOFF.Time.time_as_string(from_time),
+      to: AOFF.Time.time_as_string(to_time)
+    )
+  end
 end

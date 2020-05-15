@@ -6,6 +6,7 @@
       = label f, "Search", class: "control-label"
       = search_input f, :query, placeholder: gettext("Username / Member Nr. / email")
       = hidden_input f, :page, value: "1"
+      | &nbsp;
       = submit gettext("Search")
       | &nbsp;
       = link gettext("Show all"), to: Routes.admin_user_path(@conn, :index), class: "button button-outline"

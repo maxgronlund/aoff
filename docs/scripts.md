@@ -44,3 +44,6 @@ mix phx.gen.html.slime Committees Meeting meetings name:string description:text 
 mix phx.gen.html.slime Committees Member members role:string  committee_id:references:committee user_id:references:user
 
 mix phx.gen.html.slime System SMSMessage sms_messages sms:string  text:text user_id:references:user
+
+mix ecto.gen.migration add_times_to_shifts
+

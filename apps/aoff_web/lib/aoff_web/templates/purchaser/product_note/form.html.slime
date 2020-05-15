@@ -15,7 +15,7 @@
 
       .column
         .form-group
-          = textarea f, :this_weeks_content, style: "height: 300px;" , class: "form-control"
+          = textarea f, :this_weeks_content, style: "height: 300px;" , class: "form-control full-width"
           = error_tag f, :this_weeks_content
   .alert.alert-box
     .row
@@ -28,7 +28,7 @@
       .column
         .form-group
 
-          = textarea f, :notes, style: "height: 300px;" , class: "form-control"
+          = textarea f, :notes, style: "height: 300px;" , class: "form-control full-width"
           = error_tag f, :notes
 
   .row

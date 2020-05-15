@@ -1,5 +1,6 @@
 defmodule AOFFWeb.CommitteeChannel do
-  use AOFFWeb, :channel
+  # use AOFFWeb, :channel
+  use Phoenix.Channel
 
   alias AOFF.Chats
 

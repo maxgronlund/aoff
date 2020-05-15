@@ -31,7 +31,8 @@ input[type='password'],
 input[type='search'],
 input[type='tel'],
 input[type='text'],
-input[type='url'],
+input[type='url'],,
+input[type='time'],
 textarea,
 select {
   background-color: white;
@@ -63,7 +64,11 @@ select {
 
  }
 
-.button.button-outline, button.button-outline, input[type='button'].button-outline, input[type='reset'].button-outline, input[type='submit'].button-outline {
+.button.button-outline,
+button.button-outline,
+input[type='button'].button-outline,
+input[type='reset'].button-outline,
+input[type='submit'].button-outline {
   background-color: #FFF;
   color: #007A4B;
 }
@@ -232,8 +237,17 @@ hr {
     margin: 0.5rem 0 1.0rem;
 }
 
-input[type='email'], input[type='number'], input[type='password'], input[type='search'], input[type='tel'], input[type='text'], input[type='url'], textarea, select {
-    font-size: 1em;
+input[type='email'],
+input[type='number'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='text'],
+input[type='url'],
+input[type='time'],
+textarea,
+select {
+    font-size: 1.0em;
 }
 
 /* ------------------------------------------
@@ -255,7 +269,8 @@ header*/
   background: #222;
 }
 
-.nav-collapse a:active, .nav-collapse .active a {
+.nav-collapse a:active,
+.nav-collapse .active a {
   background: #555;
 }
 
@@ -692,10 +707,18 @@ html, body {
   font-size: 0.9em;
 }
 
+.is-center {
+  text-align: center;
+}
+
 .inline {
   display: inline-block;
 }
 
 .hidden {
   display: none;
+}
+
+.full-width {
+  width: 100%;
 }

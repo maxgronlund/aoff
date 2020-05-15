@@ -34,12 +34,14 @@
               = gettext("%{date} - closed", date: date(date.date))
         .card-content
           b = gettext("Early shift")
+          = shift_time(date.early_shift_from, date.early_shift_to)
           br/ = raw shop_assistant(date.shop_assistant_a)
           br/
           = raw shop_assistant(date.shop_assistant_b)
           hr
 
           b = gettext("Late shift")
+          = shift_time(date.late_shift_from, date.late_shift_to)
           br/ = raw shop_assistant(date.shop_assistant_c)
           br/
           = raw shop_assistant(date.shop_assistant_d)

@@ -78,6 +78,10 @@ heroku run "POOL_SIZE=2 mix ecto.migrate"
 Run phoenix from the console
 ```
 heroku run "POOL_SIZE=2 iex -S mix"
+```
+
+## NOTICE
+- The landing page will chrash if there are no dates in the DB
 
  ## Deploy
 ```

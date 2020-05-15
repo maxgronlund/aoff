@@ -52,7 +52,8 @@ defmodule AOFF.MixProject do
       {:poison, "~> 3.1"},
       {:sweet_xml, "~> 0.6"},
       {:puid, "~> 1.0"},
-      {:tzdata, "~> 1.0.3"}
+      {:tzdata, "~> 1.0.3"},
+      {:timex, "~> 3.5"}
     ]
   end
 

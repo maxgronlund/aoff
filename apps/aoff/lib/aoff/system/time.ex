@@ -1,5 +1,6 @@
 defmodule AOFF.Time do
 
+  use Timex
   def now_as_string() do
     {:ok, time_now} =
       now()
@@ -29,4 +30,11 @@ defmodule AOFF.Time do
       date |> AOFFWeb.Cldr.Date.to_string(locale: "da")
     date
   end
+
+  def time_as_string(time) do
+    {:ok, time} = Timex.format(time, "{h24}:{0m}")
+    time
+  end
+
+
 end

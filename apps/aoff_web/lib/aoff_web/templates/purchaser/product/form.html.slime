@@ -6,25 +6,32 @@
   .row
     .column
       = if @product do
-
         .form-group
           = label f, :image, class: "control-label"
-          = file_input f, :image, class: "form-control"
+          = file_input f, :image, class: "form-control full-width"
           = error_tag f, :image
   .row
     .column
       .form-group
         = label f, :name, gettext("Product name"), class: "control-label"
-        = text_input f, :name, class: "form-control"
+        = text_input f, :name, class: "form-control full-width"
         = error_tag f, :name
+    .column
       .form-group
         = label f, gettext("Price"), class: "control-label"
-        = number_input f, :price, class: "form-control", min: "0", step: "0.5", value: @amount
+        = number_input f, :price, class: "form-control full-width", min: "0", step: "0.5", value: @amount
         = error_tag f, :price
+  .row
+    .column
       .form-group
         = label f, :description, gettext("Description"), class: "control-label"
-        = textarea f, :description, style: "height: 150px;" , class: "form-control"
+        = textarea f, :description, style: "height: 150px;" , class: "form-control full-width"
         = error_tag f, :description
+    .column
+      .form-group
+        /= label f, :this_weeks_content, gettext("This weeks content"), class: "control-label"
+        /= textarea f, :this_weeks_content, style: "height: 150px;" , class: "form-control full-width"
+        /= error_tag f, :this_weeks_content
   .alert.alert-box
     .tiles
       .column

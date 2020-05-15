@@ -105,9 +105,9 @@ msgid "Description"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/user/show.html.slime:8
-#: lib/aoff_web/templates/volunteer/date/form.html.slime:1 lib/aoff_web/templates/volunteer/date/index.html.slime:1
-#: lib/aoff_web/templates/volunteer/date/show.html.slime:1
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:1
+#: lib/aoff_web/templates/user/show.html.slime:8 lib/aoff_web/templates/volunteer/date/form.html.slime:1
+#: lib/aoff_web/templates/volunteer/date/index.html.slime:1 lib/aoff_web/templates/volunteer/date/show.html.slime:1
 msgid "Early shift"
 msgstr ""
 
@@ -178,9 +178,9 @@ msgid "Invoices"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/user/show.html.slime:8
-#: lib/aoff_web/templates/volunteer/date/form.html.slime:7 lib/aoff_web/templates/volunteer/date/index.html.slime:1
-#: lib/aoff_web/templates/volunteer/date/show.html.slime:1
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:1
+#: lib/aoff_web/templates/user/show.html.slime:8 lib/aoff_web/templates/volunteer/date/form.html.slime:7
+#: lib/aoff_web/templates/volunteer/date/index.html.slime:1 lib/aoff_web/templates/volunteer/date/show.html.slime:1
 msgid "Late shift"
 msgstr ""
 
@@ -209,10 +209,10 @@ msgid "Member Nr: %{member_nr}"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/user/show.html.slime:4
-#: lib/aoff_web/templates/volunteer/user/show.html.slime:1 lib/aoff_web/views/shop_assistant/date_view.ex:25
-#: lib/aoff_web/views/users/user_view.ex:33 lib/aoff_web/views/volunteer/date_view.ex:21
-#: lib/aoff_web/views/volunteer/user_view.ex:46
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
+#: lib/aoff_web/templates/user/show.html.slime:4 lib/aoff_web/templates/volunteer/user/show.html.slime:1
+#: lib/aoff_web/views/shop_assistant/date_view.ex:25 lib/aoff_web/views/users/user_view.ex:33
+#: lib/aoff_web/views/volunteer/date_view.ex:21 lib/aoff_web/views/volunteer/user_view.ex:46
 msgid "Mobile: %{mobile}"
 msgstr ""
 
@@ -276,11 +276,6 @@ msgstr ""
 #, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
 msgid "Pickup list: %{date}"
-msgstr ""
-
-#, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
-msgid "Pickup state"
 msgstr ""
 
 #, elixir-format
@@ -586,7 +581,7 @@ msgid "News"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:6
 msgid "Awaits"
 msgstr ""
 
@@ -649,16 +644,6 @@ msgid "< Prev"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:1
-msgid "Hosts early shift"
-msgstr ""
-
-#, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:1
-msgid "Hosts late shift"
-msgstr ""
-
-#, elixir-format
 #: lib/aoff_web/templates/volunteer/date/pagination.html.slime:3
 msgid "Next >"
 msgstr ""
@@ -675,7 +660,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:6
 msgid "Handed"
 msgstr ""
 
@@ -950,7 +935,7 @@ msgstr ""
 #, elixir-format
 #: lib/aoff_web/templates/purchaser/product/form.html.slime:1
 msgid "Is a membership"
-msgstr ""
+msgstr "Medlemskab"
 
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/date/form.html.slime:1
@@ -1012,13 +997,9 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/templates/purchaser/date/show.html.slime:3
-#: lib/aoff_web/templates/purchaser/product/index.html.slime:6 lib/aoff_web/templates/volunteer/membership/index.html.slime:6
+#: lib/aoff_web/templates/purchaser/product/form.html.slime:1 lib/aoff_web/templates/purchaser/product/index.html.slime:6
+#: lib/aoff_web/templates/volunteer/membership/index.html.slime:6
 msgid "This weeks content"
-msgstr ""
-
-#, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
-msgid "User"
 msgstr ""
 
 #, elixir-format
@@ -1297,12 +1278,7 @@ msgid "%{title} updated successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
-msgid "Mobile: %{phone}"
-msgstr ""
-
-#, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:4
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:6
 msgid "Send Reminder"
 msgstr ""
 
@@ -1343,4 +1319,27 @@ msgstr ""
 #, elixir-format
 #: lib/aoff_web/controllers/volunteers/message_controller.ex:39
 msgid "The message for the selected language does not exist."
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/views/shop_assistant/date_view.ex:33
+#: lib/aoff_web/views/volunteer/date_view.ex:29
+msgid " - %{from} to %{to}"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/error/401_page.html.slime:1
+msgid "Access denied"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/volunteer/date/form.html.slime:1
+#: lib/aoff_web/templates/volunteer/date/form.html.slime:7
+msgid "From"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/volunteer/date/form.html.slime:1
+#: lib/aoff_web/templates/volunteer/date/form.html.slime:7
+msgid "To"
 msgstr ""

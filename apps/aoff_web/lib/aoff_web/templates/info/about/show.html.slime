@@ -3,12 +3,10 @@
     li
       = link gettext("About AOFF"), to: Routes.info_path(@conn, :index)
     li
-      = link @blog.title, to: Routes.news_path(@conn, :index)
+      = link @blog.title, to: Routes.info_path(@conn, :show, @blog)
     li.is-active
       | &nbsp;
       = @post.title
-
-
 
 .row
   .column

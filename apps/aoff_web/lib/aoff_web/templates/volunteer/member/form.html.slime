@@ -4,14 +4,14 @@
       p Oops, something went wrong! Please check the errors below.
   .form-group
     = label f, :role, class: "control-label"
-    = text_input f, :role, class: "form-control"
+    = text_input f, :role, class: "form-control full-width"
     = error_tag f, :role
   .form-group
     = label f, :user_id, gettext("members"), class: "control-label"
     = select f, :user_id, \
       @users,\
       prompt: gettext("select committee member"),\
-      class: "form-control"
+      class: "form-control full-width"
   .form-group
     = hidden_input f, :committee_id, value: @committee.id
     = submit "Submit", class: "btn btn-primary"
