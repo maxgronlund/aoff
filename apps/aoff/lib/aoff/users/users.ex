@@ -288,6 +288,7 @@ defmodule AOFF.Users do
     cond do
       String.starts_with?(user.password_hash, "$pbkdf2") -> Pbkdf2
       String.starts_with?(user.password_hash, "$druapl7") -> Drupal7PasswordHash
+      true -> false
     end
   end
 
