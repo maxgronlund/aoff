@@ -43,6 +43,7 @@ defmodule AOFF.MixProject do
       {:comeonin, "~> 5.1.2"},
       {:bcrypt_elixir, "~> 2.0"},
       {:pbkdf2_elixir, "~> 1.0"},
+      {:drupal7_password_hash, ">= 0.1.0"},
       {:money, "~> 1.4"},
       {:arc, "~> 0.11.0"},
       {:arc_ecto, "~> 0.11.1"},
