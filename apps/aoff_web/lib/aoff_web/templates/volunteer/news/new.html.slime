@@ -1,4 +1,4 @@
-h2 New News
+h2 = gettext("New News")
 
 = render "form.html", Map.put(assigns, :action, Routes.volunteer_news_path(@conn, :create))
 

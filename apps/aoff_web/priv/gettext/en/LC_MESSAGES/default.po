@@ -1345,17 +1345,17 @@ msgstr ""
 msgid "Listing News"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/controllers/volunteers/message_controller.ex:47
 msgid "Message updated successfully."
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/volunteer/page/new.html.slime:1
 msgid "New Page"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/controllers/volunteers/news_controller.ex:30
 msgid "News created successfully."
 msgstr ""
@@ -1365,7 +1365,17 @@ msgstr ""
 msgid "Not found"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/controllers/volunteers/page_controller.ex:93
 msgid "Page updated successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/volunteer/news/edit.html.slime:1
+msgid "Edit News"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/volunteer/news/new.html.slime:1
+msgid "New News"
 msgstr ""

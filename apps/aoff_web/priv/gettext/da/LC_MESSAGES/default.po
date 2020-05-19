@@ -1305,7 +1305,7 @@ msgstr "Kategorien for det valget sprog findes ikke."
 #, elixir-format
 #: lib/aoff_web/controllers/volunteers/message_controller.ex:37
 msgid "The message for the selected language does not exist."
-msgstr "Kategorien for det valget sprog findes ikke."
+msgstr "Beskeden for det valget sprog findes ikke."
 
 #, elixir-format
 #: lib/aoff_web/views/shop_assistant/date_view.ex:33
@@ -1345,17 +1345,17 @@ msgstr "Intern serverfejl"
 msgid "Listing News"
 msgstr "Nyheder"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/controllers/volunteers/message_controller.ex:47
 msgid "Message updated successfully."
-msgstr "Kontoen er slettet"
+msgstr "Beskeden er opdateret"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/volunteer/page/new.html.slime:1
 msgid "New Page"
-msgstr "Opret Dato"
+msgstr "Opret side"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/controllers/volunteers/news_controller.ex:30
 msgid "News created successfully."
 msgstr "Kontoen er slettet"
@@ -1365,7 +1365,17 @@ msgstr "Kontoen er slettet"
 msgid "Not found"
 msgstr "Siden findes ikke"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/controllers/volunteers/page_controller.ex:93
 msgid "Page updated successfully."
 msgstr "Siden er blevet opdateret"
+
+#, elixir-format
+#: lib/aoff_web/templates/volunteer/news/edit.html.slime:1
+msgid "Edit News"
+msgstr "Rediger nyhed"
+
+#, elixir-format
+#: lib/aoff_web/templates/volunteer/news/new.html.slime:1
+msgid "New News"
+msgstr ""
