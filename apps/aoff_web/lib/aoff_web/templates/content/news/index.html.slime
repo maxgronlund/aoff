@@ -21,7 +21,7 @@ br
         .card-content
           b = date(news.date)
           br/
-          = raw news.teaser
+          = text_to_html news.teaser
 
         .card-footer.is-button
           .card-footer-item.is-button

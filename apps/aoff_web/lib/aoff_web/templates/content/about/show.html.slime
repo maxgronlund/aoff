@@ -34,7 +34,7 @@ hr
           img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({post.image, post}, :thumb)}"
         .card-content
           h4 = post.title
-          p = post.teaser
+          = text_to_html post.teaser
         .card-footer.is-button
           .card-footer-item.is-button
             = gettext("Show")

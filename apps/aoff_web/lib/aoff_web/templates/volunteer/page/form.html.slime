@@ -1,6 +1,6 @@
 javascript:
   tinymce.init({
-    selector: '#category_post_text',
+    selector: '#page_text',
     menubar: false,
     height : 300
   });
