@@ -1,6 +1,6 @@
 javascript:
   tinymce.init({
-    selector: '#blog_post_text',
+    selector: '#category_post_text',
     menubar: false,
     height : 300
   });
@@ -10,7 +10,7 @@ javascript:
     .alert.alert-danger
       p= gettext("Oops, something went wrong! Please check the errors below.")
 
-  = if @blog_post do
+  = if @page do
     .alert.alert-success
       .row
         .column
@@ -75,7 +75,7 @@ javascript:
       .form-group
         .float-right
           /= link gettext("Cancel"),\
-          /  to: Routes.volunteer_blog_path(@conn, :show, @blog),\
+          /  to: Routes.volunteer_category_path(@conn, :show, @category),\
           /  class: "button button-outline"
           /| &nbsp;
           = submit gettext("Save"), class: "btn btn-primary"

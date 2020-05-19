@@ -50,7 +50,7 @@ defmodule AOFF.Content.PageFixture do
     {:ok, post} =
       attrs
       |> Enum.into(@create_attrs)
-      |> Map.put("blog_id", category_id)
+      |> Map.put("category_id", category_id)
       |> Content.create_page()
 
     post

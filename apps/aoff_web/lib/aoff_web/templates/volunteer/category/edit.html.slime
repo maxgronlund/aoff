@@ -12,5 +12,5 @@
 
 h2 = gettext("Edit Category")
 
-= render "form.html", Map.put(assigns, :action, Routes.volunteer_category_path(@conn, :update, @blog))
+= render "form.html", Map.put(assigns, :action, Routes.volunteer_category_path(@conn, :update, @category))
 

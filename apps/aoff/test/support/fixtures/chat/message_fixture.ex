@@ -1,5 +1,5 @@
 defmodule AOFF.Chat.MessageFixture do
-  alias AOFF.Chat.Message
+
 
   @valid_attrs %{
     "body" => "some body",

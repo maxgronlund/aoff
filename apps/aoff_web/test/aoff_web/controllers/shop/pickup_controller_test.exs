@@ -1,7 +1,7 @@
 defmodule AOFFWeb.PickupControllerTest do
   use AOFFWeb.ConnCase
 
-  alias AOFF.Shop
+  # alias AOFF.Shop
 
   # @create_attrs %{picked_up: true}
   # @update_attrs %{picked_up: false}

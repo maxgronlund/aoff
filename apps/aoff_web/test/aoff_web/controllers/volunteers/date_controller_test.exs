@@ -30,7 +30,7 @@ defmodule AOFFWeb.Volunteer.DateControllerTest do
 
     test "lists all dates", %{conn: conn} do
       conn = get(conn, Routes.volunteer_date_path(conn, :index))
-      assert html_response(conn, 200) =~ gettext("Schedules")
+      assert html_response(conn, 200) =~ gettext("Opening dates")
     end
 
     test "renders form", %{conn: conn} do

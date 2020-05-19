@@ -2,12 +2,6 @@ defmodule AOFFWeb.Content.PageControllerTest do
   use AOFFWeb.ConnCase
   import AOFF.Content.PageFixture
   import AOFF.Content.CategoryFixture
-  # import AOFF.Blogs.CategoryFixture
-  # import AOFF.Content.NewsFixture
-
-  # alias AOFF.Volunteer
-
-  alias AOFF.System
 
   describe "guest" do
     test "show page", %{conn: conn} do

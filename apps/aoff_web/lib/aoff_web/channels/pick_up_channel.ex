@@ -15,7 +15,6 @@ defmodule AOFFWeb.PickUpChannel do
     {:reply, {:ok, payload}, socket}
   end
 
-  alias AOFF.Users
   alias AOFF.Shop
 
   def handle_in("handled", payload, socket) do

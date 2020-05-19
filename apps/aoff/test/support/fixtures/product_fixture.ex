@@ -15,7 +15,6 @@ defmodule AOFF.Shop.ProductFixture do
     "name" => "some updated name",
     "price" => Money.new(45, :DKK),
     "for_sale" => false,
-    "membership" => true,
     "show_on_landing_page" => false
   }
 

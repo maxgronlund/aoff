@@ -1,5 +1,5 @@
 defmodule AOFF.System.MessageFixture do
-  alias AOFF.System.Message
+
 
   @valid_attrs %{
     "text" => "some text",

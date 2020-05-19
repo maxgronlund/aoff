@@ -37,7 +37,7 @@ defmodule AOFFWeb.Volunteer.NewsController do
           changeset: changeset,
           date: news_params["date"],
           author: news_params["author"],
-          image_format: image_format,
+          image_format: image_format(),
           news: false
         )
     end
@@ -53,7 +53,7 @@ defmodule AOFFWeb.Volunteer.NewsController do
       changeset: changeset,
       date: news.date,
       author: news.author,
-      image_format: image_format
+      image_format: image_format()
     )
   end
 
@@ -73,7 +73,7 @@ defmodule AOFFWeb.Volunteer.NewsController do
           changeset: changeset,
           date: news_params["date"],
           author: news_params["author"],
-          image_format: image_format
+          image_format: image_format()
         )
     end
   end
@@ -106,7 +106,7 @@ defmodule AOFFWeb.Volunteer.NewsController do
   defp image_format() do
     {:ok, message} =
       System.find_or_create_message(
-        "/volunteer/blogs/:id/edit",
+        "/volunteer/category/:id/edit",
         "Image format",
         Gettext.get_locale()
       )

@@ -27,7 +27,7 @@
 hr
 
 .tiles.button-tiles
-  = for post <- @category.blog_posts do
+  = for post <- @category.pages do
     .card.is-shady
       = link to: Routes.about_page_path(@conn, :show, @category, post) do
         .card-image

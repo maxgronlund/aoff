@@ -10,6 +10,6 @@
 
 h2= gettext("New Page")
 
-= render "form.html", Map.put(assigns, :action, Routes.volunteer_category_page_path(@conn, :create, @blog))
+= render "form.html", Map.put(assigns, :action, Routes.volunteer_category_page_path(@conn, :create, @category))
 
 / = link "Back", to: Routes.post_path(@conn, :index)

@@ -1,8 +1,8 @@
 defmodule AOFFWeb.Volunteer.CategoryController do
   use AOFFWeb, :controller
 
-  # alias AOFF.Blogs
-  alias AOFF.Blogs.Blog
+
+  alias AOFF.Content.Category
   alias AOFF.Content
 
   alias AOFFWeb.Users.Auth
@@ -16,7 +16,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
   def index(conn, _params) do
     {:ok, help_text} =
       System.find_or_create_message(
-        "/volunteer/blogs",
+        "/volunteer/categories",
         "Categories",
         Gettext.get_locale()
       )
@@ -26,40 +26,40 @@ defmodule AOFFWeb.Volunteer.CategoryController do
   end
 
   def new(conn, _params) do
-    changeset = Content.change_category(%Blog{})
-    render(conn, "new.html", changeset: changeset, blog: false)
+    changeset = Content.change_category(%Category{})
+    render(conn, "new.html", changeset: changeset, category: false)
   end
 
-  def create(conn, %{"blog" => blog_params}) do
-    case Content.create_category(blog_params) do
+  def create(conn, %{"category" => category_params}) do
+    case Content.create_category(category_params) do
       {:ok, category} ->
         conn
         |> put_flash(:info, gettext("Please update the default image."))
         |> redirect(to: Routes.volunteer_category_path(conn, :edit, category))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset, blog: false)
+        render(conn, "new.html", changeset: changeset, category: false)
     end
   end
 
   def show(conn, %{"id" => id}) do
-    if blog = Blogs.get_blog!(id) do
-      render(conn, "show.html", blog: blog)
+    if category = Content.get_category!(id) do
+      render(conn, "show.html", category: category)
     else
       conn
       |> put_flash(:error, gettext("The category for the selected language does not exist."))
-      |> redirect(to: Routes.volunteer_blog_path(conn, :index))
+      |> redirect(to: Routes.volunteer_category_path(conn, :index))
     end
   end
 
   def edit(conn, %{"id" => id}) do
-    if blog = Content.get_category!(id) do
-      changeset = Content.change_category(blog)
+    if category = Content.get_category!(id) do
+      changeset = Content.change_category(category)
 
       render(
         conn,
         "edit.html",
-        blog: blog,
+        category: category,
         changeset: changeset,
         image_format: image_format()
       )
@@ -70,11 +70,11 @@ defmodule AOFFWeb.Volunteer.CategoryController do
     end
   end
 
-  def update(conn, %{"id" => id, "blog" => blog_params}) do
-    blog = Content.get_category!(id)
+  def update(conn, %{"id" => id, "category" => category_params}) do
+    category = Content.get_category!(id)
 
-    case Content.update_category(blog, blog_params) do
-      {:ok, blog} ->
+    case Content.update_category(category, category_params) do
+      {:ok, _category} ->
         conn
         |> put_flash(:info, gettext("Category updated successfully."))
         |> redirect(to: Routes.volunteer_category_path(conn, :index))
@@ -83,7 +83,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
         render(
           conn,
           "edit.html",
-          blog: blog,
+          category: category,
           changeset: changeset,
           image_format: image_format()
         )
@@ -91,8 +91,8 @@ defmodule AOFFWeb.Volunteer.CategoryController do
   end
 
   def delete(conn, %{"id" => id}) do
-    blog = Content.get_category!(id)
-    {:ok, _blog} = Content.delete_category(blog)
+    category = Content.get_category!(id)
+    {:ok, _category} = Content.delete_category(category)
 
     conn
     |> put_flash(:info, "Category deleted successfully.")
@@ -130,7 +130,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
   defp image_format() do
     {:ok, message} =
       System.find_or_create_message(
-        "/volunteer/blogs/:id/edit",
+        "/volunteer/categorys/:id/edit",
         "Image format",
         Gettext.get_locale()
       )

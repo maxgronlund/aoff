@@ -4,7 +4,6 @@ defmodule AOFFWeb.System.SMSMessageControllerTest do
   import AOFF.System.SMSMessageFixture
   import AOFF.Users.UserFixture
 
-  alias AOFF.System
   alias Plug.Conn
 
   describe "sms_messages" do
@@ -33,7 +32,7 @@ defmodule AOFFWeb.System.SMSMessageControllerTest do
       assert html_response(conn, 200) =~ "Listing Sms messages"
     end
 
-    test "new sms_message renders form", %{conn: conn, user: user} do
+    test "new sms_message renders form", %{conn: conn} do
       conn = get(conn, Routes.system_sms_message_path(conn, :new))
       assert html_response(conn, 200) =~ "New Sms message"
     end

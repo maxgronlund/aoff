@@ -3,7 +3,7 @@ defmodule AOFF.CategoryTest do
   import AOFF.Content.CategoryFixture
   alias AOFF.Content
 
-  alias AOFF.Blogs.Blog
+  alias AOFF.Content.Category
 
   describe "categories" do
     test "list_categories/1 returns all categories" do
@@ -18,7 +18,7 @@ defmodule AOFF.CategoryTest do
 
     test "create_category/1 with valid data creates a category" do
       attrs = create_category_attrs()
-      assert {:ok, %Blog{} = category} = Content.create_category(attrs)
+      assert {:ok, %Category{} = category} = Content.create_category(attrs)
       assert category.description == attrs["description"]
       assert category.title == attrs["title"]
     end
@@ -31,7 +31,7 @@ defmodule AOFF.CategoryTest do
     test "update_category/2 with valid data updates the category" do
       category = category_fixture()
       attrs = update_category_attrs()
-      assert {:ok, %Blog{} = category} = Content.update_category(category, attrs)
+      assert {:ok, %Category{} = category} = Content.update_category(category, attrs)
       assert category.description == attrs["description"]
       assert category.title == attrs["title"]
     end
@@ -45,13 +45,13 @@ defmodule AOFF.CategoryTest do
 
     test "delete_category/1 deletes the category" do
       category = category_fixture()
-      assert {:ok, %Blog{}} = Content.delete_category(category)
+      assert {:ok, %Category{}} = Content.delete_category(category)
       assert Content.get_category!(category.title) == nil
     end
 
     # test "change_category/1 returns a category changeset" do
     #   category = category_fixture()
-    #   assert %Ecto.Changeset{} = Blogs.change_category(category)
+    #   assert %Ecto.Changeset{} = Categorys.change_category(category)
     # end
   end
 

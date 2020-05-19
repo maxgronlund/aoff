@@ -3,7 +3,7 @@ defmodule AOFFWeb.Volunteers.NewsControllerTest do
   import AOFF.Content.NewsFixture
   import AOFF.Users.UserFixture
 
-  alias AOFF.Volunteer
+
   alias Plug.Conn
 
   describe "volunteer" do

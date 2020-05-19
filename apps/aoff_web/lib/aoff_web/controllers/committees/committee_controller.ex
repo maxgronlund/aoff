@@ -2,7 +2,6 @@ defmodule AOFFWeb.Committees.CommitteeController do
   use AOFFWeb, :controller
 
   alias AOFF.Committees
-  alias AOFF.Committees.Committee
   alias AOFF.Chats
   alias AOFF.System
 
@@ -17,21 +16,29 @@ defmodule AOFFWeb.Committees.CommitteeController do
   end
 
   def show(conn, %{"id" => id}) do
-    committee = Committees.get_committee!(id)
-    conn = assign(conn, :page, :about_aoff)
-    messages = Chats.list_messages(id)
 
-    {:ok, committees_text} =
-      System.find_or_create_message(
-        "/info - committees",
-        "Committees",
-        Gettext.get_locale()
+    if committee = Committees.get_committee!(id) do
+      conn = assign(conn, :page, :about_aoff)
+      messages = Chats.list_messages(id)
+
+      {:ok, committees_text} =
+        System.find_or_create_message(
+          "/info - committees",
+          "Committees",
+          Gettext.get_locale()
+        )
+
+      render(conn, "show.html",
+        committee: committee,
+        messages: messages,
+        committees_text: committees_text
       )
-
-    render(conn, "show.html",
-      committee: committee,
-      messages: messages,
-      committees_text: committees_text
-    )
+    else
+      conn
+      |> put_status(404)
+      |> put_view(AOFFWeb.ErrorView)
+      |> render(:"404")
+      |> halt()
+    end
   end
 end

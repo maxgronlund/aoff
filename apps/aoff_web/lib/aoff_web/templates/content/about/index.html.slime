@@ -10,16 +10,16 @@ h2 = @message.title
 br
 .tiles.button-tiles
 
-  = for blog <- @blogs do
+  = for category <- @categories do
     .card.is-shady
-      = link to: Routes.about_path(@conn, :show, blog) do
+      = link to: Routes.about_path(@conn, :show, category) do
         .card-header
           .card-header-title.is-centered
-            = blog.title
+            = category.title
         .card-image
-          img.modal-button alt=("#{blog.title}") src="#{ AOFF.Uploader.Image.url({blog.image, blog}, :original)}"
+          img.modal-button alt=("#{category.title}") src="#{ AOFF.Uploader.Image.url({category.image, category}, :original)}"
         .card-content
-          = raw blog.description
+          = raw category.description
 
         .card-footer.is-button
           .card-footer-item.is-button

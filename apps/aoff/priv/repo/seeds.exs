@@ -10,20 +10,20 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-alias AOFF.Blogs
+alias AOFF.Content
 
-# {:ok, blog} =
-#   Blogs.create_blog(%{
-#     "title" => "Nyheder",
+# {:ok, category} =
+#   Content.create_category(%{
+#     "title" => "Default",
 #     "description" => "some description",
-#     "identifier" => "news"
+#     "identifier" => "default"
 #   })
 
-# for n <- 1..1 do
+# for n <- 1..2 do
 #   s = Integer.to_string(n)
 
-#   Blogs.create_post(%{
-#     "blog_id" => blog.id,
+#   Content.page(%{
+#     "category_id" => category.id,
 #     "title" => "some title" <> s,
 #     "date" => Date.utc_today(),
 #     "text" => "some text" <> s,

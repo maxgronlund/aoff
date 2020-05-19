@@ -79,13 +79,6 @@ defmodule AOFFWeb.UserController do
   end
 
   def edit(conn, %{"id" => id}) do
-    {:ok, avatar_format} =
-      System.find_or_create_message(
-        "/user/:id/edit",
-        "Avatar format",
-        Gettext.get_locale()
-      )
-
     user = get_user!(conn, id)
     changeset = Users.change_user(user)
 
@@ -95,7 +88,7 @@ defmodule AOFFWeb.UserController do
       user: user,
       changeset: changeset,
       email: user.email,
-      avatar_format: avatar_format
+      avatar_format: avatar_format()
     )
   end
 
@@ -109,7 +102,14 @@ defmodule AOFFWeb.UserController do
         |> redirect(to: Routes.user_path(conn, :show, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", user: user, changeset: changeset, email: user.email)
+        render(
+          conn,
+          "edit.html",
+          user: user,
+          changeset: changeset,
+          email: user.email,
+          avatar_format: avatar_format()
+        )
     end
   end
 
@@ -166,5 +166,15 @@ defmodule AOFFWeb.UserController do
 
   defp navbar(conn, _opts) do
     assign(conn, :page, :user)
+  end
+
+  defp avatar_format() do
+    {:ok, avatar_format} =
+      System.find_or_create_message(
+        "/user/:id/edit",
+        "Avatar format",
+        Gettext.get_locale()
+      )
+    avatar_format
   end
 end

@@ -2,7 +2,7 @@ defmodule AOFFWeb.Committees.MeetingController do
   use AOFFWeb, :controller
 
   alias AOFF.Committees
-  alias AOFF.Committees.Meeting
+
 
   def index(conn, _params) do
     meetings = Committees.list_meetings()

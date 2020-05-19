@@ -1,7 +1,7 @@
 defmodule AOFFWeb.Volunteers.CategoryControllerTest do
   use AOFFWeb.ConnCase
   import AOFFWeb.Gettext
-  alias AOFF.Category
+
   alias Plug.Conn
 
   import AOFF.Content.CategoryFixture
@@ -65,7 +65,7 @@ defmodule AOFFWeb.Volunteers.CategoryControllerTest do
 
     test "create category redirects to edit when data is valid", %{conn: conn} do
       attrs = create_category_attrs()
-      conn = post(conn, Routes.volunteer_category_path(conn, :create), blog: attrs)
+      conn = post(conn, Routes.volunteer_category_path(conn, :create), category: attrs)
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.volunteer_category_path(conn, :edit, attrs["title"])
@@ -76,36 +76,36 @@ defmodule AOFFWeb.Volunteers.CategoryControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn} do
       attrs = invalid_category_attrs()
-      conn = post(conn, Routes.volunteer_category_path(conn, :create), blog: attrs)
+      conn = post(conn, Routes.volunteer_category_path(conn, :create), category: attrs)
       assert html_response(conn, 200) =~ gettext("New Category")
     end
 
-    test "edit blog renders form for editing chosen category", %{conn: conn} do
-      blog = category_fixture()
-      conn = get(conn, Routes.volunteer_category_path(conn, :edit, blog))
+    test "edit category renders form for editing chosen category", %{conn: conn} do
+      category = category_fixture()
+      conn = get(conn, Routes.volunteer_category_path(conn, :edit, category))
       assert html_response(conn, 200) =~ gettext("Edit Category")
     end
 
-    test "update blog redirects when data is valid", %{conn: conn} do
-      blog = category_fixture()
+    test "update category redirects when data is valid", %{conn: conn} do
+      category = category_fixture()
       attrs = update_category_attrs()
-      conn = put(conn, Routes.volunteer_category_path(conn, :update, blog), blog: attrs)
+      conn = put(conn, Routes.volunteer_category_path(conn, :update, category), category: attrs)
       assert redirected_to(conn) == Routes.volunteer_category_path(conn, :index)
 
-      # conn = get(conn, Routes.volunteer_category_path(conn, :show, blog))
+      # conn = get(conn, Routes.volunteer_category_path(conn, :show, category))
       # assert html_response(conn, 200) =~ attrs["description"]
     end
 
-    test "update blog renders errors when data is invalid", %{conn: conn} do
-      blog = category_fixture()
+    test "update category renders errors when data is invalid", %{conn: conn} do
+      category = category_fixture()
       attrs = invalid_category_attrs()
-      conn = put(conn, Routes.volunteer_category_path(conn, :update, blog), blog: attrs)
+      conn = put(conn, Routes.volunteer_category_path(conn, :update, category), category: attrs)
       assert html_response(conn, 200) =~ gettext("Edit Category")
     end
 
-    test "deletes chosen blog", %{conn: conn} do
-      blog = category_fixture()
-      conn = delete(conn, Routes.volunteer_category_path(conn, :delete, blog))
+    test "deletes chosen category", %{conn: conn} do
+      category = category_fixture()
+      conn = delete(conn, Routes.volunteer_category_path(conn, :delete, category))
       assert redirected_to(conn) == Routes.volunteer_category_path(conn, :index)
     end
   end

@@ -21,7 +21,7 @@ defmodule AOFFWeb.System.SMSMessageController do
   def create(conn, %{"sms_message" => sms_message_params}) do
     user = conn.assigns.current_user
 
-    result =
+    _result =
       case sms_api().send_sms_message(sms_message_params) do
         {:ok, %HTTPoison.Response{} = response} ->
           IO.inspect(response)

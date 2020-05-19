@@ -6,7 +6,7 @@ defmodule AOFFWeb.Committees.MemberControllerTest do
   import AOFFWeb.Gettext
 
   alias Plug.Conn
-  alias AOFF.Committees
+
 
 
   describe "volunteer" do
@@ -48,7 +48,7 @@ defmodule AOFFWeb.Committees.MemberControllerTest do
       assert html_response(conn, 200) =~ attrs["role"]
     end
 
-    test "renders errors when data is invalid", %{conn: conn, user: user, committee: committee} do
+    test "renders errors when data is invalid", %{conn: conn, committee: committee} do
       attrs = invalid_member_attrs(%{"committee_id" => committee.id})
       conn = post(conn, Routes.volunteer_committee_member_path(conn, :create, committee), member: attrs)
       assert html_response(conn, 200) =~ gettext("New Member")

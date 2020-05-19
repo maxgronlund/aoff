@@ -1,7 +1,7 @@
 .breadcrumb aria-label="breadcrumbs"
   ul
     li
-      = link gettext("About AOFF"), to: Routes.info_path(@conn, :index)
+      = link gettext("About AOFF"), to: Routes.about_path(@conn, :index)
     li
       = link gettext("Listing Committees"), to: Routes.committee_committee_path(@conn, :index)
     li

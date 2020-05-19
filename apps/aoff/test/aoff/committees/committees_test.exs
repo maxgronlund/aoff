@@ -51,7 +51,8 @@ defmodule AOFF.CommitteesTest do
     test "delete_committee/1 deletes the committee" do
       committee = committee_fixture()
       assert {:ok, %Committee{}} = Committees.delete_committee(committee)
-      assert_raise Ecto.NoResultsError, fn -> Committees.get_committee!(committee.id) end
+      assert Committees.get_committee!(committee.id) == nil
+      # assert_raise Ecto.NoResultsError, fn -> Committees.get_committee!(committee.id) end
     end
 
     test "change_committee/1 returns a committee changeset" do

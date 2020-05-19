@@ -2,7 +2,7 @@ defmodule AOFFWeb.Volunteer.PageController do
   use AOFFWeb, :controller
 
   # alias AOFF.Blogs
-  alias AOFF.Blogs.BlogPost
+  alias AOFF.Content.Page
   alias AOFF.Content
 
   alias AOFFWeb.Users.Auth
@@ -17,7 +17,7 @@ defmodule AOFFWeb.Volunteer.PageController do
 
   #   {:ok, help_text} =
   #     System.find_or_create_message(
-  #       "/volunteer/blogs",
+  #       "/volunteer/categorys",
   #       "Categories",
   #       Gettext.get_locale()
   #     )
@@ -27,23 +27,23 @@ defmodule AOFFWeb.Volunteer.PageController do
   # end
 
   def new(conn, %{"category_id" => category_id}) do
-    blog = Content.get_category!(category_id)
-    changeset = Content.change_page(%BlogPost{})
+    category = Content.get_category!(category_id)
+    changeset = Content.change_page(%Page{})
 
     render(
       conn,
       "new.html",
       changeset: changeset,
-      blog: blog,
+      category: category,
       author: conn.assigns.current_user.username,
       date: Date.utc_today(),
-      blog_post: false
+      page: false
     )
   end
 
-  def create(conn, %{"category_id" => category_id, "blog_post" => page_attrs}) do
+  def create(conn, %{"category_id" => category_id, "page" => page_attrs}) do
     category = Content.get_category!(category_id)
-    page_attrs = Map.put(page_attrs, "blog_id", category.id)
+    page_attrs = Map.put(page_attrs, "category_id", category.id)
 
     case Content.create_page(page_attrs) do
       {:ok, page} ->
@@ -56,7 +56,7 @@ defmodule AOFFWeb.Volunteer.PageController do
           conn,
           "new.html",
           changeset: changeset,
-          blog: category,
+          category: category,
           author: page_attrs["author"],
           date: page_attrs["date"]
         )
@@ -70,8 +70,8 @@ defmodule AOFFWeb.Volunteer.PageController do
       render(
         conn,
         "edit.html",
-        blog: page.blog,
-        blog_post: page,
+        category: page.category,
+        page: page,
         changeset: changeset,
         author: page.author,
         date: page.date,
@@ -84,21 +84,21 @@ defmodule AOFFWeb.Volunteer.PageController do
     end
   end
 
-  def update(conn, %{"category_id" => category_id, "id" => id, "blog_post" => page_params}) do
+  def update(conn, %{"category_id" => category_id, "id" => id, "page" => page_params}) do
     page = Content.get_page!(category_id, id)
 
     case Content.update_page(page, page_params) do
       {:ok, page} ->
         conn
         |> put_flash(:info, gettext("Page updated successfully."))
-        |> redirect(to: Routes.about_page_path(conn, :show, page.blog, page))
+        |> redirect(to: Routes.about_page_path(conn, :show, page.category, page))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(
           conn,
           "edit.html",
-           blog: page.blog,
-           blog_post: page,
+           category: page.category,
+           page: page,
            changeset: changeset,
            author: page.author,
            date: page.date,
@@ -110,11 +110,11 @@ defmodule AOFFWeb.Volunteer.PageController do
 
   def delete(conn, %{"category_id" => category_id, "id" => id}) do
     page = Content.get_page!(category_id, id)
-    {:ok, _blog} = Content.delete_page(page)
+    {:ok, _category} = Content.delete_page(page)
 
     conn
     |> put_flash(:info, "Page deleted successfully.")
-    |> redirect(to: Routes.about_path(conn, :show, page.blog))
+    |> redirect(to: Routes.about_path(conn, :show, page.category))
   end
 
   defp authorize_volunteer(conn, _opts) do
@@ -148,7 +148,7 @@ defmodule AOFFWeb.Volunteer.PageController do
   defp image_format() do
     {:ok, message} =
       System.find_or_create_message(
-        "/volunteer/blogs/:id/edit",
+        "/volunteer/category/:id/edit",
         "Image format",
         Gettext.get_locale()
       )

@@ -46,7 +46,8 @@ html lang="da"
           = raw @warning.text
       = render AOFFWeb.LayoutView, "flash.html", assigns
 
-      = render @view_module, @view_template, assigns
+      / = render @view_module, @view_template, assigns
+      = @inner_content
     footer.site-footer
       - footer = footer()
       = footer.title

@@ -1,11 +1,7 @@
 defmodule AOFFWeb.Content.AboutControllerTest do
   use AOFFWeb.ConnCase
-  import AOFF.Content.PageFixture
+
   import AOFF.Content.CategoryFixture
-  # import AOFF.Content.NewsFixture
-
-  # alias AOFF.Volunteer
-
   alias AOFF.System
 
   describe "guest" do

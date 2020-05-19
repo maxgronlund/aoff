@@ -3,7 +3,6 @@ defmodule AOFFWeb.Content.NewsControllerTest do
   import AOFF.Content.NewsFixture
   import AOFFWeb.Gettext
 
-  alias AOFF.Volunteer
 
   describe "guest" do
     test "lists all news", %{conn: conn} do

@@ -30,7 +30,7 @@ defmodule AOFFWeb.UserControllerTest do
 
     test "renders form for editing chosen user", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_path(conn, :edit, user))
-      assert html_response(conn, 200) =~ gettext("Edit User")
+      assert html_response(conn, 200) =~ gettext("Edit Account")
     end
 
     test "update user redirects when data is valid", %{conn: conn, user: user} do
@@ -45,7 +45,7 @@ defmodule AOFFWeb.UserControllerTest do
     test "update user renders errors when data is invalid", %{conn: conn, user: user} do
       attrs = invalid_attrs()
       conn = put(conn, Routes.user_path(conn, :update, user), user: attrs)
-      assert html_response(conn, 200) =~ gettext("Edit User")
+      assert html_response(conn, 200) =~ gettext("Edit Account")
     end
 
     test "deletes chosen user", %{conn: conn, user: user} do

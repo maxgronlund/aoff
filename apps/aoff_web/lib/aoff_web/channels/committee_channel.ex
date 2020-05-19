@@ -25,7 +25,7 @@ defmodule AOFFWeb.CommitteeChannel do
       Map.merge(
         payload,
         %{
-          "posted_at" => DateTime.now(),
+          "posted_at" => AOFF.Time.now(),
           "posted" => AOFF.Time.today_as_string()
         }
       )

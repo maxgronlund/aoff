@@ -4,7 +4,7 @@ defmodule AOFF.PageTest do
   import AOFF.Content.PageFixture
   alias AOFF.Content
 
-  alias AOFF.Blogs.BlogPost
+  alias AOFF.Content.Page
 
   describe "page" do
     test "get_page!/2 returns a single page" do
@@ -15,10 +15,10 @@ defmodule AOFF.PageTest do
 
     test "create_page/1 with valid data creates a page" do
       category = category_fixture()
-      attrs = create_page_attrs(%{"blog_id" => category.id})
-      assert {:ok, %BlogPost{} = category} = Content.create_page(attrs)
-      assert category.title == attrs["title"]
-      assert category.text == attrs["text"]
+      attrs = create_page_attrs(%{"category_id" => category.id})
+      assert {:ok, %Page{} = page} = Content.create_page(attrs)
+      assert page.title == attrs["title"]
+      assert page.text == attrs["text"]
     end
 
     # test "create_category/1 with invalid data returns error changeset" do
@@ -30,7 +30,7 @@ defmodule AOFF.PageTest do
       category = category_fixture()
       page = page_fixture(category.id)
       attrs = update_page_attrs()
-      assert {:ok, %BlogPost{} = page} = Content.update_page(page, attrs)
+      assert {:ok, %Page{} = page} = Content.update_page(page, attrs)
       assert page.title == attrs["title"]
       assert page.text == attrs["text"]
     end
@@ -46,12 +46,12 @@ defmodule AOFF.PageTest do
     test "delete_page/1 deletes the page" do
       category = category_fixture()
       page = page_fixture(category.id)
-      assert {:ok, %BlogPost{}} = Content.delete_page(page)
+      assert {:ok, %Page{}} = Content.delete_page(page)
       assert Content.get_page!(category.title, page.title) == nil
     end
 
     test "change_page/1 returns a page changeset" do
-      assert %Ecto.Changeset{} = Content.change_page(%BlogPost{})
+      assert %Ecto.Changeset{} = Content.change_page(%Page{})
     end
   end
 end

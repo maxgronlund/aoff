@@ -1,6 +1,6 @@
 javascript:
   tinymce.init({
-    selector: '#blog_description',
+    selector: '#category_description',
     menubar: false,
     height : 300
   });
@@ -9,11 +9,11 @@ javascript:
   = if @changeset.action do
     .alert.alert-danger
       p Oops, something went wrong! Please check the errors below.
-  = if @blog do
+  = if @category do
     .alert.alert-success
       .row
         .column
-          = img_tag(AOFF.Uploader.Image.url({@blog.image, @blog}, :stamp), class: "image")
+          = img_tag(AOFF.Uploader.Image.url({@category.image, @category}, :stamp), class: "image")
           .form-group
             = label f, :image, gettext("Image"), class: "control-label"
             = file_input f, :image, class: "form-control full-width"

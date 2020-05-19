@@ -1,7 +1,7 @@
 defmodule AOFFWeb.OrderItemControllerTest do
   use AOFFWeb.ConnCase
 
-  alias AOFF.Shop
+  # alias AOFF.Shop
 
   # @create_attrs %{state: "some state"}
   # @update_attrs %{state: "some updated state"}

@@ -5,7 +5,6 @@ defmodule AOFFWeb.MessageControllerTest do
   import AOFF.Users.UserFixture
   import AOFFWeb.Gettext
 
-  alias AOFF.System
   alias Plug.Conn
 
   describe "unauthorized" do

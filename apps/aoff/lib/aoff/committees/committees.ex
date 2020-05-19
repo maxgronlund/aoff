@@ -49,7 +49,7 @@ defmodule AOFF.Committees do
         ]
       )
 
-    Repo.one!(query)
+    Repo.one(query)
   end
 
   @doc """

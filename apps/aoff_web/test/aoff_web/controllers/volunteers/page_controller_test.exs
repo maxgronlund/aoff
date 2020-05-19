@@ -1,4 +1,4 @@
-defmodule AOFFWeb.Content.PageControllerTest do
+defmodule AOFFWeb.Volunteer.PageControllerTest do
   use AOFFWeb.ConnCase
 
   import AOFFWeb.Gettext
@@ -45,7 +45,7 @@ defmodule AOFFWeb.Content.PageControllerTest do
             :create,
             category
           ),
-          blog_post: attrs
+          page: attrs
         )
 
       assert %{id: id} = redirected_params(conn)
@@ -69,7 +69,7 @@ defmodule AOFFWeb.Content.PageControllerTest do
 
       conn =
         put(conn, Routes.volunteer_category_page_path(conn, :update, category, page),
-          blog_post: attrs
+          page: attrs
         )
 
       assert redirected_to(conn) == Routes.about_page_path(conn, :show, category, attrs["title"])
@@ -81,7 +81,7 @@ defmodule AOFFWeb.Content.PageControllerTest do
 
       conn =
         put(conn, Routes.volunteer_category_page_path(conn, :update, category, page),
-          blog_post: attrs
+          page: attrs
         )
 
       assert html_response(conn, 200) =~ gettext("Edit Article")

@@ -8,6 +8,8 @@ defmodule AOFFWeb.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
+      # Start the PubSub system
+      {Phoenix.PubSub, name: AOFFWeb.PubSub},
       # Start the endpoint when the application starts
       AOFFWeb.Endpoint
       # Starts a worker by calling: AOFFWeb.Worker.start_link(arg)

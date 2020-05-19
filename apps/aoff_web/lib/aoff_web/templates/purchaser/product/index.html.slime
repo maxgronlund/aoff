@@ -8,8 +8,12 @@
           | &nbsp;
           = gettext("Products")
 
-h2 = gettext("Products")
-= link gettext("New Product"), to: Routes.purchaser_product_path(@conn, :new), class: "button"
+.row
+  .column
+    h2 = gettext("Products")
+  .column
+    .float-right
+      = link gettext("New Product"), to: Routes.purchaser_product_path(@conn, :new), class: "button"
 .tiles
   = for product <- @products do
     .card.is-shady

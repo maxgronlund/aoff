@@ -125,21 +125,21 @@ defmodule AOFF.Content do
     News.changeset(news, %{})
   end
 
-  alias AOFF.Blogs.Blog
-  alias AOFF.Blogs.BlogPost
+  alias AOFF.Content.Category
+  alias AOFF.Content.Page
 
   @doc """
-  Returns the list of blogs.
+  Returns the list of categorys.
 
   ## Examples
 
-      iex> list_blogs()
-      [%Blog{}, ...]
+      iex> list_categorys()
+      [%Category{}, ...]
 
   """
   def list_categories() do
     query =
-      from b in Blog,
+      from b in Category,
         where: b.locale == ^Gettext.get_locale()
 
     query
@@ -154,7 +154,7 @@ defmodule AOFF.Content do
   ## Examples
 
       iex> get_category!(123)
-      %BlogPost{}
+      %Page{}
 
       iex> get_category!(456)
       ** (Ecto.NoResultsError)
@@ -162,43 +162,43 @@ defmodule AOFF.Content do
   """
   def get_category!(title) do
     query =
-      from b in Blog,
+      from b in Category,
         where: b.title == ^title and b.locale == ^Gettext.get_locale(),
         select: b,
-        preload: [blog_posts: ^from(p in BlogPost, order_by: p.date)]
+        preload: [pages: ^from(p in Page, order_by: p.date)]
 
     Repo.one(query)
   end
 
   @doc """
-  Updates a blog.
+  Updates a category.
 
   ## Examples
 
-      iex> update_blog(blog, %{field: new_value})
-      {:ok, %Blog{}}
+      iex> update_category(category, %{field: new_value})
+      {:ok, %Category{}}
 
-      iex> update_blog(blog, %{field: bad_value})
+      iex> update_category(category, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_category(%Blog{} = blog, attrs) do
-    blog
-    |> Blog.changeset(attrs)
+  def update_category(%Category{} = category, attrs) do
+    category
+    |> Category.changeset(attrs)
     |> Repo.update()
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking blog changes.
+  Returns an `%Ecto.Changeset{}` for tracking category changes.
 
   ## Examples
 
-      iex> change_blog(blog)
-      %Ecto.Changeset{source: %Blog{}}
+      iex> change_category(category)
+      %Ecto.Changeset{source: %Category{}}
 
   """
-  def change_category(%Blog{} = blog) do
-    Blog.changeset(blog, %{})
+  def change_category(%Category{} = category) do
+    Category.changeset(category, %{})
   end
 
   @doc """
@@ -207,7 +207,7 @@ defmodule AOFF.Content do
   ## Examples
 
       iex> create_category(%{field: value})
-      {:ok, %Blog{}}
+      {:ok, %Category{}}
 
       iex> create_category(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
@@ -221,8 +221,8 @@ defmodule AOFF.Content do
         "identifier" => attrs["title"]
       })
 
-    %Blog{}
-    |> Blog.changeset(attrs)
+    %Category{}
+    |> Category.changeset(attrs)
     |> Repo.insert()
   end
 
@@ -238,7 +238,7 @@ defmodule AOFF.Content do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_category(%Blog{} = news) do
+  def delete_category(%Category{} = news) do
     Repo.delete(news)
   end
 
@@ -256,17 +256,17 @@ defmodule AOFF.Content do
       ** (Ecto.NoResultsError)
 
   """
-  def get_page!(blog_title, title) do
+  def get_page!(category_title, title) do
     query =
-      from p in BlogPost,
+      from p in Page,
         where: p.title == ^title,
-        join: b in assoc(p, :blog),
-        where: b.title == ^blog_title and b.locale == ^Gettext.get_locale(),
+        join: b in assoc(p, :category),
+        where: b.title == ^category_title and b.locale == ^Gettext.get_locale(),
         limit: 1
 
     query
     |> Repo.one()
-    |> Repo.preload(:blog)
+    |> Repo.preload(:category)
   end
 
   @doc """
@@ -284,8 +284,8 @@ defmodule AOFF.Content do
   def create_page(attrs \\ %{}) do
     attrs = Map.put(attrs, "locale", Gettext.get_locale())
 
-    %BlogPost{}
-    |> BlogPost.changeset(attrs)
+    %Page{}
+    |> Page.changeset(attrs)
     |> Repo.insert()
   end
 
@@ -295,15 +295,15 @@ defmodule AOFF.Content do
   ## Examples
 
       iex> update_page(page, %{field: new_value})
-      {:ok, %BlogPost{}}
+      {:ok, %Page{}}
 
       iex> update_page(page, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_page(%BlogPost{} = page, attrs) do
+  def update_page(%Page{} = page, attrs) do
     page
-    |> BlogPost.changeset(attrs)
+    |> Page.changeset(attrs)
     |> Repo.update()
   end
 
@@ -319,7 +319,7 @@ defmodule AOFF.Content do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_page(%BlogPost{} = page) do
+  def delete_page(%Page{} = page) do
     Repo.delete(page)
   end
 
@@ -329,10 +329,10 @@ defmodule AOFF.Content do
   ## Examples
 
       iex> change_page(page)
-      %Ecto.Changeset{source: %BlogPost{}}
+      %Ecto.Changeset{source: %Page{}}
 
   """
-  def change_page(%BlogPost{} = post) do
-    BlogPost.changeset(post, %{})
+  def change_page(%Page{} = post) do
+    Page.changeset(post, %{})
   end
 end

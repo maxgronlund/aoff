@@ -3,55 +3,55 @@
     li
       = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
     li
-      = link gettext("Categories"), to: Routes.volunteer_blog_path(@conn, :index)
+      = link gettext("Categories"), to: Routes.volunteer_category_path(@conn, :index)
     li.is-active
       |&nbsp;&nbsp;
-      = @blog.title
+      = @category.title
 
 
 .row
   .column
-    h2 = @blog.title
+    h2 = @category.title
   .column
     .float-right
-      = link gettext("New Article"), to: Routes.volunteer_blog_blog_post_path(@conn, :new,  @blog), class: "button button-outline"
+      = link gettext("New Article"), to: Routes.volunteer_category_page_path(@conn, :new,  @category), class: "button button-outline"
 
 .row
   .column
     .auto-columns
-      = raw @blog.description
+      = raw @category.description
 
 
 
 
 
 .tiles.button-tiles
-  = for post <- @blog.blog_posts do
+  = for page <- @category.pages do
     .card.is-shady
       .card-header
         .card-header-title.is-centered
-          = post.title
+          = page.title
       .card-image
-        img.modal-button alt=("#{post.title}") src="#{AOFF.Uploader.Image.url({post.image, post}, :thumb)}"
+        img.modal-button alt=("#{page.title}") src="#{AOFF.Uploader.Image.url({page.image, page}, :thumb)}"
 
 
       .card-content
 
         .float-right
-          = link gettext("Edit"), to: Routes.volunteer_blog_blog_post_path(@conn, :edit, @blog, post), class: "button button-small"
+          = link gettext("Edit"), to: Routes.volunteer_category_page_path(@conn, :edit, @category, page), class: "button button-small"
           | &nbsp;
           = link gettext("Delete"),\
-            to: Routes.volunteer_blog_blog_post_path(@conn, :delete, @blog, post),\
+            to: Routes.volunteer_category_page_path(@conn, :delete, @category, page),\
             method: :delete,\
             data: [confirm: "Are you sure?"],\
             class: "button button-red button-small"
         br
 
-        p = post.teaser
+        p = page.teaser
       .card-footer.is-button
-        = link gettext("Show"), to: Routes.volunteer_blog_blog_post_path(@conn, :show, @blog, post), class: "card-footer-item is-button"
+        = link gettext("Show"), to: Routes.volunteer_category_page_path(@conn, :show, @category, page), class: "card-footer-item is-button"
 
 
-        /= link gettext("Show"), to: Routes.volunteer_blog_blog_post_path(@conn, :show, @blog, post), class: "button float-right"
+        /= link gettext("Show"), to: Routes.volunteer_category_page_path(@conn, :show, @category, page), class: "button float-right"
 
 

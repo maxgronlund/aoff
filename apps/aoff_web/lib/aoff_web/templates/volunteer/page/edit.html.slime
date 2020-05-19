@@ -10,6 +10,6 @@
 
 h2= gettext("Edit Article")
 
-= render "form.html", Map.put(assigns, :action, Routes.volunteer_category_page_path(@conn, :update, @blog, @blog_post))
+= render "form.html", Map.put(assigns, :action, Routes.volunteer_category_page_path(@conn, :update, @category, @page))
 
 / = link "Back", to: Routes.post_path(@conn, :index)

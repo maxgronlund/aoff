@@ -40,7 +40,7 @@ defmodule AOFFWeb.Volunteer.CommitteeController do
     committee = Committees.get_committee!(id)
 
     case Committees.update_committee(committee, committee_params) do
-      {:ok, committee} ->
+      {:ok, _committee} ->
         conn
         |> put_flash(:info, gettext("Committee updated successfully."))
         |> redirect(to: Routes.volunteer_committee_path(conn, :index))

@@ -1,8 +1,8 @@
 defmodule AOFFWeb.OrderControllerTest do
   use AOFFWeb.ConnCase
-  import AOFFWeb.Gettext
+  # import AOFFWeb.Gettext
 
-  alias AOFF.Users
+
   import AOFF.Users.OrderFixture
   import AOFF.Users.UserFixture
 

@@ -1,15 +1,11 @@
 defmodule AOFFWeb.Content.AboutController do
   use AOFFWeb, :controller
 
-  # alias AOFF.Content
-  # alias AOFF.Content.News
-
-  alias AOFF.Blogs
   alias AOFF.System
   alias AOFF.Content
 
   def index(conn, _params) do
-    blogs = Content.list_categories()
+    categories = Content.list_categories()
     conn = assign(conn, :page, :about_aoff)
 
     {:ok, message} =
@@ -28,7 +24,7 @@ defmodule AOFFWeb.Content.AboutController do
 
     render(conn, "index.html",
       message: message,
-      blogs: blogs,
+      categories: categories,
       committees: committees
     )
   end

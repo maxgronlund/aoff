@@ -2,8 +2,6 @@ defmodule AOFFWeb.Content.NewsController do
   use AOFFWeb, :controller
 
   alias AOFF.Content
-  alias AOFF.Content.News
-  alias AOFF.System
 
   def index(conn, _params) do
     news_list = Content.list_news()
