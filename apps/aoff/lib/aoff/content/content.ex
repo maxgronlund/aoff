@@ -18,7 +18,12 @@ defmodule AOFF.Content do
 
   """
   def list_news do
-    Repo.all(News)
+    query =
+      from n in News,
+      where: n.locale ==^Gettext.get_locale(),
+      order_by: [desc: n.date]
+    Repo.all(query)
+
   end
 
   @doc """
@@ -39,7 +44,7 @@ defmodule AOFF.Content do
     query =
       from n in News,
       where: n.locale ==^Gettext.get_locale(),
-      order_by: [asc: n.date],
+      order_by: [desc: n.date],
       limit: 3
     Repo.all(query)
   end
