@@ -7,7 +7,6 @@ defmodule AOFFWeb.Volunteer.MembershipController do
   plug :authenticate when action in [:index]
 
   def index(conn, params) do
-
     memberships = Shop.list_memberships()
     render(conn, "index.html", memberships: memberships)
   end
@@ -23,5 +22,4 @@ defmodule AOFFWeb.Volunteer.MembershipController do
       |> halt()
     end
   end
-
 end

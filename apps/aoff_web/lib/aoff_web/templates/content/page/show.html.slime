@@ -1,0 +1,38 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("About AOFF"), to: Routes.about_path(@conn, :index)
+    li
+      = link @category.title, to: Routes.about_path(@conn, :show, @category)
+    li.is-active
+      | &nbsp;
+      = @page.title
+
+.row
+  .column
+    h3 = @page.title
+
+  = if @text_editor do
+    .column
+      .float-right
+        = link gettext("Edit"),\
+          to: Routes.volunteer_category_page_path(@conn, :edit, @category, @page),\
+          class: "button"
+        | &nbsp;
+        = link gettext("Delete"),\
+          to: Routes.volunteer_category_page_path(@conn, :delete, @category, @page),\
+          method: :delete,\
+          data: [confirm: "Are you sure?"],\
+          class: "button button-red"
+.row
+  .column
+    = @page.teaser
+  .column
+    = img_tag AOFF.Uploader.Image.url({@page.image, @page}, :original)
+    .image-caption
+      = @page.caption
+.row
+  .column
+    .auto-columns
+      = raw(@page.text)
+

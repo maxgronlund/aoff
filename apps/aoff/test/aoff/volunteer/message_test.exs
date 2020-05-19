@@ -1,4 +1,4 @@
-defmodule AOFF.Volunteer.MessageTest do
+defmodule AOFF.System.MessageTest do
   use AOFF.DataCase
 
   alias AOFF.System

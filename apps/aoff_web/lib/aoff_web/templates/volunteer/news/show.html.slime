@@ -1,0 +1,25 @@
+h2 Show News
+
+ul
+  li
+    strong Date:&nbsp;
+    = @news.date
+  li
+    strong Title:&nbsp;
+    = @news.title
+  li
+    strong Image:&nbsp;
+    = @news.image
+  li
+    strong Caption:&nbsp;
+    = @news.caption
+  li
+    strong Text:&nbsp;
+    = @news.text
+  li
+    strong Author:&nbsp;
+    = @news.author
+
+/= link "Edit", to: Routes.news_path(@conn, :edit, @news)
+/| &nbsp;
+/= link "Back", to: Routes.news_path(@conn, :index)

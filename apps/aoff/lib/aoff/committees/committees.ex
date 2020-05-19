@@ -10,8 +10,6 @@ defmodule AOFF.Committees do
   alias AOFF.Committees.Member
   alias AOFF.Committees.Meeting
 
-
-
   @doc """
   Returns the list of committees.
 
@@ -40,19 +38,19 @@ defmodule AOFF.Committees do
 
   """
   def get_committee!(id) do
-  query =
-    from(
-      c in Committee,
-      where: c.id == ^id,
-      select: c,
-      preload: [
-        members: [:user],
-        meetings:
-          ^from(m in Meeting,order_by: [desc: m.date])
-      ]
-    )
-  Repo.one!(query)
-end
+    query =
+      from(
+        c in Committee,
+        where: c.id == ^id,
+        select: c,
+        preload: [
+          members: [:user],
+          meetings: ^from(m in Meeting, order_by: [desc: m.date])
+        ]
+      )
+
+    Repo.one!(query)
+  end
 
   @doc """
   Creates a committee.

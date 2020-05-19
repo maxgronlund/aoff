@@ -67,9 +67,9 @@ defmodule AOFF.Shop do
 
     query =
       from d in Date,
-      where: d.date >= ^today,
-      order_by: [asc: d.date],
-      limit: 1
+        where: d.date >= ^today,
+        order_by: [asc: d.date],
+        limit: 1
 
     date = Repo.one(query)
 
@@ -482,7 +482,9 @@ defmodule AOFF.Shop do
         )
       else
         from(p in PickUp,
-          where: ilike(p.username, ^"%#{query}%") or (ilike(p.email, ^"%#{query}%") and p.date_id == ^date_id)
+          where:
+            ilike(p.username, ^"%#{query}%") or
+              (ilike(p.email, ^"%#{query}%") and p.date_id == ^date_id)
         )
       end
 

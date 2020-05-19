@@ -6,8 +6,6 @@ defmodule AOFFWeb.Committees.CommitteeView do
     date
   end
 
-
-
   def committee_member(committee, current_user) do
     if current_user do
       Enum.find(committee.members, fn x -> x.user_id == current_user.id end)

@@ -21,9 +21,7 @@ defmodule AOFF.UsersTest do
     test "get_users_by_username/1 returns the users with the given username" do
       user = user_fixture()
 
-      assert List.first(
-          Users.get_users_by_username(user.username)
-        ).id == user.id
+      assert List.first(Users.get_users_by_username(user.username)).id == user.id
     end
 
     test "get_user!/1 returns the user with given id" do
@@ -101,7 +99,6 @@ defmodule AOFF.UsersTest do
       assert {:ok, %User{} = user} = Users.set_bounce_to_url(user, some_url)
       assert Users.get_bounce_to_url(user) == some_url
     end
-
 
     # test "last_member_nr/0 returne the last member_nr" do
     #   _user = user_fixture()

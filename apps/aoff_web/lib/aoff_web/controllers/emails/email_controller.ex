@@ -3,7 +3,7 @@ defmodule AOFFWeb.Email do
   use Bamboo.Phoenix, view: AOFFWeb.EmailView
   alias AOFF.System
 
-  @email_from Application.get_env(:aoff_web,AOFFWeb.Mailer)[:email_from]
+  @email_from Application.get_env(:aoff_web, AOFFWeb.Mailer)[:email_from]
 
   def reset_password_email(username_and_email, reset_password_url) do
     {:ok, message} =

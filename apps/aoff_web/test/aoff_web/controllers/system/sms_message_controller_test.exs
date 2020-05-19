@@ -7,14 +7,13 @@ defmodule AOFFWeb.System.SMSMessageControllerTest do
   alias AOFF.System
   alias Plug.Conn
 
-
-
   describe "sms_messages" do
     @session Plug.Session.init(
                store: :cookie,
                key: "_app",
                encryption_salt: "yadayada",
-               signing_salt: "yadayada")
+               signing_salt: "yadayada"
+             )
 
     setup do
       user = user_fixture(%{"volunteer" => true})

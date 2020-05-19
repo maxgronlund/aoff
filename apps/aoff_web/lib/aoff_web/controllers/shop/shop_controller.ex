@@ -31,9 +31,7 @@ defmodule AOFFWeb.Shop.ShopController do
         login_message: login_message
       )
     else
-      render(conn, "index.html",
-        dates: dates
-      )
+      render(conn, "index.html", dates: dates)
     end
   end
 end

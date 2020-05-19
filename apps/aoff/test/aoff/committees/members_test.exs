@@ -2,7 +2,6 @@ defmodule AOFF.Committees.MembersTest do
   use AOFF.DataCase
 
   import AOFF.Committees.CommitteeFixture
-  import AOFF.Committees.MeetingFixture
   import AOFF.Committees.MemberFixture
   import AOFF.Users.UserFixture
 

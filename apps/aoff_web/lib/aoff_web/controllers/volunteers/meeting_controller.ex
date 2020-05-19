@@ -8,7 +8,6 @@ defmodule AOFFWeb.Volunteer.MeetingController do
   plug Auth
   plug :authenticate when action in [:index, :edit, :new, :update, :create, :delete]
 
-
   def index(conn, _params) do
     meetings = Committees.list_meetings()
     render(conn, "index.html", meetings: meetings)
@@ -43,6 +42,7 @@ defmodule AOFFWeb.Volunteer.MeetingController do
   def edit(conn, %{"id" => id}) do
     meeting = Committees.get_meeting!(id)
     changeset = Committees.change_meeting(meeting)
+
     render(conn, "edit.html", committee: meeting.committee, meeting: meeting, changeset: changeset)
   end
 
@@ -53,7 +53,9 @@ defmodule AOFFWeb.Volunteer.MeetingController do
       {:ok, meeting} ->
         conn
         |> put_flash(:info, "Meeting updated successfully.")
-        |> redirect(to: Routes.volunteer_committee_meeting_path(conn, :show, meeting.committee, meeting))
+        |> redirect(
+          to: Routes.volunteer_committee_meeting_path(conn, :show, meeting.committee, meeting)
+        )
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", meeting: meeting, changeset: changeset)
@@ -80,5 +82,4 @@ defmodule AOFFWeb.Volunteer.MeetingController do
       |> halt()
     end
   end
-
 end

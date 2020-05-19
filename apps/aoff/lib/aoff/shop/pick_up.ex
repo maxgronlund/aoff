@@ -27,16 +27,15 @@ defmodule AOFF.Shop.PickUp do
   def changeset(pick_up, attrs) do
     pick_up
     |> cast(attrs, [
-        :picked_up,
-        :date_id,
-        :user_id,
-        :order_id,
-        :username,
-        :email,
-        :member_nr,
-        :send_sms_notification
-      ]
-    )
+      :picked_up,
+      :date_id,
+      :user_id,
+      :order_id,
+      :username,
+      :email,
+      :member_nr,
+      :send_sms_notification
+    ])
     |> validate_required([
       :picked_up,
       :date_id,

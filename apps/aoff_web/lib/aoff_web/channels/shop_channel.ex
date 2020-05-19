@@ -1,6 +1,4 @@
 defmodule AOFFWeb.ShopChannel do
-
-
   use Phoenix.Channel
 
   def join("shop:date", payload, socket) do
@@ -21,12 +19,9 @@ defmodule AOFFWeb.ShopChannel do
   alias AOFF.Shop
 
   def handle_in("add_to_basked", payload, socket) do
-
     user = Users.get_user!(payload["user_id"])
     order = Users.current_order(payload["user_id"])
     product = Shop.get_product!(payload["product_id"])
-
-
 
     pick_up_params = %{
       "date_id" => payload["date_id"],
@@ -52,10 +47,7 @@ defmodule AOFFWeb.ShopChannel do
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (committee:lobby).
   def handle_in("shout", payload, socket) do
-
-
-
-    broadcast socket, "shout", payload
+    broadcast(socket, "shout", payload)
     {:noreply, socket}
   end
 

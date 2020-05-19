@@ -1,0 +1,40 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("About AOFF"), to: Routes.about_path(@conn, :index)
+    li.is-active
+      | &nbsp;
+      = @category.title
+
+.row
+  .column
+    h2 = @category.title
+  .column
+    = if @text_editor do
+      .float-right
+        = link gettext("New article"),\
+          to: Routes.volunteer_category_page_path(@conn, :new, @category),\
+          class: "button button-outline"
+        /| &nbsp;
+        /= link gettext("Edit"),\
+        /  to: Routes.volunteer_blog_path(@conn, :edit,  @category),\
+        /  class: "button"
+.row
+  .column
+    .auto-columns
+      = raw @category.description
+
+hr
+
+.tiles.button-tiles
+  = for post <- @category.blog_posts do
+    .card.is-shady
+      = link to: Routes.about_page_path(@conn, :show, @category, post) do
+        .card-image
+          img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({post.image, post}, :thumb)}"
+        .card-content
+          h4 = post.title
+          p = post.teaser
+        .card-footer.is-button
+          .card-footer-item.is-button
+            = gettext("Show")

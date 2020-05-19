@@ -9,7 +9,6 @@ defmodule AOFFWeb.Volunteer.MemberController do
   plug Auth
   plug :authenticate when action in [:edit, :new, :update, :create, :delete]
 
-
   def index(conn, %{"committee_id" => committee_id}) do
     committee = Committees.get_committee!(committee_id)
     members = Committees.list_members()
@@ -32,7 +31,7 @@ defmodule AOFFWeb.Volunteer.MemberController do
       {:ok, member} ->
         conn
         |> put_flash(:info, gettext("Member created successfully."))
-        |> redirect(to: Routes.volunteer_committee_path(conn, :show, member.committee_id))
+        |> redirect(to: Routes.committee_committee_path(conn, :show, member.committee_id))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         committee = Committees.get_committee!(member_params["committee_id"])

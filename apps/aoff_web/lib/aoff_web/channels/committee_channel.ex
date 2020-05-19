@@ -21,16 +21,18 @@ defmodule AOFFWeb.CommitteeChannel do
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (committee:lobby).
   def handle_in("shout", payload, socket) do
-    payload = Map.merge(
-      payload,
-      %{
-        "posted_at" => AOFF.Time.now(),
-        "posted" => AOFF.Time.today_as_string()
-      }
-    )
+    payload =
+      Map.merge(
+        payload,
+        %{
+          "posted_at" => DateTime.now(),
+          "posted" => AOFF.Time.today_as_string()
+        }
+      )
+
     {:ok, %AOFF.Chats.Message{id: id}} = Chats.create_message(payload)
 
-    broadcast socket, "shout", Map.put(payload, "id", id)
+    broadcast(socket, "shout", Map.put(payload, "id", id))
     {:noreply, socket}
   end
 

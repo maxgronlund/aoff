@@ -19,7 +19,7 @@ header
         = link gettext("News"), to: Routes.news_path(@conn, :index)
 
       li class="<%= menu_item(@conn, :about_aoff) %>"
-        = link gettext("About AOFF"), to: Routes.info_path(@conn, :index)
+       = link gettext("About AOFF"), to: Routes.about_path(@conn, :index)
 
       = if @current_user do
         li class="<%= menu_item(@conn, :logout) %>"

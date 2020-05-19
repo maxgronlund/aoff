@@ -19,6 +19,6 @@ defmodule AOFF.Committees.Member do
   def changeset(member, attrs) do
     member
     |> cast(attrs, [:role, :user_id, :committee_id])
-    |> validate_required([:user_id, :committee_id])
+    |> validate_required([:role, :user_id, :committee_id])
   end
 end

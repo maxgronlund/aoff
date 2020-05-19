@@ -1,89 +1,91 @@
 defmodule AOFFWeb.Committees.MemberControllerTest do
   use AOFFWeb.ConnCase
+  import AOFF.Committees.MemberFixture
+  import AOFF.Committees.CommitteeFixture
+  import AOFF.Users.UserFixture
+  import AOFFWeb.Gettext
 
+  alias Plug.Conn
   alias AOFF.Committees
 
-  @create_attrs %{role: "some role"}
-  @update_attrs %{role: "some updated role"}
-  @invalid_attrs %{role: nil}
 
-  def fixture(:member) do
-    {:ok, member} = Committees.create_member(@create_attrs)
-    member
-  end
+  describe "volunteer" do
+    @session Plug.Session.init(
+               store: :cookie,
+               key: "_app",
+               encryption_salt: "yadayada",
+               signing_salt: "yadayada"
+             )
+    setup do
+      user = user_fixture(%{"volunteer" => true})
 
-  describe "index" do
-    test "lists all members", %{conn: conn} do
-      conn = get(conn, Routes.member_path(conn, :index))
-      assert html_response(conn, 200) =~ "Listing Members"
+      conn =
+        build_conn()
+        |> Plug.Session.call(@session)
+        |> Conn.fetch_session()
+        |> put_session(:user_id, user.id)
+        |> configure_session(renew: true)
+
+      committee = committee_fixture()
+
+      {:ok, conn: conn, user: user, committee: committee}
     end
-  end
 
-  describe "new member" do
-    test "renders form", %{conn: conn} do
-      conn = get(conn, Routes.member_path(conn, :new))
-      assert html_response(conn, 200) =~ "New Member"
+    test "new member renders form", %{conn: conn, committee: committee} do
+      conn = get(conn, Routes.volunteer_committee_member_path(conn, :new, committee))
+      assert html_response(conn, 200) =~ gettext("New Member")
     end
-  end
 
-  describe "create member" do
-    test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.member_path(conn, :create), member: @create_attrs)
+    test "create member redirects to show when data is valid", %{conn: conn, user: user, committee: committee} do
+
+      attrs = valid_member_attrs(%{"committee_id" => committee.id, "user_id" => user.id})
+      conn = post(conn, Routes.volunteer_committee_member_path(conn, :create, committee), member: attrs)
 
       assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.member_path(conn, :show, id)
+      assert redirected_to(conn) == Routes.committee_committee_path(conn, :show, committee)
 
-      conn = get(conn, Routes.member_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show Member"
+      conn = get(conn, Routes.committee_committee_path(conn, :show, committee))
+      assert html_response(conn, 200) =~ attrs["role"]
     end
 
-    test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.member_path(conn, :create), member: @invalid_attrs)
-      assert html_response(conn, 200) =~ "New Member"
-    end
-  end
-
-  describe "edit member" do
-    setup [:create_member]
-
-    test "renders form for editing chosen member", %{conn: conn, member: member} do
-      conn = get(conn, Routes.member_path(conn, :edit, member))
-      assert html_response(conn, 200) =~ "Edit Member"
-    end
-  end
-
-  describe "update member" do
-    setup [:create_member]
-
-    test "redirects when data is valid", %{conn: conn, member: member} do
-      conn = put(conn, Routes.member_path(conn, :update, member), member: @update_attrs)
-      assert redirected_to(conn) == Routes.member_path(conn, :show, member)
-
-      conn = get(conn, Routes.member_path(conn, :show, member))
-      assert html_response(conn, 200) =~ "some updated role"
+    test "renders errors when data is invalid", %{conn: conn, user: user, committee: committee} do
+      attrs = invalid_member_attrs(%{"committee_id" => committee.id})
+      conn = post(conn, Routes.volunteer_committee_member_path(conn, :create, committee), member: attrs)
+      assert html_response(conn, 200) =~ gettext("New Member")
     end
 
-    test "renders errors when data is invalid", %{conn: conn, member: member} do
-      conn = put(conn, Routes.member_path(conn, :update, member), member: @invalid_attrs)
-      assert html_response(conn, 200) =~ "Edit Member"
+    test "edit member renders form for editing chosen member", %{conn: conn, user: user, committee: committee} do
+      member = member_fixture(%{"user_id" => user.id, "committee_id" => committee.id})
+      conn = get(conn, Routes.volunteer_committee_member_path(conn, :edit, committee, member))
+      assert html_response(conn, 200) =~ gettext("Edit Member")
     end
-  end
 
-  describe "delete member" do
-    setup [:create_member]
+    test "update member redirects when data is valid", %{conn: conn, user: user, committee: committee} do
+      member = member_fixture(%{"user_id" => user.id, "committee_id" => committee.id})
+      attrs = update_member_attrs()
+      conn = put(conn, Routes.volunteer_committee_member_path(conn, :update, committee, member), member: attrs)
+      assert redirected_to(conn) == Routes.committee_committee_path(conn, :show, committee)
 
-    test "deletes chosen member", %{conn: conn, member: member} do
-      conn = delete(conn, Routes.member_path(conn, :delete, member))
-      assert redirected_to(conn) == Routes.member_path(conn, :index)
-
-      assert_error_sent 404, fn ->
-        get(conn, Routes.member_path(conn, :show, member))
-      end
+      conn = get(conn, Routes.committee_committee_path(conn, :show, committee))
+      assert html_response(conn, 200) =~ attrs["role"]
     end
-  end
 
-  defp create_member(_) do
-    member = fixture(:member)
-    {:ok, member: member}
+    test "update member renders errors when data is invalid", %{conn: conn, user: user, committee: committee} do
+      member = member_fixture(%{"user_id" => user.id, "committee_id" => committee.id})
+      attrs = invalid_member_attrs()
+      conn =
+        put(
+          conn,
+          Routes.volunteer_committee_member_path(conn, :update, committee, member),
+          member: attrs
+        )
+      assert html_response(conn, 200) =~ gettext("Edit Member")
+    end
+
+    test "delete member deletes chosen member", %{conn: conn, user: user, committee: committee} do
+      member = member_fixture(%{"user_id" => user.id, "committee_id" => committee.id})
+      conn = delete(conn, Routes.volunteer_committee_member_path(conn, :delete, committee, member))
+      assert redirected_to(conn) == Routes.committee_committee_path(conn, :show, committee)
+    end
   end
 end

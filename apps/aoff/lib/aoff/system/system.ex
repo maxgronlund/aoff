@@ -123,7 +123,6 @@ defmodule AOFF.System do
     Message.changeset(message, %{})
   end
 
-
   alias AOFF.System.SMSMessage
 
   @doc """
@@ -173,7 +172,6 @@ defmodule AOFF.System do
     |> Repo.insert()
   end
 
-
   @doc """
   Deletes a sms_message.
 
@@ -202,5 +200,4 @@ defmodule AOFF.System do
   def change_sms_message(%SMSMessage{} = sms_message) do
     SMSMessage.changeset(sms_message, %{})
   end
-
 end

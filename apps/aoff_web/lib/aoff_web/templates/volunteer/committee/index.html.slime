@@ -6,28 +6,34 @@
       | &nbsp;
       = gettext("Committees")
 
-h2 = gettext("Listing Committees")
-= link gettext("New Committee"),\
-  to: Routes.volunteer_committee_path(@conn, :new),\
-  class: "button float-right"
-
-.tiles.button-tiles
-  = for committee <- @committees do
-    .card.is-shady
-      = link to: Routes.volunteer_committee_path(@conn, :show, committee) do
-        .card-header
-          .card-header-title.is-centered
-            = committee.name
-        .card-image
-
-        .card-content
-          = raw committee.description
-        .card-footer.is-button
-          .card-footer-item.is-button
-            = gettext("Show")
+.row
+  .column
+    h2 = gettext("Listing Committees")
+  = if @admin do
+    .column
+      = link gettext("New Committee"),\
+        to: Routes.volunteer_committee_path(@conn, :new),\
+        class: "button float-right"
 
 
-
-
-
-
+= for committee <- @committees do
+  .alert.alert-box
+    b = committee.name
+    br/
+    .auto-columns
+      = raw committee.description
+    .row.mt-1
+      .column
+        .float-right
+          = link gettext("Show"),\
+            to:  Routes.committee_committee_path(@conn, :show, committee),\
+              class: "button button-outline"
+          = if @admin do
+            | &nbsp;
+            = link gettext("Edit"),\
+              to: Routes.volunteer_committee_path(@conn, :edit, committee),\
+              class: "button"
+            | &nbsp;
+            = link gettext("Delete"),\
+              to: Routes.volunteer_committee_path(@conn, :delete, committee),\
+              method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red"

@@ -5,45 +5,62 @@
       p = gettext("Oops, something went wrong! Please check the errors below.")
 
   = if @volunteer && @user do
-    .form-group
-      = label f, :avatar, class: "control-label"
-      = file_input f, :avatar, class: "form-control full-width"
-      = error_tag f, :avatar
-  .form-group
-    = label f, :username, gettext("Full name"), class: "control-label"
-    = text_input f, :username, class: "form-control full-width"
-    = error_tag f, :username
 
-  .form-group
-    = label f, :email, gettext("Email"), class: "control-label"
-    = email_input f, :email, class: "form-control full-width"
-    = error_tag f, :email
-  .form-group
-    = label f, :email_confirmation, gettext("Confirm email"),class: "control-label"
-    = email_input f, :email_confirmation, class: "form-control full-width", value: @email
-    = error_tag f, :email_confirmation
+    .alert.alert-success
+      .row
+        .column
+          = img_tag AOFF.Uploader.Image.url({@user.avatar, @user}, :avatar)
+          .form-group
+            = label f, :avatar, class: "control-label"
+            = file_input f, :avatar, class: "form-control full-width"
+            = error_tag f, :avatar
+        .column
+          b = @avatar_format.title
+          = raw @avatar_format.text
+          = if @text_editor do
+            = link gettext("Edit text"),\
+              to: Routes.volunteer_message_path(@conn, :edit, @avatar_format, %{"request_url" => @conn.request_path})
 
-  .form-group
-    = label f, :password, gettext("Password"), class: "control-label"
-    = password_input f, :password, class: "form-control full-width"
-    = error_tag f, :password
+  .row
+    .column
+      .alert.alert-box
+        .form-group
+          = label f, :username, gettext("Full name"), class: "control-label"
+          = text_input f, :username, class: "form-control full-width"
+          = error_tag f, :username
+        .form-group.inline
+          = telephone_input f, :mobile_country_code, class: "form-control full-width", style: "width: 50px; margin-right: 6px"
+        .form-group.inline
+          = label f, :mobile, gettext("Mobile"), class: "control-label"
+          = telephone_input f, :mobile, class: "form-control full-width", style: "width: 200px;"
+          = error_tag f, :mobile
+    .column
+      .alert.alert-box
 
-  .form-group.inline
-    = telephone_input f, :mobile_country_code, class: "form-control full-width", style: "width: 50px; margin-right: 6px"
-  .form-group.inline
-    = label f, :mobile, gettext("Mobile"), class: "control-label"
-    = telephone_input f, :mobile, class: "form-control full-width", style: "width: 200px;"
-    = error_tag f, :mobile
-  .form-group
-    = unless @current_user do
-      = label f, :terms_accepted do
-        = checkbox f, :terms_accepted, class: "form-control"
-        = label f, :terms_accepted,\
-          gettext("I accept"),\
-          class: "control-label label-inline"
-        | &nbsp;
-        = link(gettext("terms and condition"), to: Routes.terms_path(@conn, :index))
-      = error_tag f, :terms_accepted
+        .form-group
+          = label f, :email, gettext("Email"), class: "control-label"
+          = email_input f, :email, class: "form-control full-width"
+          = error_tag f, :email
+        .form-group
+          = label f, :email_confirmation, gettext("Confirm email"),class: "control-label"
+          = email_input f, :email_confirmation, class: "form-control full-width", value: @email
+          = error_tag f, :email_confirmation
+        .form-group
+          = label f, :password, gettext("Password"), class: "control-label"
+          = password_input f, :password, class: "form-control full-width"
+          = error_tag f, :password
+
+
+        .form-group
+          = unless @current_user do
+            = label f, :terms_accepted do
+              = checkbox f, :terms_accepted, class: "form-control"
+              = label f, :terms_accepted,\
+                gettext("I accept"),\
+                class: "control-label label-inline"
+              | &nbsp;
+              = link(gettext("terms and condition"), to: Routes.terms_path(@conn, :index))
+            = error_tag f, :terms_accepted
 
 
   .form-group

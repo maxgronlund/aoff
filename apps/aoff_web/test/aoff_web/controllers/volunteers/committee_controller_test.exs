@@ -1,12 +1,11 @@
 defmodule AOFFWeb.Volunteer.CommitteeControllerTest do
-    use AOFFWeb.ConnCase
+  use AOFFWeb.ConnCase
   import AOFFWeb.Gettext
   import AOFF.Users.UserFixture
   import AOFF.Committees.CommitteeFixture
 
   alias Plug.Conn
   alias AOFF.Committees
-
 
   describe "committee" do
     @session Plug.Session.init(
@@ -66,7 +65,10 @@ defmodule AOFFWeb.Volunteer.CommitteeControllerTest do
     test "update committee redirects when data is valid", %{conn: conn} do
       committee = committee_fixture()
       attrs = update_committee_attrs()
-      conn = put(conn, Routes.volunteer_committee_path(conn, :update, committee), committee: attrs)
+
+      conn =
+        put(conn, Routes.volunteer_committee_path(conn, :update, committee), committee: attrs)
+
       assert redirected_to(conn) == Routes.volunteer_committee_path(conn, :show, committee)
 
       conn = get(conn, Routes.volunteer_committee_path(conn, :show, committee))
@@ -78,7 +80,10 @@ defmodule AOFFWeb.Volunteer.CommitteeControllerTest do
     } do
       committee = committee_fixture()
       attrs = invalid_committee_attrs()
-      conn = put(conn, Routes.volunteer_committee_path(conn, :update, committee), committee: attrs)
+
+      conn =
+        put(conn, Routes.volunteer_committee_path(conn, :update, committee), committee: attrs)
+
       assert html_response(conn, 200) =~ gettext("Edit Committee")
     end
 

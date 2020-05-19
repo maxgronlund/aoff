@@ -1,7 +1,7 @@
 .breadcrumb aria-label="breadcrumbs"
   ul
     li
-      = link gettext("About AOFF"), to: Routes.info_path(@conn, :index)
+      = link gettext("About AOFF"), to: Routes.about_path(@conn, :index)
     li
       = link gettext("Listing Committees"), to: Routes.committee_committee_path(@conn, :index)
     li.is-active
@@ -12,8 +12,15 @@ h2 = @committee.name
 
 .auto-columns
   = raw @committee.description
-
-br
+hr.mt-1/
+.row
+  .column
+    h3 = gettext("Committee members")
+  = if committee_member(@committee, @current_user) || @admin do
+    .column
+      = link gettext("Add committee member"),\
+        to: Routes.volunteer_committee_member_path(@conn, :new, @committee),\
+        class: "button float-right"
 .profiles.mt-2
   = for member <- @committee.members do
     .profile
@@ -26,13 +33,33 @@ br
         = member.user.email
         br
         = member.user.mobile
+      = if @admin do
+        .row
+          .column
+            .float-right
+              .pr-6
+                = link gettext("Remove"),\
+                  to: Routes.volunteer_committee_member_path(@conn, :delete, @committee, member),\
+                  method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red button-small"
+                | &nbsp;
+                = link gettext("Edit"),\
+                  to: Routes.volunteer_committee_member_path(@conn, :edit, @committee, member),\
+                  class: "button button-small"
+
+
 .row.mt-1
   .column
-    h4 = gettext("Meetings")
-
+    h3 = gettext("Meetings")
+  = if committee_member(@committee, @current_user) || @admin do
+    .column
+      = link gettext("New Meeting"),\
+        to: Routes.volunteer_committee_meeting_path(@conn, :new, @committee),\
+        class: "button float-right"
+.row
+  .column
     = for meeting <- @committee.meetings do
       .alert.alert-box
-        h4 = meeting.name
+        b = meeting.name
         .row
           .column
             i = date(meeting.date)
@@ -63,7 +90,7 @@ br
 
           input#committee-id  type="text" value="#{@committee.id}" disabled="disabled" style="visibility: hidden;"
 
-        textarea#user-msg placeholder=(gettext("Write here"))
+        textarea#user-msg.full-width placeholder=(gettext("Write here"))
         br
         .float-right
           button type="submit" #{gettext("Send")}

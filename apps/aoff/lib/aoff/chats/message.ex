@@ -10,7 +10,6 @@ defmodule AOFF.Chats.Message do
     field :posted_at, :naive_datetime
     field :posted, :string
 
-
     belongs_to :committee, Committee
 
     timestamps()
@@ -18,7 +17,6 @@ defmodule AOFF.Chats.Message do
 
   @doc false
   def changeset(message, attrs) do
-
     message
     |> cast(attrs, [:username, :body, :posted_at, :committee_id, :posted])
     |> validate_required([:username, :body, :committee_id, :posted])

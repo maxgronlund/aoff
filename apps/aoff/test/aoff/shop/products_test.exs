@@ -47,10 +47,11 @@ defmodule AOFF.Shop.ProductsTest do
       assert product == Shop.get_product!(product.id)
     end
 
-    test "delete_product/1 deletes the product" do
+    test "delete_product/1 mark the product as deleted" do
       product = product_fixture()
       assert {:ok, %Product{}} = Shop.delete_product(product)
-      assert_raise Ecto.NoResultsError, fn -> Shop.get_product!(product.id) end
+      product = Shop.get_product!(product.id)
+      assert product.deleted == true
     end
 
     test "change_product/1 returns a product changeset" do

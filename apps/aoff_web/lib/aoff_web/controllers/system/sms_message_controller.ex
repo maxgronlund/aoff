@@ -4,12 +4,9 @@ defmodule AOFFWeb.System.SMSMessageController do
   alias AOFF.System
   alias AOFF.System.SMSMessage
 
-
   alias AOFFWeb.Users.Auth
   plug Auth
   plug :authenticate when action in [:index, :show, :create, :delete]
-
-
 
   def index(conn, _params) do
     sms_messages = System.list_sms_messages()
@@ -22,19 +19,18 @@ defmodule AOFFWeb.System.SMSMessageController do
   end
 
   def create(conn, %{"sms_message" => sms_message_params}) do
-
     user = conn.assigns.current_user
 
     result =
       case sms_api().send_sms_message(sms_message_params) do
         {:ok, %HTTPoison.Response{} = response} ->
-          IO.inspect response
-        {:error, reason} -> IO.inspect reason
+          IO.inspect(response)
+
+        {:error, reason} ->
+          IO.inspect(reason)
       end
 
-
-    sms_message_params =
-      Map.put(sms_message_params, "user_id", user.id)
+    sms_message_params = Map.put(sms_message_params, "user_id", user.id)
 
     case System.create_sms_message(sms_message_params) do
       {:ok, sms_message} ->
@@ -51,7 +47,6 @@ defmodule AOFFWeb.System.SMSMessageController do
     Application.get_env(:aoff, :sms_api)
   end
 
-
   # todo
   # defp send_sms_message(sms_message_params) do
   #   IO.puts "===================="
@@ -61,7 +56,6 @@ defmodule AOFFWeb.System.SMSMessageController do
 
   #   # endpoint = Application.get_env(:aoff_web, :cpsms)[:endpoint]
   #   # token = Application.get_env(:aoff_web, :cpsms)[:token]
-
 
   #   # body =
   #   #   Poison.encode!(%{
@@ -108,6 +102,4 @@ defmodule AOFFWeb.System.SMSMessageController do
       |> halt()
     end
   end
-
-
 end

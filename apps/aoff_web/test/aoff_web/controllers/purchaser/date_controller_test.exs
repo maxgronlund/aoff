@@ -15,12 +15,11 @@ defmodule AOFFWeb.Purchaser.DateControllerTest do
              )
 
     setup do
-      user = user_fixture(
-        %{
+      user =
+        user_fixture(%{
           "volunteer" => true,
           "purchasing_manager" => true
-        }
-      )
+        })
 
       conn =
         build_conn()

@@ -4,9 +4,9 @@ defmodule AOFFWeb.Volunteer.CommitteeController do
   alias AOFF.Committees
   alias AOFF.Committees.Committee
 
-  # alias AOFFWeb.Users.Auth
-  # plug Auth
-  # plug :authenticate when action in [:show]
+  alias AOFFWeb.Users.Auth
+  plug Auth
+  plug :authenticate when action in [:index, :new, :create, :edit, :update, :delete]
 
   def index(conn, _params) do
     committees = Committees.list_committees()
@@ -23,16 +23,11 @@ defmodule AOFFWeb.Volunteer.CommitteeController do
       {:ok, committee} ->
         conn
         |> put_flash(:info, gettext("Committee created successfully."))
-        |> redirect(to: Routes.volunteer_committee_path(conn, :show, committee))
+        |> redirect(to: Routes.committee_committee_path(conn, :show, committee))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
-  end
-
-  def show(conn, %{"id" => id}) do
-    committee = Committees.get_committee!(id)
-    render(conn, "show.html", committee: committee)
   end
 
   def edit(conn, %{"id" => id}) do
@@ -48,7 +43,7 @@ defmodule AOFFWeb.Volunteer.CommitteeController do
       {:ok, committee} ->
         conn
         |> put_flash(:info, gettext("Committee updated successfully."))
-        |> redirect(to: Routes.volunteer_committee_path(conn, :show, committee))
+        |> redirect(to: Routes.volunteer_committee_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", committee: committee, changeset: changeset)
@@ -64,15 +59,15 @@ defmodule AOFFWeb.Volunteer.CommitteeController do
     |> redirect(to: Routes.volunteer_committee_path(conn, :index))
   end
 
-  # defp authenticate(conn, _opts) do
-  #   if conn.assigns.shop_assistant do
-  #     assign(conn, :page, :shop_assistant)
-  #   else
-  #     conn
-  #     |> put_status(401)
-  #     |> put_view(AOFFWeb.ErrorView)
-  #     |> render(:"401")
-  #     |> halt()
-  #   end
-  # end
+  defp authenticate(conn, _opts) do
+    if conn.assigns.admin do
+      assign(conn, :page, :volunteer)
+    else
+      conn
+      |> put_status(401)
+      |> put_view(AOFFWeb.ErrorView)
+      |> render(:"401")
+      |> halt()
+    end
+  end
 end

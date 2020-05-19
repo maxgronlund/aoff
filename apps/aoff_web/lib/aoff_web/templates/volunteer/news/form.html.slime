@@ -1,0 +1,75 @@
+javascript:
+  tinymce.init({
+    selector: '#news_text',
+    menubar: false,
+    height : 300
+  });
+
+= form_for @changeset, @action, [multipart: true], fn f ->
+  = if @changeset.action do
+    .alert.alert-danger
+      p= gettext("Oops, something went wrong! Please check the errors below.")
+
+  = if @news do
+    .alert.alert-success
+      .row
+        .column
+          .form-group
+            = label f, :image, gettext("Image"), class: "control-label"
+            = file_input f, :image, class: "form-control full-width"
+            = error_tag f, :image
+          .form-group
+            = label f, :caption, gettext("Image caption"), class: "control-label"
+            = text_input f, :caption, class: "form-control full-width", placeholder: gettext("About the image")
+            = error_tag f, :caption
+        .column
+          b = @image_format.title
+          = raw @image_format.text
+          = if @text_editor do
+            = link gettext("Edit text"),\
+              to: Routes.volunteer_message_path(@conn, :edit, @image_format, %{"request_url" => @conn.request_path})
+  .row
+    .column
+      .form-group
+        = label f, :title, gettext("Title"), class: "control-label"
+        = text_input f, :title, class: "form-control full-width"
+        = error_tag f, :title
+    .column
+      .form-group
+        = label f, :date, gettext("Date"), class: "control-label"
+        = date_select f, :date, class: "form-control full-width", value: @date
+        = error_tag f, :date
+  .row
+    .column
+      .form-group
+        = label f, :author, gettext("Author"), class: "control-label"
+        = text_input f, :author, class: "form-control full-width", value: @author
+        = error_tag f, :author
+      .form-group
+        = label f, :teaser, gettext("Teaser"), class: "control-label"
+        = textarea f, :teaser, \
+          class: "form-control full-width",\
+          style: "height: 85px;", \
+          placeholder: gettext("Short intro")
+        = error_tag f, :teaser
+  .row
+    .column
+  .row
+    .column
+      .form-group
+        = label f, :text, gettext("Text"), class: "control-label"
+        = textarea f, :text, class: "form-control full-width", style: "height: 175px;"
+        = error_tag f, :text
+
+
+
+
+  .row.mt-1
+    .column
+      .form-group
+        .float-right
+          /= link gettext("Cancel"),\
+          /  to: Routes.volunteer_blog_path(@conn, :show, @blog),\
+          /  class: "button button-outline"
+          /| &nbsp;
+          = submit gettext("Save"), class: "btn btn-primary"

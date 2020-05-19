@@ -7,7 +7,6 @@ defmodule AOFFWeb.Volunteer.MessageController do
   plug Auth
   plug :authenticate when action in [:index, :edit, :new, :update, :create, :delete]
 
-
   def index(conn, _params) do
     {:ok, instructions} =
       System.find_or_create_message(
@@ -26,7 +25,6 @@ defmodule AOFFWeb.Volunteer.MessageController do
   end
 
   def edit(conn, %{"id" => id, "request_url" => request_url}) do
-
     message = System.get_message!(id)
     Users.set_bounce_to_url(conn.assigns.current_user, request_url)
 
@@ -35,9 +33,9 @@ defmodule AOFFWeb.Volunteer.MessageController do
   end
 
   def edit(conn, _params) do
-      conn
-      |> put_flash(:error, gettext("The message for the selected language does not exist."))
-      |> redirect(to: Routes.volunteer_message_path(conn, :index))
+    conn
+    |> put_flash(:error, gettext("The message for the selected language does not exist."))
+    |> redirect(to: Routes.volunteer_message_path(conn, :index))
   end
 
   def update(conn, %{"id" => id, "message" => message_params}) do
@@ -46,7 +44,7 @@ defmodule AOFFWeb.Volunteer.MessageController do
     case System.update_message(message, message_params) do
       {:ok, message} ->
         conn
-        |> put_flash(:info, gettext("%{title} updated successfully.", title: message.title))
+        |> put_flash(:info, gettext("Message updated successfully.", title: message.title))
         |> redirect(to: Users.get_bounce_to_url(conn.assigns.current_user))
 
       {:error, %Ecto.Changeset{} = changeset} ->

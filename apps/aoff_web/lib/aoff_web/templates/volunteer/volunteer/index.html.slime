@@ -1,7 +1,7 @@
 .row
   .column
     h2= @volunteer.title
-    .auto-comumns
+    .auto-columns
       = raw @volunteer.text
     = if @text_editor do
       = link gettext("Edit text"),\
@@ -19,7 +19,7 @@
           to: Routes.volunteer_message_path(@conn, :edit, @categories, %{"request_url" => @conn.request_path})
     .card-footer.is-button
       = link gettext("Go to"),\
-        to: Routes.volunteer_blog_path(@conn, :index),\
+        to: Routes.volunteer_category_path(@conn, :index),\
         class: "card-footer-item is-button"
 
   .card.is-shady
@@ -28,69 +28,73 @@
         = @users.title
     .card-content
       p = raw @users.text
-      = if @text_editor do
-        = link gettext("Edit text"),\
-          to: Routes.volunteer_message_path(@conn, :edit, @users, %{"request_url" => @conn.request_path})
+      = link gettext("Edit text"),\
+        to: Routes.volunteer_message_path(@conn, :edit, @users, %{"request_url" => @conn.request_path})
     .card-footer.is-button
       = link gettext("Go to"),\
         to: Routes.volunteer_user_path(@conn, :index),\
         class: "card-footer-item is-button"
 
-  .card.is-shady
-    .card-header
-      .card-header-title.is-centered
-        = @opening_dates.title
-    .card-content
-      p = raw @opening_dates.text
-      = if @text_editor do
-        = link gettext("Edit text"),\
-          to: Routes.volunteer_message_path(@conn, :edit, @opening_dates, %{"request_url" => @conn.request_path})
-    .card-footer.is-button
-      = link gettext("Go to"),\
-        to: Routes.volunteer_date_path(@conn, :index),\
+  = if @admin do
+    .card.is-shady
+      .card-header
+        .card-header-title.is-centered
+          = @opening_dates.title
+      .card-content
+        p = raw @opening_dates.text
+        = if @text_editor do
+          = link gettext("Edit text"),\
+            to: Routes.volunteer_message_path(@conn, :edit, @opening_dates, %{"request_url" => @conn.request_path})
+      .card-footer.is-button
+        = link gettext("Go to"),\
+          to: Routes.volunteer_date_path(@conn, :index),\
+          class: "card-footer-item is-button"
+
+  = if @text_editor || @admin do
+    .card.is-shady
+      .card-header
+        .card-header-title.is-centered
+          = @messages.title
+      .card-content
+        p = raw @messages.text
+        = if @text_editor do
+          = link gettext("Edit text"),\
+            to: Routes.volunteer_message_path(@conn, :edit, @messages, %{"request_url" => @conn.request_path})
+      .card-footer.is-button
+        = link gettext("Go to"),\
+          to: Routes.volunteer_message_path(@conn, :index),\
+          class: "card-footer-item is-button"
+
+
+  = if @manage_membership || @admin do
+    .card.is-shady
+      .card-header
+        .card-header-title.is-centered
+          = @membership.title
+      .card-content
+        p = raw @membership.text
+        = if @text_editor do
+          = link gettext("Edit text"),\
+            to: Routes.volunteer_message_path(@conn, :edit, @membership, %{"request_url" => @conn.request_path})
+      .card-footer.is-button
+        = link gettext("Go to"),\
+          to: Routes.volunteer_membership_path(@conn, :index),\
         class: "card-footer-item is-button"
 
-  .card.is-shady
-    .card-header
-      .card-header-title.is-centered
-        = @messages.title
-    .card-content
-      p = raw @messages.text
-      = if @text_editor do
-        = link gettext("Edit text"),\
-          to: Routes.volunteer_message_path(@conn, :edit, @messages, %{"request_url" => @conn.request_path})
-    .card-footer.is-button
-      = link gettext("Go to"),\
-        to: Routes.volunteer_message_path(@conn, :index),\
-        class: "card-footer-item is-button"
-
-  .card.is-shady
-    .card-header
-      .card-header-title.is-centered
-        = @membership.title
-    .card-content
-      p = raw @membership.text
-      = if @text_editor do
-        = link gettext("Edit text"),\
-          to: Routes.volunteer_message_path(@conn, :edit, @membership, %{"request_url" => @conn.request_path})
-    .card-footer.is-button
-      = link gettext("Go to"),\
-        to: Routes.volunteer_membership_path(@conn, :index),\
-        class: "card-footer-item is-button"
-
-  .card.is-shady
-    .card-header
-      .card-header-title.is-centered
-        = @committees.title
-    .card-content
-      p = raw @committees.text
-      = if @text_editor do
-        = link gettext("Edit text"),\
-          to: Routes.volunteer_message_path(@conn, :edit, @committees, %{"request_url" => @conn.request_path})
-    .card-footer.is-button
-      = link gettext("Go to"),\
-        to: Routes.volunteer_committee_path(@conn, :index),\
-        class: "card-footer-item is-button"
+  = if @admin do
+    .card.is-shady
+      .card-header
+        .card-header-title.is-centered
+          = @committees.title
+      .card-content
+        p = raw @committees.text
+        = if @text_editor do
+          = link gettext("Edit text"),\
+            to: Routes.volunteer_message_path(@conn, :edit, @committees, %{"request_url" => @conn.request_path})
+      .card-footer.is-button
+        = link gettext("Go to"),\
+          to: Routes.volunteer_committee_path(@conn, :index),\
+          class: "card-footer-item is-button"
 
 
 

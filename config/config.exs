@@ -35,8 +35,7 @@ config :phoenix, :template_engines,
   # If you want to use LiveView
   slimleex: PhoenixSlime.LiveViewEngine
 
-config :elixir,
-  :time_zone_database, Tzdata.TimeZoneDatabase
+config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
 
 config :money,
   # this allows you to do Money.new(100)
@@ -94,8 +93,6 @@ config :aoff_web,
     merchantnumber: System.get_env("EPAY_MERCHANT_NR"),
     endpoint: System.get_env("EPAY_ENDPOINT")
   ]
-
-
 
 config :aoff_web,
   cpsms: [

@@ -5,8 +5,6 @@ defmodule AOFFWeb.InfoController do
   alias AOFF.System
 
   def index(conn, _params) do
-
-
     blogs = Blogs.all_but_news(Gettext.get_locale())
     conn = assign(conn, :page, :about_aoff)
 

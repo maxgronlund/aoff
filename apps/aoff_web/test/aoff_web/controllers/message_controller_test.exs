@@ -11,7 +11,7 @@ defmodule AOFFWeb.MessageControllerTest do
   describe "unauthorized" do
     test "index renders 401", %{conn: conn} do
       conn = get(conn, Routes.volunteer_message_path(conn, :index))
-      assert html_response(conn, 401) =~ "Unauthorized"
+      assert html_response(conn, 401) =~ "401"
     end
   end
 
@@ -24,7 +24,7 @@ defmodule AOFFWeb.MessageControllerTest do
              )
     setup do
       user = user_fixture(%{"volunteer" => true})
-
+      AOFF.Users.set_bounce_to_url(user, "/")
       conn =
         build_conn()
         |> Plug.Session.call(@session)
@@ -55,7 +55,7 @@ defmodule AOFFWeb.MessageControllerTest do
       message = message_fixture()
       attrs = update_message_attrs()
       conn = put(conn, Routes.volunteer_message_path(conn, :update, message), message: attrs)
-      assert redirected_to(conn) == Routes.volunteer_message_path(conn, :show, message)
+      assert redirected_to(conn) == Routes.page_path(conn, :index)
 
       conn = get(conn, Routes.volunteer_message_path(conn, :show, message))
       assert html_response(conn, 200) =~ attrs["title"]

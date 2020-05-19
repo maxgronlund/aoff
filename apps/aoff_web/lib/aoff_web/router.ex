@@ -47,12 +47,11 @@ defmodule AOFFWeb.Router do
 
     resources "/sessions", SessionController
 
-    resources "/info", InfoController, only: [:index, :show] do
-      resources "/about_aoff", Info.AboutController, only: [:show]
-      # resources "/news", Info.NewsController, except: [:index, :show]
+    resources "/about", Content.AboutController, only: [:index, :show] do
+      resources "/page", Content.PageController, only: [:show]
     end
 
-    resources "/news", Info.NewsController, only: [:index, :show]
+    resources "/news", Content.NewsController, only: [:index, :show]
   end
 
   scope "/admin", as: :admin do
@@ -65,7 +64,6 @@ defmodule AOFFWeb.Router do
     pipe_through :browser
 
     resources "/", AOFFWeb.Committees.CommitteeController do
-      resources "/members", AOFFWeb.Committees.MemberController, except: [:index, :show]
       resources "/meetings", AOFFWeb.Committees.MeetingController, only: [:show]
     end
   end
@@ -107,14 +105,18 @@ defmodule AOFFWeb.Router do
     resources "/memberships", AOFFWeb.Volunteer.MembershipController,
       only: [:index, :edit, :update]
 
-    resources "/blogs", AOFFWeb.Volunteer.BlogController do
-      resources "/posts", AOFFWeb.Volunteer.BlogPostController
+    resources "/news", AOFFWeb.Volunteer.NewsController
+
+    resources "/categories", AOFFWeb.Volunteer.CategoryController, except: [:show] do
+      resources "/pages", AOFFWeb.Volunteer.PageController
     end
 
     resources "/committees", AOFFWeb.Volunteer.CommitteeController do
       resources "/members", AOFFWeb.Volunteer.MemberController, except: [:index, :show]
       resources "/meetings", AOFFWeb.Volunteer.MeetingController
     end
+
+    resources "/news", AOFFWeb.Volunteer.NewsController, except: [:index, :show]
   end
 
   scope "/shop_assistant", as: :shop_assistant do

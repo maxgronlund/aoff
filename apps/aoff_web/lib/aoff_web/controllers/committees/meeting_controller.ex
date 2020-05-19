@@ -30,7 +30,6 @@ defmodule AOFFWeb.Committees.MeetingController do
   # end
 
   def show(conn, %{"id" => id}) do
-
     meeting = Committees.get_meeting!(id)
     render(conn, "show.html", committee: meeting.committee, meeting: meeting)
   end

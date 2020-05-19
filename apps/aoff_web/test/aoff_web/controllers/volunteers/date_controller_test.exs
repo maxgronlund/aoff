@@ -44,7 +44,6 @@ defmodule AOFFWeb.Volunteer.DateControllerTest do
 
       assert %{id: id} = redirected_params(conn)
 
-
       assert redirected_to(conn) == Routes.volunteer_date_path(conn, :edit, id)
     end
 

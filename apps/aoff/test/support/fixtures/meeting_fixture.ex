@@ -4,19 +4,28 @@ defmodule AOFF.Committees.MeetingFixture do
   @valid_attrs %{
     "name" => "some meeting name",
     "description" => "some meeting description",
-    "summary" => "some meeting summary"
+    "summary" => "some meeting summary",
+    "location" => "some location",
+    "agenda" => "some agenda",
+    "date" => Date.utc_today()
   }
 
   @update_attrs %{
     "name" => "some updated meeting name",
     "description" => "some updated meeting description",
-    "summary" => "some updated meeting summary"
+    "summary" => "some updated meeting summary",
+    "location" => "some updated location",
+    "agenda" => "some updated agenda",
+    "date" => Date.add(Date.utc_today(), 12)
   }
 
   @invalid_attrs %{
     "name" => nil,
     "description" => nil,
-    "summary" => nil
+    "summary" => nil,
+    "location" => nil,
+    "agenda" => nil,
+    "date" => nil
   }
 
   def valid_meeting_attrs(attrs \\ %{}) do

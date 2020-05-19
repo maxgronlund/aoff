@@ -1,0 +1,55 @@
+.row
+  .column
+    h2 = gettext("Listing News")
+  = if @volunteer do
+    .column
+      .float-right.mt-1
+        = link gettext("Create News"),\
+          to: Routes.volunteer_news_path(@conn, :new),
+          class: "button button-outline"
+
+br
+.tiles.button-tiles
+  = for news <- @news_list do
+    .card.is-shady
+      = link to: Routes.news_path(@conn, :show, news) do
+        .card-header
+          .card-header-title.is-centered
+            = news.title
+        .card-image
+          img.modal-button alt=("#{news.title}") src="#{ AOFF.Uploader.Image.url({news.image, news}, :original)}"
+        .card-content
+          b = date(news.date)
+          br/
+          = raw news.teaser
+
+        .card-footer.is-button
+          .card-footer-item.is-button
+            = gettext("Read More")
+/ table.table
+/   thead
+/     tr
+/       th Date
+/       th Title
+/       th Image
+/       th Caption
+/       th Text
+/       th Author
+/       th
+/   tbody
+/     = for news <- @news do
+/       tr
+/         td= news.date
+/         td= news.title
+/         td= news.image
+/         td= news.caption
+/         td= news.text
+/         td= news.author
+/         td class="text-right"
+/           = link "Show", to: Routes.news_path(@conn, :show, news), class: "btn btn-default btn-xs"
+/           | &nbsp;
+/           = link "Edit", to: Routes.news_path(@conn, :edit, news), class: "btn btn-default btn-xs"
+/           | &nbsp;
+/           = link "Delete", to: Routes.news_path(@conn, :delete, news), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
+
+/ = link "New News", to: Routes.news_path(@conn, :new)

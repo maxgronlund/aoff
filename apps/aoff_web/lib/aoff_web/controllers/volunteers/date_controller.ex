@@ -8,9 +8,7 @@ defmodule AOFFWeb.Volunteer.DateController do
   plug Auth
   plug :authenticate when action in [:index, :edit, :new, :update, :create, :delete]
 
-
   def index(conn, params) do
-
     Shop.secure_dates()
 
     page = params["page"] || "0"

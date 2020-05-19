@@ -34,24 +34,24 @@ h2 = @user.username
     = gettext("Member since %{date}", date: date(@user.registration_date))
     hr
     i= gettext("Roles")
-    = if @admin do
+    = if @user.admin do
       br
       = gettext("Admin √")
-    = if @volunteer do
+    = if @user.volunteer do
       br
       = gettext("Volunteer √")
-    = if @purchaser do
+    = if @user.purchasing_manager do
       br
       = gettext("Purchaser √")
-    = if @shop_assistant do
+    = if @user.shop_assistant do
       br
       = gettext("Host √")
 
 
-    = if @text_editor do
+    = if @user.text_editor do
       br
       = gettext("Text editor √")
-    = if @manage_membership do
+    = if @user.manage_membership do
       br
       = gettext("Manage membership √")
 .row

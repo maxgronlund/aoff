@@ -268,7 +268,6 @@ defmodule AOFF.Users do
   end
 
   def search_users(query) do
-
     if is_numeric(query) do
       get_users_by_member_nr(String.to_integer(query))
     else
@@ -313,6 +312,7 @@ defmodule AOFF.Users do
         if hash_mod_of_user(user) != Pbkdf2 do
           User.update_password_changeset(user, %{"password" => given_pass})
         end
+
         {:ok, user}
 
       user ->
@@ -338,7 +338,9 @@ defmodule AOFF.Users do
         limit: 1
 
     case Repo.one(query) do
-      %Order{} = order -> order
+      %Order{} = order ->
+        order
+
       _ ->
         {:ok, order} = create_order(%{"user_id" => user_id})
         order
@@ -688,6 +690,7 @@ defmodule AOFF.Users do
   def get_bounce_to_url(user) do
     User.bounce_to_changeset(user, %{"bounce_to_url" => ""})
     |> Repo.update()
+
     user.bounce_to_url
   end
 end

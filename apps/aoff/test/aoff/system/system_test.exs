@@ -9,8 +9,6 @@ defmodule AOFF.SystemTest do
   describe "sms_messages" do
     alias AOFF.System.SMSMessage
 
-
-
     setup do
       user = user_fixture()
       {:ok, user: user}
@@ -29,8 +27,8 @@ defmodule AOFF.SystemTest do
     test "create_sms_message/1 with valid data creates a sms_message", %{user: user} do
       attrs = valid_sms_message_attrs(%{"user_id" => user.id})
       assert {:ok, %SMSMessage{} = sms_message} = System.create_sms_message(attrs)
-      assert sms_message.mobile == "some mobile"
-      assert sms_message.text == "some text"
+      assert sms_message.mobile == attrs["mobile"]
+      assert sms_message.text == attrs["text"]
     end
 
     test "create_sms_message/1 with invalid data returns error changeset", %{user: user} do

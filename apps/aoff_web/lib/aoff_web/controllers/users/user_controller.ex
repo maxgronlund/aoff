@@ -79,9 +79,24 @@ defmodule AOFFWeb.UserController do
   end
 
   def edit(conn, %{"id" => id}) do
+    {:ok, avatar_format} =
+      System.find_or_create_message(
+        "/user/:id/edit",
+        "Avatar format",
+        Gettext.get_locale()
+      )
+
     user = get_user!(conn, id)
     changeset = Users.change_user(user)
-    render(conn, "edit.html", user: user, changeset: changeset, email: user.email)
+
+    render(
+      conn,
+      "edit.html",
+      user: user,
+      changeset: changeset,
+      email: user.email,
+      avatar_format: avatar_format
+    )
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do

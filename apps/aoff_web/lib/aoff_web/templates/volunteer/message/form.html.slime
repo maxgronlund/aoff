@@ -13,10 +13,7 @@ javascript:
   = if @message.identifier == "System warning" do
     .alert.alert-warning
       h4 = gettext("This message will be shown on all pages")
-      .form-group
-        = label f, :show do
-          = checkbox f, :show, class: "form-control"
-          = label f, :show, gettext("Show on all pages"), class: "control-label label-inline"
+
 
   .form-group
     = label f, :title, gettext("Title"), class: "control-label"

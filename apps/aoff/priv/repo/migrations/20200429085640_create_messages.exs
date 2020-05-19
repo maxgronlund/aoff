@@ -15,6 +15,5 @@ defmodule AOFF.Repo.Migrations.CreateMessages do
     end
 
     create index(:chat_messages, [:committee_id])
-
   end
 end

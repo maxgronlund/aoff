@@ -26,7 +26,7 @@ defmodule AOFF.Users.OrderTest do
     end
 
     test "current_order/1 returns a order when there is no orders", %{user: user} do
-      assert {:ok, %Order{} = order} = Users.current_order(user.id)
+      assert %Order{} = Users.current_order(user.id)
     end
 
     test "list_orders/0 returns all orders", %{user: user} do

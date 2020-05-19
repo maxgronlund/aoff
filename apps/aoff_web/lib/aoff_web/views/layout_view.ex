@@ -1,13 +1,10 @@
 defmodule AOFFWeb.LayoutView do
   use AOFFWeb, :view
 
-
-
   def new_locale(locale, language_title, path \\ "") do
-    #"<a href=\"#{Routes.page_path(conn, :index, locale: locale)}\">#{language_title}</a>" |> raw
+    # "<a href=\"#{Routes.page_path(conn, :index, locale: locale)}\">#{language_title}</a>" |> raw
     "<a href=\"#{path}?locale=#{locale}\">#{language_title}</a>" |> raw
   end
-
 
   def menu_item(conn, page \\ :na) do
     cond do
@@ -33,8 +30,7 @@ defmodule AOFFWeb.LayoutView do
     end
   end
 
-
-  alias  AOFF.System
+  alias AOFF.System
 
   def footer() do
     {:ok, message} =

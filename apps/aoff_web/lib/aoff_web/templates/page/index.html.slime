@@ -45,20 +45,28 @@
       = link gettext("Become member"),\
         to: "/users/new",\
         class: "button button-xlarge button-full-width"
+
 .row
   .column
-    .tiles
-      = for blog_post <- @blog_posts do
-        = link to: Routes.info_about_path(@conn, :show, blog_post.blog, blog_post) do
-          .card.is-black
-            .card-header-title.is-black.is-centered
-              = blog_post.blog.title
-              | &nbsp;::&nbsp;
-              = blog_post.title
-            .card-content.is-black
-              .auto-columns
-                = text_to_html(blog_post.teaser)
-
+    = for news <- @latest_news do
+      .tiles
+        .card.is-black
+          .card-header-title.is-black.is-centered
+            = news.title
+/.row
+/  .column
+/    .tiles
+/      = for blog_post <- @blog_posts do
+/        = link to: Routes.info_about_path(@conn, :show, blog_post.blog, blog_post) /do
+/          .card.is-black
+/            .card-header-title.is-black.is-centered
+/              = blog_post.blog.title
+/              | &nbsp;::&nbsp;
+/              = blog_post.title
+/            .card-content.is-black
+/              .auto-columns
+/                = text_to_html(blog_post.teaser)
+/
 
 
 

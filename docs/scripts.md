@@ -30,6 +30,7 @@ mix phx.gen.html.slime Blogs Blog blogs title:string description:text
 
 mix phx.gen.html.slime Blog BlogPost posts date:date title:string image:string caption:string text:text author:string
 
+mix phx.gen.html.slime Volunteer News news date:date title:string image:string caption:string text:text author:string
 
 mix phx.gen.html.slime Shop Order orders user_id:binary state:string
 

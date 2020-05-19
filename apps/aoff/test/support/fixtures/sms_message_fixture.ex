@@ -1,7 +1,5 @@
 defmodule AOFF.System.SMSMessageFixture do
-
   alias AOFF.System
-
 
   @valid_sms_message_attrs %{"mobile" => "some sms", "text" => "some text"}
   @update_sms_message_attrs %{"mobile" => "some updated mobile", "text" => "some updated text"}

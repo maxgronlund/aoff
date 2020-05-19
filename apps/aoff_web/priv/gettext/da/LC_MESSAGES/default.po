@@ -1057,7 +1057,7 @@ msgstr "Udvalget er oprettet"
 #: lib/aoff_web/controllers/committees/committee_controller.ex:75
 #: lib/aoff_web/controllers/volunteers/committee_controller.ex:63
 msgid "Committee deleted successfully."
-msgstr "Kontoen er slettet"
+msgstr "Udvalget er slettet"
 
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/committee/show.html.slime:7
@@ -1068,7 +1068,7 @@ msgstr "Medlemmer"
 #: lib/aoff_web/controllers/committees/committee_controller.ex:62
 #: lib/aoff_web/controllers/volunteers/committee_controller.ex:50
 msgid "Committee updated successfully."
-msgstr "Indlæget er opdateret"
+msgstr "Udvalget er opdateret"
 
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/committee/edit.html.slime:1
@@ -1298,7 +1298,7 @@ msgstr "Sprog"
 #: lib/aoff_web/templates/volunteer/blog/index.html.slime:1
 #: lib/aoff_web/templates/volunteer/blog/new.html.slime:1 lib/aoff_web/templates/volunteer/blog/new.html.slime:1
 msgid "New Category"
-msgstr "Opret Dato"
+msgstr "Opret Kategori"
 
 #, elixir-format
 #: lib/aoff_web/templates/info/news/index.html.slime:1

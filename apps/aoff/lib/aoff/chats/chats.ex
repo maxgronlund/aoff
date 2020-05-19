@@ -26,15 +26,16 @@ defmodule AOFF.Chats do
 
   ## Examples
 
-      iex> list_messages()
+      iex> list_messages(committee_id)
       [%Message{}, ...]
 
   """
   def list_messages(committee_id) do
     query =
       from m in Message,
-      where: m.committee_id==^committee_id,
-      order_by: [asc: m.posted_at]
+        where: m.committee_id == ^committee_id,
+        order_by: [asc: m.posted_at]
+
     Repo.all(query)
   end
 
