@@ -17,7 +17,7 @@ config :aoff_web, AOFFWeb.Endpoint,
   secret_key_base: "Uc830879o+fgFbSBJg54+TesvR7F8Rw/1AKFMw6koyGxYWGWqECDDMjkvijqSxgS",
   render_errors: [view: AOFFWeb.ErrorView, accepts: ~w(html json)],
   pubsub_server: AOFFWeb.PubSub
-  # pubsub: [name: AOFFWeb.PubSub, adapter: Phoenix.PubSub.PG2]
+
 
 config :gettext, :default_locale, "da"
 

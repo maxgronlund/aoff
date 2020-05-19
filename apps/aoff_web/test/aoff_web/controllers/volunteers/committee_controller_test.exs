@@ -42,9 +42,9 @@ defmodule AOFFWeb.Volunteer.CommitteeControllerTest do
       conn = post(conn, Routes.volunteer_committee_path(conn, :create), committee: attrs)
 
       assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.volunteer_committee_path(conn, :show, id)
+      assert redirected_to(conn) == Routes.committee_committee_path(conn, :show, id)
 
-      conn = get(conn, Routes.volunteer_committee_path(conn, :show, id))
+      conn = get(conn, Routes.committee_committee_path(conn, :show, id))
       assert html_response(conn, 200) =~ attrs["name"]
     end
 
@@ -69,9 +69,9 @@ defmodule AOFFWeb.Volunteer.CommitteeControllerTest do
       conn =
         put(conn, Routes.volunteer_committee_path(conn, :update, committee), committee: attrs)
 
-      assert redirected_to(conn) == Routes.volunteer_committee_path(conn, :show, committee)
+      assert redirected_to(conn) == Routes.volunteer_committee_path(conn, :index)
 
-      conn = get(conn, Routes.volunteer_committee_path(conn, :show, committee))
+      conn = get(conn, Routes.volunteer_committee_path(conn, :index))
       assert html_response(conn, 200) =~ attrs["description"]
     end
 
