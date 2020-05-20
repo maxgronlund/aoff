@@ -1,5 +1,6 @@
-defmodule AOFFWeb.Shop.PickupControllerTest do
+defmodule AOFFWeb.ShopControllerTest do
   use AOFFWeb.ConnCase
+  import AOFFWeb.Gettext
 
   # alias AOFF.Shop
 
@@ -12,12 +13,12 @@ defmodule AOFFWeb.Shop.PickupControllerTest do
   #   pickup
   # end
 
-  # describe "index" do
-  #   test "lists all pickups", %{conn: conn} do
-  #     conn = get(conn, Routes.pickup_path(conn, :index))
-  #     assert html_response(conn, 200) =~ "Listing Pickups"
-  #   end
-  # end
+  describe "shop" do
+    test "index lists all dates", %{conn: conn} do
+      conn = get(conn, Routes.shop_shop_path(conn, :index))
+      assert html_response(conn, 200) =~ gettext("Please select a pickup date")
+    end
+  end
 
   # describe "new pickup" do
   #   test "renders form", %{conn: conn} do

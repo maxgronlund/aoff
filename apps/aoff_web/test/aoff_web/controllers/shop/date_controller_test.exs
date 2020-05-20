@@ -1,6 +1,7 @@
-defmodule AOFFWeb.Shop.PickupControllerTest do
+defmodule AOFFWeb.Shop.DateControllerTest do
   use AOFFWeb.ConnCase
-
+  import AOFFWeb.Gettext
+  import AOFF.Shop.DateFixture
   # alias AOFF.Shop
 
   # @create_attrs %{picked_up: true}
@@ -12,10 +13,18 @@ defmodule AOFFWeb.Shop.PickupControllerTest do
   #   pickup
   # end
 
-  # describe "index" do
-  #   test "lists all pickups", %{conn: conn} do
-  #     conn = get(conn, Routes.pickup_path(conn, :index))
-  #     assert html_response(conn, 200) =~ "Listing Pickups"
+  describe "guest" do
+    test "show products for a given date", %{conn: conn} do
+      date = date_fixture()
+      conn = get(conn, Routes.shop_date_path(conn, :show, date))
+      assert html_response(conn, 200) =~ gettext("Shop")
+    end
+  end
+
+  # describe "shop" do
+  #   test "index lists all dates", %{conn: conn} do
+  #     conn = get(conn, Routes.shop_shop_path(conn, :index))
+  #     assert html_response(conn, 200) =~ gettext("Please select a pickup date")
   #   end
   # end
 

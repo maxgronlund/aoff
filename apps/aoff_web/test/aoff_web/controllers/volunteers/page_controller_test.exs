@@ -31,7 +31,7 @@ defmodule AOFFWeb.Volunteer.PageControllerTest do
 
     test "new page renders form", %{conn: conn, category: category} do
       conn = get(conn, Routes.volunteer_category_page_path(conn, :new, category))
-      assert html_response(conn, 200) =~ "New Page"
+      assert html_response(conn, 200) =~ gettext("New Page")
     end
 
     test "create page redirects to edit when data is valid", %{conn: conn, category: category} do

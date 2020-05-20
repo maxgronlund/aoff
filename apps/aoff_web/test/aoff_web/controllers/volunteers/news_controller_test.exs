@@ -2,7 +2,7 @@ defmodule AOFFWeb.Volunteers.NewsControllerTest do
   use AOFFWeb.ConnCase
   import AOFF.Content.NewsFixture
   import AOFF.Users.UserFixture
-
+  import AOFFWeb.Gettext
 
   alias Plug.Conn
 
@@ -51,7 +51,7 @@ defmodule AOFFWeb.Volunteers.NewsControllerTest do
     test "edit news renders form for editing chosen news", %{conn: conn} do
       news = news_fixture()
       conn = get(conn, Routes.volunteer_news_path(conn, :edit, news))
-      assert html_response(conn, 200) =~ "Edit News"
+      assert html_response(conn, 200) =~ gettext("Edit News")
     end
 
     test "update news redirects when data is valid", %{conn: conn} do
@@ -68,7 +68,7 @@ defmodule AOFFWeb.Volunteers.NewsControllerTest do
       news = news_fixture()
       attrs = invalid_news_attrs()
       conn = put(conn, Routes.volunteer_news_path(conn, :update, news), news: attrs)
-      assert html_response(conn, 200) =~ "Edit News"
+      assert html_response(conn, 200) =~ gettext("Edit News")
     end
 
     test "deletes chosen news", %{conn: conn} do
