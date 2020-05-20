@@ -29,6 +29,10 @@ body {
   padding-right: 6px;
 }
 
+.p-1 {
+  padding: 1.5rem;
+}
+
  .button,
  button,
  input[type='button'],
@@ -276,8 +280,9 @@ header*/
 
 .flag {
   background-repeat: no-repeat;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
+  margin-right: 6px;
 }
 
 .flag.dk {
@@ -708,6 +713,11 @@ html, body {
 
 .is-center {
   text-align: center;
+}
+
+.is-bottom {
+  position: absolute;
+  bottom: -16px;
 }
 
 .inline {

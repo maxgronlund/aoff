@@ -48,25 +48,15 @@
 
 .row
   .column
-    = for news <- @latest_news do
-      .tiles
+    .tiles
+      = for news <- @latest_news do
         .card.is-black
-          .card-header-title.is-black.is-centered
-            = news.title
-/.row
-/  .column
-/    .tiles
-/      = for blog_post <- @blog_posts do
-/        = link to: Routes.info_about_path(@conn, :show, blog_post.blog, blog_post) /do
-/          .card.is-black
-/            .card-header-title.is-black.is-centered
-/              = blog_post.blog.title
-/              | &nbsp;::&nbsp;
-/              = blog_post.title
-/            .card-content.is-black
-/              .auto-columns
-/                = text_to_html(blog_post.teaser)
-/
+          = link to: Routes.news_path(@conn, :show, news) do
+            .card-header-title.is-black.is-centered
+              = news.title
+            .card-content.is-black
+              = text_to_html news.teaser
+
 
 
 

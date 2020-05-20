@@ -88,7 +88,6 @@
 }
 
 
-
 .card-footer.is-black {
   border-top: 1px solid #404040;
 }
@@ -142,6 +141,11 @@
 .card-footer-item.is-green:hover{
   background-color: #005a38;
 }
+
+.card.is-black a {
+  color: #fff;
+}
+
 
 .breadcrumb {
   font-size: 1.5rem;

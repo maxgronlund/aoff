@@ -278,7 +278,7 @@ select {
  .container {
    margin: 0 auto;
    max-width: 112.0rem;
-   padding: 0 2.0rem;
+   padding: 0 1.0rem;
    position: relative;
    width: 100%;
  }
@@ -434,7 +434,7 @@ select {
        align-self: center;
  }
 
- @media (min-width: 40rem) {
+ @media (min-width: 50rem) {
    .row {
      flex-direction: row;
      margin-left: -1.0rem;

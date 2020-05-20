@@ -9,6 +9,7 @@ h2 = gettext("Login")
       .pt-1
       = label f, :password, gettext("Password"), class: "label"
       = password_input f, :password, placeholder: gettext("Password"), class: "input full-width"
+    .column
   .row
     .column
       .float-right
@@ -16,7 +17,7 @@ h2 = gettext("Login")
         = link gettext("Forgot password"), to: Routes.reset_password_path(@conn, :new), class: "button button-outline"
         | &nbsp;
         = submit gettext("Login"), class: "button"
-
+    .column
 
 
 

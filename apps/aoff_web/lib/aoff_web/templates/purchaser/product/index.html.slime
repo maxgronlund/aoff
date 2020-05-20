@@ -26,17 +26,9 @@
 
       .card-content
         = for_sale(product.for_sale)
-        .float-right
-          = link gettext("Delete"),\
-            to: Routes.purchaser_product_path(@conn, :delete, product),\
-            method: :delete,\
-            data: [confirm: "Are you sure?"], class: "button button-small  button-red"
-          | &nbsp;
-          = link gettext("Edit"),\
-            to: Routes.purchaser_product_path(@conn, :edit, product),\
-            class: "button button-small"
         br/
-        | &nbsp;
+        = show_on_landing_page(product.show_on_landing_page)
+
         hr
 
         b= gettext("Description")
@@ -46,11 +38,20 @@
         br
         = text_to_html(product.this_weeks_content)
 
+      .card-footerx
 
-        / = link gettext("Edit"), to: Routes.purchaser_product_path(@conn, :edit, product), class: "button button-small button-outline"
-        / | &nbsp;
-        / = link gettext("Delete"), to: Routes.purchaser_product_path(@conn, :delete, product), method: :delete, data: [confirm: "Are you sure?"], class: "button button-small button-red"
+        .is-bottom
+          .p-1
+            = link gettext("Delete"),\
+              to: Routes.purchaser_product_path(@conn, :delete, product),\
+              method: :delete,\
+              data: [confirm: "Are you sure?"], class: "button button-small  button-red"
+            | &nbsp;
+            = link gettext("Edit"),\
+              to: Routes.purchaser_product_path(@conn, :edit, product),\
+              class: "button button-small"
 
+        | &nbsp;
 
 
 

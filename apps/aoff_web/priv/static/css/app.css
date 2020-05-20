@@ -566,7 +566,7 @@ select {
  .container {
    margin: 0 auto;
    max-width: 112.0rem;
-   padding: 0 2.0rem;
+   padding: 0 1.0rem;
    position: relative;
    width: 100%;
  }
@@ -722,7 +722,7 @@ select {
        align-self: center;
  }
 
- @media (min-width: 40rem) {
+ @media (min-width: 50rem) {
    .row {
      flex-direction: row;
      margin-left: -1.0rem;
@@ -922,6 +922,10 @@ body {
 
 .pr-6 {
   padding-right: 6px;
+}
+
+.p-1 {
+  padding: 1.5rem;
 }
 
  .button,
@@ -1171,8 +1175,9 @@ header*/
 
 .flag {
   background-repeat: no-repeat;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
+  margin-right: 6px;
 }
 
 .flag.dk {
@@ -1605,6 +1610,11 @@ html, body {
   text-align: center;
 }
 
+.is-bottom {
+  position: absolute;
+  bottom: -16px;
+}
+
 .inline {
   display: inline-block;
 }
@@ -1616,6 +1626,7 @@ html, body {
 .full-width {
   width: 100%;
 }
+
 .card {
   background-color: white;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
@@ -1706,7 +1717,6 @@ html, body {
 }
 
 
-
 .card-footer.is-black {
   border-top: 1px solid #404040;
 }
@@ -1760,6 +1770,11 @@ html, body {
 .card-footer-item.is-green:hover{
   background-color: #005a38;
 }
+
+.card.is-black a {
+  color: #fff;
+}
+
 
 .breadcrumb {
   font-size: 1.5rem;
