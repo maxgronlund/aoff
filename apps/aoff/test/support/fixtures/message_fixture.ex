@@ -1,6 +1,4 @@
 defmodule AOFF.System.MessageFixture do
-
-
   @valid_attrs %{
     "text" => "some text",
     "identifier" => "some identifier",

@@ -1,7 +1,6 @@
 defmodule AOFFWeb.Content.PageController do
   use AOFFWeb, :controller
 
-
   alias AOFF.Content
 
   def show(conn, %{"about_id" => category_id, "id" => id}) do

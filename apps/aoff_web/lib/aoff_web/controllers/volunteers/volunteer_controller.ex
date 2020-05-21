@@ -63,7 +63,6 @@ defmodule AOFFWeb.Volunteer.VolunteerController do
         Gettext.get_locale()
       )
 
-
     render(
       conn,
       "index.html",

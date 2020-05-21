@@ -4,7 +4,6 @@ defmodule AOFF.Committees.MeetingsTest do
   import AOFF.Committees.CommitteeFixture
   import AOFF.Committees.MeetingFixture
 
-
   alias AOFF.Committees
 
   describe "meetings" do

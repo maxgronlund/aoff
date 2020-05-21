@@ -20,10 +20,10 @@ defmodule AOFF.Content do
   def list_news do
     query =
       from n in News,
-      where: n.locale ==^Gettext.get_locale(),
-      order_by: [desc: n.date]
-    Repo.all(query)
+        where: n.locale == ^Gettext.get_locale(),
+        order_by: [desc: n.date]
 
+    Repo.all(query)
   end
 
   @doc """
@@ -43,9 +43,10 @@ defmodule AOFF.Content do
   def latest_news() do
     query =
       from n in News,
-      where: n.locale ==^Gettext.get_locale(),
-      order_by: [desc: n.date],
-      limit: 3
+        where: n.locale == ^Gettext.get_locale(),
+        order_by: [desc: n.date],
+        limit: 3
+
     Repo.all(query)
   end
 
@@ -78,8 +79,8 @@ defmodule AOFF.Content do
 
   """
   def create_news(attrs \\ %{}) do
-    attrs =
-      Map.put(attrs, "locale", Gettext.get_locale())
+    attrs = Map.put(attrs, "locale", Gettext.get_locale())
+
     %News{}
     |> News.changeset(attrs)
     |> Repo.insert()

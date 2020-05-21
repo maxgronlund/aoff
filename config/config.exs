@@ -18,7 +18,6 @@ config :aoff_web, AOFFWeb.Endpoint,
   render_errors: [view: AOFFWeb.ErrorView, accepts: ~w(html json)],
   pubsub_server: AOFFWeb.PubSub
 
-
 config :gettext, :default_locale, "da"
 
 # Configures Elixir's Logger

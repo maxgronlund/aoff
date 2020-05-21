@@ -3,7 +3,6 @@ defmodule AOFFWeb.OrderControllerTest do
   import AOFFWeb.Gettext
   alias Plug.Conn
 
-
   import AOFF.Users.UserFixture
 
   @username Application.get_env(:aoff_web, :basic_auth)[:username]
@@ -14,10 +13,10 @@ defmodule AOFFWeb.OrderControllerTest do
     conn |> put_req_header("authorization", header_content)
   end
 
-
   describe "admin users" do
     setup do
       user = user_fixture(%{"admin" => true})
+
       conn =
         build_conn()
         |> using_basic_auth(@username, @password)
@@ -45,18 +44,15 @@ defmodule AOFFWeb.OrderControllerTest do
     end
 
     test "deletes chosen user", %{conn: conn, user: user} do
-      delete_me_user = user_fixture(
-        %{
+      delete_me_user =
+        user_fixture(%{
           "member_nr" => 1234,
           "email" => "delete_me@example.com",
           "password" => "some password"
-        }
-      )
+        })
+
       conn = delete(conn, Routes.admin_user_path(conn, :delete, delete_me_user))
       assert redirected_to(conn) == Routes.admin_user_path(conn, :index)
     end
   end
-
-
-
 end

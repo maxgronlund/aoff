@@ -37,19 +37,18 @@
         b= gettext("This weeks content")
         br
         = text_to_html(this_weeks_content(product))
-
-      .card-footerx
-
+      .card-bottom
         .is-bottom
           .p-1
+            = link gettext("Edit"),\
+              to: Routes.purchaser_product_path(@conn, :edit, product),\
+              class: "button button-small"
+            | &nbsp;
             = link gettext("Delete"),\
               to: Routes.purchaser_product_path(@conn, :delete, product),\
               method: :delete,\
               data: [confirm: "Are you sure?"], class: "button button-small  button-red"
-            | &nbsp;
-            = link gettext("Edit"),\
-              to: Routes.purchaser_product_path(@conn, :edit, product),\
-              class: "button button-small"
+
 
         | &nbsp;
 

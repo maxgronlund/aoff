@@ -1,7 +1,6 @@
 defmodule AOFF.Users.UserFixture do
   alias AOFF.Users
 
-
   @valid_attrs %{
     "username" => "some username",
     "member_nr" => 1,

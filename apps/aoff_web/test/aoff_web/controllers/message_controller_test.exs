@@ -24,6 +24,7 @@ defmodule AOFFWeb.MessageControllerTest do
     setup do
       user = user_fixture(%{"volunteer" => true})
       AOFF.Users.set_bounce_to_url(user, "/")
+
       conn =
         build_conn()
         |> Plug.Session.call(@session)

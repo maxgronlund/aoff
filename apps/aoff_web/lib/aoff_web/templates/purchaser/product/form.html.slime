@@ -41,11 +41,11 @@
   .row
     .column
       .form-group
-        = label f, :this_weeks_content_da, gettext("This weeks content"), class: "control-label"
+        = label f, :this_weeks_content_da, gettext("This weeks content da"), class: "control-label"
         = textarea f, :this_weeks_content_da, style: "height: 150px;" , class: "form-control full-width"
         = error_tag f, :this_weeks_content_da
       .form-group
-        = label f, :this_weeks_content_en, gettext("This weeks content"), class: "control-label"
+        = label f, :this_weeks_content_en, gettext("This weeks content en"), class: "control-label"
         = textarea f, :this_weeks_content_en, style: "height: 150px;" , class: "form-control full-width"
         = error_tag f, :this_weeks_content_en
   .alert.alert-box

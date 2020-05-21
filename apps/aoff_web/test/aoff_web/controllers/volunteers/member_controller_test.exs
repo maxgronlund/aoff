@@ -7,8 +7,6 @@ defmodule AOFFWeb.Committees.MemberControllerTest do
 
   alias Plug.Conn
 
-
-
   describe "volunteer" do
     @session Plug.Session.init(
                store: :cookie,
@@ -36,10 +34,15 @@ defmodule AOFFWeb.Committees.MemberControllerTest do
       assert html_response(conn, 200) =~ gettext("New Member")
     end
 
-    test "create member redirects to show when data is valid", %{conn: conn, user: user, committee: committee} do
-
+    test "create member redirects to show when data is valid", %{
+      conn: conn,
+      user: user,
+      committee: committee
+    } do
       attrs = valid_member_attrs(%{"committee_id" => committee.id, "user_id" => user.id})
-      conn = post(conn, Routes.volunteer_committee_member_path(conn, :create, committee), member: attrs)
+
+      conn =
+        post(conn, Routes.volunteer_committee_member_path(conn, :create, committee), member: attrs)
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.committee_committee_path(conn, :show, committee)
@@ -50,41 +53,66 @@ defmodule AOFFWeb.Committees.MemberControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn, committee: committee} do
       attrs = invalid_member_attrs(%{"committee_id" => committee.id})
-      conn = post(conn, Routes.volunteer_committee_member_path(conn, :create, committee), member: attrs)
+
+      conn =
+        post(conn, Routes.volunteer_committee_member_path(conn, :create, committee), member: attrs)
+
       assert html_response(conn, 200) =~ gettext("New Member")
     end
 
-    test "edit member renders form for editing chosen member", %{conn: conn, user: user, committee: committee} do
+    test "edit member renders form for editing chosen member", %{
+      conn: conn,
+      user: user,
+      committee: committee
+    } do
       member = member_fixture(%{"user_id" => user.id, "committee_id" => committee.id})
       conn = get(conn, Routes.volunteer_committee_member_path(conn, :edit, committee, member))
       assert html_response(conn, 200) =~ gettext("Edit Member")
     end
 
-    test "update member redirects when data is valid", %{conn: conn, user: user, committee: committee} do
+    test "update member redirects when data is valid", %{
+      conn: conn,
+      user: user,
+      committee: committee
+    } do
       member = member_fixture(%{"user_id" => user.id, "committee_id" => committee.id})
       attrs = update_member_attrs()
-      conn = put(conn, Routes.volunteer_committee_member_path(conn, :update, committee, member), member: attrs)
+
+      conn =
+        put(conn, Routes.volunteer_committee_member_path(conn, :update, committee, member),
+          member: attrs
+        )
+
       assert redirected_to(conn) == Routes.committee_committee_path(conn, :show, committee)
 
       conn = get(conn, Routes.committee_committee_path(conn, :show, committee))
       assert html_response(conn, 200) =~ attrs["role"]
     end
 
-    test "update member renders errors when data is invalid", %{conn: conn, user: user, committee: committee} do
+    test "update member renders errors when data is invalid", %{
+      conn: conn,
+      user: user,
+      committee: committee
+    } do
       member = member_fixture(%{"user_id" => user.id, "committee_id" => committee.id})
       attrs = invalid_member_attrs()
+
       conn =
         put(
           conn,
           Routes.volunteer_committee_member_path(conn, :update, committee, member),
           member: attrs
         )
+
       assert html_response(conn, 200) =~ gettext("Edit Member")
     end
 
     test "delete member deletes chosen member", %{conn: conn, user: user, committee: committee} do
       member = member_fixture(%{"user_id" => user.id, "committee_id" => committee.id})
-      conn = delete(conn, Routes.volunteer_committee_member_path(conn, :delete, committee, member))
+
+      conn =
+        delete(conn, Routes.volunteer_committee_member_path(conn, :delete, committee, member))
+
       assert redirected_to(conn) == Routes.committee_committee_path(conn, :show, committee)
     end
   end

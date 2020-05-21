@@ -11,7 +11,13 @@
           = gettext("Shopping List")
 
 
-h2 = gettext("Shopping list: %{date}", date: date(@date.date))
+.row
+  .column
+    h2 = gettext("Shopping list: %{date}", date: date(@date.date))
+  .column
+    = link gettext("Other dates"),\
+      to: Routes.purchaser_date_path(@conn, :index),\
+      class: "button button-outline float-right"
 
 .tiles.button-tiles
   = for product <- @products do

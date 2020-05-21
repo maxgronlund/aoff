@@ -11,11 +11,10 @@ defmodule AOFFWeb.OrderControllerTest do
     conn |> put_req_header("authorization", header_content)
   end
 
-
-
   describe "in the admin namespace" do
     test "render index", %{conn: conn} do
-      conn = conn
+      conn =
+        conn
         |> using_basic_auth(@username, @password)
         |> get("/admin")
 

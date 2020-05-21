@@ -45,18 +45,16 @@ defmodule AOFF.Shop.Product do
       :notes
     ])
     |> cast_attachments(attrs, [:image])
-    |> validate_required(
-      [
-        :name_da,
-        :name_en,
-        :description_da,
-        :description_en,
-        :price,
-        :for_sale,
-        :membership,
-        :show_on_landing_page
-      ]
-    )
+    |> validate_required([
+      :name_da,
+      :name_en,
+      :description_da,
+      :description_en,
+      :price,
+      :for_sale,
+      :membership,
+      :show_on_landing_page
+    ])
   end
 
   def delete_changeset(product, attrs) do

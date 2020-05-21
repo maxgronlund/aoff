@@ -8,7 +8,7 @@ defmodule AOFF.Users do
 
   alias AOFF.Users.User
 
-  @users_pr_page 10
+  @users_pr_page 40
 
   @doc """
   Returns the list of users.

@@ -68,9 +68,7 @@ defmodule AOFFWeb.Volunteer.PageControllerTest do
       attrs = update_page_attrs()
 
       conn =
-        put(conn, Routes.volunteer_category_page_path(conn, :update, category, page),
-          page: attrs
-        )
+        put(conn, Routes.volunteer_category_page_path(conn, :update, category, page), page: attrs)
 
       assert redirected_to(conn) == Routes.about_page_path(conn, :show, category, attrs["title"])
     end
@@ -80,15 +78,14 @@ defmodule AOFFWeb.Volunteer.PageControllerTest do
       attrs = invalid_page_attrs()
 
       conn =
-        put(conn, Routes.volunteer_category_page_path(conn, :update, category, page),
-          page: attrs
-        )
+        put(conn, Routes.volunteer_category_page_path(conn, :update, category, page), page: attrs)
 
       assert html_response(conn, 200) =~ gettext("Edit Article")
     end
 
     test "deletes chosen page", %{conn: conn, category: category} do
       page = page_fixture(category.id)
+
       conn =
         delete(
           conn,
@@ -99,8 +96,8 @@ defmodule AOFFWeb.Volunteer.PageControllerTest do
             page
           )
         )
+
       assert redirected_to(conn) == Routes.about_path(conn, :show, category)
     end
-
   end
 end

@@ -3,7 +3,6 @@ defmodule AOFFWeb.Content.NewsControllerTest do
   import AOFF.Content.NewsFixture
   import AOFFWeb.Gettext
 
-
   describe "guest" do
     test "lists all news", %{conn: conn} do
       conn = get(conn, Routes.news_path(conn, :index))

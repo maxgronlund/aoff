@@ -1,6 +1,4 @@
 defmodule AOFF.Chat.MessageFixture do
-
-
   @valid_attrs %{
     "body" => "some body",
     "username" => "some username",

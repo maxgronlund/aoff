@@ -10,7 +10,7 @@ defmodule AOFFWeb.Purchaser.ProductView do
   end
 
   def name(product) do
-    case Gettext.get_locale do
+    case Gettext.get_locale() do
       "da" -> product.name_da
       "en" -> product.name_en
       _ -> product.name_en
@@ -18,7 +18,7 @@ defmodule AOFFWeb.Purchaser.ProductView do
   end
 
   def description(product) do
-    case Gettext.get_locale do
+    case Gettext.get_locale() do
       "da" -> product.description_da
       "en" -> product.description_en
       _ -> product.description_en
@@ -26,7 +26,7 @@ defmodule AOFFWeb.Purchaser.ProductView do
   end
 
   def this_weeks_content(product) do
-    case Gettext.get_locale do
+    case Gettext.get_locale() do
       "da" -> product.this_weeks_content_da
       "en" -> product.this_weeks_content_en
       _ -> product.this_weeks_content_en

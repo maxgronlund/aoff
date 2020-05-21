@@ -1,7 +1,9 @@
 h2= gettext("Opening dates")
 p= gettext("Please select an opening date")
 
-
+.row
+  .column
+    = render "pagination.html", assigns
 .blog
   = for date <- @dates do
     = link to: Routes.purchaser_date_path(@conn, :show, date) do
@@ -9,3 +11,6 @@ p= gettext("Please select an opening date")
 
         .card-header-title.is-centered
           = date(date.date)
+hr
+
+= render "pagination.html", assigns

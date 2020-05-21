@@ -57,9 +57,36 @@ defmodule AOFF.Shop do
     Repo.all(query)
   end
 
+  def list_all_dates(date, page \\ 0, per_page \\ @dates_pr_page) do
+    query =
+      from d in Date,
+        order_by: [asc: d.date],
+        limit: ^per_page,
+        offset: ^(page * per_page)
+
+    Repo.all(query)
+  end
+
   def date_pages(per_page \\ @dates_pr_page) do
     dates = Repo.one(from d in Date, select: count(d.id))
     Integer.floor_div(dates, per_page)
+  end
+
+  def todays_page(dates_pr_page \\ @dates_pr_page) do
+    query =
+      from d in Date,
+        where: d.date < ^AOFF.Time.today(),
+        select: count(d.id)
+
+    Integer.floor_div(Repo.one(query), dates_pr_page)
+
+    # query =
+    #   from d in Date,
+    #     where: d.date <= ^AOFF.Time.today(),
+    #     order_by: [asc: d.date],
+    #     select: count(d.id)
+
+    # Repo.one(query)
   end
 
   def products_ordered() do
@@ -203,6 +230,7 @@ defmodule AOFF.Shop do
           from p in Product,
             order_by: [asc: p.name_da],
             where: p.deleted == false and p.membership == false
+
         "en" ->
           from p in Product,
             order_by: [asc: p.name_en],
@@ -228,12 +256,12 @@ defmodule AOFF.Shop do
           from p in Product,
             order_by: [asc: p.name_da],
             where: p.for_sale == true and p.deleted == false and p.membership == false
+
         "en" ->
           from p in Product,
             order_by: [asc: p.name_en],
             where: p.for_sale == true and p.deleted == false and p.membership == false
       end
-
 
     Repo.all(query)
   end

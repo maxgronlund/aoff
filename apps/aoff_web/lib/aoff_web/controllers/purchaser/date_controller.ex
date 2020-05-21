@@ -2,14 +2,28 @@ defmodule AOFFWeb.Purchaser.DateController do
   use AOFFWeb, :controller
 
   alias AOFF.Shop
-
   alias AOFFWeb.Users.Auth
   plug Auth
   plug :authenticate when action in [:index, :show]
 
-  def index(conn, _params) do
-    dates = Shop.list_dates(Date.utc_today())
-    render(conn, "index.html", dates: dates)
+  @dates_pr_page 8
+
+  def index(conn, params) do
+    page =
+      case params["page"] do
+        nil -> Shop.todays_page(@dates_pr_page)
+        page -> String.to_integer(page)
+      end
+
+    dates = Shop.list_all_dates(Date.utc_today(), page, @dates_pr_page)
+
+    render(
+      conn,
+      "index.html",
+      dates: dates,
+      pages: Shop.date_pages(),
+      page: page
+    )
   end
 
   def show(conn, %{"id" => id}) do

@@ -96,7 +96,7 @@ defmodule AOFFWeb.Purchaser.ProductController do
 
   defp authenticate(conn, _opts) do
     if conn.assigns.purchaser do
-      assign(conn, :page, :purchaser)
+      assign(conn, :page, :volunteer)
     else
       conn
       |> put_status(401)

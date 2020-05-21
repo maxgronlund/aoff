@@ -16,7 +16,6 @@ defmodule AOFFWeb.Committees.CommitteeController do
   end
 
   def show(conn, %{"id" => id}) do
-
     if committee = Committees.get_committee!(id) do
       conn = assign(conn, :page, :about_aoff)
       messages = Chats.list_messages(id)

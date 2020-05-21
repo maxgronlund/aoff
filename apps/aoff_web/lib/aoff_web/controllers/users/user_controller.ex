@@ -175,6 +175,7 @@ defmodule AOFFWeb.UserController do
         "Avatar format",
         Gettext.get_locale()
       )
+
     avatar_format
   end
 end

@@ -11,14 +11,13 @@ defmodule AOFF.Shop.PickUpTest do
   import AOFF.Shop.DateFixture
 
   def create_pick_up(date, user, order) do
-
     pick_up_fixture(%{
       "date_id" => date.id,
       "user_id" => user.id,
       "username" => user.username,
       "member_nr" => user.member_nr,
       "order_id" => order.id,
-      "email" => user.email,
+      "email" => user.email
     })
   end
 
@@ -30,7 +29,6 @@ defmodule AOFF.Shop.PickUpTest do
       user = user_fixture()
       order = order_fixture(user.id)
 
-
       {:ok, date: date, user: user, order: order}
     end
 
@@ -38,16 +36,14 @@ defmodule AOFF.Shop.PickUpTest do
       pick_up = create_pick_up(date, user, order)
       product = product_fixture()
 
-      order_item_fixture(
-        %{
-          "product_id" => product.id,
-          "user_id" => user.id,
-          "date_id" => date.id,
-          "pick_up_id" => pick_up.id,
-          "price" => product.price,
-          "order_id" => order.id
-        }
-      )
+      order_item_fixture(%{
+        "product_id" => product.id,
+        "user_id" => user.id,
+        "date_id" => date.id,
+        "pick_up_id" => pick_up.id,
+        "price" => product.price,
+        "order_id" => order.id
+      })
 
       assert List.first(Shop.list_pick_ups(date.id)).id == pick_up.id
     end

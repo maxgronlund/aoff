@@ -46,6 +46,7 @@ defmodule AOFFWeb.Volunteer.NewsController do
   def edit(conn, %{"id" => id}) do
     news = Content.get_news!(id)
     changeset = Content.change_news(news)
+
     render(
       conn,
       "edit.html",
@@ -68,7 +69,8 @@ defmodule AOFFWeb.Volunteer.NewsController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(
-          conn, "edit.html",
+          conn,
+          "edit.html",
           news: news,
           changeset: changeset,
           date: news_params["date"],

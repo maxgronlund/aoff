@@ -3,7 +3,6 @@ defmodule AOFFWeb.Committees.MeetingController do
 
   alias AOFF.Committees
 
-
   def index(conn, _params) do
     meetings = Committees.list_meetings()
     render(conn, "index.html", meetings: meetings)

@@ -2,11 +2,9 @@ defmodule AOFFWeb.OrderControllerTest do
   use AOFFWeb.ConnCase
   import AOFFWeb.Gettext
 
-
   import AOFF.Users.OrderFixture
   import AOFF.Users.OrderItemFixture
   import AOFF.Users.UserFixture
-
 
   alias Plug.Conn
 

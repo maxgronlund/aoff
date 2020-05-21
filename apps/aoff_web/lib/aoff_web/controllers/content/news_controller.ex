@@ -29,6 +29,7 @@ defmodule AOFFWeb.Content.NewsController do
 
   def show(conn, %{"id" => id}) do
     news = Content.get_news!(id)
+
     assign(conn, :page, :news)
     |> render("show.html", news: news)
   end

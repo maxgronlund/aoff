@@ -9,10 +9,10 @@ defmodule AOFFWeb.Volunteer.DateController do
   plug :authenticate when action in [:index, :edit, :new, :update, :create, :delete]
 
   def index(conn, params) do
-    Shop.secure_dates()
+    # TODO: move to seed
+    # Shop.secure_dates()
 
     page = params["page"] || "0"
-
     dates = Shop.list_dates(Date.utc_today(), String.to_integer(page), 12)
 
     render(

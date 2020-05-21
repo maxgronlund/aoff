@@ -97,13 +97,13 @@ defmodule AOFFWeb.Volunteer.PageController do
         render(
           conn,
           "edit.html",
-           category: page.category,
-           page: page,
-           changeset: changeset,
-           author: page.author,
-           date: page.date,
-           image_format: image_format(),
-           page: true
+          category: page.category,
+          page: page,
+          changeset: changeset,
+          author: page.author,
+          date: page.date,
+          image_format: image_format(),
+          page: true
         )
     end
   end

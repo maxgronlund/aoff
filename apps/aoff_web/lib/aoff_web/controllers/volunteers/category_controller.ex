@@ -1,7 +1,6 @@
 defmodule AOFFWeb.Volunteer.CategoryController do
   use AOFFWeb, :controller
 
-
   alias AOFF.Content.Category
   alias AOFF.Content
 

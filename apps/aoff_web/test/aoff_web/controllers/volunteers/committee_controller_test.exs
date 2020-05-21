@@ -6,7 +6,6 @@ defmodule AOFFWeb.Volunteer.CommitteeControllerTest do
 
   alias Plug.Conn
 
-
   describe "committee" do
     @session Plug.Session.init(
                store: :cookie,

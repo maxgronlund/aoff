@@ -93,7 +93,7 @@ msgstr "Lukke"
 #, elixir-format
 #: lib/aoff_web/templates/admin/user/index.html.slime:1
 #: lib/aoff_web/templates/content/news/show.html.slime:3 lib/aoff_web/templates/content/page/show.html.slime:3
-#: lib/aoff_web/templates/purchaser/product/index.html.slime:1 lib/aoff_web/templates/volunteer/category/index.html.slime:4
+#: lib/aoff_web/templates/purchaser/product/index.html.slime:3 lib/aoff_web/templates/volunteer/category/index.html.slime:4
 #: lib/aoff_web/templates/volunteer/category/show.html.slime:1 lib/aoff_web/templates/volunteer/committee/index.html.slime:7
 #: lib/aoff_web/templates/volunteer/committee/show.html.slime:3 lib/aoff_web/templates/volunteer/meeting/show.html.slime:3
 #: lib/aoff_web/templates/volunteer/membership/index.html.slime:1 lib/aoff_web/templates/volunteer/message/index.html.slime:1
@@ -101,9 +101,8 @@ msgid "Delete"
 msgstr "Slet"
 
 #, elixir-format
-#: lib/aoff_web/templates/purchaser/product/form.html.slime:1
-#: lib/aoff_web/templates/purchaser/product/index.html.slime:1 lib/aoff_web/templates/volunteer/category/form.html.slime:6
-#: lib/aoff_web/templates/volunteer/membership/index.html.slime:6
+#: lib/aoff_web/templates/purchaser/product/index.html.slime:1
+#: lib/aoff_web/templates/volunteer/category/form.html.slime:6 lib/aoff_web/templates/volunteer/membership/index.html.slime:6
 msgid "Description"
 msgstr "Beskrivelse"
 
@@ -118,7 +117,7 @@ msgstr "Tidlig butiksvagt"
 #: lib/aoff_web/templates/admin/user/index.html.slime:1
 #: lib/aoff_web/templates/committees/committee/show.html.slime:5 lib/aoff_web/templates/content/news/show.html.slime:1
 #: lib/aoff_web/templates/content/page/show.html.slime:1 lib/aoff_web/templates/page/index.html.slime:1
-#: lib/aoff_web/templates/purchaser/date/show.html.slime:1 lib/aoff_web/templates/purchaser/product/index.html.slime:4
+#: lib/aoff_web/templates/purchaser/date/show.html.slime:3 lib/aoff_web/templates/purchaser/product/index.html.slime:1
 #: lib/aoff_web/templates/terms/index.html.slime:1 lib/aoff_web/templates/volunteer/category/index.html.slime:2
 #: lib/aoff_web/templates/volunteer/category/show.html.slime:1 lib/aoff_web/templates/volunteer/committee/edit.html.slime:1
 #: lib/aoff_web/templates/volunteer/committee/index.html.slime:5 lib/aoff_web/templates/volunteer/committee/show.html.slime:1
@@ -312,11 +311,6 @@ msgid "Product deleted successfully."
 msgstr "Varen er fjernet"
 
 #, elixir-format
-#: lib/aoff_web/templates/purchaser/product/form.html.slime:1
-msgid "Product name"
-msgstr "Produkt navn"
-
-#, elixir-format
 #: lib/aoff_web/controllers/purchaser/product_controller.ex:66
 #: lib/aoff_web/controllers/purchaser/product_controller.ex:70
 msgid "Product updated successfully."
@@ -447,13 +441,13 @@ msgid "Title"
 msgstr "Titel"
 
 #, elixir-format
-#: lib/aoff_web/controllers/admin/user_controller.ex:64
+#: lib/aoff_web/controllers/admin/user_controller.ex:53
 #: lib/aoff_web/controllers/users/user_controller.ex:121 lib/aoff_web/controllers/volunteers/user_controller.ex:53
 msgid "User deleted successfully."
 msgstr "Kontoen er slettet"
 
 #, elixir-format
-#: lib/aoff_web/controllers/admin/user_controller.ex:51
+#: lib/aoff_web/controllers/admin/user_controller.ex:40
 #: lib/aoff_web/controllers/users/user_controller.ex:101 lib/aoff_web/controllers/volunteers/user_controller.ex:40
 msgid "User updated successfully."
 msgstr "Kontoen er blevet opdateret"
@@ -582,12 +576,12 @@ msgid "Awaits"
 msgstr "Afventer"
 
 #, elixir-format
-#: lib/aoff_web/controllers/volunteers/news_controller.ex:86
+#: lib/aoff_web/controllers/volunteers/news_controller.ex:88
 msgid "News deleted successfully."
 msgstr "Kontoen er slettet"
 
 #, elixir-format
-#: lib/aoff_web/controllers/volunteers/news_controller.ex:66
+#: lib/aoff_web/controllers/volunteers/news_controller.ex:67
 msgid "News updated successfully."
 msgstr "Nyheden er blevet opdateret"
 
@@ -636,11 +630,13 @@ msgid "%{date} - closed"
 msgstr "%{date} - lukket"
 
 #, elixir-format
+#: lib/aoff_web/templates/purchaser/date/pagination.html.slime:1
 #: lib/aoff_web/templates/volunteer/date/pagination.html.slime:1
 msgid "< Prev"
 msgstr "< Forrige"
 
 #, elixir-format
+#: lib/aoff_web/templates/purchaser/date/pagination.html.slime:3
 #: lib/aoff_web/templates/volunteer/date/pagination.html.slime:3
 msgid "Next >"
 msgstr "Næste >"
@@ -812,7 +808,7 @@ msgid "Author"
 msgstr "Forfatter"
 
 #, elixir-format
-#: lib/aoff_web/controllers/volunteers/category_controller.ex:79
+#: lib/aoff_web/controllers/volunteers/category_controller.ex:78
 msgid "Category updated successfully."
 msgstr "Kategorien er blevet opdateret"
 
@@ -835,7 +831,7 @@ msgid "Image caption"
 msgstr "Billed tekst"
 
 #, elixir-format
-#: lib/aoff_web/controllers/volunteers/category_controller.ex:37
+#: lib/aoff_web/controllers/volunteers/category_controller.ex:36
 #: lib/aoff_web/controllers/volunteers/page_controller.ex:51
 msgid "Please update the default image."
 msgstr "Opdater standard billedet"
@@ -866,6 +862,7 @@ msgstr "Er du sikker, Alle artikler i denne katogri bliver slettet."
 #: lib/aoff_web/templates/volunteer/volunteer/index.html.slime:2 lib/aoff_web/templates/volunteer/volunteer/index.html.slime:5
 #: lib/aoff_web/templates/volunteer/volunteer/index.html.slime:8 lib/aoff_web/templates/volunteer/volunteer/index.html.slime:11
 #: lib/aoff_web/templates/volunteer/volunteer/index.html.slime:14 lib/aoff_web/templates/volunteer/volunteer/index.html.slime:17
+#: lib/aoff_web/templates/volunteer/volunteer/index.html.slime:20
 msgid "Edit text"
 msgstr "Rediger"
 
@@ -878,7 +875,7 @@ msgstr "Til nødsituationer"
 #: lib/aoff_web/templates/volunteer/volunteer/index.html.slime:3
 #: lib/aoff_web/templates/volunteer/volunteer/index.html.slime:6 lib/aoff_web/templates/volunteer/volunteer/index.html.slime:9
 #: lib/aoff_web/templates/volunteer/volunteer/index.html.slime:12 lib/aoff_web/templates/volunteer/volunteer/index.html.slime:15
-#: lib/aoff_web/templates/volunteer/volunteer/index.html.slime:18
+#: lib/aoff_web/templates/volunteer/volunteer/index.html.slime:18 lib/aoff_web/templates/volunteer/volunteer/index.html.slime:21
 msgid "Go to"
 msgstr "Gå til"
 
@@ -894,7 +891,7 @@ msgid "This message will be shown on all pages"
 msgstr "Denne besked kan vises på alle sider"
 
 #, elixir-format
-#: lib/aoff_web/templates/purchaser/date/show.html.slime:1
+#: lib/aoff_web/templates/purchaser/date/show.html.slime:3
 msgid "- %{nr} pieces"
 msgstr "stk. %{nr}"
 
@@ -991,9 +988,8 @@ msgid "Text editor √"
 msgstr "Redaktør √"
 
 #, elixir-format
-#: lib/aoff_web/templates/purchaser/date/show.html.slime:3
-#: lib/aoff_web/templates/purchaser/product/form.html.slime:1 lib/aoff_web/templates/purchaser/product/index.html.slime:1
-#: lib/aoff_web/templates/volunteer/membership/index.html.slime:6
+#: lib/aoff_web/templates/purchaser/date/show.html.slime:5
+#: lib/aoff_web/templates/purchaser/product/index.html.slime:1 lib/aoff_web/templates/volunteer/membership/index.html.slime:6
 msgid "This weeks content"
 msgstr "Denne uges indhold"
 
@@ -1127,7 +1123,7 @@ msgid "Order deleted successfully."
 msgstr "Kontoen er slettet"
 
 #, elixir-format
-#: lib/aoff_web/controllers/shop_assistants/pickup_controller.ex:19
+#: lib/aoff_web/controllers/shop_assistants/pick_up_controller.ex:19
 msgid "PickUp updated successfully."
 msgstr "Opsamlingen er registreret"
 
@@ -1297,8 +1293,8 @@ msgid "New opening date"
 msgstr "Opret åbningsdag"
 
 #, elixir-format
-#: lib/aoff_web/controllers/volunteers/category_controller.ex:50
-#: lib/aoff_web/controllers/volunteers/category_controller.ex:68 lib/aoff_web/controllers/volunteers/page_controller.ex:82
+#: lib/aoff_web/controllers/volunteers/category_controller.ex:49
+#: lib/aoff_web/controllers/volunteers/category_controller.ex:67 lib/aoff_web/controllers/volunteers/page_controller.ex:82
 msgid "The category for the selected language does not exist."
 msgstr "Kategorien for det valget sprog findes ikke."
 
@@ -1376,7 +1372,42 @@ msgstr "Rediger nyhed"
 msgid "New News"
 msgstr "Opret nyhed"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/views/purchaser/product_view.ex:9
 msgid "Show on landing page √"
 msgstr "Vis på forsiden"
+
+#, elixir-format, fuzzy
+#: lib/aoff_web/templates/purchaser/product/form.html.slime:1
+msgid "Description da"
+msgstr "Beskrivelse"
+
+#, elixir-format, fuzzy
+#: lib/aoff_web/templates/purchaser/product/form.html.slime:1
+msgid "Description en"
+msgstr "Beskrivelse"
+
+#, elixir-format
+#: lib/aoff_web/templates/purchaser/date/show.html.slime:1
+msgid "Other dates"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/aoff_web/templates/purchaser/product/form.html.slime:1
+msgid "Product name da"
+msgstr "Produkt navn"
+
+#, elixir-format, fuzzy
+#: lib/aoff_web/templates/purchaser/product/form.html.slime:1
+msgid "Product name en"
+msgstr "Product name"
+
+#, elixir-format, fuzzy
+#: lib/aoff_web/templates/purchaser/product/form.html.slime:1
+msgid "This weeks content da"
+msgstr "Denne uges indhold"
+
+#, elixir-format, fuzzy
+#: lib/aoff_web/templates/purchaser/product/form.html.slime:1
+msgid "This weeks content en"
+msgstr "This weeks content"
