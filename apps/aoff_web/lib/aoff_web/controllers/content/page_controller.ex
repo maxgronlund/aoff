@@ -4,7 +4,13 @@ defmodule AOFFWeb.Content.PageController do
   alias AOFF.Content
 
   def show(conn, %{"about_id" => category_id, "id" => id}) do
-    page = Content.get_page!(category_id, id)
-    render(conn, "show.html", category: page.category, page: page)
+    case Content.get_page!(category_id, id) do
+      nil ->
+        conn
+        |> put_flash(:info, gettext("Language updated"))
+        |> redirect(to: Routes.about_path(conn, :index))
+      page ->
+        render(conn, "show.html", category: page.category, page: page)
+    end
   end
 end

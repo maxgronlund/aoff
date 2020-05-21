@@ -1377,12 +1377,12 @@ msgstr "Opret nyhed"
 msgid "Show on landing page √"
 msgstr "Vis på forsiden"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/purchaser/product/form.html.slime:1
 msgid "Description da"
 msgstr "Beskrivelse"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/purchaser/product/form.html.slime:1
 msgid "Description en"
 msgstr "Beskrivelse"
@@ -1392,22 +1392,38 @@ msgstr "Beskrivelse"
 msgid "Other dates"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/purchaser/product/form.html.slime:1
 msgid "Product name da"
 msgstr "Produkt navn"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/purchaser/product/form.html.slime:1
 msgid "Product name en"
 msgstr "Product name"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/purchaser/product/form.html.slime:1
 msgid "This weeks content da"
 msgstr "Denne uges indhold"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/purchaser/product/form.html.slime:1
 msgid "This weeks content en"
 msgstr "This weeks content"
+
+#, elixir-format
+#: lib/aoff_web/controllers/content/about_controller.ex:36
+#: lib/aoff_web/controllers/content/page_controller.ex:10
+msgid "Language updated"
+msgstr "Sproget er skiftet"
+
+#, elixir-format, fuzzy
+#: lib/aoff_web/controllers/volunteers/meeting_controller.ex:28
+msgid "Meeting created successfully."
+msgstr "Kontoen er slettet"
+
+#, elixir-format, fuzzy
+#: lib/aoff_web/controllers/volunteers/meeting_controller.ex:55
+msgid "Meeting updated successfully."
+msgstr "Kontoen er blevet opdateret"

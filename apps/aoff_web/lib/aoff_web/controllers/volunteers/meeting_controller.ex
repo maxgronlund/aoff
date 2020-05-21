@@ -25,7 +25,7 @@ defmodule AOFFWeb.Volunteer.MeetingController do
     case Committees.create_meeting(meeting_params) do
       {:ok, meeting} ->
         conn
-        |> put_flash(:info, "Meeting created successfully.")
+        |> put_flash(:info, gettext("Meeting created successfully."))
         |> redirect(to: Routes.volunteer_committee_meeting_path(conn, :show, committee, meeting))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -52,7 +52,7 @@ defmodule AOFFWeb.Volunteer.MeetingController do
     case Committees.update_meeting(meeting, meeting_params) do
       {:ok, meeting} ->
         conn
-        |> put_flash(:info, "Meeting updated successfully.")
+        |> put_flash(:info, gettext("Meeting updated successfully."))
         |> redirect(
           to: Routes.volunteer_committee_meeting_path(conn, :show, meeting.committee, meeting)
         )

@@ -1410,3 +1410,19 @@ msgstr ""
 #: lib/aoff_web/templates/purchaser/product/form.html.slime:1
 msgid "This weeks content en"
 msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/controllers/content/about_controller.ex:36
+#: lib/aoff_web/controllers/content/page_controller.ex:10
+msgid "Language updated"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/controllers/volunteers/meeting_controller.ex:28
+msgid "Meeting created successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/controllers/volunteers/meeting_controller.ex:55
+msgid "Meeting updated successfully."
+msgstr ""

@@ -29,54 +29,14 @@ defmodule AOFFWeb.Content.AboutController do
     )
   end
 
-  # def new(conn, _params) do
-  #   changeset = Content.change_news(%News{})
-  #   render(conn, "new.html", changeset: changeset)
-  # end
-
-  # def create(conn, %{"news" => news_params}) do
-  #   case Content.create_news(news_params) do
-  #     {:ok, news} ->
-  #       conn
-  #       |> put_flash(:info, "News created successfully.")
-  #       |> redirect(to: Routes.news_path(conn, :show, news))
-
-  #     {:error, %Ecto.Changeset{} = changeset} ->
-  #       render(conn, "new.html", changeset: changeset)
-  #   end
-  # end
-
   def show(conn, %{"id" => id}) do
-    category = Content.get_category!(id)
-    render(conn, "show.html", category: category)
+    case Content.get_category!(id) do
+      nil ->
+        conn
+        |> put_flash(:info, gettext("Language updated"))
+        |> redirect(to: Routes.about_path(conn, :index))
+      category ->
+        render(conn, "show.html", category: category)
+    end
   end
-
-  # def edit(conn, %{"id" => id}) do
-  #   news = Content.get_news!(id)
-  #   changeset = Content.change_news(news)
-  #   render(conn, "edit.html", news: news, changeset: changeset)
-  # end
-
-  # def update(conn, %{"id" => id, "news" => news_params}) do
-  #   news = Content.get_news!(id)
-
-  #   case Content.update_news(news, news_params) do
-  #     {:ok, news} ->
-  #       conn
-  #       |> put_flash(:info, "News updated successfully.")
-  #       |> redirect(to: Routes.news_path(conn, :show, news))
-
-  #     {:error, %Ecto.Changeset{} = changeset} ->
-  #       render(conn, "edit.html", news: news, changeset: changeset)
-  #   end
-  # end
-
-  # def delete(conn, %{"id" => id}) do
-  #   news = Content.get_news!(id)
-  #   {:ok, _news} = Content.delete_news(news)
-
-  #   conn
-  #   |> put_flash(:info, "News deleted successfully.")
-  #   |> redirect(to: Routes.news_path(conn, :index))
-  # end
 end
