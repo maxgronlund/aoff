@@ -28,7 +28,7 @@ defmodule AOFFWeb.Volunteers.NewsControllerTest do
 
     test "new news renders form", %{conn: conn} do
       conn = get(conn, Routes.volunteer_news_path(conn, :new))
-      assert html_response(conn, 200) =~ "New News"
+      assert html_response(conn, 200) =~ gettext("New News")
     end
 
     test "create news redirects to edit when data is valid", %{conn: conn} do
@@ -45,7 +45,7 @@ defmodule AOFFWeb.Volunteers.NewsControllerTest do
     test "create news renders errors when data is invalid", %{conn: conn} do
       attrs = invalid_news_attrs()
       conn = post(conn, Routes.volunteer_news_path(conn, :create), news: attrs)
-      assert html_response(conn, 200) =~ "New News"
+      assert html_response(conn, 200) =~ gettext("New News")
     end
 
     test "edit news renders form for editing chosen news", %{conn: conn} do

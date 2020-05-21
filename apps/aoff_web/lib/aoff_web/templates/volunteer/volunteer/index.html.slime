@@ -96,6 +96,21 @@
           to: Routes.volunteer_committee_path(@conn, :index),\
           class: "card-footer-item is-button"
 
+  = if @purchaser do
+    .card.is-shady
+      .card-header
+        .card-header-title.is-centered
+          = @products.title
+      .card-content
+        p = raw @products.text
+        = if @text_editor do
+          = link gettext("Edit text"),\
+            to: Routes.volunteer_message_path(@conn, :edit, @products, %{"request_url" => @conn.request_path})
+      .card-footer.is-button
+        = link gettext("Go to"),\
+          to: Routes.purchaser_product_path(@conn, :index),\
+          class: "card-footer-item is-button"
+
 
 
 

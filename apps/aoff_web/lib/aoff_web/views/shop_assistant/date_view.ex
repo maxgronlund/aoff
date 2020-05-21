@@ -36,4 +36,12 @@ defmodule AOFFWeb.ShopAssistant.DateView do
       to: AOFF.Time.time_as_string(to_time)
     )
   end
+
+  def name(product) do
+    case Gettext.get_locale do
+      "da" -> product.name_da
+      "en" -> product.name_en
+      _ -> product.name_en
+    end
+  end
 end

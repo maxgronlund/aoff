@@ -25,17 +25,6 @@ defmodule AOFFWeb.Admin.UserController do
     end
   end
 
-  # def new(conn, params) do
-  #   users = Users.list_users()
-  #   render(conn, "index.html", users: users, pages: Users.user_pages())
-  # end
-
-  def show(conn, params) do
-    page = String.to_integer(params["page"]) || 0
-    users = Users.list_users(page, 10)
-    render(conn, "index.html", users: users, pages: Users.user_pages())
-  end
-
   def edit(conn, %{"id" => id}) do
     user = Admins.get_user!(id)
     changeset = Admins.change_user(user)

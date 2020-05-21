@@ -56,6 +56,14 @@ defmodule AOFFWeb.Volunteer.VolunteerController do
         Gettext.get_locale()
       )
 
+    {:ok, products} =
+      System.find_or_create_message(
+        "/volunteer - products",
+        "Products",
+        Gettext.get_locale()
+      )
+
+
     render(
       conn,
       "index.html",
@@ -65,7 +73,8 @@ defmodule AOFFWeb.Volunteer.VolunteerController do
       opening_dates: opening_dates,
       categories: categories,
       membership: membership,
-      committees: committees
+      committees: committees,
+      products: products
     )
   end
 

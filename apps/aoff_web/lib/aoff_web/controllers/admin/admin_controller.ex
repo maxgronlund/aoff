@@ -6,8 +6,8 @@ defmodule AOFFWeb.Admin.AdminController do
   alias AOFF.Users
 
   def index(conn, _params) do
-    users = Users.list_users()
+    # users = Users.list_users()
 
-    render(conn, "index.html", users: users)
+    render(conn, "index.html")
   end
 end

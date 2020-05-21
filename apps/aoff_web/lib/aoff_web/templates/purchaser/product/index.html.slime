@@ -20,7 +20,7 @@
       .card-image
         img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({product.image, product}, :thumb)}"
       .card-header-title.is-centered
-        = product.name
+        = name(product)
         | &nbsp;
         = product.price
 
@@ -32,11 +32,11 @@
         hr
 
         b= gettext("Description")
-        = text_to_html(product.description)
+        = text_to_html(description(product))
         hr
         b= gettext("This weeks content")
         br
-        = text_to_html(product.this_weeks_content)
+        = text_to_html(this_weeks_content(product))
 
       .card-footerx
 

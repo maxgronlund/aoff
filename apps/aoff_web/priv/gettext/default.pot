@@ -101,7 +101,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/templates/purchaser/product/form.html.slime:1
-#: lib/aoff_web/templates/purchaser/product/index.html.slime:6 lib/aoff_web/templates/volunteer/category/form.html.slime:6
+#: lib/aoff_web/templates/purchaser/product/index.html.slime:1 lib/aoff_web/templates/volunteer/category/form.html.slime:6
 #: lib/aoff_web/templates/volunteer/membership/index.html.slime:6
 msgid "Description"
 msgstr ""
@@ -991,7 +991,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/templates/purchaser/date/show.html.slime:3
-#: lib/aoff_web/templates/purchaser/product/form.html.slime:1 lib/aoff_web/templates/purchaser/product/index.html.slime:6
+#: lib/aoff_web/templates/purchaser/product/form.html.slime:1 lib/aoff_web/templates/purchaser/product/index.html.slime:1
 #: lib/aoff_web/templates/volunteer/membership/index.html.slime:6
 msgid "This weeks content"
 msgstr ""
@@ -1330,11 +1330,6 @@ msgid "To"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/content/news/index.html.slime:1
-msgid "Create News"
-msgstr ""
-
-#, elixir-format
 #: lib/aoff_web/templates/error/500_page.html.slime:1
 msgid "Internal server error"
 msgstr ""
@@ -1375,6 +1370,12 @@ msgid "Edit News"
 msgstr ""
 
 #, elixir-format
+#: lib/aoff_web/templates/content/news/index.html.slime:1
 #: lib/aoff_web/templates/volunteer/news/new.html.slime:1
 msgid "New News"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/views/purchaser/product_view.ex:9
+msgid "Show on landing page √"
 msgstr ""

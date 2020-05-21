@@ -78,6 +78,8 @@ defmodule AOFF.Content do
 
   """
   def create_news(attrs \\ %{}) do
+    attrs =
+      Map.put(attrs, "locale", Gettext.get_locale())
     %News{}
     |> News.changeset(attrs)
     |> Repo.insert()

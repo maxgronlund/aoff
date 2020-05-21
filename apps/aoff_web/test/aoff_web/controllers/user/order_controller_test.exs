@@ -1,10 +1,12 @@
 defmodule AOFFWeb.OrderControllerTest do
   use AOFFWeb.ConnCase
-  # import AOFFWeb.Gettext
+  import AOFFWeb.Gettext
 
 
   import AOFF.Users.OrderFixture
+  import AOFF.Users.OrderItemFixture
   import AOFF.Users.UserFixture
+
 
   alias Plug.Conn
 
@@ -33,89 +35,27 @@ defmodule AOFFWeb.OrderControllerTest do
       {:ok, conn: conn, user: user}
     end
 
-    test "index", %{conn: conn, user: user} do
-      order = order_fixture(user.id)
-      conn = get(conn, Routes.user_path(conn, :show, user))
+    test "index show the basket", %{conn: conn, user: user} do
+      order = order_fixture(user.id, %{"state" => "open"})
+      conn = get(conn, Routes.user_order_path(conn, :show, user, order))
 
-      # assert html_response(conn, 200) =~ gettext("Listing Orders")
+      assert html_response(conn, 200) =~ gettext("Basket")
+    end
+
+    test "index show the invoice", %{conn: conn, user: user} do
+      order = order_fixture(user.id)
+
+      AOFF.Users.payment_accepted(order)
+      conn = get(conn, Routes.user_order_path(conn, :show, user, order))
+
+      assert html_response(conn, 200) =~ gettext("Invoice")
+    end
+
+    test "delete deletes the order", %{conn: conn, user: user} do
+      order = order_fixture(user.id, %{"state" => "open"})
+
+      conn = delete(conn, Routes.user_order_path(conn, :delete, user, order))
+      assert redirected_to(conn) == Routes.shop_shop_path(conn, :index)
     end
   end
-
-  # describe "new order" do
-  #   test "renders form", %{conn: conn} do
-  #     conn = get(conn, Routes.shop_order_path(conn, :new))
-  #     assert html_response(conn, 200) =~ "New Order"
-  #   end
-  # end
-
-  # describe "create order" do
-  #   test "redirects to show when data is valid", %{conn: conn} do
-  #     attrs = create_order_attrs()
-  #     conn = post(conn, Routes.shop_order_path(conn, :create), order: attrs)
-
-  #     assert %{id: id} = redirected_params(conn)
-  #     assert redirected_to(conn) == Routes.shop_order_path(conn, :show, id)
-
-  #     conn = get(conn, Routes.shop_order_path(conn, :show, id))
-  #     assert html_response(conn, 200) =~ "Show Order"
-  #   end
-
-  #   test "renders errors when data is invalid", %{conn: conn} do
-  #     attrs = invalid_order_attrs()
-  #     conn = post(conn, Routes.shop_order_path(conn, :create), order: attrs)
-  #     assert html_response(conn, 200) =~ "New Order"
-  #   end
-  # end
-
-  # describe "edit order" do
-  #   setup do
-  #     user = user_fixture()
-  #     order = order_fixture(user.id)
-  #     {:ok, order: order}
-  #   end
-
-  #   test "renders form for editing chosen order", %{conn: conn, order: order} do
-  #     conn = get(conn, Routes.shop_order_path(conn, :edit, order))
-  #     assert html_response(conn, 200) =~ "Edit Order"
-  #   end
-  # end
-
-  # describe "update order" do
-  #   setup do
-  #     user = user_fixture()
-  #     order = order_fixture(user.id)
-  #     {:ok, order: order}
-  #   end
-
-  #   test "redirects when data is valid", %{conn: conn, order: order} do
-  #     attrs = update_order_attrs()
-  #     conn = put(conn, Routes.shop_order_path(conn, :update, order), order: attrs)
-  #     assert redirected_to(conn) == Routes.shop_order_path(conn, :show, order)
-
-  #     conn = get(conn, Routes.shop_order_path(conn, :show, order))
-  #     assert html_response(conn, 200) =~ "some updated state"
-  #   end
-
-  #   test "renders errors when data is invalid", %{conn: conn, order: order} do
-  #     attrs = invalid_order_attrs()
-  #     conn = put(conn, Routes.shop_order_path(conn, :update, order), order: attrs)
-  #     assert html_response(conn, 200) =~ "Edit Order"
-  #   end
-  # end
-
-  # describe "delete order" do
-  #   setup do
-  #     user = user_fixture()
-  #     order = order_fixture(user.id)
-  #     {:ok, order: order}
-  #   end
-
-  #   test "deletes chosen order", %{conn: conn, order: order} do
-  #     conn = delete(conn, Routes.shop_order_path(conn, :delete, order))
-  #     assert redirected_to(conn) == Routes.shop_order_path(conn, :index)
-  #     assert_error_sent 404, fn ->
-  #       get(conn, Routes.shop_order_path(conn, :show, order))
-  #     end
-  #   end
-  # end
 end

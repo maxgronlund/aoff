@@ -21,8 +21,8 @@ defmodule AOFF.Shop.ProductsTest do
     test "create_product/1 with valid data creates a product" do
       attrs = create_product_attrs()
       assert {:ok, %Product{} = product} = Shop.create_product(attrs)
-      assert product.description == attrs["description"]
-      assert product.name == attrs["name"]
+      assert product.description_da == attrs["description_da"]
+      assert product.name_da == attrs["name_da"]
       assert product.price == attrs["price"]
     end
 
@@ -35,8 +35,8 @@ defmodule AOFF.Shop.ProductsTest do
       product = product_fixture()
       attrs = update_product_attrs()
       assert {:ok, %Product{} = product} = Shop.update_product(product, attrs)
-      assert product.description == attrs["description"]
-      assert product.name == attrs["name"]
+      assert product.description_da == attrs["description_da"]
+      assert product.name_da == attrs["name_da"]
       assert product.price == attrs["price"]
     end
 

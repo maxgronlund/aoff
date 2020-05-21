@@ -4,7 +4,7 @@
   = if @volunteer do
     .column
       .float-right.mt-1
-        = link gettext("Create News"),\
+        = link gettext("New News"),\
           to: Routes.volunteer_news_path(@conn, :new),
           class: "button button-outline"
 

@@ -9,15 +9,18 @@ defmodule AOFF.Shop.Product do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "products" do
-    field :description, :string, default: ""
-    field :name, :string
+    field :description_da, :string, default: ""
+    field :description_en, :string, default: ""
+    field :name_da, :string
+    field :name_en, :string
     field :image, Image.Type
     field :price, Money.Ecto.Amount.Type
     field :for_sale, :boolean, default: false
     field :show_on_landing_page, :boolean, default: false
     field :membership, :boolean, default: false
     field :deleted, :boolean, default: false
-    field :this_weeks_content, :string, default: ""
+    field :this_weeks_content_da, :string, default: ""
+    field :this_weeks_content_en, :string, default: ""
     field :notes, :string, default: ""
 
     has_many :order_items, OrderItem
@@ -29,17 +32,31 @@ defmodule AOFF.Shop.Product do
   def changeset(product, attrs) do
     product
     |> cast(attrs, [
-      :name,
-      :description,
+      :name_da,
+      :name_en,
+      :description_da,
+      :description_en,
       :price,
       :for_sale,
       :membership,
       :show_on_landing_page,
-      :this_weeks_content,
+      :this_weeks_content_da,
+      :this_weeks_content_en,
       :notes
     ])
     |> cast_attachments(attrs, [:image])
-    |> validate_required([:name, :price, :for_sale, :membership, :show_on_landing_page])
+    |> validate_required(
+      [
+        :name_da,
+        :name_en,
+        :description_da,
+        :description_en,
+        :price,
+        :for_sale,
+        :membership,
+        :show_on_landing_page
+      ]
+    )
   end
 
   def delete_changeset(product, attrs) do

@@ -2,8 +2,12 @@ defmodule AOFF.Shop.ProductFixture do
   alias AOFF.Shop
 
   @create_attrs %{
-    "description" => "some description",
-    "name" => "some name",
+    "description_da" => "some da description",
+    "description_en" => "some en description",
+    "name_da" => "some da name",
+    "name_en" => "some en_dname",
+    "this_weeks_content_da" => "some da this weeks content",
+    "this_weeks_content_en" => "some en this weeks content",
     "price" => Money.new(43, :DKK),
     "for_sale" => true,
     "membership" => false,
@@ -11,16 +15,24 @@ defmodule AOFF.Shop.ProductFixture do
   }
 
   @update_attrs %{
-    "description" => "some updated description",
-    "name" => "some updated name",
+    "description_da" => "some updated da description",
+    "description_en" => "some updated en description",
+    "name_da" => "some updated da name",
+    "name_en" => "some updated en name",
+    "this_weeks_content_da" => "some updated da this weeks content",
+    "this_weeks_content_en" => "some updated en this weeks content",
     "price" => Money.new(45, :DKK),
     "for_sale" => false,
     "show_on_landing_page" => false
   }
 
   @invalid_attrs %{
-    "description" => nil,
-    "name" => nil,
+    "description_da" => nil,
+    "description_en" => nil,
+    "name_da" => nil,
+    "name_en" => nil,
+    "this_weeks_content_da" => nil,
+    "this_weeks_content_en" => nil,
     "price" => nil,
     "for_sale" => nil,
     "membership" => nil,

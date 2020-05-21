@@ -1,7 +1,7 @@
-h2 = @product.name
+h2 = name(@product)
 
 
-= text_to_html(@product.description)
+= text_to_html(description(@product))
 
 strong Price:&nbsp;
 = @product.price

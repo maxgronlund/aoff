@@ -13,9 +13,15 @@
   .row
     .column
       .form-group
-        = label f, :name, gettext("Product name"), class: "control-label"
-        = text_input f, :name, class: "form-control full-width"
-        = error_tag f, :name
+        = label f, :name_da, gettext("Product name da"), class: "control-label"
+        = text_input f, :name_da, class: "form-control full-width"
+        = error_tag f, :name_da
+    .column
+      .form-group
+        = label f, :name_en, gettext("Product name en"), class: "control-label"
+        = text_input f, :name_en, class: "form-control full-width"
+        = error_tag f, :name_en
+  .row
     .column
       .form-group
         = label f, gettext("Price"), class: "control-label"
@@ -24,14 +30,24 @@
   .row
     .column
       .form-group
-        = label f, :description, gettext("Description"), class: "control-label"
-        = textarea f, :description, style: "height: 150px;" , class: "form-control full-width"
-        = error_tag f, :description
+        = label f, :description_da, gettext("Description da"), class: "control-label"
+        = textarea f, :description_da, style: "height: 150px;" , class: "form-control full-width"
+        = error_tag f, :description_da
     .column
       .form-group
-        = label f, :this_weeks_content, gettext("This weeks content"), class: "control-label"
-        = textarea f, :this_weeks_content, style: "height: 150px;" , class: "form-control full-width"
-        = error_tag f, :this_weeks_content
+        = label f, :description_en, gettext("Description en"), class: "control-label"
+        = textarea f, :description_en, style: "height: 150px;" , class: "form-control full-width"
+        = error_tag f, :description_en
+  .row
+    .column
+      .form-group
+        = label f, :this_weeks_content_da, gettext("This weeks content"), class: "control-label"
+        = textarea f, :this_weeks_content_da, style: "height: 150px;" , class: "form-control full-width"
+        = error_tag f, :this_weeks_content_da
+      .form-group
+        = label f, :this_weeks_content_en, gettext("This weeks content"), class: "control-label"
+        = textarea f, :this_weeks_content_en, style: "height: 150px;" , class: "form-control full-width"
+        = error_tag f, :this_weeks_content_en
   .alert.alert-box
     .tiles
       .column

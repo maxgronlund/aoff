@@ -1,4 +1,4 @@
-defmodule AOFFWeb.Purchaser.ProductControllerTest do
+defmodule AOFFWeb.ShopAssistant.DateControllerTest do
   use AOFFWeb.ConnCase
   alias Plug.Conn
 
@@ -15,7 +15,7 @@ defmodule AOFFWeb.Purchaser.ProductControllerTest do
              )
     setup do
       user = user_fixture(%{"purchasing_manager" => true})
-      _product = product_fixture()
+
       conn =
         build_conn()
         |> Plug.Session.call(@session)
