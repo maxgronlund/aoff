@@ -24,14 +24,15 @@
     .tiles
       = for product <- @products do
         .card.is-black
-          /.card-image
-          /  img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({/product.image, product}, :thumb)}"
-          .card-header-title.is-black.is-centered
-            = product.name
-            | &nbsp;
-            = product.price
-          .card-content
-            = text_to_html(product.description)
+          = link to: Routes.shop_date_path(@conn, :show, @date) do
+            /.card-image
+            /  img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({/product.image, product}, :thumb)}"
+            .card-header-title.is-black.is-centered
+              = name(product)
+              | &nbsp;
+              = product.price
+            .card-content.is-black
+              = text_to_html(this_weeks_content(product))
 
 .row
   .column

@@ -66,8 +66,6 @@ defmodule AOFFWeb.Shop.DateView do
     message
   end
 
-
-
   def name(product) do
     case Gettext.get_locale do
       "da" -> product.name_da
