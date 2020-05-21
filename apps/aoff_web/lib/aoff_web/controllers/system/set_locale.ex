@@ -16,9 +16,6 @@ defmodule AOFFWeb.System.SetLocale do
     end
   end
 
-  # 5
-  def call(conn, _options), do: conn
-
   defp fetch_locale_from(conn) do
     (conn.params["locale"] || conn.cookies["locale"])
     |> check_locale

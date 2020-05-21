@@ -125,14 +125,6 @@ defmodule AOFFWeb.Volunteer.PageController do
     end
   end
 
-  defp authorize_admin(conn, _opts) do
-    if conn.assigns.admin do
-      conn
-    else
-      forbidden(conn)
-    end
-  end
-
   defp forbidden(conn) do
     conn
     |> put_status(401)

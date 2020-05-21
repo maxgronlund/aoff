@@ -1,4 +1,4 @@
-defmodule AOFFWeb.OrderControllerTest do
+defmodule AOFFWeb.Admin.UserControllerTest do
   use AOFFWeb.ConnCase
   import AOFFWeb.Gettext
   alias Plug.Conn

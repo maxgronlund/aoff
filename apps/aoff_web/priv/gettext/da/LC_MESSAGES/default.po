@@ -399,7 +399,7 @@ msgstr "Bestillings lister"
 #, elixir-format
 #: lib/aoff_web/templates/purchaser/date/show.html.slime:1
 msgid "Shopping list: %{date}"
-msgstr "Bestillings liste"
+msgstr "Bestillings liste: %{date}"
 
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/news/form.html.slime:9

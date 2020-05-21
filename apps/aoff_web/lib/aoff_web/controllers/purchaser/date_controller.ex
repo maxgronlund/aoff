@@ -16,11 +16,13 @@ defmodule AOFFWeb.Purchaser.DateController do
       end
 
     dates = Shop.list_all_dates(Date.utc_today(), page, @dates_pr_page)
+    date = Shop.get_next_date(AOFF.Time.today())
 
     render(
       conn,
       "index.html",
       dates: dates,
+      date: date,
       pages: Shop.date_pages(),
       page: page
     )

@@ -1,4 +1,4 @@
-defmodule AOFFWeb.OrderControllerTest do
+defmodule AOFFWeb.Users.OrderControllerTest do
   use AOFFWeb.ConnCase
   import AOFFWeb.Gettext
 
@@ -7,11 +7,6 @@ defmodule AOFFWeb.OrderControllerTest do
   import AOFF.Users.UserFixture
 
   alias Plug.Conn
-
-  # def fixture(:order) do
-  #   {:ok, order} = Users.create_order(@create_attrs)
-  #   order
-  # end
 
   describe "user orders" do
     @session Plug.Session.init(

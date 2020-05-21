@@ -1,14 +1,14 @@
-/ .row
-/   .column
-/     .breadcrumb aria-label="breadcrumbs"
-/       ul
-/         li
-/           = link gettext("Shop"), to: Routes.shop_shop_path(@conn, :index)
-/         li
-/           = link date(@date.date), to: Routes.shop_date_path(@conn, :show, @date)
-/         li.is-active
-/           | &nbsp;
-/           = gettext("Shopping List")
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Shop"), to: Routes.shop_shop_path(@conn, :index)
+        li
+          = link date(@date.date), to: Routes.shop_date_path(@conn, :show, @date)
+        li.is-active
+          | &nbsp;
+          = gettext("Shopping List")
 
 h2= gettext("Opening dates")
 p= gettext("Please select an opening date")
