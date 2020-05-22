@@ -7,6 +7,7 @@ defmodule AOFFWeb.Admin.UserView do
     else
       case Date.compare(user.expiration_date, Date.utc_today()) do
         :gt -> gettext("Valid member")
+        :eq -> gettext("Valid member")
         :lt -> gettext("Inactive")
       end
     end
@@ -18,6 +19,7 @@ defmodule AOFFWeb.Admin.UserView do
     else
       case Date.compare(user.expiration_date, Date.utc_today()) do
         :gt -> true
+        :eq -> true
         :lt -> false
       end
     end
