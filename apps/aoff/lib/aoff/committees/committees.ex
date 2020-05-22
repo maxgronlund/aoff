@@ -148,7 +148,7 @@ defmodule AOFF.Committees do
   """
   def get_meeting!(id) do
     Repo.get!(Meeting, id)
-    |> Repo.preload(:committee)
+    |> Repo.preload(committee: [:members])
   end
 
   @doc """

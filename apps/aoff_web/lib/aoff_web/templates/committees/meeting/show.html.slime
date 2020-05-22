@@ -16,6 +16,19 @@
     i = date(@meeting.date)
     br
       = @meeting.location
+= if committee_member(@meeting.committee, @current_user) || @admin do
+  .row
+    .column
+      .float-right
+        = link gettext("Edit"),\
+            to: Routes.volunteer_committee_meeting_path(@conn, :edit, @committee, @meeting),\
+            class: "button"
+        | &nbsp;
+        = link gettext("Delete"),\
+          to: Routes.volunteer_committee_meeting_path(@conn, :delete, @committee, @meeting),\
+          data: [confirm: gettext("Are you sure?")],\
+          method: :delete,
+          class: "button button-red"
 
 hr
 h4.mt-2 = gettext("Meeting agenda")

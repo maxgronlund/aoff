@@ -1093,17 +1093,17 @@ msgstr "Udvalg"
 #, elixir-format
 #: lib/aoff_web/controllers/volunteers/member_controller.ex:33
 msgid "Member created successfully."
-msgstr "Kontoen er slettet"
+msgstr "Medlemmet er tilføjet"
 
 #, elixir-format
 #: lib/aoff_web/controllers/volunteers/member_controller.ex:88
 msgid "Member deleted successfully."
-msgstr "Kontoen er slettet"
+msgstr "Medlemmet er fjernet"
 
 #, elixir-format
 #: lib/aoff_web/controllers/volunteers/member_controller.ex:70
 msgid "Member updated successfully."
-msgstr "Kontoen er blevet opdateret"
+msgstr "Medlemmet er blevet opdateret"
 
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/committee/index.html.slime:1
@@ -1120,7 +1120,7 @@ msgstr "Tilføj medlem"
 #, elixir-format
 #: lib/aoff_web/controllers/users/order_controller.ex:35
 msgid "Order deleted successfully."
-msgstr "Kontoen er slettet"
+msgstr "Kurven er tømt"
 
 #, elixir-format
 #: lib/aoff_web/controllers/shop_assistants/pick_up_controller.ex:19
@@ -1131,7 +1131,7 @@ msgstr "Opsamlingen er registreret"
 #: lib/aoff_web/templates/committees/member/form.html.slime:1
 #: lib/aoff_web/templates/volunteer/member/form.html.slime:1
 msgid "members"
-msgstr "MedlemmerS"
+msgstr "Medlemmer"
 
 #, elixir-format
 #: lib/aoff_web/templates/committees/member/form.html.slime:3
@@ -1158,7 +1158,7 @@ msgstr "Agenda"
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/meeting/form.html.slime:9
 msgid "Meeting date"
-msgstr "Dato"
+msgstr "Møde dato"
 
 #, elixir-format
 #: lib/aoff_web/controllers/volunteers/meeting_controller.ex:70
@@ -1213,12 +1213,12 @@ msgstr "Opret medlemsskab √"
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/membership/index.html.slime:1
 msgid "Manage membership"
-msgstr "Opret medlemsskab √"
+msgstr "Opret medlemsskab"
 
 #, elixir-format
 #: lib/aoff_web/templates/admin/user/form.html.slime:1
 msgid "Manage memberships"
-msgstr "Opret medlemsskab √"
+msgstr "Opret medlemsskab"
 
 #, elixir-format
 #: lib/aoff_web/templates/committees/committee/show.html.slime:11
@@ -1390,7 +1390,7 @@ msgstr "Beskrivelse"
 #, elixir-format
 #: lib/aoff_web/templates/purchaser/date/show.html.slime:1
 msgid "Other dates"
-msgstr ""
+msgstr "Andre datoer"
 
 #, elixir-format
 #: lib/aoff_web/templates/purchaser/product/form.html.slime:1
@@ -1421,9 +1421,9 @@ msgstr "Sproget er skiftet"
 #, elixir-format, fuzzy
 #: lib/aoff_web/controllers/volunteers/meeting_controller.ex:28
 msgid "Meeting created successfully."
-msgstr "Kontoen er slettet"
+msgstr "Mødet er oprettet"
 
 #, elixir-format, fuzzy
 #: lib/aoff_web/controllers/volunteers/meeting_controller.ex:55
 msgid "Meeting updated successfully."
-msgstr "Kontoen er blevet opdateret"
+msgstr "Mødet er opdateret"

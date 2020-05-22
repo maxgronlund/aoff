@@ -8,11 +8,6 @@ defmodule AOFFWeb.Volunteer.MeetingController do
   plug Auth
   plug :authenticate when action in [:index, :edit, :new, :update, :create, :delete]
 
-  def index(conn, _params) do
-    meetings = Committees.list_meetings()
-    render(conn, "index.html", meetings: meetings)
-  end
-
   def new(conn, %{"committee_id" => committee_id}) do
     committee = Committees.get_committee!(committee_id)
     changeset = Committees.change_meeting(%Meeting{date: Date.add(Date.utc_today(), 14)})
@@ -26,17 +21,11 @@ defmodule AOFFWeb.Volunteer.MeetingController do
       {:ok, meeting} ->
         conn
         |> put_flash(:info, gettext("Meeting created successfully."))
-        |> redirect(to: Routes.volunteer_committee_meeting_path(conn, :show, committee, meeting))
+        |> redirect(to: Routes.committee_committee_meeting_path(conn, :show, committee, meeting))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset, committee: committee)
     end
-  end
-
-  def show(conn, %{"committee_id" => committee_id, "id" => id}) do
-    committee = Committees.get_committee!(committee_id)
-    meeting = Committees.get_meeting!(id)
-    render(conn, "show.html", committee: committee, meeting: meeting)
   end
 
   def edit(conn, %{"id" => id}) do
@@ -54,7 +43,7 @@ defmodule AOFFWeb.Volunteer.MeetingController do
         conn
         |> put_flash(:info, gettext("Meeting updated successfully."))
         |> redirect(
-          to: Routes.volunteer_committee_meeting_path(conn, :show, meeting.committee, meeting)
+          to: Routes.committee_committee_meeting_path(conn, :show, meeting.committee, meeting)
         )
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -68,7 +57,7 @@ defmodule AOFFWeb.Volunteer.MeetingController do
 
     conn
     |> put_flash(:info, gettext("Meeting deleted successfully."))
-    |> redirect(to: Routes.volunteer_committee_path(conn, :index, meeting.committee_id))
+    |> redirect(to: Routes.committee_committee_path(conn, :show, meeting.committee_id))
   end
 
   defp authenticate(conn, _opts) do
