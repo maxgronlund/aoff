@@ -236,7 +236,7 @@ defmodule AOFF.Users do
   end
 
   @doc """
-  Get a user by member number
+  Get users by member number
 
   ## Examples
 
@@ -249,6 +249,22 @@ defmodule AOFF.Users do
   def get_users_by_member_nr(member_nr) do
     from(u in User, where: u.member_nr == ^member_nr)
     |> Repo.all()
+  end
+
+  @doc """
+  Get one user by member number
+
+  ## Examples
+
+      get_user_by_member_nr(12)
+      [%User]
+
+      iex> get_user_by_member_nr(asd)
+      []
+  """
+  def get_user_by_member_nr(member_nr) do
+    from(u in User, where: u.member_nr == ^member_nr, limit: 1)
+    |> Repo.one()
   end
 
   @doc """
