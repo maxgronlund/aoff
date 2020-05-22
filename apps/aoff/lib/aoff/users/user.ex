@@ -159,6 +159,19 @@ defmodule AOFF.Users.User do
     |> cast_attachments(attrs, [:avatar])
   end
 
+  def import_changeset(user, attrs) do
+    user
+    |> cast(attrs, [
+      :member_nr,
+      :username,
+      :mobile_country_code,
+      :mobile,
+      :password_hash,
+      :registration_date,
+      :expiration_date
+    ])
+  end
+
   @doc false
   def changeset(user, attrs) do
     user
