@@ -20,7 +20,7 @@ defmodule AOFFWeb.UserController do
 
     changeset =
       Users.change_user(%User{
-        expiration_date: ~D[2021-03-31],
+        expiration_date: AOFF.Time.today(),
         member_nr: last_member_nr + 1
       })
 
@@ -31,7 +31,14 @@ defmodule AOFFWeb.UserController do
         Gettext.get_locale()
       )
 
-    render(conn, "new.html", changeset: changeset, email: "", message: message, user: false)
+    render(
+      conn,
+      "new.html",
+      changeset: changeset,
+      email: "",
+      message: message,
+      user: false
+    )
   end
 
   def create(conn, %{"user" => user_params}) do

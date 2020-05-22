@@ -12,6 +12,11 @@
 .row
   .column
     h2 = gettext("Admin Users")
+  .column
+    .float-right
+      = link gettext("Create User"),\
+        to: Routes.volunteer_user_path(@conn, :new),\
+        class: "button"
 
 = form_for @conn, Routes.volunteer_user_path(@conn, :index), [method: :get], fn f ->
   .row

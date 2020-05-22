@@ -3,6 +3,8 @@ defmodule AOFFWeb.Volunteer.UserController do
 
   alias AOFF.Volunteers
   alias AOFF.Users
+  alias AOFF.Users.User
+  alias AOFF.System
 
   alias AOFFWeb.Users.Auth
   plug Auth
@@ -26,13 +28,71 @@ defmodule AOFFWeb.Volunteer.UserController do
     render(conn, "edit.html", user: user, changeset: changeset, email: user.email)
   end
 
+  def new(conn, _params) do
+    last_member_nr = Users.last_member_nr() || 0
+
+    changeset =
+      Users.change_user(%User{
+        expiration_date: Date.add(AOFF.Time.today(), 365),
+        member_nr: last_member_nr + 1
+      })
+
+    {:ok, message} =
+      System.find_or_create_message(
+        "/volunteer/users/new",
+        "Create account",
+        Gettext.get_locale()
+      )
+
+    render(
+      conn,
+      "new.html",
+      changeset: changeset,
+      email: "",
+      message: message,
+      user: false
+    )
+  end
+
+  def create(conn, %{"user" => user_params}) do
+
+    user_params = Map.put(user_params, "terms_accepted", true)
+
+    case Users.create_user(user_params) do
+      {:ok, user} ->
+        conn
+        |> put_flash(
+          :info,
+          gettext("An account for %{username} is created", username: user.username)
+        )
+        |> redirect(to: Routes.volunteer_user_path(conn, :index))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:ok, message} =
+          System.find_or_create_message(
+            "/volunteer/users/new",
+            "Create account",
+            Gettext.get_locale()
+          )
+
+        render(
+          conn,
+          "new.html",
+          changeset: changeset,
+          email: user_params["email_confirmation"],
+          message: message,
+          user: false
+        )
+    end
+  end
+
   def show(conn, %{"id" => id}) do
     user = Volunteers.get_user!(id)
     render(conn, "show.html", user: user)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
-    user = get_user!(conn, id)
+    user = Users.get_user!(id)
 
     case Volunteers.update_user(user, user_params) do
       {:ok, _user} ->
@@ -46,7 +106,7 @@ defmodule AOFFWeb.Volunteer.UserController do
   end
 
   def delete(conn, %{"id" => id}) do
-    user = get_user!(conn, id)
+    user = Users.get_user!(id)
     {:ok, _user} = Volunteers.delete_user(user)
 
     conn

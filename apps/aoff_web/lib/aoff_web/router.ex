@@ -113,7 +113,7 @@ defmodule AOFFWeb.Router do
 
     resources "/committees", AOFFWeb.Volunteer.CommitteeController do
       resources "/members", AOFFWeb.Volunteer.MemberController, except: [:index, :show]
-      resources "/meetings", AOFFWeb.Volunteer.MeetingController
+      resources "/meetings", AOFFWeb.Volunteer.MeetingController, except: [:index, :show]
     end
 
     resources "/news", AOFFWeb.Volunteer.NewsController, except: [:index, :show]
