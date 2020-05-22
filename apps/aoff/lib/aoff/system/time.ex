@@ -4,7 +4,7 @@ defmodule AOFF.Time do
   def now_as_string() do
     {:ok, time_now} =
       now()
-      |> AOFFWeb.Cldr.DateTime.to_string(locale: "da")
+      |> AOFFWeb.Cldr.DateTime.to_string(locale: Gettext.get_locale())
 
     time_now
   end
@@ -12,7 +12,7 @@ defmodule AOFF.Time do
   def today_as_string() do
     {:ok, today} =
       today()
-      |> AOFFWeb.Cldr.Date.to_string(locale: "da")
+      |> AOFFWeb.Cldr.Date.to_string(locale: Gettext.get_locale())
 
     today
   end
@@ -27,7 +27,7 @@ defmodule AOFF.Time do
   end
 
   def date_as_string(date) do
-    {:ok, date} = date |> AOFFWeb.Cldr.Date.to_string(locale: "da")
+    {:ok, date} = date |> AOFFWeb.Cldr.Date.to_string(locale: Gettext.get_locale())
     date
   end
 

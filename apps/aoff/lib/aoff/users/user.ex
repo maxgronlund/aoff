@@ -164,6 +164,7 @@ defmodule AOFF.Users.User do
     |> cast(attrs, [
       :member_nr,
       :username,
+      :email,
       :mobile_country_code,
       :mobile,
       :password_hash,

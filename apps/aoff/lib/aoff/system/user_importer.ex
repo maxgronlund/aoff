@@ -34,9 +34,9 @@ defmodule AOFF.System.UserImporter do
       end)
 
     for attrs <- users do
-      %User{}
+      AOFF.Users.get_users_by_member_nr(attrs["member_nr"])
       |> User.import_changeset(attrs)
-      |> Repo.insert()
+      |> Repo.update()
     end
   end
 
