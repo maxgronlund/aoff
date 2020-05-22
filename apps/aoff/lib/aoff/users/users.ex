@@ -302,7 +302,8 @@ defmodule AOFF.Users do
   defp hash_mod_of_user(user) do
     cond do
       String.starts_with?(user.password_hash, "$pbkdf2") -> Pbkdf2
-      String.starts_with?(user.password_hash, "$druapl7") -> Drupal7PasswordHash
+      String.starts_with?(user.password_hash, "$drupal7") -> Drupal7PasswordHash
+      true -> false
     end
   end
 
@@ -321,9 +322,11 @@ defmodule AOFF.Users do
   """
   def authenticate_by_email_and_pass(email, given_pass) do
     user = get_user_by_email(email)
+    hash_mod_of_user = hash_mod_of_user(user)
 
     cond do
-      user && hash_mod_of_user(user).verify_pass(given_pass, user.password_hash) ->
+      user && hash_mod_of_user ->
+        hash_mod_of_user.verify_pass(given_pass, user.password_hash)
         # Rehash password if not Pbkdf2
         if hash_mod_of_user(user) != Pbkdf2 do
           User.update_password_changeset(user, %{"password" => given_pass})

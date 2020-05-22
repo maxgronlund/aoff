@@ -21,6 +21,8 @@ hr
       strong = user.username
       br
       = gettext("Member Nr: %{member_nr}", member_nr: user.member_nr)
+      br
+      = user.registration_date
     .column
       = valid_membership(user)
       br/

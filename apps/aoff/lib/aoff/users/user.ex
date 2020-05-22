@@ -171,6 +171,10 @@ defmodule AOFF.Users.User do
       :registration_date,
       :expiration_date
     ])
+    |> validate_required([
+      :expiration_date,
+      :registration_date
+    ])
     |> unique_constraint(:member_nr)
     |> unique_constraint(:email)
   end
