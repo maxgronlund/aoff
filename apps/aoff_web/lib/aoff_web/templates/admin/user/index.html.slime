@@ -41,7 +41,7 @@ hr
         = link gettext("Edit"),to: Routes.admin_user_path(@conn, :edit, user), class: "button button-small button-outline"
 
         | &nbsp;
-        = link gettext("Delete"), to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red button-small"
+        = link gettext("Delete"), to: Routes.admin_user_path(@conn, :delete, user), method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red button-small"
 
   hr
 

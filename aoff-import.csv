@@ -1,4 +1,0 @@
-
-member_nr,username,email,mobile,password_hash,registration_date,expiration_date
-123,username-123,test-123@example.com,mobile-123,$drupal7-123,~D[2020-01-18],~D[2021-04-18]
-124,username-124,test-124@example.com,mobile-123,$drupal7-124,~D[2020-02-18],~D[2021-05-18]
