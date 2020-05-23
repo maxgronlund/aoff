@@ -35,6 +35,7 @@ defmodule AOFFWeb.Router do
 
     get "/", PageController, :index
     get "/terms", TermsController, :index
+    get "/payment_terms", PaymentTermsController, :show
 
     resources "/users", UserController, except: [:index] do
       resources "/order_items", Users.OrderItemController, only: [:create, :delete]

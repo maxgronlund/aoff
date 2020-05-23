@@ -58,4 +58,5 @@ html lang="da"
     script src="#{Routes.static_path(@conn, "/js/scroll.js")}"
     script src="#{Routes.static_path(@conn, "/js/fixed-responsive-nav.js")}"
     script src="#{Routes.static_path(@conn, "/js/cokkie-consent.js")}"
+    script src="#{Routes.static_path(@conn, "/js/aoff.js")}"
 

@@ -1,0 +1,12 @@
+h2 = @message.title
+.auto-columns
+  = raw @message.text
+= if @text_editor do
+  = link gettext("Edit"), to: Routes.volunteer_message_path(@conn, :edit, @message, %{"request_url" => @conn.request_path})
+
+.row
+  .column
+    .float-right
+      = link gettext("Back"),\
+        to: Routes.shop_checkout_path(@conn, :edit, @order_id),\
+        class: "button"

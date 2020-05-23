@@ -49,8 +49,13 @@ javascript:
 
 .row
   .column
+
+    input type="checkbox" id="accept-payment-terms" name="vehicle1"
+    label for="accept-payment-terms" class="label-inline" id="accept-payment-terms" = gettext("I have read and accept the")
+    | &nbsp;
+    = link(gettext("payment terms and condition"), to: Routes.payment_terms_path(@conn, :show, order_id: @order.id))
     - button_text = gettext("Go to payment")
-    input class="button-xlarge button button-full-width" onclick="javascript: paymentwindow.open()" type="button" value="#{button_text}"
+    input class="button-xlarge button button-full-width" id="go-to-payment" onclick="javascript: paymentwindow.open()" type="button" disabled="disabled" value="#{button_text}"
 
 
 
