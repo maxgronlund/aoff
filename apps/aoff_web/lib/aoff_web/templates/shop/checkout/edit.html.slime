@@ -18,7 +18,7 @@ hr
       tbody
         = for order_item <- @order.order_items do
           tr
-            td = order_item.product.name
+            td = name(order_item.product)
             td
               .float-right
                 = order_item.product.price

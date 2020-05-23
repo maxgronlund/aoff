@@ -19,6 +19,7 @@ defmodule AOFFWeb.Users.OrderItemController do
       "email" => user.email
     }
 
+    # TODO: add count to order item
     order_item_params =
       params
       |> Map.merge(%{
