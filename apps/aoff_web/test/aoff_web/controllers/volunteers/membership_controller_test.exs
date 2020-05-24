@@ -1,4 +1,4 @@
-defmodule AOFFWeb.Volunteers.CategoryControllerTest do
+defmodule AOFFWeb.Volunteers.MembershipControllerTest do
   use AOFFWeb.ConnCase
   import AOFFWeb.Gettext
 

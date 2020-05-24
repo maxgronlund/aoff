@@ -19,8 +19,6 @@
         br/
         | &nbsp;
 
-
-
 .row
   .column
     .breadcrumb aria-label="breadcrumbs"
@@ -30,8 +28,6 @@
         li.is-active
           | &nbsp;
           = date(@date.date)
-
-
 
 h2= date(@date.date)
 = if @products_ordered do
@@ -46,18 +42,9 @@ h2= date(@date.date)
     br
     | &nbsp;
 
-= unless @valid_member do
-  .row
-    .column
-      = render AOFFWeb.Users.MembershipView, "missing_membership_message.html", assigns
-.tiles
-  = if @volunteer do
-    = render "host_message.html", assigns
-  = if @purchaser do
-    = render "shopping_list.html", assigns
-= if @date.open do
+= render AOFFWeb.Shop.ShopView, "membership_expired.html", assigns
 
-- else
+= unless @date.open do
   .alert.alert-danger
     h2
       = gettext("%{date} - closed", date: date(@date.date))

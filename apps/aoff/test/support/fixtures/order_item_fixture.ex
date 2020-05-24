@@ -2,15 +2,18 @@ defmodule AOFF.Users.OrderItemFixture do
   alias AOFF.Users
 
   @valid_attrs %{
-    "state" => "initial"
+    "state" => "initial",
+    "price" => 1305
   }
 
   @update_attrs %{
-    "state" => "delivered"
+    "state" => "delivered",
+    "price" => 1205
   }
 
   @invalid_attrs %{
-    "state" => nil
+    "state" => nil,
+    "price" => nil
   }
 
   def valid_order_item_attrs(attrs \\ %{}) do

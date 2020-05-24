@@ -3,12 +3,12 @@
     .breadcrumb aria-label="breadcrumbs"
       ul
         li
-          = link gettext("Shop"), to: Routes.shop_shop_path(@conn, :index)
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
         li
-          = link date(@date.date), to: Routes.shop_date_path(@conn, :show, @date)
+          = link gettext("Opening dates"), to: Routes.purchaser_date_path(@conn, :index)
         li.is-active
           | &nbsp;
-          = gettext("Shopping List")
+          = date(@date.date)
 
 
 .row

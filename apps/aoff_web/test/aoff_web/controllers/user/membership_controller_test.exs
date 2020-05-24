@@ -1,4 +1,4 @@
-defmodule AOFFWeb.ShopControllerTest do
+defmodule AOFFWeb.Users.MembershipControllerTest do
   use AOFFWeb.ConnCase
   import AOFFWeb.Gettext
   import AOFF.Users.UserFixture

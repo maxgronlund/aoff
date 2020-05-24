@@ -384,6 +384,10 @@ defmodule AOFF.Users do
     Repo.all(query)
   end
 
+  def list_orders() do
+    Repo.all(Order)
+  end
+
   @doc """
   Gets a single order.
 
@@ -457,6 +461,8 @@ defmodule AOFF.Users do
   alias AOFF.Shop.Product
 
   def extend_memberships(order) do
+
+    Repo.all(Order)
     for _membership <- memberships_in_order(order.id) do
       user = order.user
       today = Date.utc_today()
@@ -667,7 +673,7 @@ defmodule AOFF.Users do
     |> Order.changeset(%{
       "state" => "payment_accepted",
       "order_nr" => last_order_nr() + 1,
-      "payment_date" => Date.utc_today()
+      "payment_date" => AOFF.Time.today()
     })
     |> Repo.update()
   end
@@ -677,7 +683,7 @@ defmodule AOFF.Users do
       order
       |> Order.changeset(%{
         "state" => "payment_declined",
-        "payment_date" => Date.utc_today()
+        "payment_date" => AOFF.Time.today()
       })
       |> Repo.update()
     end

@@ -33,28 +33,6 @@ defmodule AOFFWeb.Shop.DateView do
 
   alias AOFF.System
 
-  def host_message() do
-    {:ok, message} =
-      System.find_or_create_message(
-        "/shop/dates/:id - host",
-        "For hosts",
-        Gettext.get_locale()
-      )
-
-    message
-  end
-
-  def purchaser_message() do
-    {:ok, message} =
-      System.find_or_create_message(
-        "/shop/dates/:id - purchaser",
-        "For purchasers",
-        Gettext.get_locale()
-      )
-
-    message
-  end
-
   def closed_for_orders_message() do
     {:ok, message} =
       System.find_or_create_message(
@@ -62,7 +40,6 @@ defmodule AOFFWeb.Shop.DateView do
         "Closed for orders",
         Gettext.get_locale()
       )
-
     message
   end
 

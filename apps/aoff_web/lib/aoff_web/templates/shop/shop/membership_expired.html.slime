@@ -1,0 +1,25 @@
+= unless @valid_member do
+  .row
+    .column
+      .alert.alert-info
+        = if @current_user do
+          h3 = @expired_message.title
+          = raw @expired_message.text
+          = if @text_editor do
+            = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @expired_message, %{"request_url" => @conn.request_path})
+          br/
+          .float-right
+            = link \
+              gettext("Pay for membership"),\
+              to: Routes.user_membership_path(@conn, :new, @current_user),\
+              class: "button"
+        - else
+          h3 = @login_message.title
+          = raw @login_message.text
+          br/
+          .float-right
+            = link gettext("Signup"), to: "/users/new", class: "button"
+            | &nbsp;
+            = link gettext("Login"), to: "/sessions/new", class: "button button-outline"
+        br/
+        | &nbsp;

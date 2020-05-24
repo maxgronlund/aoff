@@ -91,6 +91,13 @@ defmodule AOFFWeb.Router do
     get "/payment_callback/:id", AOFFWeb.Shop.PaymentCallbackController, :index
   end
 
+  scope "/shop_assistant", as: :shop_assistant do
+    pipe_through :browser
+    resources "/dates", AOFFWeb.ShopAssistant.DateController, only: [:show, :index]
+    resources "/pick_ups", AOFFWeb.ShopAssistant.PickUpController, only: [:show]
+    get "/", AOFFWeb.ShopAssistant.ShopAssistantController, :index
+  end
+
   scope "/system", as: :system do
     pipe_through :browser
     resources "/sms_messages", AOFFWeb.System.SMSMessageController
@@ -118,13 +125,6 @@ defmodule AOFFWeb.Router do
     end
 
     resources "/news", AOFFWeb.Volunteer.NewsController, except: [:index, :show]
-  end
-
-  scope "/shop_assistant", as: :shop_assistant do
-    pipe_through :browser
-    resources "/dates", AOFFWeb.ShopAssistant.DateController, only: [:show]
-    resources "/pick_ups", AOFFWeb.ShopAssistant.PickUpController, only: [:show]
-    get "/", AOFFWeb.ShopAssistant.ShopAssistantController, :index
   end
 
   # Other scopes may use custom stacks.

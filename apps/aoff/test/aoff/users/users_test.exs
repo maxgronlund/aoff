@@ -4,6 +4,11 @@ defmodule AOFF.UsersTest do
   alias AOFF.Users
 
   import AOFF.Users.UserFixture
+  import AOFF.Users.OrderFixture
+  import AOFF.Users.OrderItemFixture
+  import AOFF.Shop.DateFixture
+  import AOFF.Shop.ProductFixture
+  import AOFF.Shop.PickUpFixture
 
   describe "users" do
     alias AOFF.Users.User
@@ -100,6 +105,53 @@ defmodule AOFF.UsersTest do
       assert Users.get_bounce_to_url(user) == some_url
     end
 
+    test "get_order_by_token/1" do
+      user = user_fixture()
+      order = order_fixture(user.id)
+      assert Users.get_order_by_token!(order.token).id == order.id
+    end
+  end
+
+  describe "membership" do
+
+    alias AOFF.Users.User
+    setup do
+      user = user_fixture()
+      {:ok, user: user}
+    end
+
+    test "extend_memberships/1 extend the membership for a user", %{user: user} do
+
+      product = product_fixture(%{"membership" => true})
+      order = order_fixture(user.id)
+      date = date_fixture()
+      pick_up =
+        pick_up_fixture(
+          %{
+            "date_id" => date.id,
+            "user_id" => user.id,
+            "order_id" => order.id
+          }
+        )
+      order_item =
+        order_item_fixture(
+          %{
+            "order_id" => order.id,
+            "product_id" => product.id,
+            "date_id" => date.id,
+            "user_id" => user.id,
+            "pick_up_id" => pick_up.id
+          }
+        )
+      order = Users.get_order!(order.id)
+      users = Users.extend_memberships(order)
+      user = List.first(users)
+
+      assert {:ok, %User{}} = user
+      {:ok, user} = user
+
+      assert user.expiration_date == Date.add(user.registration_date, 365)
+    end
     # test "last_member_nr/0 returne the last member_nr" do
     #   _user = user_fixture()
     #   user = user_fixture(%{"member_nr" => 2})

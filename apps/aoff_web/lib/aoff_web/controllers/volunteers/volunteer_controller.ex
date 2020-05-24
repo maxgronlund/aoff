@@ -7,6 +7,21 @@ defmodule AOFFWeb.Volunteer.VolunteerController do
   plug :authenticate when action in [:index]
 
   def index(conn, _params) do
+
+    {:ok, host_message} =
+      System.find_or_create_message(
+        "/shop/dates/:id - host",
+        "For hosts",
+        Gettext.get_locale()
+      )
+
+    {:ok, purchaser_message} =
+      System.find_or_create_message(
+        "/shop/ - purchaser",
+        "Purchasers landing page",
+        Gettext.get_locale()
+      )
+
     {:ok, volunteer} =
       System.find_or_create_message(
         "/volunteer - volunteer",
@@ -66,6 +81,8 @@ defmodule AOFFWeb.Volunteer.VolunteerController do
     render(
       conn,
       "index.html",
+      host_message: host_message,
+      purchaser_message: purchaser_message,
       volunteer: volunteer,
       users: users,
       messages: messages,
