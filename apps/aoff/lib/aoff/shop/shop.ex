@@ -49,7 +49,7 @@ defmodule AOFF.Shop do
   def list_dates(date, page \\ 0, per_page \\ @dates_pr_page) do
     query =
       from d in Date,
-        where: d.date >= ^date,
+        where: d.last_order_date >= ^date,
         order_by: [asc: d.date],
         limit: ^per_page,
         offset: ^(page * per_page)
