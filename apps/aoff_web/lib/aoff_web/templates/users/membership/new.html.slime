@@ -15,11 +15,11 @@
             img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({product.image, product}, :thumb)}"
           .card-header
             .card-header-title.is-centered
-              = product.name
+              = name(product)
               | &nbsp;
               = product.price
           .card-content
-            = text_to_html(product.description)
+            = text_to_html(description(product))
           .card-footer.is-button
             .card-footer-item.is-button
               = link gettext("Select"), to: Routes.user_membership_path(@conn, :create, @current_user, %{"product_id" => product.id}), method: :post, class: "card-footer-item is-button"

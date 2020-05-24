@@ -277,9 +277,19 @@ defmodule AOFF.Shop do
   """
   def list_memberships() do
     query =
-      from p in Product,
-        order_by: [asc: p.name],
-        where: p.deleted == false and p.membership == true
+      case Gettext.get_locale() do
+        "da" ->
+          from p in Product,
+            order_by: [asc: p.name_da],
+            where: p.deleted == false and p.membership == true
+
+        "en" ->
+          from p in Product,
+            order_by: [asc: p.name_en],
+            where: p.deleted == false and p.membership == true
+      end
+
+
 
     Repo.all(query)
   end
@@ -335,10 +345,12 @@ defmodule AOFF.Shop do
       result == [] ->
         {:ok, product} =
           create_product(%{
-            "name" => "Membership",
-            "membership" => true,
+            "name_da" => "Medlemsskab",
+            "name_en" => "Membership",
+            "membership"  => true,
             "price" => Money.new(100 * 100, :DKK),
-            "description" => "One year of membership"
+            "description_da" => "Et års medlemskab",
+            "description_en" => "One year of membership - "
           })
 
         [product]

@@ -6,22 +6,19 @@
           = link gettext("Volunteer"), to: Routes.shop_shop_path(@conn, :index)
         li.is-active
           | &nbsp;
-          = gettext("Manage Membership")
+          = gettext("Memberships")
 
-h2 = gettext("Manage membership")
+h2 = gettext("Memberships")
 = unless @manage_membership do
   .alert.alert-danger
 
 .tiles
   = for membership <- @memberships do
     .card.is-shady
-      / .card-image
-      /   img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({product.image, product}, :thumb)}"
       .card-header-title.is-centered
-        = membership.name
+        = name(membership)
         | &nbsp;
         = membership.price
-
       .card-content
         = if @manage_membership do
           = for_sale(membership.for_sale)
@@ -34,17 +31,11 @@ h2 = gettext("Manage membership")
               = link gettext("Edit"),\
                 to: Routes.purchaser_product_path(@conn, :edit, membership),\
                 class: "button button-small"
-
         br/
         | &nbsp;
         hr
-
         b= gettext("Description")
-        = text_to_html(membership.description)
-        hr
-        b= gettext("This weeks content")
-        br
-        = text_to_html(membership.this_weeks_content)
+        = text_to_html(description(membership))
 
 
 

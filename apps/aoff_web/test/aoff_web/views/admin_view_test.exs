@@ -6,6 +6,7 @@ defmodule AOFFWeb.Admin.AdminViewTest do
 
   test "time/0 return a string" do
     AOFFWeb.Admin.AdminView.now()
+    assert false
   end
 
 

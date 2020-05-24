@@ -34,7 +34,7 @@ defmodule AOFFWeb.Volunteer.MessageController do
 
   def edit(conn, _params) do
     conn
-    |> put_flash(:error, gettext("The message for the selected language does not exist."))
+    |> put_flash(:info, gettext("Language updated"))
     |> redirect(to: Routes.volunteer_message_path(conn, :index))
   end
 
