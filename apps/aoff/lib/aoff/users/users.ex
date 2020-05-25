@@ -212,7 +212,7 @@ defmodule AOFF.Users do
       {:ok, %User{}}
 
       iex> get_user_by_email("bad@example.com")
-      TODO: what are we getting here?
+      nil
   """
   def get_user_by_email(email) do
     from(u in User, where: u.email == ^email)
@@ -301,9 +301,10 @@ defmodule AOFF.Users do
 
   defp hash_mod_of_user(user) do
     cond do
+      is_nil(user) -> {:error, :no_user}
       String.starts_with?(user.password_hash, "$pbkdf2") -> Pbkdf2
       String.starts_with?(user.password_hash, "$drupal7") -> Drupal7PasswordHash
-      true -> false
+      true -> {:error, :bad_hash}
     end
   end
 
@@ -317,30 +318,31 @@ defmodule AOFF.Users do
       iex> aughenticate_by_email_and_pass("ok@example.com", "wrong_password")
       {:error, :unauthorized}
 
-      iex> aughenticate_by_email_and_pass("unknown@example.com", "dosent-matter")
-      {:error, :not_fount}
+      iex> authenticate_by_email_and_pass("unknown@example.com", "dosent-matter")
+      {:error, :not_found}
   """
   def authenticate_by_email_and_pass(email, given_pass) do
-    IO.puts "--------- authenticate ------------"
     user = get_user_by_email(email)
     hash_mod_of_user = hash_mod_of_user(user)
     cond do
-      user && false ->
+      {:error, :no_user} == hash_mod_of_user(user) ->
+        Bcrypt.no_user_verify()
+        {:error, :not_found}
+
+      {:error, :bad_hash} == hash_mod_of_user(user) ->
         Bcrypt.no_user_verify()
         {:error, :unauthorized}
 
       user && hash_mod_of_user.verify_pass(given_pass, user.password_hash) ->
+        # TODO: expires this
         if hash_mod_of_user(user) == Drupal7PasswordHash do
           User.update_password_changeset(user, %{"password" => given_pass})
         end
         {:ok, user}
-      user ->
-        Bcrypt.no_user_verify()
-        {:error, :unauthorized}
 
       true ->
         Bcrypt.no_user_verify()
-        {:error, :not_found}
+        {:error, :unauthorized}
     end
   end
 
