@@ -12,21 +12,21 @@ defmodule AOFF.UsersTest do
 
   describe "session" do
     test "authenticate_by_email_and_pass/2 when email and pass is valid" do
-      user = user_fixture()
+      _user = user_fixture()
       attrs = valid_attrs()
       assert {:ok, %Users.User{}} =
         Users.authenticate_by_email_and_pass(attrs["email"], attrs["password"])
     end
 
     test "authenticate_by_email_and_pass/2 when pass is invalid" do
-      user = user_fixture()
+      _user = user_fixture()
       attrs = valid_attrs()
       assert {:error, :unauthorized} ==
         Users.authenticate_by_email_and_pass(attrs["email"], "chunky-becon")
     end
 
     test "authenticate_by_email_and_pass/2 when email is invalid" do
-      user = user_fixture()
+      _user = user_fixture()
       attrs = valid_attrs()
       assert {:error, :not_found} ==
         Users.authenticate_by_email_and_pass("no-one@example.com", "chunky-becon")
