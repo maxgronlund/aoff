@@ -134,7 +134,7 @@ defmodule AOFFWeb.Volunteer.PageController do
   end
 
   defp navbar(conn, _opts) do
-    assign(conn, :page, :volunteer)
+    assign(conn, :selected_menu_item, :volunteer)
   end
 
   defp image_format() do

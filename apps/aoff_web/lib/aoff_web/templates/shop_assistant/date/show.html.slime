@@ -38,21 +38,21 @@
       = raw shop_assistant(@date.shop_assistant_c)
       br/
       = raw shop_assistant(@date.shop_assistant_d)
-= if @volunteer do
-  .row
-    .column
-      = link\
-         gettext("Edit hosts"),\
-         to: Routes.volunteer_date_path(@conn, :edit, @date),\
-         class: "button float-right"
+/ = if @volunteer do
+/   .row
+/     .column
+/       = link\
+/          gettext("Edit hosts"),\
+/          to: Routes.volunteer_date_path(@conn, :edit, @date),\
+/          class: "button float-right"
 
 = form_for @conn, Routes.shop_assistant_date_path(@conn, :show, @date), [method: :get], fn f ->
-
     = hidden_input f, :page, value: "1"
     .row
       .column
         = label f, gettext("Search"), class: "control-label"
         = search_input f, :query, placeholder: gettext("Username / Member Nr. / email"), class: "full-width"
+        br/
       .column
     .row
       .column
@@ -61,6 +61,11 @@
           | &nbsp;
           = submit gettext("Search")
       .column
+        /.float-right
+        /  = link gettext("Create order"),\
+        /    to: Routes.shop_assistant_user_path(@conn, :index),\
+        /    class: "button"
+
 
 = for pick_up <- @pick_ups do
   .alert.alert-box

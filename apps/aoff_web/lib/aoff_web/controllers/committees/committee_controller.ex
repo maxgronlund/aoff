@@ -10,14 +10,14 @@ defmodule AOFFWeb.Committees.CommitteeController do
   # plug :authenticate when action in [:show]
 
   def index(conn, _params) do
-    conn = assign(conn, :page, :about_aoff)
+    conn = assign(conn, :selected_menu_item, :about_aoff)
     committees = Committees.list_committees()
     render(conn, "index.html", committees: committees)
   end
 
   def show(conn, %{"id" => id}) do
     if committee = Committees.get_committee!(id) do
-      conn = assign(conn, :page, :about_aoff)
+      conn = assign(conn, :selected_menu_item, :about_aoff)
       messages = Chats.list_messages(id)
 
       {:ok, committees_text} =

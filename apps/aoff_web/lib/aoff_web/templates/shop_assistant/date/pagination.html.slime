@@ -1,6 +1,6 @@
 = if @page && @page > 0 do
   = link gettext("< Prev"),\
-    to: Routes.purchaser_date_path(@conn, :index, page: Integer.to_string(@page - 1)),\
+    to: Routes.shop_assistant_date_path(@conn, :index, page: Integer.to_string(@page - 1)),\
     class: "button button-outline"
   | &nbsp;
 

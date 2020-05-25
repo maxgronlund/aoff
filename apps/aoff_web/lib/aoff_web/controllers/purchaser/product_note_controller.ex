@@ -49,7 +49,7 @@ defmodule AOFFWeb.Purchaser.ProductNoteController do
 
   defp authenticate(conn, _opts) do
     if conn.assigns.purchaser do
-      assign(conn, :page, :purchaser)
+      assign(conn, :selected_menu_item, :purchaser)
     else
       conn
       |> put_status(401)

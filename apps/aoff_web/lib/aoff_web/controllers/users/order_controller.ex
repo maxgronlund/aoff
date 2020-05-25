@@ -9,7 +9,7 @@ defmodule AOFFWeb.Users.OrderController do
   plug :navbar when action in [:index, :show]
 
   def index(conn, %{"user_id" => user_id}) do
-    conn = assign(conn, :page, :user)
+    conn = assign(conn, :selected_menu_item, :user)
     user = get_user!(conn, user_id)
     orders = Users.list_orders(user.id)
     render(conn, "index.html", user: user, orders: orders)
@@ -20,8 +20,8 @@ defmodule AOFFWeb.Users.OrderController do
 
     conn =
       case order.state do
-        "open" -> assign(conn, :page, :order)
-        _ -> assign(conn, :page, :user)
+        "open" -> assign(conn, :selected_menu_item, :order)
+        _ -> assign(conn, :selected_menu_item, :user)
       end
 
     render(conn, "show.html", user: order.user, order: order)
@@ -79,6 +79,6 @@ defmodule AOFFWeb.Users.OrderController do
   end
 
   defp navbar(conn, _opts) do
-    assign(conn, :page, :user)
+    assign(conn, :selected_menu_item, :user)
   end
 end

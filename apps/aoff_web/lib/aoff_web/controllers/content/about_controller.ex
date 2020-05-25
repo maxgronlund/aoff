@@ -6,7 +6,7 @@ defmodule AOFFWeb.Content.AboutController do
 
   def index(conn, _params) do
     categories = Content.list_categories()
-    conn = assign(conn, :page, :about_aoff)
+    conn = assign(conn, :selected_menu_item, :about_aoff)
 
     {:ok, message} =
       System.find_or_create_message(

@@ -10,6 +10,8 @@ defmodule AOFFWeb.ShopAssistant.DateController do
   @dates_pr_page 8
 
   def index(conn, params) do
+
+
     page =
       case params["page"] do
         nil -> Shop.todays_page(@dates_pr_page)
@@ -50,7 +52,7 @@ defmodule AOFFWeb.ShopAssistant.DateController do
 
   defp authenticate(conn, _opts) do
     if conn.assigns.shop_assistant do
-      assign(conn, :page, :shop)
+      assign(conn, :selected_menu_item, :shop)
     else
       conn
       |> put_status(401)

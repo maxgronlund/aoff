@@ -5,7 +5,7 @@ defmodule AOFFWeb.Shop.DateController do
   alias AOFF.System
 
   def show(conn, %{"id" => id}) do
-    conn = assign(conn, :page, :shop)
+    conn = assign(conn, :selected_menu_item, :shop)
     date = Shop.get_date!(id)
     products = Shop.list_products(:for_sale)
 

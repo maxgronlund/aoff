@@ -24,7 +24,7 @@ defmodule AOFFWeb.PageController do
     products = Shop.get_products_for_landing_page()
     latest_news = Content.latest_news()
     conn = assign(conn, :backdrop, :show)
-    conn = assign(conn, :page, :home)
+    conn = assign(conn, :selected_menu_item, :home)
 
     render(conn, "index.html",
       products: products,

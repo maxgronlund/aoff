@@ -321,20 +321,21 @@ defmodule AOFF.Users do
       {:error, :not_fount}
   """
   def authenticate_by_email_and_pass(email, given_pass) do
+    IO.puts "--------- authenticate ------------"
     user = get_user_by_email(email)
     hash_mod_of_user = hash_mod_of_user(user)
-
     cond do
-      user && hash_mod_of_user ->
-        hash_mod_of_user.verify_pass(given_pass, user.password_hash)
-        # Rehash password if not Pbkdf2
-        if hash_mod_of_user(user) != Pbkdf2 do
+      user && false ->
+        Bcrypt.no_user_verify()
+        {:error, :unauthorized}
+
+      user && hash_mod_of_user.verify_pass(given_pass, user.password_hash) ->
+        if hash_mod_of_user(user) == Drupal7PasswordHash do
           User.update_password_changeset(user, %{"password" => given_pass})
         end
-
         {:ok, user}
-
       user ->
+        Bcrypt.no_user_verify()
         {:error, :unauthorized}
 
       true ->

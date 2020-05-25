@@ -2,7 +2,7 @@ defmodule AOFFWeb.SessionController do
   use AOFFWeb, :controller
 
   def new(conn, _params) do
-    conn = assign(conn, :page, :session)
+    conn = assign(conn, :selected_menu_item, :session)
     render(conn, "new.html")
   end
 

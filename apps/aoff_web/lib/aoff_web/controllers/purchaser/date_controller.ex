@@ -41,7 +41,7 @@ defmodule AOFFWeb.Purchaser.DateController do
 
   defp authenticate(conn, _opts) do
     if conn.assigns.purchaser do
-      assign(conn, :page, :purchaser)
+      assign(conn, :selected_menu_item, :shop)
     else
       conn
       |> put_status(401)

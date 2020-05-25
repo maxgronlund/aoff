@@ -9,7 +9,7 @@ defmodule AOFFWeb.Purchaser.PurchaserController do
 
   def index(conn, _params) do
     products = Shop.list_products()
-    conn = assign(conn, :page, :purchaser)
+    conn = assign(conn, :selected_menu_item, :purchaser)
 
     render(conn, "index.html", products: products)
   end

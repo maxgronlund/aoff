@@ -6,11 +6,10 @@ defmodule AOFFWeb.LayoutView do
     "<a href=\"#{path}?locale=#{locale}\">#{language_title}</a>" |> raw
   end
 
-  def menu_item(conn, page \\ :na) do
+  def menu_item(conn, menu_item \\ :na) do
     cond do
-      conn.assigns[:page] == page ->
+      conn.assigns[:selected_menu_item] == menu_item ->
         "menu-item active"
-
       true ->
         "menu-item"
     end

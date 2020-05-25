@@ -9,7 +9,7 @@ defmodule AOFFWeb.Users.MembershipController do
   plug :authenticate when action in [:new, :create]
 
   def new(conn, %{"user_id" => user_id}) do
-    conn = assign(conn, :page, :user)
+    conn = assign(conn, :selected_menu_item, :user)
     date = Shop.get_next_date(Date.utc_today())
     user = Users.get_user!(user_id)
     products = Shop.get_memberships()

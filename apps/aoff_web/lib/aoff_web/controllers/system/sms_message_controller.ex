@@ -90,7 +90,7 @@ defmodule AOFFWeb.System.SMSMessageController do
   end
 
   defp authenticate(conn, _opts) do
-    conn = assign(conn, :page, :volunteer)
+    conn = assign(conn, :selected_menu_item, :volunteer)
 
     if conn.assigns.volunteer do
       conn

@@ -71,7 +71,7 @@ defmodule AOFFWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    conn = assign(conn, :page, :user)
+    conn = assign(conn, :selected_menu_item, :user)
     user = get_user!(conn, id)
     host_dates = Users.host_dates(Date.utc_today(), user.id)
 
@@ -172,7 +172,7 @@ defmodule AOFFWeb.UserController do
   end
 
   defp navbar(conn, _opts) do
-    assign(conn, :page, :user)
+    assign(conn, :selected_menu_item, :user)
   end
 
   defp avatar_format() do

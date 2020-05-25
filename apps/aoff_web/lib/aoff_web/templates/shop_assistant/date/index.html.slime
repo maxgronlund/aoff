@@ -18,9 +18,8 @@ p= gettext("Please select an opening date")
   = for date <- @dates do
     = link to: Routes.shop_assistant_date_path(@conn, :show, date) do
       .card.is-shady
-
         .card-header-title.is-centered
-          = date(date.date)
+          = raw date(date.date)
 hr
 
 = render "pagination.html", assigns

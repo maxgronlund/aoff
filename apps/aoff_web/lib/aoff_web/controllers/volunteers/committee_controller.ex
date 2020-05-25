@@ -61,7 +61,7 @@ defmodule AOFFWeb.Volunteer.CommitteeController do
 
   defp authenticate(conn, _opts) do
     if conn.assigns.admin do
-      assign(conn, :page, :volunteer)
+      assign(conn, :selected_menu_item, :volunteer)
     else
       conn
       |> put_status(401)

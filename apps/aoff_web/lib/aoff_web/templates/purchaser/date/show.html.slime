@@ -5,7 +5,7 @@
         li
           = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
         li
-          = link gettext("Opening dates"), to: Routes.purchaser_date_path(@conn, :index)
+          = link gettext("Order lists"), to: Routes.purchaser_date_path(@conn, :index)
         li.is-active
           | &nbsp;
           = date(@date.date)
@@ -13,9 +13,9 @@
 
 .row
   .column
-    h2 = gettext("Shopping list: %{date}", date: date(@date.date))
+    h2 = gettext("Order lists for: %{date}", date: date(@date.date))
   .column
-    = link gettext("Other dates"),\
+    = link gettext("Other lists"),\
       to: Routes.purchaser_date_path(@conn, :index),\
       class: "button button-outline float-right"
 

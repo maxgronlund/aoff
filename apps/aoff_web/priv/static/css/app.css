@@ -1368,6 +1368,10 @@ label.panel-block:hover {
   color: #F00;
 }
 
+.is-gray {
+  color: #999;
+}
+
 #date_date_year {
   display: inline-block;
 }

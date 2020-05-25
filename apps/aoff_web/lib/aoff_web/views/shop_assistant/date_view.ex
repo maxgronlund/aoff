@@ -7,8 +7,14 @@ defmodule AOFFWeb.ShopAssistant.DateView do
                "<br/>" <> "-"
 
   def date(date) do
-    {:ok, date} = AOFFWeb.Cldr.Date.to_string(date, locale: "da")
-    date
+    {:ok, date_as_string} = AOFFWeb.Cldr.Date.to_string(date, locale: "da")
+
+    case Date.compare(date, AOFF.Time.today()) do
+      :lt ->
+        "<div class=\"is-gray\">#{date_as_string}</div>"
+      _ ->
+        "#{date_as_string}"
+    end
   end
 
   alias AOFF.Users

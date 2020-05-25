@@ -6,10 +6,10 @@
           = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
         li.is-active
           | &nbsp;
-          = gettext("Opening dates")
+          = gettext("Order lists")
 
-h2= gettext("Opening dates")
-p= gettext("Please select an opening date")
+h2= gettext("Order lists")
+p= gettext("Please select a date")
 
 .row
   .column
@@ -20,7 +20,7 @@ p= gettext("Please select an opening date")
       .card.is-shady
 
         .card-header-title.is-centered
-          = date(date.date)
+          = raw date(date.date)
 hr
 
 = render "pagination.html", assigns

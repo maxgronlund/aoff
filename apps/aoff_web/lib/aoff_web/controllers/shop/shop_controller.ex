@@ -5,7 +5,7 @@ defmodule AOFFWeb.Shop.ShopController do
   alias AOFF.System
 
   def index(conn, _params) do
-    conn = assign(conn, :page, :shop)
+    conn = assign(conn, :selected_menu_item, :shop)
     dates = Shop.list_dates(AOFF.Time.today(), 0, 4)
 
     unless conn.assigns.valid_member do

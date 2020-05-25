@@ -63,7 +63,7 @@ defmodule AOFFWeb.Volunteer.MessageController do
 
   defp authenticate(conn, _opts) do
     if conn.assigns.volunteer do
-      assign(conn, :page, :volunteer)
+      assign(conn, :selected_menu_item, :volunteer)
     else
       conn
       |> put_status(401)
