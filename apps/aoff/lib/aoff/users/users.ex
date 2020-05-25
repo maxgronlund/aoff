@@ -325,8 +325,7 @@ defmodule AOFF.Users do
     hash_mod_of_user = hash_mod_of_user(user)
 
     cond do
-      user && hash_mod_of_user ->
-        hash_mod_of_user.verify_pass(given_pass, user.password_hash)
+      user && hash_mod_of_user && hash_mod_of_user.verify_pass(given_pass, user.password_hash) ->
         # Rehash password if not Pbkdf2
         if hash_mod_of_user(user) != Pbkdf2 do
           User.update_password_changeset(user, %{"password" => given_pass})
