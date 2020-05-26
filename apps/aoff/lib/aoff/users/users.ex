@@ -22,7 +22,7 @@ defmodule AOFF.Users do
   def list_users(page \\ 0, per_page \\ @users_pr_page) do
     query =
       from u in User,
-        order_by: [asc: u.member_nr],
+        order_by: [asc: u.username],
         limit: ^per_page,
         offset: ^(page * per_page)
 
@@ -359,13 +359,14 @@ defmodule AOFF.Users do
         where: o.user_id == ^user_id and o.state == ^"open",
         limit: 1
 
-    case Repo.one(query) do
+    case Repo.one(query) |> Repo.preload(order_items: [:product, :date]) |> Repo.preload(:user) do
       %Order{} = order ->
         order
 
       _ ->
-        {:ok, order} = create_order(%{"user_id" => user_id})
-        order
+        {:ok, _order} = create_order(%{"user_id" => user_id})
+        # make sure to preload the order_items and the user
+        current_order(user_id)
     end
   end
 

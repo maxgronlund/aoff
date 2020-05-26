@@ -96,8 +96,12 @@ defmodule AOFFWeb.Router do
     resources "/dates", AOFFWeb.ShopAssistant.DateController, only: [:show, :index]
     resources "/pick_ups", AOFFWeb.ShopAssistant.PickUpController, only: [:show]
     get "/", AOFFWeb.ShopAssistant.ShopAssistantController, :index
-    resources "/users", AOFFWeb.ShopAssistant.UserController, only: [:show, :index] do
-      resources "/orders", AOFFWeb.ShopAssistant.OrderController
+    resources "/users", AOFFWeb.ShopAssistant.UserController, only: [:index] do
+      resources "/orders", AOFFWeb.ShopAssistant.OrderController, only: [:new]
+    end
+
+    resources "/orders", AOFFWeb.ShopAssistant.OrderController, only: [] do
+      resources "/order_items", AOFFWeb.ShopAssistant.OrderItemController, only: [:create]
     end
   end
 

@@ -2,6 +2,7 @@ defmodule AOFF.UsersTest do
   use AOFF.DataCase
 
   alias AOFF.Users
+  alias AOFF.Users.Order
 
   import AOFF.Users.UserFixture
   import AOFF.Users.OrderFixture
@@ -144,7 +145,7 @@ defmodule AOFF.UsersTest do
     end
 
     test "extend_memberships/1 extend the membership for a user", %{user: user} do
-
+      expiration_date = user.expiration_date
       product = product_fixture(%{"membership" => true})
       order = order_fixture(user.id)
       date = date_fixture()
@@ -170,10 +171,11 @@ defmodule AOFF.UsersTest do
       users = Users.extend_memberships(order)
       user = List.first(users)
 
+
       assert {:ok, %User{}} = user
       {:ok, user} = user
 
-      assert user.expiration_date == Date.add(user.registration_date, 365)
+      assert user.expiration_date == Date.add(expiration_date, 365)
     end
     # test "last_member_nr/0 returne the last member_nr" do
     #   _user = user_fixture()

@@ -61,10 +61,10 @@
           | &nbsp;
           = submit gettext("Search")
       .column
-        /.float-right
-        /  = link gettext("Create order"),\
-        /    to: Routes.shop_assistant_user_path(@conn, :index),\
-        /    class: "button"
+        .float-right
+          = link gettext("Create order"),\
+            to: Routes.shop_assistant_user_path(@conn, :index),\
+            class: "button"
 
 
 = for pick_up <- @pick_ups do
@@ -88,7 +88,6 @@
           br
     .row
       .column
-
         .float-right
           = if pick_up.picked_up do
             = link gettext("Handed"),\

@@ -14,4 +14,4 @@
       class: "form-control full-width"
   .form-group
     = hidden_input f, :committee_id, value: @committee.id
-    = submit "Submit", class: "btn btn-primary"
+    = submit gettext("Submit"), class: "btn btn-primary"

@@ -1,0 +1,38 @@
+h2 = gettext("Create Order for: %{username}", username: @user.username)
+
+.row.mt-1
+  .column
+    = render "form.html", Map.put(assigns, :action, Routes.shop_assistant_order_order_item_path(@conn, :create, @order))
+
+/= for order_item <- @order.order_items do
+/  = order_item.product.name_da
+/  br/
+
+table.table
+  thead
+    tr
+      th = gettext("Product")
+      th = gettext("Pickup date")
+      th = gettext("Price")
+      th
+  tbody
+    = for order_item <- @order.order_items do
+      tr
+        td = name(order_item.product)
+        td = date(order_item.date.date)
+        td = order_item.product.price
+        td
+          /= if open?(@order.state) do
+          /  = link gettext("Remove"), \
+          /    to: Routes.user_order_item_path(@conn, :delete, @order.user, order_item), \
+          /    method: :delete, \
+          /    data: [confirm: gettext("Are you sure?")], \
+          /    class: "button button-outline float-right button-small"
+    tr
+      td
+        b=gettext("Amount")
+      td
+      td
+      td
+        .float-right
+          b= @order.total

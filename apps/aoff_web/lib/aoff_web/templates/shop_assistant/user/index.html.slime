@@ -15,11 +15,7 @@
 .row
   .column
     h2 = gettext("Select User")
-  .column
-    .float-right
-      = link gettext("Create User"),\
-        to: Routes.volunteer_user_path(@conn, :new),\
-        class: "button"
+
 
 = form_for @conn, Routes.shop_assistant_user_path(@conn, :index), [method: :get], fn f ->
   .row
@@ -38,7 +34,11 @@
         = submit gettext("Search")
 .tiles
   = for user <- @users do
-    /.card.is-shady
+    = link to: Routes.shop_assistant_user_order_path(@conn, :new, user) do
+      .order-for
+        = user.username
+
+
     /  = link to: Routes.shop_assistant_user_path(@conn, :show, user) do
     /    .card-header
     /      .card-header-title.is-centered
