@@ -15,7 +15,7 @@ defmodule AOFFWeb.ShopAssistant.DateControllerTest do
              )
     setup do
       user = user_fixture(%{"shop_assistant" => true})
-      date = date_fixture()
+      _date = date_fixture()
 
       conn =
         build_conn()

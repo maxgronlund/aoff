@@ -1,7 +1,7 @@
 defmodule AOFFWeb.Admin.UserControllerTest do
   use AOFFWeb.ConnCase
   import AOFFWeb.Gettext
-  alias Plug.Conn
+
 
   import AOFF.Users.UserFixture
 
@@ -43,7 +43,7 @@ defmodule AOFFWeb.Admin.UserControllerTest do
       assert html_response(conn, 200) =~ attrs["username"]
     end
 
-    test "deletes chosen user", %{conn: conn, user: user} do
+    test "deletes chosen user", %{conn: conn} do
       delete_me_user =
         user_fixture(%{
           "member_nr" => 1234,

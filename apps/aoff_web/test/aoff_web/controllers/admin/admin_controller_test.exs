@@ -1,7 +1,7 @@
 defmodule AOFFWeb.OrderControllerTest do
   use AOFFWeb.ConnCase
   import AOFFWeb.Gettext
-  alias Plug.Conn
+
 
   @username Application.get_env(:aoff_web, :basic_auth)[:username]
   @password Application.get_env(:aoff_web, :basic_auth)[:password]

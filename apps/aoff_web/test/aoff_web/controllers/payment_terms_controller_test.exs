@@ -1,7 +1,6 @@
 defmodule AOFFWeb.PaymentTermsControllerTest do
   use AOFFWeb.ConnCase
 
-  import AOFFWeb.Gettext
   import AOFF.Users.UserFixture
   import AOFF.Users.OrderFixture
   alias Plug.Conn
@@ -37,7 +36,7 @@ defmodule AOFFWeb.PaymentTermsControllerTest do
     end
 
 
-    test "show", %{conn: conn, user: user, order: order, message: message} do
+    test "show", %{conn: conn, order: order, message: message} do
       conn = get(conn, Routes.payment_terms_path(conn, :show, order_id: order.id))
 
       assert html_response(conn, 200) =~ message.title

@@ -35,6 +35,8 @@ defmodule AOFFWeb.ShopAssistant.DateController do
     date = Shop.get_date!(params["id"])
     query = params["query"]
 
+    conn = put_session(conn, :shop_assistant_date_id, date.id)
+
     pick_ups =
       if query do
         Shop.search_pick_up(query, params["id"])

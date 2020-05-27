@@ -4,7 +4,6 @@ defmodule AOFFWeb.Volunteers.MembershipControllerTest do
 
   alias Plug.Conn
 
-  import AOFF.Content.CategoryFixture
   import AOFF.Users.UserFixture
 
   describe "volunteer" do

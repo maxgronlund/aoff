@@ -30,7 +30,7 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
             "order_id" => order.id
           }
         )
-      order_item =
+      _order_item =
         order_item_fixture(
           %{
             "order_id" => order.id,
@@ -51,7 +51,7 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
     end
 
     test "index/2 extends the membership", %{conn: conn, user: user, order: order} do
-      conn = get(conn, Routes.shop_payment_accepted_path(conn, :index, order.token))
+      _conn = get(conn, Routes.shop_payment_accepted_path(conn, :index, order.token))
       assert Users.get_user!(user.id).expiration_date == Date.add(AOFF.Time.today(), 365)
     end
   end

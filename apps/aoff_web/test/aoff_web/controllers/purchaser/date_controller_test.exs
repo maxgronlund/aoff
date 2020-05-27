@@ -34,12 +34,23 @@ defmodule AOFFWeb.Purchaser.DateControllerTest do
 
     test "lists all dates", %{conn: conn} do
       conn = get(conn, Routes.purchaser_date_path(conn, :index))
-      assert html_response(conn, 200) =~ gettext("Opening dates")
+      assert html_response(conn, 200) =~ gettext("Shoppinglists")
     end
 
     test "show date", %{conn: conn, date: date} do
       conn = get(conn, Routes.purchaser_date_path(conn, :show, date))
-      assert html_response(conn, 200) =~ "fo"
+      assert html_response(conn, 200) =~ gettext("Shopping list for: %{date}", date: date(date.date))
+    end
+  end
+
+  defp date(date) do
+    {:ok, date_as_string} = AOFFWeb.Cldr.Date.to_string(date, locale: "da")
+
+    case Date.compare(date, AOFF.Time.today()) do
+      :lt ->
+        "<div class=\"is-gray\">#{date_as_string}</div>"
+      _ ->
+        "#{date_as_string}"
     end
   end
 end

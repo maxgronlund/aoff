@@ -21,7 +21,10 @@
 
       = hidden_input f, :order_id, value: @order.id
       = hidden_input f, :user_id, value: @user.id
-
+    .column
+  .row
+    .column
       .form-group
-        = submit gettext("Submit"), class: "btn btn-primary"
+        = submit gettext("Add to order"), class: "btn btn-primary float-right"
+    .column
 

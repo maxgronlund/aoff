@@ -1,12 +1,11 @@
+
+
 h2 = gettext("Create Order for: %{username}", username: @user.username)
 
 .row.mt-1
   .column
     = render "form.html", Map.put(assigns, :action, Routes.shop_assistant_order_order_item_path(@conn, :create, @order))
 
-/= for order_item <- @order.order_items do
-/  = order_item.product.name_da
-/  br/
 
 table.table
   thead
@@ -22,17 +21,28 @@ table.table
         td = date(order_item.date.date)
         td = order_item.product.price
         td
-          /= if open?(@order.state) do
-          /  = link gettext("Remove"), \
-          /    to: Routes.user_order_item_path(@conn, :delete, @order.user, order_item), \
-          /    method: :delete, \
-          /    data: [confirm: gettext("Are you sure?")], \
-          /    class: "button button-outline float-right button-small"
-    tr
-      td
-        b=gettext("Amount")
-      td
-      td
-      td
-        .float-right
-          b= @order.total
+          = link to: Routes.shop_assistant_order_order_item_path(@conn, :delete, @order, order_item),\
+            method: :delete do
+            .button.icon-button.float-right
+              i.fa.fa-trash.red
+
+.row
+  .column
+    b =gettext("Amount")
+    .float-right
+      b= @order.total
+    br/
+    hr.double.mt-1
+.row
+  .column
+    .float-right
+      = link gettext("Cancel"),\
+        to: Routes.shop_assistant_user_order_path(@conn, :delete, @user, @order),\
+        method: :delete,\
+        class: "button button-outline"
+      | &nbsp;
+      = link gettext("Paied"),\
+        to: Routes.shop_assistant_user_order_path(\
+          @conn, :update, @user, @order, %{}),\
+        method: "put",
+        class: "button"

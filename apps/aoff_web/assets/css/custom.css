@@ -130,6 +130,23 @@ input[type='submit'].button-outline:hover {
   width: 100%;
 }
 
+.icon-button
+{
+  background-color: #fff;
+  border: 0.1rem solid #aaa;
+  font-size: 2.1rem;
+  padding: 0 2.0rem;
+}
+
+.icon-button:hover
+{
+  background-color: #eee;
+  border: 0.1rem solid #999;
+  font-size: 2.1rem;
+  padding: 0 2.0rem;
+}
+
+
 .button-tab {
   border-radius: .0rem;
   margin-right: -1px;
@@ -734,4 +751,8 @@ html, body {
 
 .full-width {
   width: 100%;
+}
+
+hr.double {
+  border-top: 3px double #ccc;
 }

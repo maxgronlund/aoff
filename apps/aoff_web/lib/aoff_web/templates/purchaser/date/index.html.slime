@@ -6,9 +6,9 @@
           = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
         li.is-active
           | &nbsp;
-          = gettext("Order lists")
+          = gettext("Shoppinglists")
 
-h2= gettext("Order lists")
+h2= gettext("Shoppinglists")
 p= gettext("Please select a date")
 
 .row

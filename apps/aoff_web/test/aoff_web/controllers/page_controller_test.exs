@@ -8,7 +8,7 @@ defmodule AOFFWeb.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     _date = date_fixture()
-    product = product = product_fixture()
+    product = product_fixture()
     news = news_fixture()
     conn = get(conn, "/")
     assert html_response(conn, 200) =~ gettext("Become member")

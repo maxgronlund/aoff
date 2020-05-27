@@ -2,17 +2,19 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
   use AOFFWeb, :controller
 
   alias AOFF.Users
+  alias AOFF.Users.Order
   alias AOFF.Shop
   alias AOFFWeb.Users.Auth
+
 
   alias AOFF.Users.OrderItem
 
   plug Auth
   plug :authenticate when action in [:index, :show]
 
+
   def new(conn, %{"user_id" => user_id}) do
-    IO.inspect order = Users.current_order(user_id)
-    # products = Shop.list_products(:for_sale)
+    order = Users.current_order(user_id)
 
     changeset = Users.change_order_item(%OrderItem{})
     render(
@@ -21,8 +23,46 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
       user: order.user,
       order: order,
       products: products(),
-      dates: dates,
+      dates: dates(),
       changeset: changeset)
+  end
+
+  def update(conn, %{"id" => id,"user_id" => user_id}) do
+    order = Users.get_order!(id)
+
+    case Users.payment_accepted(order) do
+    {:ok, order} ->
+      Users.extend_memberships(order)
+      # Create a new order for the basket.
+      Users.create_order(%{"user_id" => order.user_id})
+      date_id = get_session(conn, :shop_assistant_date_id)
+      conn
+    |> put_flash(:info, gettext("Order created and paied"))
+      |> redirect(to: Routes.shop_assistant_date_path(conn, :show, date_id))
+    _ ->
+      error(conn)
+    end
+  end
+
+  def delete(conn, %{"id" => id, "user_id" => user_id}) do
+    order = Users.get_order!(id)
+    Users.delete_order(order)
+
+    date_id = get_session(conn, :shop_assistant_date_id)
+
+    conn
+    |> put_flash(:info, gettext("Order is cancled"))
+    |> redirect(to: Routes.shop_assistant_date_path(conn, :show, date_id))
+  end
+
+
+
+  def error(conn) do
+    conn
+    |> put_status(401)
+    |> put_view(AOFFWeb.ErrorView)
+    |> render(:"401")
+    |> halt()
   end
 
   defp products() do
@@ -44,15 +84,10 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
     name <> " : " <> Money.to_string(price)
   end
 
-
-
   defp dates() do
-    dates = Shop.list_dates(AOFF.Time.today(), 0, 4)
+    dates = Shop.list_dates(Date.add(AOFF.Time.today(), -7), 0, 5)
     Enum.map(dates, fn x -> {AOFF.Time.date_as_string(x.date), x.id} end)
-
   end
-
-
 
   defp authenticate(conn, _opts) do
     if conn.assigns.shop_assistant do

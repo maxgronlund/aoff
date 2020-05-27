@@ -1,6 +1,5 @@
 defmodule AOFFWeb.Shop.CheckoutControllerTest do
   use AOFFWeb.ConnCase
-  import AOFFWeb.Gettext
   import AOFF.Users.OrderFixture
   import AOFF.Users.OrderItemFixture
   import AOFF.Users.UserFixture
@@ -33,7 +32,7 @@ defmodule AOFFWeb.Shop.CheckoutControllerTest do
         }
 
       )
-      order_item =
+      _order_item =
         order_item_fixture(
           %{
             "order_id" => order.id,
@@ -55,7 +54,7 @@ defmodule AOFFWeb.Shop.CheckoutControllerTest do
       {:ok, conn: conn, user: user, order: order, product: product}
     end
 
-    test "edit", %{conn: conn, user: user, order: order, product: product} do
+    test "edit", %{conn: conn, order: order, product: product} do
 
       conn = get(conn, Routes.shop_checkout_path(conn, :edit, order))
       assert html_response(conn, 200) =~ product.name_da
