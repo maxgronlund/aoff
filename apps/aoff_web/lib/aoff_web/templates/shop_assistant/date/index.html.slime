@@ -6,11 +6,11 @@
           = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
         li.is-active
           | &nbsp;
-          = gettext("Opening dates")
+          = gettext("Shop duties")
 .row
   .column
     .tilex
-      h2= gettext("Opening dates")
+      h2= gettext("Shop duties")
       p= gettext("Please select an opening date")
 
 .row
