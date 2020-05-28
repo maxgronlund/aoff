@@ -22,24 +22,23 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
       product = product_fixture(%{"membership" => true, "state" => "open"})
       order = order_fixture(user.id)
       date = date_fixture()
+
       pick_up =
-        pick_up_fixture(
-          %{
-            "date_id" => date.id,
-            "user_id" => user.id,
-            "order_id" => order.id
-          }
-        )
+        pick_up_fixture(%{
+          "date_id" => date.id,
+          "user_id" => user.id,
+          "order_id" => order.id
+        })
+
       _order_item =
-        order_item_fixture(
-          %{
-            "order_id" => order.id,
-            "product_id" => product.id,
-            "date_id" => date.id,
-            "user_id" => user.id,
-            "pick_up_id" => pick_up.id
-          }
-        )
+        order_item_fixture(%{
+          "order_id" => order.id,
+          "product_id" => product.id,
+          "date_id" => date.id,
+          "user_id" => user.id,
+          "pick_up_id" => pick_up.id
+        })
+
       conn =
         build_conn()
         |> Plug.Session.call(@session)
@@ -55,5 +54,4 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
       assert Users.get_user!(user.id).expiration_date == Date.add(AOFF.Time.today(), 365)
     end
   end
-
 end

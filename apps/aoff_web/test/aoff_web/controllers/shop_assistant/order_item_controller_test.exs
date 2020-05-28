@@ -18,10 +18,13 @@ defmodule AOFFWeb.ShopAssistant.OrderItemControllerTest do
              )
     setup do
       user = user_fixture(%{"shop_assistant" => true})
-      guest = user_fixture( %{
-            "email" =>"guest-email@example.com",
-            "member_nr" => 2,
-            "username" => "Guest Joe"})
+
+      guest =
+        user_fixture(%{
+          "email" => "guest-email@example.com",
+          "member_nr" => 2,
+          "username" => "Guest Joe"
+        })
 
       conn =
         build_conn()
@@ -30,13 +33,12 @@ defmodule AOFFWeb.ShopAssistant.OrderItemControllerTest do
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
 
-      {:ok, conn: conn, user: guest,}
+      {:ok, conn: conn, user: guest}
     end
 
     test "create/1 with valid date adds an order_item to an order",
-      %{conn: conn, user: user} do
-
-      order = order_fixture( user.id)
+         %{conn: conn, user: user} do
+      order = order_fixture(user.id)
       date = date_fixture()
       product = product_fixture()
 
@@ -51,11 +53,12 @@ defmodule AOFFWeb.ShopAssistant.OrderItemControllerTest do
             user_id: user.id
           }
         )
+
       assert redirected_to(conn) == Routes.shop_assistant_user_order_path(conn, :new, user)
     end
 
     test "create with missing date shows an error", %{conn: conn, user: user} do
-      order = order_fixture( user.id)
+      order = order_fixture(user.id)
       product = product_fixture()
 
       conn =
@@ -69,13 +72,13 @@ defmodule AOFFWeb.ShopAssistant.OrderItemControllerTest do
             user_id: user.id
           }
         )
-      assert redirected_to(conn) ==
-        Routes.shop_assistant_user_order_path(conn, :new, user)
 
+      assert redirected_to(conn) ==
+               Routes.shop_assistant_user_order_path(conn, :new, user)
     end
 
     test "create/1 with missing product shows an error", %{conn: conn, user: user} do
-      order = order_fixture( user.id)
+      order = order_fixture(user.id)
       date = date_fixture()
 
       conn =
@@ -89,11 +92,12 @@ defmodule AOFFWeb.ShopAssistant.OrderItemControllerTest do
             user_id: user.id
           }
         )
+
       assert redirected_to(conn) == Routes.shop_assistant_user_order_path(conn, :new, user)
     end
 
     test "delete removes the order item from the order", %{conn: conn, user: user} do
-      order = order_fixture( user.id)
+      order = order_fixture(user.id)
       date = date_fixture()
       product = product_fixture()
 

@@ -2,30 +2,36 @@
   = if @changeset.action do
     .alert.alert-danger
       p = gettext("Oops, something went wrong! Please check the errors below.")
+  .tile
+    .row
+      .column
+        .form-group
+          = label f, :username, gettext("Username"), class: "control-label"
+          = text_input f, :username, class: "form-control full-width"
+          = error_tag f, :username
+        .form-group
+          = label f, :avatar, class: "control-label"
+          = file_input f, :avatar, class: "form-control full-width"
+          = error_tag f, :avatar
+      .column
+        .form-group
+          = label f, :member_nr, gettext("Member Nr."), class: "control-label"
+          = number_input f, :member_nr, class: "form-control full-width"
+          = error_tag f, :member_nr
 
-  .row
-    .column
-      .form-group
-        = label f, :username, gettext("Username"), class: "control-label"
-        = text_input f, :username, class: "form-control full-width"
-        = error_tag f, :username
-      .form-group
-        = label f, :avatar, class: "control-label"
-        = file_input f, :avatar, class: "form-control full-width"
-        = error_tag f, :avatar
-    .column
-      .form-group
-        = label f, :member_nr, gettext("Member Nr."), class: "control-label"
-        = number_input f, :member_nr, class: "form-control full-width"
-        = error_tag f, :member_nr
+        .form-group
+          = label f, :expiration_date, gettext("Expiration date"), class: "control-label"
+          = date_select f, :expiration_date, class: "form-control full-width"
+          = error_tag f, :expiration_date
 
-  .tiles
-    .column
-      .alert.alert-box
+
+    .row
+      .column
         .form-group
           = label f, :mobile, gettext("Mobile"), class: "control-label"
           = telephone_input f, :mobile, class: "form-control full-width"
           = error_tag f, :mobile
+      .column
 
         .form-group
           = label f, :email, gettext("Email"), class: "control-label"
@@ -36,16 +42,11 @@
           = label f, :password, gettext("Password"), class: "control-label"
           = password_input f, :password, class: "form-control full-width"
           = error_tag f, :password
-    .column
-      .alert.alert-box
-        .form-group
-          = label f, :expiration_date, gettext("Expiration date"), class: "control-label"
-          = date_select f, :expiration_date, class: "form-control full-width"
-          = error_tag f, :expiration_date
 
-  .alert.alert-box
+
+
     label = gettext("Roles")
-    .tiles
+    .row
       .column
         .form-group
           = label f, :volunteer do
@@ -70,6 +71,6 @@
 
   .form-group
     .float-right
-      = link gettext("Cancel"), to: Routes.volunteer_user_path(@conn, :index), class: "button button-outline"
+      = link gettext("Cancel"), to: @cancel_path, class: "button button-outline"
       | &nbsp;
       = submit gettext("Save"), class: "button"

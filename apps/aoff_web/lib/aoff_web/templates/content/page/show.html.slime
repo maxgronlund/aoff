@@ -8,10 +8,10 @@
       | &nbsp;
       = @page.title
 
+
 .row
   .column
-    h3 = @page.title
-
+    h2 = @page.title
   = if @text_editor do
     .column
       .float-right
@@ -24,15 +24,17 @@
           method: :delete,\
           data: [confirm: "Are you sure?"],\
           class: "button button-red"
-.row
-  .column
-    = @page.teaser
-  .column
-    = img_tag AOFF.Uploader.Image.url({@page.image, @page}, :original)
-    .image-caption
-      = @page.caption
-.row
-  .column
-    .auto-columns
-      = raw(@page.text)
+.tile
+  .row
+    .column
+      h4= @page.teaser
+    .column
+      = img_tag AOFF.Uploader.Image.url({@page.image, @page}, :original)
+      .image-caption
+        = @page.caption
+
+  .row
+    .column
+      .auto-columns
+        = raw(@page.text)
 

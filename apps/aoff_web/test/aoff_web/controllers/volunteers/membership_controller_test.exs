@@ -15,12 +15,10 @@ defmodule AOFFWeb.Volunteers.MembershipControllerTest do
              )
     setup do
       user =
-        user_fixture(
-          %{
-            "volunteer" => true,
-            "manage_membership" => true
-          }
-        )
+        user_fixture(%{
+          "volunteer" => true,
+          "manage_membership" => true
+        })
 
       conn =
         build_conn()

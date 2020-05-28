@@ -16,14 +16,14 @@ defmodule AOFFWeb.ShopAssistant.OrderControllerTest do
              )
     setup do
       user = user_fixture(%{"shop_assistant" => true})
+
       guest =
-        user_fixture(
-          %{
-            "email" =>"guest-email@example.com",
-            "member_nr" => 2,
-            "username" => "Guest Joe"
-          }
-        )
+        user_fixture(%{
+          "email" => "guest-email@example.com",
+          "member_nr" => 2,
+          "username" => "Guest Joe"
+        })
+
       date = date_fixture()
 
       conn =
@@ -38,7 +38,8 @@ defmodule AOFFWeb.ShopAssistant.OrderControllerTest do
     end
 
     test "new shows order by user_id", %{conn: conn, user: user} do
-      _order = order_fixture( user.id)
+      _order = order_fixture(user.id)
+
       conn =
         get(
           conn,
@@ -46,11 +47,12 @@ defmodule AOFFWeb.ShopAssistant.OrderControllerTest do
         )
 
       assert html_response(conn, 200) =~
-        gettext("Create Order for: %{username}", username: user.username)
+               gettext("Create Order for: %{username}", username: user.username)
     end
 
     test "delete empties the order and redirect", %{conn: conn, user: user, date: date} do
-      order = order_fixture( user.id)
+      order = order_fixture(user.id)
+
       conn =
         delete(
           conn,

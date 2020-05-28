@@ -28,6 +28,7 @@ html lang="da"
 
     = render AOFFWeb.LayoutView, "navbar.html", assigns
     main.container.content.page-wrap role="main"
+      a name="top"
       .row
         .column
           .float-right

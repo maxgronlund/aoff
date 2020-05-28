@@ -2,7 +2,6 @@ defmodule AOFFWeb.Admin.UserControllerTest do
   use AOFFWeb.ConnCase
   import AOFFWeb.Gettext
 
-
   import AOFF.Users.UserFixture
 
   @username Application.get_env(:aoff_web, :basic_auth)[:username]

@@ -3,74 +3,75 @@
   = if @changeset.action do
     .alert.alert-danger
       p = gettext("Oops, something went wrong! Please check the errors below.")
-  .row
-    .column
-      = if @product do
-        .form-group
-          = label f, :image, class: "control-label"
-          = file_input f, :image, class: "form-control full-width"
-          = error_tag f, :image
-  .row
-    .column
-      .form-group
-        = label f, :name_da, gettext("Product name da"), class: "control-label"
-        = text_input f, :name_da, class: "form-control full-width"
-        = error_tag f, :name_da
-    .column
-      .form-group
-        = label f, :name_en, gettext("Product name en"), class: "control-label"
-        = text_input f, :name_en, class: "form-control full-width"
-        = error_tag f, :name_en
-  .row
-    .column
-      .form-group
-        = label f, gettext("Price"), class: "control-label"
-        = number_input f, :price, class: "form-control full-width", min: "0", step: "0.5", value: @amount
-        = error_tag f, :price
-  .row
-    .column
-      .form-group
-        = label f, :description_da, gettext("Description da"), class: "control-label"
-        = textarea f, :description_da, style: "height: 150px;" , class: "form-control full-width"
-        = error_tag f, :description_da
-    .column
-      .form-group
-        = label f, :description_en, gettext("Description en"), class: "control-label"
-        = textarea f, :description_en, style: "height: 150px;" , class: "form-control full-width"
-        = error_tag f, :description_en
-  .row
-    .column
-      .form-group
-        = label f, :this_weeks_content_da, gettext("This weeks content da"), class: "control-label"
-        = textarea f, :this_weeks_content_da, style: "height: 150px;" , class: "form-control full-width"
-        = error_tag f, :this_weeks_content_da
-      .form-group
-        = label f, :this_weeks_content_en, gettext("This weeks content en"), class: "control-label"
-        = textarea f, :this_weeks_content_en, style: "height: 150px;" , class: "form-control full-width"
-        = error_tag f, :this_weeks_content_en
-  .alert.alert-box
-    .tiles
+  .tile
+    .row
       .column
-        .form-group
-          = checkbox f, :for_sale, class: "form-control"
-          = label f, :for_sale, gettext("Show in shop"), class: "control-label label-inline"
-          = error_tag f, :for_sale
-      .column
-        .form-group
-          = checkbox f, :show_on_landing_page, class: "form-control"
-          = label f, :show_on_landing_page, gettext("Show on landing page"), class: "control-label label-inline"
-          = error_tag f, :show_on_landing_page
-      .column
-        = if @manage_membership do
+        = if @product do
           .form-group
-            = checkbox f, :membership, class: "form-control"
-            = label f, :membership, gettext("Is a membership"), class: "control-label label-inline"
+            = label f, :image, class: "control-label"
+            = file_input f, :image, class: "form-control full-width"
+            = error_tag f, :image
+    .row
+      .column
+        .form-group
+          = label f, :name_da, gettext("Product name da"), class: "control-label"
+          = text_input f, :name_da, class: "form-control full-width"
+          = error_tag f, :name_da
+      .column
+        .form-group
+          = label f, :name_en, gettext("Product name en"), class: "control-label"
+          = text_input f, :name_en, class: "form-control full-width"
+          = error_tag f, :name_en
+    .row
+      .column
+        .form-group
+          = label f, gettext("Price"), class: "control-label"
+          = number_input f, :price, class: "form-control full-width", min: "0", step: "0.5", value: @amount
+          = error_tag f, :price
+    .row
+      .column
+        .form-group
+          = label f, :description_da, gettext("Description da"), class: "control-label"
+          = textarea f, :description_da, style: "height: 150px;" , class: "form-control full-width"
+          = error_tag f, :description_da
+      .column
+        .form-group
+          = label f, :description_en, gettext("Description en"), class: "control-label"
+          = textarea f, :description_en, style: "height: 150px;" , class: "form-control full-width"
+          = error_tag f, :description_en
+    .row
+      .column
+        .form-group
+          = label f, :this_weeks_content_da, gettext("This weeks content da"), class: "control-label"
+          = textarea f, :this_weeks_content_da, style: "height: 150px;" , class: "form-control full-width"
+          = error_tag f, :this_weeks_content_da
+        .form-group
+          = label f, :this_weeks_content_en, gettext("This weeks content en"), class: "control-label"
+          = textarea f, :this_weeks_content_en, style: "height: 150px;" , class: "form-control full-width"
+          = error_tag f, :this_weeks_content_en
+    .alert.alert-box
+      .tiles
+        .column
+          .form-group
+            = checkbox f, :for_sale, class: "form-control"
+            = label f, :for_sale, gettext("Show in shop"), class: "control-label label-inline"
+            = error_tag f, :for_sale
+        .column
+          .form-group
+            = checkbox f, :show_on_landing_page, class: "form-control"
+            = label f, :show_on_landing_page, gettext("Show on landing page"), class: "control-label label-inline"
+            = error_tag f, :show_on_landing_page
+        .column
+          = if @manage_membership do
+            .form-group
+              = checkbox f, :membership, class: "form-control"
+              = label f, :membership, gettext("Is a membership"), class: "control-label label-inline"
 
-            = error_tag f, :membership
-  .row
-    .column
-      .form-group
-        .float-right
-          = link gettext("Cancel"), to: Routes.purchaser_product_path(@conn, :index), class: "button button-outline"
-          | &nbsp;
-          = submit gettext("Save"), class: "btn btn-primary"
+              = error_tag f, :membership
+    .row
+      .column
+        .form-group
+          .float-right
+            = link gettext("Cancel"), to: Routes.purchaser_product_path(@conn, :index), class: "button button-outline"
+            | &nbsp;
+            = submit gettext("Save"), class: "btn btn-primary"

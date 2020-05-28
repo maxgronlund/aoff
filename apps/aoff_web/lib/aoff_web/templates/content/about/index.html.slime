@@ -1,13 +1,14 @@
 h2 = @message.title
-.auto-columns
-  = raw @message.text
-= if @text_editor && @volunteer do
-  .mt-2
-    = link gettext("Edit text"),\
-      to: Routes.volunteer_message_path(@conn, :edit,\
-        @message, %{"request_url" => @conn.request_path})
+.tile
+  .auto-columns
+    = raw @message.text
+  = if @text_editor && @volunteer do
+    .mt-2
+      = link gettext("Edit text"),\
+        to: Routes.volunteer_message_path(@conn, :edit,\
+          @message, %{"request_url" => @conn.request_path})
 
-br
+
 .tiles.button-tiles
 
   = for category <- @categories do

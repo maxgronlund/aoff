@@ -7,19 +7,20 @@
         li.is-active
           | &nbsp;
           = gettext("Opening dates")
-
-h2= gettext("Opening dates")
-p= gettext("Please select an opening date")
+.row
+  .column
+    .tilex
+      h2= gettext("Opening dates")
+      p= gettext("Please select an opening date")
 
 .row
   .column
     = render "pagination.html", assigns
-.blog
+.tiles
   = for date <- @dates do
     = link to: Routes.shop_assistant_date_path(@conn, :show, date) do
-      .card.is-shady
-        .card-header-title.is-centered
-          = raw date(date.date)
+      .tile
+        = raw date(date.date)
 hr
 
 = render "pagination.html", assigns

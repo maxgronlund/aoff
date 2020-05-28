@@ -2,7 +2,7 @@
 
 body {
   height: 100%;
-  /*background: #DDD;*/
+  background: #f0f3f5;
 }
 
 .content {
@@ -33,29 +33,29 @@ body {
   padding: 1.5rem;
 }
 
- .button,
- button,
- input[type='button'],
- input[type='reset'],
- input[type='submit'] {
-   background-color: #007A4B;
-   border: 0.1rem solid #007A4B;
+.button,
+button,
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
+  background-color: #007A4B;
+  border: 0.1rem solid #007A4B;
 
- }
+}
 
- .button:focus, .button:hover,
- button:focus,
- button:hover,
- input[type='button']:focus,
- input[type='button']:hover,
- input[type='reset']:focus,
- input[type='reset']:hover,
- input[type='submit']:focus,
- input[type='submit']:hover {
-   background-color: #005a38;
-   border-color: #005a38;
+.button:focus, .button:hover,
+button:focus,
+button:hover,
+input[type='button']:focus,
+input[type='button']:hover,
+input[type='reset']:focus,
+input[type='reset']:hover,
+input[type='submit']:focus,
+input[type='submit']:hover {
+  background-color: #005a38;
+  border-color: #005a38;
 
- }
+}
 
 .button.button-outline,
 button.button-outline,
@@ -527,6 +527,17 @@ label.panel-block:hover {
   list-style: none;
 }
 
+.tile {
+  background-color: white;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  color: #4a4a4a;
+  max-width: 100%;
+  position: relative;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  padding: 1.5rem;
+}
+
 .button-tiles {
   grid-row-gap: 30px;
 }
@@ -751,6 +762,10 @@ html, body {
 
 .full-width {
   width: 100%;
+}
+
+.max-width-50 {
+  max-width: 50%;
 }
 
 hr.double {

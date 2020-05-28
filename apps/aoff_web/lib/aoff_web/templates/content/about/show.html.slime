@@ -6,25 +6,19 @@
       | &nbsp;
       = @category.title
 
-.row
-  .column
-    h2 = @category.title
-  .column
-    = if @text_editor do
-      .float-right
-        = link gettext("New article"),\
-          to: Routes.volunteer_category_page_path(@conn, :new, @category),\
-          class: "button button-outline"
-        /| &nbsp;
-        /= link gettext("Edit"),\
-        /  to: Routes.volunteer_blog_path(@conn, :edit,  @category),\
-        /  class: "button"
-.row
-  .column
-    .auto-columns
-      = raw @category.description
+h2 = @category.title
 
-hr
+= if @text_editor do
+  .float-right
+    = link gettext("New article"),\
+      to: Routes.volunteer_category_page_path(@conn, :new, @category),\
+      class: "button button-outline"
+
+.tile
+  .row
+    .column
+      .auto-columns
+        = raw @category.description
 
 .tiles.button-tiles
   = for post <- @category.pages do

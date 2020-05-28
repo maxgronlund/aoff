@@ -77,7 +77,7 @@ defmodule AOFFWeb.Volunteer.DateController do
     case Shop.update_date(date, date_params) do
       {:ok, _date} ->
         conn
-        |> put_flash(:info, "Date updated successfully.")
+        |> put_flash(:info, gettext("Date updated successfully."))
         |> redirect(to: Routes.volunteer_date_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->

@@ -7,9 +7,15 @@ defmodule AOFFWeb.Purchaser.DateView do
     case Date.compare(date, AOFF.Time.today()) do
       :lt ->
         "<div class=\"is-gray\">#{date_as_string}</div>"
+
       _ ->
-        "#{date_as_string}"
+        "<b>#{date_as_string}</b>"
     end
+  end
+
+  def date_as_string(date) do
+    {:ok, date_as_string} = AOFFWeb.Cldr.Date.to_string(date, locale: "da")
+    date_as_string
   end
 
   def name(product) do

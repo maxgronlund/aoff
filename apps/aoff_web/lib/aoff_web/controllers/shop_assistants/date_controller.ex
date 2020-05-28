@@ -10,8 +10,6 @@ defmodule AOFFWeb.ShopAssistant.DateController do
   @dates_pr_page 8
 
   def index(conn, params) do
-
-
     page =
       case params["page"] do
         nil -> Shop.todays_page(@dates_pr_page)

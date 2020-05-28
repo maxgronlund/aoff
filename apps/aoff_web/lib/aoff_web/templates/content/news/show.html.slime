@@ -22,19 +22,21 @@
           method: :delete,\
           data: [confirm: "Are you sure?"],\
           class: "button button-red"
-.row
-  .column
-    b = date(@news.date)
-    br
-    i = @news.author
-    br/
-    = @news.teaser
-  .column
-    = img_tag AOFF.Uploader.Image.url({@news.image, @news}, :original)
-    .image-caption
-      = @news.caption
-.row
-  .column
-    .auto-columns
-      = raw(@news.text)
+.tile
+  .row
+    .column
+      b = date(@news.date)
+      br
+      i = @news.author
+
+      h4 = @news.teaser
+    .column
+      = img_tag AOFF.Uploader.Image.url({@news.image, @news}, :original)
+      .image-caption
+        = @news.caption
+
+  .row
+    .column
+      .auto-columns
+        = raw(@news.text)
 

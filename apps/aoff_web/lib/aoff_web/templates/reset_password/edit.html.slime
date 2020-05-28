@@ -4,6 +4,6 @@ h2 = gettext("Enter new password")
 
 .row
   .column
-    .alert.alert-success
+    .tile
       = render "password_form.html", Map.put(assigns, :action, Routes.reset_password_path(@conn, :update, @user))
   .column

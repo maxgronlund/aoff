@@ -7,7 +7,6 @@ defmodule AOFFWeb.Volunteer.VolunteerController do
   plug :authenticate when action in [:index]
 
   def index(conn, _params) do
-
     {:ok, host_message} =
       System.find_or_create_message(
         "/shop/dates/:id - host",

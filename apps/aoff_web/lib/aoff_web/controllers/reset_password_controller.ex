@@ -17,16 +17,18 @@ defmodule AOFFWeb.ResetPasswordController do
   end
 
   def new(conn, _params) do
+    changeset = Users.change_user(%User{})
+    render(conn, "new.html", changeset: changeset, message: new_message())
+  end
+
+  defp new_message() do
     {:ok, message} =
       System.find_or_create_message(
         "/reset_password/new",
         "Send reset pasword email",
         Gettext.get_locale()
       )
-
-    changeset = Users.change_user(%User{})
-
-    render(conn, "new.html", changeset: changeset, message: message)
+    message
   end
 
   def create(conn, params) do
@@ -54,6 +56,11 @@ defmodule AOFFWeb.ResetPasswordController do
         # Create your email
         AOFFWeb.Email.reset_password_email(username_and_email, reset_password_url)
         |> AOFFWeb.Mailer.deliver_now()
+      _ ->
+        changeset = Users.change_user(%User{})
+        conn
+        |> put_flash(:error, gettext("Please check the email"))
+        |> render("new.html", changeset: changeset, message: new_message())
     end
 
     redirect(conn, to: Routes.reset_password_path(conn, :index))

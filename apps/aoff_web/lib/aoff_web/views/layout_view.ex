@@ -10,6 +10,7 @@ defmodule AOFFWeb.LayoutView do
     cond do
       conn.assigns[:selected_menu_item] == menu_item ->
         "menu-item active"
+
       true ->
         "menu-item"
     end

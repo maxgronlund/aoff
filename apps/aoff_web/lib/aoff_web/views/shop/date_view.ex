@@ -40,6 +40,7 @@ defmodule AOFFWeb.Shop.DateView do
         "Closed for orders",
         Gettext.get_locale()
       )
+
     message
   end
 

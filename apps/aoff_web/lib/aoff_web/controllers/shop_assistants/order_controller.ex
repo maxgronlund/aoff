@@ -6,17 +6,16 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
   alias AOFF.Shop
   alias AOFFWeb.Users.Auth
 
-
   alias AOFF.Users.OrderItem
 
   plug Auth
   plug :authenticate when action in [:index, :show]
 
-
   def new(conn, %{"user_id" => user_id}) do
     order = Users.current_order(user_id)
 
     changeset = Users.change_order_item(%OrderItem{})
+
     render(
       conn,
       "new.html",
@@ -24,27 +23,30 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
       order: order,
       products: products(),
       dates: dates(),
-      changeset: changeset)
+      changeset: changeset
+    )
   end
 
-  def update(conn, %{"id" => id,"user_id" => user_id}) do
+  def update(conn, %{"id" => id}) do
     order = Users.get_order!(id)
 
     case Users.payment_accepted(order) do
-    {:ok, order} ->
-      Users.extend_memberships(order)
-      # Create a new order for the basket.
-      Users.create_order(%{"user_id" => order.user_id})
-      date_id = get_session(conn, :shop_assistant_date_id)
-      conn
-    |> put_flash(:info, gettext("Order created and paied"))
-      |> redirect(to: Routes.shop_assistant_date_path(conn, :show, date_id))
-    _ ->
-      error(conn)
+      {:ok, order} ->
+        Users.extend_memberships(order)
+        # Create a new order for the basket.
+        Users.create_order(%{"user_id" => order.user_id})
+        date_id = get_session(conn, :shop_assistant_date_id)
+
+        conn
+        |> put_flash(:info, gettext("Order created and paied"))
+        |> redirect(to: Routes.shop_assistant_date_path(conn, :show, date_id))
+
+      _ ->
+        error(conn)
     end
   end
 
-  def delete(conn, %{"id" => id, "user_id" => user_id}) do
+  def delete(conn, %{"id" => id}) do
     order = Users.get_order!(id)
     Users.delete_order(order)
 
@@ -54,8 +56,6 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
     |> put_flash(:info, gettext("Order is cancled"))
     |> redirect(to: Routes.shop_assistant_date_path(conn, :show, date_id))
   end
-
-
 
   def error(conn) do
     conn
@@ -67,17 +67,17 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
 
   defp products() do
     products = Shop.list_products(:for_sale)
-    Enum.map( products, fn x -> name_and_id(x) end)
+    Enum.map(products, fn x -> name_and_id(x) end)
   end
 
   defp name_and_id(product) do
-    name =
-      case Gettext.get_locale() do
-        "en" ->
-          {name_and_price(product.name_en, product.price), product.id}
-        _ ->
-          {name_and_price(product.name_da, product.price), product.id}
-      end
+    case Gettext.get_locale() do
+      "en" ->
+        {name_and_price(product.name_en, product.price), product.id}
+
+      _ ->
+        {name_and_price(product.name_da, product.price), product.id}
+    end
   end
 
   defp name_and_price(name, price) do

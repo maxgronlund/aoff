@@ -7,20 +7,20 @@
         li.is-active
           | &nbsp;
           = gettext("Shoppinglists")
-
-h2= gettext("Shoppinglists")
-p= gettext("Please select a date")
+.row
+  .column
+    .tile
+      h2= gettext("Shoppinglists")
+      p= gettext("Please select a date")
 
 .row
   .column
     = render "pagination.html", assigns
-.blog
+.tiles
   = for date <- @dates do
     = link to: Routes.purchaser_date_path(@conn, :show, date) do
-      .card.is-shady
-
-        .card-header-title.is-centered
-          = raw date(date.date)
+      .tile
+        = raw date(date.date)
 hr
 
 = render "pagination.html", assigns

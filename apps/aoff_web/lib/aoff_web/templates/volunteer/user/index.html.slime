@@ -14,25 +14,26 @@
     h2 = gettext("Admin Users")
   .column
     .float-right
-      = link gettext("Create User"),\
+      = link gettext("Create membership"),\
         to: Routes.volunteer_user_path(@conn, :new),\
         class: "button"
 
-= form_for @conn, Routes.volunteer_user_path(@conn, :index), [method: :get], fn f ->
-  .row
-    .column
-      = label f, gettext("Search"), class: "control-label"
-      = search_input f,\
-        :query,\
-        placeholder: gettext("Username / Member Nr. / email"),\
-        class: "full-width"
-      = hidden_input f, :page, value: "1"
-  .row
-    .column
-      .float-right
-        = link gettext("Show all"), to: Routes.volunteer_user_path(@conn, :index), class: "button button-outline"
-        | &nbsp;
-        = submit gettext("Search")
+.tile
+  = form_for @conn, Routes.volunteer_user_path(@conn, :index), [method: :get], fn f ->
+    .row
+      .column
+        = label f, gettext("Search"), class: "control-label"
+        = search_input f,\
+          :query,\
+          placeholder: gettext("Username / Member Nr. / email"),\
+          class: "full-width"
+        = hidden_input f, :page, value: "1"
+    .row
+      .column
+        .float-right
+          = link gettext("Show all"), to: Routes.volunteer_user_path(@conn, :index), class: "button button-outline"
+          | &nbsp;
+          = submit gettext("Search")
 .tiles.button-tiles
   = for user <- @users do
     .card.is-shady

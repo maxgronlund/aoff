@@ -18,12 +18,11 @@ defmodule AOFFWeb.PaymentTermsControllerTest do
       order = order_fixture(user.id, %{"state" => "open"})
 
       {:ok, message} =
-      System.find_or_create_message(
-        "/payment_terms",
-        "Payment terms",
-        Gettext.get_locale()
-      )
-
+        System.find_or_create_message(
+          "/payment_terms",
+          "Payment terms",
+          Gettext.get_locale()
+        )
 
       conn =
         build_conn()
@@ -34,7 +33,6 @@ defmodule AOFFWeb.PaymentTermsControllerTest do
 
       {:ok, conn: conn, user: user, order: order, message: message}
     end
-
 
     test "show", %{conn: conn, order: order, message: message} do
       conn = get(conn, Routes.payment_terms_path(conn, :show, order_id: order.id))

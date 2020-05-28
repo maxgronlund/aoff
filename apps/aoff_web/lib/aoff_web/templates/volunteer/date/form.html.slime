@@ -2,90 +2,92 @@
   = if @changeset.action do
     .alert.alert-danger
       p = gettext("Oops, something went wrong! Please check the errors below.")
-  .row
-    .column
-      = if @date do
-        .alert.alert-warning
+  .tile
+    .row
+      .column
+        = if @date do
           .row
             .column.column-33
-              img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({@date.image, @date}, :stamp)}"
+              img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.  url({@date.image, @date}, :stamp)}"
             .column
               .form-group
                 = label f, :image, gettext("Image"), class: "control-label"
                 = file_input f, :image, class: "form-control full-width"
                 = error_tag f, :image
+        .form-group
+          = label f, :open do
+            = checkbox f, :open, class: "form-control"
+            = label f, :open, gettext("Open"),class: "control-label label-inline"
+    .row
+      .column
+        .alert.alert-box
+          .form-group
+            = label f,:date, gettext("Pick up date"), class: "control-label"
+            = date_select f, :date, class: "form-control full-width"
+            = error_tag f, :date
+      .column
+        .alert.alert-box
+          .form-group
+            = label f, :last_order_date, gettext("Last order date"), class: " control-label"
+            = date_select f, :last_order_date, class: "form-control full-width"
+            = error_tag f, :last_order_date
+    .row
+      .column
+        .alert.alert-box
+          h3 =gettext("Early shift")
+          .row
+            .column
+              .form-group
+                = label f, :early_shift_from, gettext("From"), class: "control-label"
+                = time_select f, :early_shift_from
+            .column
+              .form-group
+                = label f, :early_shift_to, gettext("To"), class: "control-label"
+                = time_select f, :early_shift_to
+          .form-group
+            = label f, :shop_assistant_a, gettext("Host 1"), class: "control-label"
+            = select f, :shop_assistant_a, \
+              @users,\
+              prompt: gettext("select shop assistant"),\
+              class: "form-control full-width"
+            = error_tag f, :shop_assistant_a
+          .form-group
+            = label f, :shop_assistant_b, gettext("Host 2"), class: "control-label"
+            = select f, :shop_assistant_b, \
+              @users,\
+              prompt: gettext("select shop assistant"),\
+              class: "form-control full-width"
+            = error_tag f, :shop_assistant_b
+      .column
+        .alert.alert-box
+          h3 =gettext("Late shift")
+          .row
+            .column
+              .form-group
+                = label f, :late_shift_from, gettext("From"), class: "control-label"
+                = time_select f, :late_shift_from
+            .column
+              .form-group
+                = label f, :late_shift_to, gettext("To"), class: "control-label"
+                = time_select f, :late_shift_to
+          .form-group
+            = label f, :shop_assistant_c, gettext("Host 1"), class: "control-label"
+            = select f, :shop_assistant_c, \
+              @users,\
+              prompt: gettext("select shop assistant"),\
+              class: "form-control full-width"
+            = error_tag f, :shop_assistant_c
+          .form-group
+            = label f, :shop_assistant_d, gettext("Host 2"), class: "control-label"
+            = select f, :shop_assistant_d, \
+              @users,\
+              prompt: gettext("select shop assistant"),\
+              class: "form-control full-width"
+            = error_tag f, :shop_assistant_d
+    .float-right
       .form-group
-        = label f, :open do
-          = checkbox f, :open, class: "form-control"
-          = label f, :open, gettext("Open"),class: "control-label label-inline"
-  .row
-    .column
-      .alert.alert-box
-        .form-group
-          = label f,:date, gettext("Pick up date"), class: "control-label"
-          = date_select f, :date, class: "form-control full-width"
-          = error_tag f, :date
-    .column
-      .alert.alert-box
-        .form-group
-          = label f, :last_order_date, gettext("Last order date"), class: "control-label"
-          = date_select f, :last_order_date, class: "form-control full-width"
-          = error_tag f, :last_order_date
-  .row
-    .column
-      .alert.alert-box
-        h3 =gettext("Early shift")
-        .row
-          .column
-            .form-group
-              = label f, :early_shift_from, gettext("From"), class: "control-label"
-              = time_select f, :early_shift_from
-          .column
-            .form-group
-              = label f, :early_shift_to, gettext("To"), class: "control-label"
-              = time_select f, :early_shift_to
-        .form-group
-          = label f, :shop_assistant_a, gettext("Host 1"), class: "control-label"
-          = select f, :shop_assistant_a, \
-            @users,\
-            prompt: gettext("select shop assistant"),\
-            class: "form-control full-width"
-          = error_tag f, :shop_assistant_a
-        .form-group
-          = label f, :shop_assistant_b, gettext("Host 2"), class: "control-label"
-          = select f, :shop_assistant_b, \
-            @users,\
-            prompt: gettext("select shop assistant"),\
-            class: "form-control full-width"
-          = error_tag f, :shop_assistant_b
-    .column
-      .alert.alert-box
-        h3 =gettext("Late shift")
-        .row
-          .column
-            .form-group
-              = label f, :late_shift_from, gettext("From"), class: "control-label"
-              = time_select f, :late_shift_from
-          .column
-            .form-group
-              = label f, :late_shift_to, gettext("To"), class: "control-label"
-              = time_select f, :late_shift_to
-        .form-group
-          = label f, :shop_assistant_c, gettext("Host 1"), class: "control-label"
-          = select f, :shop_assistant_c, \
-            @users,\
-            prompt: gettext("select shop assistant"),\
-            class: "form-control full-width"
-          = error_tag f, :shop_assistant_c
-        .form-group
-          = label f, :shop_assistant_d, gettext("Host 2"), class: "control-label"
-          = select f, :shop_assistant_d, \
-            @users,\
-            prompt: gettext("select shop assistant"),\
-            class: "form-control full-width"
-          = error_tag f, :shop_assistant_d
-  .float-right
-    .form-group
-      = link "Cancel", to: Routes.volunteer_date_path(@conn, :index), class: "button button-outline"
-      | &nbsp;
-      = submit gettext("Save"), class: "button"
+        = link "Cancel", to: Routes.volunteer_date_path(@conn, :index), class: "  button button-outline"
+        | &nbsp;
+        = submit gettext("Save"), class: "button"
+    br
+    | &nbsp;

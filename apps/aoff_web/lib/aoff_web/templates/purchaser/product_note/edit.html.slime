@@ -1,14 +1,17 @@
-/ .row
-/   .column
-/     .breadcrumb aria-label="breadcrumbs"
-/       ul
-/         li
-/           = link gettext("Shop"), to: Routes.shop_shop_path(@conn, :index)
-/         li
-/           = link gettext("Products"), to: Routes.purchaser_product_path(@conn, :index)
-/         li.is-active
-/           | &nbsp;
-/           = gettext("Edit Product")
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+        li
+          = link gettext("Shoppinglists"), to: Routes.purchaser_date_path(@conn, :index)
+        li
+          = link date(@date.date), to: Routes.purchaser_date_path(@conn, :show, @date)
+        li.is-active
+          | &nbsp;
+          = gettext("Edit Product")
 
-/ h2 = gettext("Edit Product")
+
+h2 = gettext("Edit Product")
 = render "form.html", Map.put(assigns, :action, Routes.purchaser_date_product_note_path(@conn, :update, @date, @product))

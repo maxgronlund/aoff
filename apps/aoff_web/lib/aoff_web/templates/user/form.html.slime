@@ -6,7 +6,7 @@
 
   = if @volunteer && @user do
 
-    .alert.alert-success
+    .tile
       .row
         .column
           = img_tag AOFF.Uploader.Image.url({@user.avatar, @user}, :avatar)
@@ -23,6 +23,7 @@
 
   .row
     .column
+      .tile
         .form-group
           = label f, :username, gettext("Full name"), class: "control-label"
           = text_input f, :username, class: "form-control full-width"
@@ -59,17 +60,17 @@
               | &nbsp;
               = link(gettext("terms and condition"), to: Routes.terms_path(@conn, :index))
             = error_tag f, :terms_accepted
-    .column
-  .row
-    .column
-      .form-group
-        .float-right
-          = if @current_user do
-            = link gettext("Cancel"), to: Routes.user_path(@conn, :show, @user), class: "button button-outline"
-            | &nbsp;
-            = submit gettext("Save"), class: "button"
-          - else
-            = link gettext("Already a member"), to: "/sessions/new", class: "button button-outline"
-            | &nbsp;
-            = submit gettext("Create account"), class: "button"
+
+        .form-group
+          .float-right
+            = if @current_user do
+              = link gettext("Cancel"), to: Routes.user_path(@conn, :show, @user), class: "button button-outline"
+              | &nbsp;
+              = submit gettext("Save"), class: "button"
+            - else
+              = link gettext("Already a member"), to: "/sessions/new", class: "button button-outline"
+              | &nbsp;
+              = submit gettext("Create account"), class: "button"
+        br/
+        | &nbsp;
 

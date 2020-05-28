@@ -1,4 +1,4 @@
 h2 = gettext("Admin")
 
-
-= link gettext("Admin Users"), to: Routes.admin_user_path(@conn, :index), class: "button"
+.tile
+  = link gettext("Admin Users"), to: Routes.admin_user_path(@conn, :index), class: "button"

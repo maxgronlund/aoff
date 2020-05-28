@@ -49,17 +49,15 @@ defmodule AOFFWeb.Volunteer.UserControllerTest do
     end
 
     test "deletes chosen user", %{conn: conn, user: user} do
-      userb = user_fixture(
-        %{
+      userb =
+        user_fixture(%{
           "username" => "delete me",
-          "member_nr" => 12341234,
+          "member_nr" => 12_341_234,
           "email" => "delete-me@example.com"
-        }
-      )
+        })
 
       conn = delete(conn, Routes.volunteer_user_path(conn, :delete, userb))
       assert redirected_to(conn) == Routes.volunteer_user_path(conn, :index)
-
     end
   end
 end

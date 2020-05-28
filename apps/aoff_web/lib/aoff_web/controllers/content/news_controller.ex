@@ -28,10 +28,16 @@ defmodule AOFFWeb.Content.NewsController do
   # end
 
   def show(conn, %{"id" => id}) do
-    news = Content.get_news!(id)
+    case Content.get_news!(id) do
+      %AOFF.Content.News{} = news ->
+        assign(conn, :selected_menu_item, :news)
+        |> render("show.html", news: news)
 
-    assign(conn, :selected_menu_item, :news)
-    |> render("show.html", news: news)
+      _ ->
+        conn
+        |> put_flash(:info, "Language updated")
+        |> redirect(to: Routes.news_path(conn, :index))
+    end
   end
 
   # def edit(conn, %{"id" => id}) do

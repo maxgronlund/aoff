@@ -37,6 +37,4 @@ defmodule AOFFWeb.Users.MembershipControllerTest do
       assert html_response(conn, 200) =~ message.title
     end
   end
-
-
 end

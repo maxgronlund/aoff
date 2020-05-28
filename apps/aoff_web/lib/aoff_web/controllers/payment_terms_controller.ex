@@ -16,12 +16,8 @@ defmodule AOFFWeb.PaymentTermsController do
         Gettext.get_locale()
       )
 
-
-
     render(conn, :show, message: message, order_id: order_id)
   end
-
-
 
   defp authenticate(conn, _opts) do
     if conn.assigns.current_user do

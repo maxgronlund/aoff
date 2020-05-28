@@ -9,6 +9,7 @@ defmodule AOFFWeb.Content.PageController do
         conn
         |> put_flash(:info, gettext("Language updated"))
         |> redirect(to: Routes.about_path(conn, :index))
+
       page ->
         render(conn, "show.html", category: page.category, page: page)
     end

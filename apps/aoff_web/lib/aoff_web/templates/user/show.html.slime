@@ -61,11 +61,12 @@
 
 
 
+.tile
+  .row.mt-1
+    .column
+      = link gettext("Invoices"), to: Routes.user_order_path(@conn, :index, @user), class: "button button-outline"
 
-.row.mt-1
-  .column
-    = link gettext("Invoices"), to: Routes.user_order_path(@conn, :index, @user), class: "button button-outline"
-h3 = gettext("Upcoming host dates")
+h4 = gettext("Upcoming host dates")
 .blog
   = for date <- @host_dates do
     = link to: Routes.shop_assistant_date_path(@conn, :show, date) do

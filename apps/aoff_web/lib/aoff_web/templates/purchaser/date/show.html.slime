@@ -8,12 +8,12 @@
           = link gettext("Shoppinglists"), to: Routes.purchaser_date_path(@conn, :index)
         li.is-active
           | &nbsp;
-          = date(@date.date)
+          = raw date_as_string(@date.date)
 
 
 .row
   .column
-    h2 = gettext("Shopping list for: %{date}", date: date(@date.date))
+    h2 = raw gettext("Shopping list for: %{date}", date: date_as_string(@date.date))
   .column
     = link gettext("Other Shopping list"),\
       to: Routes.purchaser_date_path(@conn, :index),\

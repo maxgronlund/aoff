@@ -64,7 +64,14 @@ defmodule AOFF.Content do
       ** (Ecto.NoResultsError)
 
   """
-  def get_news!(id), do: Repo.get!(News, id)
+  def get_news!(id) do
+    query =
+      from n in News,
+      where: n.id == ^id and n.locale == ^Gettext.get_locale,
+      limit: 1
+
+    Repo.one(query)
+  end
 
   @doc """
   Creates a news.

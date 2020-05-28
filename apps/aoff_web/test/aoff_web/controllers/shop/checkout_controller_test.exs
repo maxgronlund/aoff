@@ -21,28 +21,26 @@ defmodule AOFFWeb.Shop.CheckoutControllerTest do
       user = user_fixture()
       product = product_fixture()
       order = order_fixture(user.id, %{"state" => "open"})
-      pick_up = pick_up_fixture(
-        %{
+
+      pick_up =
+        pick_up_fixture(%{
           "date_id" => date.id,
           "user_id" => user.id,
           "username" => user.username,
           "member_nr" => user.member_nr,
           "order_id" => order.id,
           "email" => user.email
-        }
+        })
 
-      )
       _order_item =
-        order_item_fixture(
-          %{
-            "order_id" => order.id,
-            "product_id" => product.id,
-            "price" => product.price,
-            "user_id" => user.id,
-            "date_id" => date.id,
-            "pick_up_id" => pick_up.id
-          }
-        )
+        order_item_fixture(%{
+          "order_id" => order.id,
+          "product_id" => product.id,
+          "price" => product.price,
+          "user_id" => user.id,
+          "date_id" => date.id,
+          "pick_up_id" => pick_up.id
+        })
 
       conn =
         build_conn()
@@ -55,10 +53,8 @@ defmodule AOFFWeb.Shop.CheckoutControllerTest do
     end
 
     test "edit", %{conn: conn, order: order, product: product} do
-
       conn = get(conn, Routes.shop_checkout_path(conn, :edit, order))
       assert html_response(conn, 200) =~ product.name_da
     end
   end
-
 end

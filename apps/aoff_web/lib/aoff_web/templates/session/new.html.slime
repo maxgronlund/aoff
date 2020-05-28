@@ -2,22 +2,21 @@ h2 = gettext("Login")
 
 
 = form_for @conn, Routes.session_path(@conn, :create), [as: :session], fn f ->
-  .row
-    .column
-      = label f, :email, gettext("Email"), class: "label"
-      = email_input f, :email, placeholder: gettext("Email"), class: "input full-width"
-      .pt-1
-      = label f, :password, gettext("Password"), class: "label"
-      = password_input f, :password, placeholder: gettext("Password"), class: "input full-width"
-    .column
-  .row
-    .column
-      .float-right
+  .tile
+    .row
+      .column
+        = label f, :email, gettext("Email"), class: "label"
+        = email_input f, :email, placeholder: gettext("Email"), class: "input full-width"
         .pt-1
-        = link gettext("Forgot password"), to: Routes.reset_password_path(@conn, :new), class: "button button-outline"
-        | &nbsp;
-        = submit gettext("Login"), class: "button"
-    .column
+        = label f, :password, gettext("Password"), class: "label"
+        = password_input f, :password, placeholder: gettext("Password"), class: "input full-width"
+    .row
+      .column
+        .float-right
+          .pt-1
+          = link gettext("Forgot password"), to: Routes.reset_password_path(@conn, :new), class: "button button-outline"
+          | &nbsp;
+          = submit gettext("Login"), class: "button"
 
 
 

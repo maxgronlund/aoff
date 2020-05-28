@@ -14,7 +14,7 @@
 .row
   .column
     = if @purchaser do
-      = link gettext("New opening date"), to: Routes.volunteer_date_path(@conn, :new), class: "button button-outline"
+      = link gettext("New opening date"), to: Routes.volunteer_date_path(@conn, :new), class: "button"
     .float-right
       | &nbsp;
       = render "pagination.html", assigns

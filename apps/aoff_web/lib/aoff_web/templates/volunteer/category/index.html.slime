@@ -8,13 +8,14 @@
 
 .row
   .column
-    h2 = @help_text.title
-    .auto-columns
-      = raw @help_text.text
+    .tile
+      h2 = @help_text.title
+      .auto-columns
+        = raw @help_text.text
 
-    = if @text_editor do
-      = link gettext("Edit text"),\
-        to: Routes.volunteer_message_path(@conn, :edit, @help_text, %{"request_url" => @conn.request_path})
+      = if @text_editor do
+        = link gettext("Edit text"),\
+          to: Routes.volunteer_message_path(@conn, :edit, @help_text, %{"request_url" => @conn.request_path})
 
 
 = if @admin do

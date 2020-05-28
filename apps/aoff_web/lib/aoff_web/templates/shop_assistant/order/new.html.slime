@@ -4,45 +4,46 @@ h2 = gettext("Create Order for: %{username}", username: @user.username)
 
 .row.mt-1
   .column
-    = render "form.html", Map.put(assigns, :action, Routes.shop_assistant_order_order_item_path(@conn, :create, @order))
+    .tile
+      = render "form.html", Map.put(assigns, :action, Routes.shop_assistant_order_order_item_path(@conn, :create, @order))
 
-
-table.table
-  thead
-    tr
-      th = gettext("Product")
-      th = gettext("Pickup date")
-      th = gettext("Price")
-      th
-  tbody
-    = for order_item <- @order.order_items do
+.tile
+  table.table
+    thead
       tr
-        td = name(order_item.product)
-        td = date(order_item.date.date)
-        td = order_item.product.price
-        td
-          = link to: Routes.shop_assistant_order_order_item_path(@conn, :delete, @order, order_item),\
-            method: :delete do
-            .button.icon-button.float-right
-              i.fa.fa-trash.red
+        th = gettext("Product")
+        th = gettext("Pickup date")
+        th = gettext("Price")
+        th
+    tbody
+      = for order_item <- @order.order_items do
+        tr
+          td = name(order_item.product)
+          td = date(order_item.date.date)
+          td = order_item.product.price
+          td
+            = link to: Routes.shop_assistant_order_order_item_path(@conn, :delete, @order, order_item),\
+              method: :delete do
+              .button.icon-button.float-right
+                i.fa.fa-trash.red
 
-.row
-  .column
-    b =gettext("Amount")
-    .float-right
-      b= @order.total
-    br/
-    hr.double.mt-1
-.row
-  .column
-    .float-right
-      = link gettext("Cancel"),\
-        to: Routes.shop_assistant_user_order_path(@conn, :delete, @user, @order),\
-        method: :delete,\
-        class: "button button-outline"
-      | &nbsp;
-      = link gettext("Paied"),\
-        to: Routes.shop_assistant_user_order_path(\
-          @conn, :update, @user, @order, %{}),\
-        method: "put",
-        class: "button"
+  .row
+    .column
+      b =gettext("Amount")
+      .float-right
+        b= @order.total
+      br/
+      hr.double.mt-1
+  .row
+    .column
+      .float-right
+        = link gettext("Cancel"),\
+          to: Routes.shop_assistant_user_order_path(@conn, :delete, @user, @order),\
+          method: :delete,\
+          class: "button button-outline"
+        | &nbsp;
+        = link gettext("Paied"),\
+          to: Routes.shop_assistant_user_order_path(\
+            @conn, :update, @user, @order, %{}),\
+          method: "put",
+          class: "button"
