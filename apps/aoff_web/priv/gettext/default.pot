@@ -107,7 +107,7 @@ msgid "Description"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:9
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:12
 #: lib/aoff_web/templates/user/show.html.slime:8 lib/aoff_web/templates/volunteer/date/form.html.slime:1
 #: lib/aoff_web/templates/volunteer/date/index.html.slime:1 lib/aoff_web/templates/volunteer/date/show.html.slime:1
 msgid "Early shift"
@@ -180,7 +180,7 @@ msgid "Invoices"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:9
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:12
 #: lib/aoff_web/templates/user/show.html.slime:8 lib/aoff_web/templates/volunteer/date/form.html.slime:7
 #: lib/aoff_web/templates/volunteer/date/index.html.slime:1 lib/aoff_web/templates/volunteer/date/show.html.slime:1
 msgid "Late shift"
@@ -261,7 +261,6 @@ msgid "Pay for membership"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/shop_assistant/pick_up/show.html.slime:1
 #: lib/aoff_web/templates/shop_assistant/pick_up/show.html.slime:1
 msgid "Pick up"
 msgstr ""
@@ -1221,7 +1220,7 @@ msgid "is added to basket"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:9
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:12
 msgid "Send Reminder"
 msgstr ""
 
@@ -1506,7 +1505,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:5
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:9
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:12
 msgid "Hosts"
 msgstr ""
 
@@ -1516,7 +1515,7 @@ msgid "Please check the email"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:9
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:12
 msgid "Back to top"
 msgstr ""
 
@@ -1545,4 +1544,9 @@ msgstr ""
 #, elixir-format
 #: lib/aoff_web/controllers/volunteers/date_controller.ex:80
 msgid "Date updated successfully."
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/shop_assistant/pick_up/show.html.slime:1
+msgid "Picked up"
 msgstr ""

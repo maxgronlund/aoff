@@ -3,26 +3,25 @@
     .breadcrumb aria-label="breadcrumbs"
       ul
         li
-          = link gettext("Shop"), to: Routes.shop_shop_path(@conn, :index)
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
         li
-          = link date(@pick_up.date.date), to: Routes.shop_date_path(@conn, :show, @pick_up.date)
+          = link gettext("Opening dates"), to: Routes.shop_assistant_date_path(@conn, :index)
         li
-          = link gettext("Pick up list"), to: Routes.shop_assistant_date_path(@conn, :show, @pick_up.date)
+          = link date(@pick_up.date.date), to: Routes.shop_assistant_date_path(@conn, :show, @pick_up.date)
         li.is-active
           | &nbsp;
-          = gettext("Pick up")
+          = gettext("Picked up")
 
 
-h2 = gettext("Pick up")
-
-
-table
-  thead
-    tr
-      th = gettext("Product")
-      th = gettext("Price")
-  tbody
-    = for order_item <- @pick_up.order_items do
+h2 = gettext("Picked up")
+.tile
+  table
+    thead
       tr
-        td = name(order_item.product)
-        td = order_item.price
+        th = gettext("Product")
+        th = gettext("Price")
+    tbody
+      = for order_item <- @pick_up.order_items do
+        tr
+          td = name(order_item.product)
+          td = order_item.price

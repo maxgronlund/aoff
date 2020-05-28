@@ -77,8 +77,13 @@
           - else
             .button.pick_up_botton  pick_up_id="#{pick_up.id}"
               = gettext("Awaits")
-            .button.button-outline.hidden id="#{pick_up.id}"
-              = gettext("Handed")
+            = link gettext("Handed"),\
+              to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up),\
+              class: "button button-outline hidden",
+              id: "#{pick_up.id}"
+
+            /.button.button-outline.hidden id="#{pick_up.id}"
+            /  = gettext("Handed")
             = if pick_up.send_sms_notification do
               | &nbsp;
               .button.sms_button.button-outline pick_up_id="#{pick_up.id}" id="sms-#{pick_up. id}"
