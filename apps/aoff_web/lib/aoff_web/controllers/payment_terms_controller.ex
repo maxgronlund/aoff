@@ -2,7 +2,6 @@ defmodule AOFFWeb.PaymentTermsController do
   use AOFFWeb, :controller
 
   alias AOFF.System
-  alias AOFF.Users
   alias AOFFWeb.Users.Auth
   plug Auth
 

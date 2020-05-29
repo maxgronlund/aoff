@@ -2,7 +2,7 @@ defmodule AOFFWeb.Purchaser.DateView do
   use AOFFWeb, :view
 
   def date(date) do
-    {:ok, date_as_string} = AOFFWeb.Cldr.Date.to_string(date, locale: "da")
+    {:ok, date_as_string} = AOFFWeb.Cldr.Date.to_string(date, locale: Gettext.get_locale())
 
     case Date.compare(date, AOFF.Time.today()) do
       :lt ->
@@ -14,7 +14,7 @@ defmodule AOFFWeb.Purchaser.DateView do
   end
 
   def date_as_string(date) do
-    {:ok, date_as_string} = AOFFWeb.Cldr.Date.to_string(date, locale: "da")
+    {:ok, date_as_string} = AOFFWeb.Cldr.Date.to_string(date, locale: Gettext.get_locale())
     date_as_string
   end
 

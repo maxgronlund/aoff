@@ -9,7 +9,8 @@ defmodule AOFF.Content.PageFixture do
     "title" => "sometitle",
     "teaser" => "some teaser",
     "tag" => "some tag",
-    "text" => "some text"
+    "text" => "some text",
+    "position" => 1
   }
 
   @update_attrs %{
@@ -20,7 +21,8 @@ defmodule AOFF.Content.PageFixture do
     "title" => "someupdatedtitle",
     "teaser" => "some updated teaser",
     "tag" => "some updated tag",
-    "text" => "some updated text"
+    "text" => "some updated text",
+    "position" => 2
   }
 
   @invalid_attrs %{
@@ -31,7 +33,8 @@ defmodule AOFF.Content.PageFixture do
     "title" => nil,
     "teaser" => nil,
     "tag" => nil,
-    "text" => nil
+    "text" => nil,
+    "position" => nil
   }
 
   def create_page_attrs(attrs \\ %{}) do

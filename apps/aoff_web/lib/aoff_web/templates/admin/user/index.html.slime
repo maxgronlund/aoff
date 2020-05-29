@@ -15,7 +15,7 @@
           = submit gettext("Search")
           | &nbsp;
           = link gettext("Show all"), to: Routes.admin_user_path(@conn, :index), class: "button button-outline"
-hr
+br/
 = for user <- @users do
   .tile
     .row

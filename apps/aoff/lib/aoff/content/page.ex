@@ -20,6 +20,7 @@ defmodule AOFF.Content.Page do
     field :tag, :string
     field :show_on_landing_page, :boolean, default: false
     field :locale, :string, default: "da"
+    field :position, :integer, default: 0
     belongs_to :category, Category
     timestamps()
   end
@@ -37,7 +38,8 @@ defmodule AOFF.Content.Page do
       :author,
       :tag,
       :show_on_landing_page,
-      :locale
+      :locale,
+      :position
     ])
     |> cast_attachments(attrs, [:image])
     |> validate_required([
@@ -46,7 +48,8 @@ defmodule AOFF.Content.Page do
       :title,
       :text,
       :author,
-      :show_on_landing_page
+      :show_on_landing_page,
+      :position
     ])
     |> unique_constraint(:title, name: :pages_category_id_title_index)
   end

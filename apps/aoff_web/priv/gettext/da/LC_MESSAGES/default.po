@@ -562,7 +562,7 @@ msgstr "Afventer"
 #, elixir-format
 #: lib/aoff_web/controllers/volunteers/news_controller.ex:88
 msgid "News deleted successfully."
-msgstr "Kontoen er slettet"
+msgstr "Nyheden er slettet"
 
 #, elixir-format
 #: lib/aoff_web/controllers/volunteers/news_controller.ex:67

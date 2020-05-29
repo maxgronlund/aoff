@@ -76,9 +76,6 @@ defmodule AOFFWeb.Volunteers.NewsControllerTest do
       conn = delete(conn, Routes.volunteer_news_path(conn, :delete, news))
       assert redirected_to(conn) == Routes.news_path(conn, :index)
 
-      assert_error_sent 404, fn ->
-        get(conn, Routes.news_path(conn, :show, news))
-      end
     end
   end
 end

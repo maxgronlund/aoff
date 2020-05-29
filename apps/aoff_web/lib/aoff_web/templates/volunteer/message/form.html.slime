@@ -5,35 +5,37 @@ javascript:
     height : 300
   });
 
+
 = form_for @changeset, @action, fn f ->
   = if @changeset.action do
     .alert.alert-danger
       p = gettext("Oops, something went wrong! Please check the errors below.")
-
-  = if @message.identifier == "System warning" do
-    .alert.alert-warning
-      h4 = gettext("This message will be shown on all pages")
-
-
-  .form-group
-    = label f, :title, gettext("Title"), class: "control-label"
-    = text_input f, :title, class: "form-control full-width"
-    = error_tag f, :title
-
-  .form-group
-    = label f, :text, gettext("Text"), class: "control-label"
-    = textarea f, :text, class: "form-control full-width"
-    = error_tag f, :text
+  .tile
+    = if @message.identifier == "System warning" do
+      .alert.alert-warning
+        h4 = gettext("This message will be shown on all pages")
 
 
-  .form-group
-    = label f, :show do
-      = checkbox f, :show, class: "form-controldth"
-      = label f, :show, gettext("Show"), class: "control-label label-inline"
+    .form-group
+      = label f, :title, gettext("Title"), class: "control-label"
+      = text_input f, :title, class: "form-control full-width"
+      = error_tag f, :title
 
-  .form-group.mt-1
-    .float-right
-      = link gettext("Cancel"),\
-        to: Routes.volunteer_message_path(@conn, :index), class: "button button-outline"
-      | &nbsp;
-      = submit gettext("Save"), class: "button"
+    .form-group
+      = label f, :text, gettext("Text"), class: "control-label"
+      = textarea f, :text, class: "form-control full-width"
+      = error_tag f, :text
+
+
+    .form-group
+      = label f, :show do
+        = checkbox f, :show, class: "form-controldth"
+        = label f, :show, gettext("Show"), class: "control-label label-inline"
+    .row
+      .column
+        .form-group.mt-1
+          .float-right
+            = link gettext("Cancel"),\
+              to: Routes.volunteer_message_path(@conn, :index), class: "button button-outline"
+            | &nbsp;
+            = submit gettext("Save"), class: "button"

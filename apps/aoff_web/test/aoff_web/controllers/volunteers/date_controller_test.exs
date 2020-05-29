@@ -35,7 +35,7 @@ defmodule AOFFWeb.Volunteer.DateControllerTest do
 
     test "new renders form", %{conn: conn} do
       conn = get(conn, Routes.volunteer_date_path(conn, :new))
-      assert html_response(conn, 200) =~ gettext("New Date")
+      assert html_response(conn, 200) =~ gettext("New opening date")
     end
 
     test "create date redirects to edit when data is valid", %{conn: conn} do
@@ -49,12 +49,12 @@ defmodule AOFFWeb.Volunteer.DateControllerTest do
 
     test "create date renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.volunteer_date_path(conn, :create), date: invalid_date_attrs())
-      assert html_response(conn, 200) =~ gettext("New Date")
+      assert html_response(conn, 200) =~ gettext("New opening date")
     end
 
     test "edit date renders form for editing chosen date", %{conn: conn, date: date} do
       conn = get(conn, Routes.volunteer_date_path(conn, :edit, date))
-      assert html_response(conn, 200) =~ gettext("Edit Opening day")
+      assert html_response(conn, 200) =~ gettext("Edit opening day")
     end
 
     test "update date redirects when data is valid", %{conn: conn, date: date} do
@@ -72,7 +72,7 @@ defmodule AOFFWeb.Volunteer.DateControllerTest do
       conn =
         put(conn, Routes.volunteer_date_path(conn, :update, date), date: invalid_date_attrs())
 
-      assert html_response(conn, 200) =~ gettext("Edit Opening day")
+      assert html_response(conn, 200) =~ gettext("Edit opening day")
     end
 
     test "delete date deletes chosen date", %{conn: conn, date: date} do

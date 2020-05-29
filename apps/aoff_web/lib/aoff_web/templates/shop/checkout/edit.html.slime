@@ -5,57 +5,59 @@
     = if @text_editor do
       | &nbsp;
       = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message, %{"request_url" => @conn.request_path})
-hr
-.row
-  .column
-    table.table
-      thead
-        tr
-          th = gettext("Product")
-          th
-            .float-right
-              = gettext("Price")
-      tbody
-        = for order_item <- @order.order_items do
+.tile
+  .row
+    .column
+      table.table
+        thead
           tr
-            td = name(order_item.product)
+            th = gettext("Product")
+            th
+              .float-right
+                = gettext("Price")
+        tbody
+          = for order_item <- @order.order_items do
+            tr
+              td = name(order_item.product)
+              td
+                .float-right
+                  = order_item.product.price
+
+          tr
+            td
+              b=gettext("Amount")
             td
               .float-right
-                = order_item.product.price
-
-        tr
-          td
-            b=gettext("Amount")
-          td
-            .float-right
-              b= @order.total
+                b= @order.total
 
 
-script charset="UTF-8" src="https://ssl.ditonlinebetalingssystem.dk/integration/ewindow/paymentwindow.js" type="text/javascript"
-javascript:
+  script charset="UTF-8" src="https://ssl.ditonlinebetalingssystem.dk/integration/ewindow/paymentwindow.js" type="text/javascript"
+  javascript:
 
 
-       paymentwindow = new PaymentWindow({
-           'merchantnumber': "#{@merchantnumber}",
-           'amount': "#{amount(@order.total)}",
-           'currency': "DKK",
-           'accepturl': "#{@endpoint}/shop/payment_accepted/#{@order.token}",
-           'cancelurl': "#{@endpoint}/shop/payment_declined/#{@order.token}",
-           'callbackurl': "#{@endpoint}/shop/payment_callback/#{@order.token}",
-           'orderid': "#{@order.order_nr}",
-           'language': "1",
-           'instantcallback': "1"
-       });
+         paymentwindow = new PaymentWindow({
+             'merchantnumber': "#{@merchantnumber}",
+             'amount': "#{amount(@order.total)}",
+             'currency': "DKK",
+             'accepturl': "#{@endpoint}/shop/payment_accepted/#{@order.token}",
+             'cancelurl': "#{@endpoint}/shop/payment_declined/#{@order.token}",
+             'callbackurl': "#{@endpoint}/shop/payment_callback/#{@order.token}",
+             'orderid': "#{@order.order_nr}",
+             'language': "1",
+             'instantcallback': "1"
+         });
 
-.row
-  .column
-
-    input type="checkbox" id="accept-payment-terms" name="vehicle1"
-    label for="accept-payment-terms" class="label-inline" id="accept-payment-terms" = gettext("I have read and accept the")
-    | &nbsp;
-    = link(gettext("payment terms and condition"), to: Routes.payment_terms_path(@conn, :show, order_id: @order.id))
-    - button_text = gettext("Go to payment")
-    input class="button-xlarge button button-full-width" id="go-to-payment" onclick="javascript: paymentwindow.open()" type="button" disabled="disabled" value="#{button_text}"
+  .row
+    .column
+      br
+      input type="checkbox" id="accept-payment-terms" name="vehicle1"
+      label for="accept-payment-terms" class="label-inline" id="accept-payment-terms" = gettext("I have read and accept the")
+      | &nbsp;
+      = link(gettext("payment terms and condition"), to: Routes.payment_terms_path(@conn, :show, order_id: @order.id))
+      br
+      br
+      - button_text = gettext("Go to payment")
+      input class="button-xlarge button button-full-width" id="go-to-payment" onclick="javascript: paymentwindow.open()" type="button" disabled="disabled" value="#{button_text}"
 
 
 

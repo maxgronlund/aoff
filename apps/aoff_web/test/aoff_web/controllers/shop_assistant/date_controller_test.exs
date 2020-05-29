@@ -29,7 +29,7 @@ defmodule AOFFWeb.ShopAssistant.DateControllerTest do
 
     test "lists all dates", %{conn: conn} do
       conn = get(conn, Routes.shop_assistant_date_path(conn, :index))
-      assert html_response(conn, 200) =~ gettext("Opening dates")
+      assert html_response(conn, 200) =~ gettext("Shop duties")
     end
 
     # test "renders new product form", %{conn: conn} do

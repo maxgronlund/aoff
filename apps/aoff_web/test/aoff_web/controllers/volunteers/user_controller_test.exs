@@ -8,7 +8,8 @@ defmodule AOFFWeb.Volunteer.UserControllerTest do
   import AOFF.Users.UserFixture
   import AOFFWeb.Gettext
 
-  describe "as a member" do
+
+  describe "as a volunteer" do
     @session Plug.Session.init(
                store: :cookie,
                key: "_app",
@@ -16,7 +17,7 @@ defmodule AOFFWeb.Volunteer.UserControllerTest do
                signing_salt: "yadayada"
              )
     setup do
-      user = user_fixture(%{"vollunteer" => true})
+      user = user_fixture(%{"volunteer" => true})
 
       conn =
         build_conn()
@@ -26,6 +27,11 @@ defmodule AOFFWeb.Volunteer.UserControllerTest do
         |> configure_session(renew: true)
 
       {:ok, conn: conn, user: user}
+    end
+
+    test "list users", %{conn: conn, user: user} do
+      conn = get(conn, Routes.volunteer_user_path(conn, :index))
+      assert html_response(conn, 200) =~ gettext("Admin Users")
     end
 
     test "renders form for editing chosen user", %{conn: conn, user: user} do

@@ -5,6 +5,7 @@ defmodule AOFF.Users.Order do
   alias AOFF.Users.User
   alias AOFF.Users
   alias AOFF.Users.OrderItem
+  alias AOFF.Shop.PickUp
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -16,6 +17,7 @@ defmodule AOFF.Users.Order do
     field :total, Money.Ecto.Amount.Type
     belongs_to :user, User
     has_many :order_items, OrderItem
+    has_many :pick_up, PickUp
 
     timestamps()
   end

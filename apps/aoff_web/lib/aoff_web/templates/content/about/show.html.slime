@@ -6,13 +6,16 @@
       | &nbsp;
       = @category.title
 
-h2 = @category.title
 
-= if @text_editor do
-  .float-right
-    = link gettext("New article"),\
-      to: Routes.volunteer_category_page_path(@conn, :new, @category),\
-      class: "button button-outline"
+.row
+  .column
+    h2 = @category.title
+  = if @text_editor do
+    .column
+      .float-right
+        = link gettext("New article"),\
+          to: Routes.volunteer_category_page_path(@conn, :new, @category),\
+          class: "button button-outline"
 
 .tile
   .row
@@ -21,14 +24,17 @@ h2 = @category.title
         = raw @category.description
 
 .tiles.button-tiles
-  = for post <- @category.pages do
+  = for page <- @category.pages do
     .card.is-shady
-      = link to: Routes.about_page_path(@conn, :show, @category, post) do
+      = link to: Routes.about_page_path(@conn, :show, @category, page) do
         .card-image
-          img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({post.image, post}, :thumb)}"
+          img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({page.image, page}, :thumb)}"
         .card-content
-          h4 = post.title
-          = text_to_html post.teaser
+          h4 = page.title
+          = if @text_editor do
+            .position
+              = gettext("Position: %{position}", position: page.position)
+          = text_to_html page.teaser
         .card-footer.is-button
           .card-footer-item.is-button
             = gettext("Show")

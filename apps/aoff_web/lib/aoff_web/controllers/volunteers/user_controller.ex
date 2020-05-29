@@ -114,7 +114,7 @@ defmodule AOFFWeb.Volunteer.UserController do
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Users.get_user!(id)
+    user = Volunteers.get_user!(id)
 
     case Volunteers.update_user(user, user_params) do
       {:ok, _user} ->
@@ -123,12 +123,18 @@ defmodule AOFFWeb.Volunteer.UserController do
         |> redirect(to: Routes.volunteer_user_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", user: user, changeset: changeset, email: user.email)
+        render(conn,
+          "edit.html",
+          user: user,
+          changeset: changeset,
+          email: user.email,
+          cancel_path: redirect_path(conn)
+        )
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    user = Users.get_user!(id)
+    user = Volunteers.get_user!(id)
     {:ok, _user} = Volunteers.delete_user(user)
 
     conn
@@ -136,43 +142,14 @@ defmodule AOFFWeb.Volunteer.UserController do
     |> redirect(to: Routes.volunteer_user_path(conn, :index))
   end
 
-  defp get_user!(conn, id) do
-    user = Users.get_user!(id)
-
-    if user do
-      authorize(conn, user)
-    else
-      conn
-      |> put_status(404)
-      |> put_view(BEWeb.ErrorView)
-      |> render(:"404")
-      |> halt()
-    end
-  end
-
   defp authenticate(conn, _opts) do
-    if conn.assigns.current_user do
+    if conn.assigns.volunteer do
       assign(conn, :selected_menu_item, :volunteer)
     else
       conn
       |> put_status(401)
       |> put_view(AOFFWeb.ErrorView)
       |> render(:"401")
-      |> halt()
-    end
-  end
-
-  defp authorize(conn, user) do
-    current_user = conn.assigns.current_user
-
-    if current_user.admin ||
-         current_user.volunteer do
-      user
-    else
-      conn
-      |> put_status(403)
-      |> put_view(AOFFWeb.ErrorView)
-      |> render(:"403")
       |> halt()
     end
   end

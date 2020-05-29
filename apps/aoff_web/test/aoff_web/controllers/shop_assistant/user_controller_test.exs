@@ -2,7 +2,7 @@ defmodule AOFFWeb.ShopAssistant.UserControllerTest do
   use AOFFWeb.ConnCase
   alias Plug.Conn
 
-  # import AOFF.Shop.DateFixture
+  import AOFF.Shop.DateFixture
   import AOFF.Users.UserFixture
   import AOFFWeb.Gettext
 
@@ -15,13 +15,14 @@ defmodule AOFFWeb.ShopAssistant.UserControllerTest do
              )
     setup do
       user = user_fixture(%{"shop_assistant" => true})
-      # date = date_fixture()
+      date = date_fixture()
 
       conn =
         build_conn()
         |> Plug.Session.call(@session)
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
+        |> put_session(:shop_assistant_date_id, date.id)
         |> configure_session(renew: true)
 
       {:ok, conn: conn, user: user}

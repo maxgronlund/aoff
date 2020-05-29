@@ -1,0 +1,48 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+    li.is-active
+      | &nbsp;
+      = gettext("Orders")
+.row
+  .column
+    h2 = gettext("Orders")
+.tile
+  = form_for @conn, Routes.volunteer_order_path(@conn, :index), [method: :get], fn f ->
+    .row
+      .column
+        = label f, "Search", class: "control-label"
+        = search_input f, :query, class: "full-width",placeholder: gettext("Order Nr. / Username / Member Nr. / email")
+        = hidden_input f, :page, value: "1"
+    .row
+      .column
+        .float-right
+          = submit gettext("Search")
+          | &nbsp;
+          = link gettext("Show all"), to: Routes.volunteer_order_path(@conn, :index), class: "button button-outline"
+
+= for order <- @orders do
+  .tile
+    .row
+      .column
+        b= order.order_nr
+        br
+        = order.user.username
+      .column
+        = raw payment_state(order)
+      .column
+        .float-right
+          = link to: Routes.volunteer_order_path(@conn, :show, order) do
+                .button.icon-button.icon-button-green
+                  i.fa.fa-eye
+          | &nbsp;
+          = link to: Routes.volunteer_order_path(@conn, :delete, order),\
+                method: :delete,\
+                data: [confirm: gettext("Are you sure?")] do
+                .button.icon-button
+                  i.fa.fa-trash.red
+.row
+  .column
+    = render "pagination.html", assigns
+

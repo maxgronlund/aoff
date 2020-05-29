@@ -9,12 +9,15 @@ defmodule AOFF.Content do
   alias AOFF.Content.News
 
   @doc """
-  Returns the list of news.
+  Returns the list of news for the selected language ordered by date.
 
   ## Examples
 
       iex> list_news()
       [%News{}, ...]
+
+      iex> latest_news()
+      []
 
   """
   def list_news do
@@ -27,7 +30,7 @@ defmodule AOFF.Content do
   end
 
   @doc """
-  Gets the latest news.
+  Gets the latest news for the selected language ordered by date.
 
   Return [] if no News exist.
 
@@ -180,7 +183,7 @@ defmodule AOFF.Content do
       from b in Category,
         where: b.title == ^title and b.locale == ^Gettext.get_locale(),
         select: b,
-        preload: [pages: ^from(p in Page, order_by: p.date)]
+        preload: [pages: ^from(p in Page, order_by: [desc: p.position])]
 
     Repo.one(query)
   end

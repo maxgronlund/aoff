@@ -56,7 +56,7 @@ defmodule AOFF.ContentTest do
     test "delete_news/1 deletes the news" do
       news = news_fixture()
       assert {:ok, %News{}} = Content.delete_news(news)
-      assert_raise Ecto.NoResultsError, fn -> Content.get_news!(news.id) end
+      assert is_nil(Content.get_news!(news.id))
     end
 
     test "change_news/1 returns a news changeset" do

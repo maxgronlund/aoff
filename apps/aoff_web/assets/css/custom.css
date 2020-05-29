@@ -146,6 +146,14 @@ input[type='submit'].button-outline:hover {
   padding: 0 2.0rem;
 }
 
+.icon-button-green {
+  background-color: #007a4b;
+  border: 0.1rem solid #007A4B;
+}
+
+.icon-button-green:hover {
+  background-color: #00613c;
+}
 
 .button-tab {
   border-radius: .0rem;
@@ -770,4 +778,15 @@ html, body {
 
 hr.double {
   border-top: 3px double #ccc;
+}
+
+.hint {
+  font-style: italic;
+  margin-top: -6px;
+}
+
+.position {
+  font-size: 0.8em;
+  margin-top: -1.6em;
+  font-style: italic;
 }

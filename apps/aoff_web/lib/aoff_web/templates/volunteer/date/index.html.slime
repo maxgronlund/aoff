@@ -48,8 +48,5 @@
         .card-footer-item.is-button
           = gettext("Edit")
 
-
-hr
-
 = render "pagination.html", assigns
 

@@ -12,60 +12,60 @@
           = @user.username
 
 h2 = @user.username
+.tile
+  .row
+    .column
+      = if @volunteer do
+        = img_tag AOFF.Uploader.Image.url({@user.avatar, @user}, :avatar)
+        br
+      = gettext("Email: %{email}", email: @user.email)
+      br/
+      = gettext("Mobile: %{mobile}", mobile: @user.mobile)
+    .column
+      strong = gettext("Member Nr: %{member_nr}", member_nr: @user.member_nr)
+      br
 
-.row
-  .column
-    = if @volunteer do
-      = img_tag AOFF.Uploader.Image.url({@user.avatar, @user}, :avatar)
+      = if @valid_member do
+        = gettext("Valid to: %{expiration_date}", expiration_date: date(@user.expiration_date ))
+      - else
+        .red
+          = gettext("Inactive")
       br
-    = gettext("Email: %{email}", email: @user.email)
-    br/
-    = gettext("Mobile: %{mobile}", mobile: @user.mobile)
-  .column
-    strong = gettext("Member Nr: %{member_nr}", member_nr: @user.member_nr)
-    br
-
-    = if @valid_member do
-      = gettext("Valid to: %{expiration_date}", expiration_date: date(@user.expiration_date ))
-    - else
-      .red
-        = gettext("Inactive")
-    br
-    = gettext("Member since %{date}", date: date(@user.registration_date))
-    hr
-    i= gettext("Roles")
-    = if @user.admin do
-      br
-      = gettext("Admin √")
-    = if @user.volunteer do
-      br
-      = gettext("Volunteer √")
-    = if @user.purchasing_manager do
-      br
-      = gettext("Purchaser √")
-    = if @user.shop_assistant do
-      br
-      = gettext("Host √")
+      = gettext("Member since %{date}", date: date(@user.registration_date))
+      hr
+      i= gettext("Roles")
+      = if @user.admin do
+        br
+        = gettext("Admin √")
+      = if @user.volunteer do
+        br
+        = gettext("Volunteer √")
+      = if @user.purchasing_manager do
+        br
+        = gettext("Purchaser √")
+      = if @user.shop_assistant do
+        br
+        = gettext("Host √")
 
 
-    = if @user.text_editor do
-      br
-      = gettext("Text editor √")
-    = if @user.manage_membership do
-      br
-      = gettext("Manage membership √")
-.row
-  .column
-    hr
-    .float-right
-      = link gettext("Edit account"), to: Routes.volunteer_user_path(@conn, :edit, @user), class: "button"
-      | &nbsp;
-      = if !@user.admin do
+      = if @user.text_editor do
+        br
+        = gettext("Text editor √")
+      = if @user.manage_membership do
+        br
+        = gettext("Manage membership √")
+  .row
+    .column
+      hr
+      .float-right
+        = link gettext("Edit account"), to: Routes.volunteer_user_path(@conn, :edit, @user), class: "button"
         | &nbsp;
-        = link gettext("Delete account"),\
-          to: Routes.volunteer_user_path(@conn, :delete, @user),\
-          method: :delete,\
-          data: [confirm: "Are you sure?"],\
-          class: "button button-red"
+        = if !@user.admin do
+          | &nbsp;
+          = link gettext("Delete account"),\
+            to: Routes.volunteer_user_path(@conn, :delete, @user),\
+            method: :delete,\
+            data: [confirm: "Are you sure?"],\
+            class: "button button-red"
 
 

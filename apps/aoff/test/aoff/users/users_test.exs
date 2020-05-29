@@ -60,8 +60,28 @@ defmodule AOFF.UsersTest do
 
     test "get_user_by_email/1 returns the user with given email" do
       user = user_fixture()
-
       assert Users.get_user_by_email(user.email).id == user.id
+    end
+
+    test "search search_users/1 with a valid member_nr" do
+      user = user_fixture()
+      member_nr = Integer.to_string(user.member_nr)
+      assert List.first(Users.search_users(member_nr)).id == user.id
+    end
+
+    test "search search_users/1 with a valid email" do
+      user = user_fixture()
+      assert List.first(Users.search_users(user.email)).id == user.id
+    end
+
+    test "search search_users/1 with a valid username" do
+      user = user_fixture()
+      assert List.first(Users.search_users(user.username)).id == user.id
+    end
+
+    test "search search_users/1 with invalid query returns an empty aray" do
+      user = user_fixture()
+      assert Users.search_users("XYZ123") == []
     end
 
     test "create_user/1 with valid data creates a user" do
@@ -134,13 +154,38 @@ defmodule AOFF.UsersTest do
       order = order_fixture(user.id)
       assert Users.get_order_by_token!(order.token).id == order.id
     end
+
+    test "search order/1 with a valid order_nr" do
+      user = user_fixture()
+      order = order_fixture(user.id)
+      order_nr = Integer.to_string(order.order_nr)
+      assert List.first(Users.search_orders(order_nr)).id == order.id
+    end
+
+    test "search order/1 with a valid username" do
+      user = user_fixture()
+      order = order_fixture(user.id)
+      assert List.first(Users.search_orders(user.username)).id == order.id
+    end
+
+    test "search order/1 with a valid email" do
+      user = user_fixture()
+      order = order_fixture(user.id)
+      assert List.first(Users.search_orders(user.email)).id == order.id
+    end
+
+    test "search order/1 invalid query returns nil" do
+      user = user_fixture()
+      order = order_fixture(user.id)
+      assert is_nil(List.first(Users.search_orders("XYZ123")))
+    end
   end
 
   describe "membership" do
 
     alias AOFF.Users.User
     setup do
-      user = user_fixture()
+      user = user_fixture(%{"expiration_date" => AOFF.Time.today()})
       {:ok, user: user}
     end
 

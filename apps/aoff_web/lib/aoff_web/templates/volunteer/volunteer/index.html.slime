@@ -69,6 +69,19 @@
   .card.is-shady
     .card-header
       .card-header-title.is-centered
+        = @orders_message.title
+    .card-content
+      p = raw @orders_message.text
+      = link gettext("Edit text"),\
+        to: Routes.volunteer_message_path(@conn, :edit, @orders_message, %{"request_url" => @conn.request_path})
+    .card-footer.is-button
+      = link gettext("Go to"),\
+        to: Routes.volunteer_order_path(@conn, :index),\
+        class: "card-footer-item is-button"
+
+  .card.is-shady
+    .card-header
+      .card-header-title.is-centered
         = @categories.title
     .card-content
       p = raw @categories.text

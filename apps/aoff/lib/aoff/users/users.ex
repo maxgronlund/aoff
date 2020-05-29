@@ -47,6 +47,7 @@ defmodule AOFF.Users do
     |> Repo.all()
   end
 
+
   @doc """
   Returns the list of users.
 
@@ -379,17 +380,71 @@ defmodule AOFF.Users do
       [%Order{}, ...]
 
   """
+
   def list_orders(user_id) do
     query =
       from o in Order,
-        where: o.user_id == ^user_id and o.state == ^"payment_accepted",
+        where:
+          o.user_id == ^user_id
+          and o.state == ^"payment_accepted"
+          and o.state != ^"deleted"
+          and o.state != "open",
         order_by: [asc: o.order_nr]
 
     Repo.all(query)
   end
 
-  def list_orders() do
-    Repo.all(Order)
+  def search_orders(query) do
+    query =
+      if is_numeric(query) do
+        from o in Order,
+        join: u in assoc(o, :user),
+        where:
+          o.order_nr == ^query
+            and o.state != ^"deleted"
+            and o.state != "open"
+          or u.member_nr == ^query
+            and o.state != ^"deleted"
+            and o.state != "open"
+      else
+        from o in Order,
+        join: u in assoc(o, :user),
+        where:
+          o.state != ^"deleted"
+            and ilike(u.username, ^"%#{query}%")
+            and o.state != "open"
+          or o.state != ^"deleted"
+            and  ilike(u.email, ^"%#{query}%")
+            and o.state != "open"
+      end
+    query
+    |> Repo.all()
+    |> Repo.preload(:user)
+  end
+
+  @orders_pr_page 32
+
+  def orders_page(page \\ 0, per_page \\ @orders_pr_page) do
+    query =
+      from o in Order,
+        where: o.state != ^"deleted" and o.state != "open",
+        limit: ^per_page,
+        offset: ^(page * per_page),
+        order_by: [desc: o.order_nr]
+
+    query
+    |> Repo.all()
+    |> Repo.preload(:user)
+  end
+
+  def order_pages(per_page \\ @orders_pr_page) do
+    query =
+      from o in Order,
+        where: o.state != ^"deleted" and o.state != "open",
+        select: count(o.id)
+
+    orders = Repo.one(query)
+    Integer.floor_div(orders, per_page)
   end
 
   @doc """
@@ -452,7 +507,9 @@ defmodule AOFF.Users do
   end
 
   def delete_order(%Order{} = order) do
-    unless order.state == "deleted" do
+    if order.state == "deleted" do
+      order
+    else
       order
       |> Order.changeset(%{
         "state" => "deleted",

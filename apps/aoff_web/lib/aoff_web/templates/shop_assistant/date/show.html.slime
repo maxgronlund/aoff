@@ -1,3 +1,4 @@
+
 .row
   .column
     .breadcrumb aria-label="breadcrumbs"
@@ -11,7 +12,7 @@
           = raw date(@date.date)
 .row
   .column
-    h2 = gettext("Shop duty: %{date}", date: @date.date)
+    h2 = raw gettext("Shop duty: %{date}", date: date(@date.date))
 .row
   .column
     = link gettext("Create order"),\

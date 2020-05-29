@@ -123,6 +123,7 @@ defmodule AOFFWeb.Router do
       only: [:index, :edit, :update]
 
     resources "/news", AOFFWeb.Volunteer.NewsController
+    resources "/orders", AOFFWeb.Volunteer.OrderController, only: [:index, :show, :delete]
 
     resources "/categories", AOFFWeb.Volunteer.CategoryController, except: [:show] do
       resources "/pages", AOFFWeb.Volunteer.PageController
