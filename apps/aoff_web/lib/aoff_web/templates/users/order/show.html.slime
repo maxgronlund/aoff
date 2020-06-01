@@ -60,7 +60,7 @@
         .float-right
           = if open?(@order.state) do
             .float-right
-              = link gettext("Delete order"),\
+              = link gettext("Empty basket"),\
                 to: Routes.user_order_path(@conn, :delete, @user, @order),\
                 method: :delete, \
                 data: [confirm: gettext("Are you sure?")], \

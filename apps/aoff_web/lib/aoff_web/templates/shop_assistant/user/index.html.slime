@@ -3,6 +3,8 @@
     .breadcrumb aria-label="breadcrumbs"
       ul
         li
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+        li
           = link date(@date.date), to: Routes.shop_assistant_date_path(@conn, :show, @date)
         li.is-active
           | &nbsp;
@@ -13,7 +15,8 @@
   .column
     h2 = gettext("Select User")
   .column
-    = link gettext("Cancel"), to: Routes.shop_assistant_date_path(@conn, :show, @date),\
+    = link gettext("Cancel"),\
+      to: Routes.shop_assistant_date_path(@conn, :show, @date),\
       class: "button button-outline float-right"
 
 .tile

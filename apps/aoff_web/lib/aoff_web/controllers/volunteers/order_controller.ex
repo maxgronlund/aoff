@@ -11,19 +11,19 @@ defmodule AOFFWeb.Volunteer.OrderController do
 
   def index(conn, params) do
     page = page(params)
-    pages = pages(params)
+    pages_count = pages_count(params)
     orders =
       if query = params["query"] do
         Users.search_orders(query)
       else
-        Users.orders_page(page, @orders_pr_page)
+        Users.list_orders(:all, page, @orders_pr_page)
       end
     conn
     |> put_session(:shop_assistant_date_id, nil)
     |> render("index.html",
       orders: orders,
       page: page,
-      pages: pages
+      pages_count: pages_count
     )
   end
 
@@ -34,10 +34,10 @@ defmodule AOFFWeb.Volunteer.OrderController do
     end
   end
 
-  defp pages(params) do
+  defp pages_count(params) do
     cond do
       params["query"] -> false
-      true -> Users.order_pages(@orders_pr_page)
+      true -> Users.order_pages_count(@orders_pr_page)
     end
   end
 
@@ -113,7 +113,7 @@ defmodule AOFFWeb.Volunteer.OrderController do
 
 
     conn
-    |> put_flash(:info, gettext("Order deleted successfully."))
+    |> put_flash(:info, gettext("Order deleted."))
     |> redirect(to: Routes.volunteer_order_path(conn, :index))
   end
 

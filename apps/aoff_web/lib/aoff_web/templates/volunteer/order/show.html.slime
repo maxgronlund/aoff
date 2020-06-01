@@ -10,7 +10,7 @@
 
 .row
   .column
-    h2 = gettext("Order Nr. %{order_nr}", order_nr: @order.order_nr)
+    h2 = gettext("Order Nr. %{nr}", nr: @order.order_nr)
   .column
     .float-right
       b = @order.user.username

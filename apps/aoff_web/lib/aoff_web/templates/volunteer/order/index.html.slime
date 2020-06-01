@@ -26,7 +26,7 @@
   .tile
     .row
       .column
-        b= order.order_nr
+        b= order_nr(order)
         br
         = order.user.username
       .column
@@ -36,6 +36,7 @@
           = link to: Routes.volunteer_order_path(@conn, :show, order) do
                 .button.icon-button.icon-button-green
                   i.fa.fa-eye
+
           | &nbsp;
           = link to: Routes.volunteer_order_path(@conn, :delete, order),\
                 method: :delete,\

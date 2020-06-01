@@ -371,6 +371,30 @@ defmodule AOFF.Users do
     end
   end
 
+  def search_orders(query) do
+    query =
+      if is_numeric(query) do
+        from o in Order,
+        join: u in assoc(o, :user),
+        where:
+          o.order_nr == ^query or u.member_nr == ^query
+      else
+        from o in Order,
+        join: u in assoc(o, :user),
+        where:
+          o.state != ^"cancled"
+            and ilike(u.username, ^"%#{query}%")
+            and o.state != "open"
+          or o.state != ^"cancled"
+            and  ilike(u.email, ^"%#{query}%")
+            and o.state != "open"
+      end
+    query
+    |> Repo.all()
+    |> Repo.preload(:user)
+  end
+
+
   @doc """
   Returns the list of orders.
 
@@ -387,47 +411,18 @@ defmodule AOFF.Users do
         where:
           o.user_id == ^user_id
           and o.state == ^"payment_accepted"
-          and o.state != ^"deleted"
-          and o.state != "open",
+          and o.state != ^"cancled",
         order_by: [asc: o.order_nr]
 
     Repo.all(query)
   end
 
-  def search_orders(query) do
-    query =
-      if is_numeric(query) do
-        from o in Order,
-        join: u in assoc(o, :user),
-        where:
-          o.order_nr == ^query
-            and o.state != ^"deleted"
-            and o.state != "open"
-          or u.member_nr == ^query
-            and o.state != ^"deleted"
-            and o.state != "open"
-      else
-        from o in Order,
-        join: u in assoc(o, :user),
-        where:
-          o.state != ^"deleted"
-            and ilike(u.username, ^"%#{query}%")
-            and o.state != "open"
-          or o.state != ^"deleted"
-            and  ilike(u.email, ^"%#{query}%")
-            and o.state != "open"
-      end
-    query
-    |> Repo.all()
-    |> Repo.preload(:user)
-  end
-
   @orders_pr_page 32
 
-  def orders_page(page \\ 0, per_page \\ @orders_pr_page) do
+  def list_orders(:all, page \\ 0, per_page \\ @orders_pr_page) do
     query =
       from o in Order,
-        where: o.state != ^"deleted" and o.state != "open",
+        where: o.state != ^"open",
         limit: ^per_page,
         offset: ^(page * per_page),
         order_by: [desc: o.order_nr]
@@ -437,10 +432,10 @@ defmodule AOFF.Users do
     |> Repo.preload(:user)
   end
 
-  def order_pages(per_page \\ @orders_pr_page) do
+  def order_pages_count(per_page \\ @orders_pr_page) do
     query =
       from o in Order,
-        where: o.state != ^"deleted" and o.state != "open",
+        where: o.state != ^"open",
         select: count(o.id)
 
     orders = Repo.one(query)
@@ -507,16 +502,18 @@ defmodule AOFF.Users do
   end
 
   def delete_order(%Order{} = order) do
-    if order.state == "deleted" do
-      order
+    if order.state == "cancled" do
+      {:ok, order}
     else
       order
       |> Order.changeset(%{
-        "state" => "deleted",
+        "state" => "cancled",
+        "on_deleted_state" => order.state,
         "payment_date" => Date.utc_today()
       })
       |> Repo.update()
     end
+
   end
 
   alias AOFF.Shop.Product

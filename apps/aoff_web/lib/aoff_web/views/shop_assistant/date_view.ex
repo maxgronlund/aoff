@@ -8,6 +8,11 @@ defmodule AOFFWeb.ShopAssistant.DateView do
 
   def date(date) do
     {:ok, date_as_string} = AOFFWeb.Cldr.Date.to_string(date, locale: Gettext.get_locale())
+    date_as_string
+  end
+
+  def formatted_date(date) do
+    {:ok, date_as_string} = AOFFWeb.Cldr.Date.to_string(date, locale: Gettext.get_locale())
 
     case Date.compare(date, AOFF.Time.today()) do
       :lt ->

@@ -20,7 +20,7 @@
   = for date <- @dates do
     = link to: Routes.shop_assistant_date_path(@conn, :show, date) do
       .tile
-        = raw date(date.date)
+        = raw formatted_date(date.date)
 hr
 
 = render "pagination.html", assigns

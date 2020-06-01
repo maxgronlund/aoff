@@ -11,13 +11,14 @@ defmodule AOFF.Users.Order do
   @foreign_key_type :binary_id
   schema "orders" do
     field :state, :string, default: "open"
+    field :on_deleted_state, :string, default: "open"
     field :order_nr, :integer
     field :token, :string
     field :payment_date, :date
     field :total, Money.Ecto.Amount.Type
     belongs_to :user, User
     has_many :order_items, OrderItem
-    has_many :pick_up, PickUp
+    has_many :pick_ups, PickUp
 
     timestamps()
   end
@@ -28,7 +29,6 @@ defmodule AOFF.Users.Order do
       attrs
       |> Map.merge(%{
         "token" => AOFF.Token.generate(),
-        "order_nr" => Users.last_order_nr() + 1,
         "total" => Money.new(0, :DKK)
       })
 
@@ -37,22 +37,28 @@ defmodule AOFF.Users.Order do
       :user_id,
       :order_nr,
       :token,
-      :total
+      :total,
+      :state,
+      :payment_date
     ])
     |> validate_required([
       :user_id,
-      :order_nr,
       :state,
       :token
     ])
     |> unique_constraint(:token)
-    |> unique_constraint(:order_nr)
   end
 
   @doc false
   def changeset(order, attrs) do
     order
-    |> cast(attrs, [:user_id, :state, :order_nr, :token, :payment_date, :total])
+    |> cast(attrs, [:user_id,
+      :state,
+      :on_deleted_state,
+      :order_nr,
+      :token,
+      :payment_date,
+      :total])
     |> validate_required([:user_id, :state, :token])
   end
 end

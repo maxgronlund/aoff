@@ -2,7 +2,7 @@ defmodule AOFF.UsersTest do
   use AOFF.DataCase
 
   alias AOFF.Users
-  alias AOFF.Users.Order
+
 
   import AOFF.Users.UserFixture
   import AOFF.Users.OrderFixture
@@ -28,7 +28,6 @@ defmodule AOFF.UsersTest do
 
     test "authenticate_by_email_and_pass/2 when email is invalid" do
       _user = user_fixture()
-      attrs = valid_attrs()
       assert {:error, :not_found} ==
         Users.authenticate_by_email_and_pass("no-one@example.com", "chunky-becon")
     end
@@ -80,7 +79,7 @@ defmodule AOFF.UsersTest do
     end
 
     test "search search_users/1 with invalid query returns an empty aray" do
-      user = user_fixture()
+      _user = user_fixture()
       assert Users.search_users("XYZ123") == []
     end
 
@@ -157,26 +156,29 @@ defmodule AOFF.UsersTest do
 
     test "search order/1 with a valid order_nr" do
       user = user_fixture()
-      order = order_fixture(user.id)
+      order = order_fixture(user.id, %{
+                "state" => "payment_accepted",
+                "order_nr" => 123456789
+              })
       order_nr = Integer.to_string(order.order_nr)
       assert List.first(Users.search_orders(order_nr)).id == order.id
     end
 
     test "search order/1 with a valid username" do
       user = user_fixture()
-      order = order_fixture(user.id)
+      order = order_fixture(user.id, %{"state" => "payment_accepted"})
       assert List.first(Users.search_orders(user.username)).id == order.id
     end
 
     test "search order/1 with a valid email" do
       user = user_fixture()
-      order = order_fixture(user.id)
+      order = order_fixture(user.id, %{"state" => "payment_accepted"})
       assert List.first(Users.search_orders(user.email)).id == order.id
     end
 
     test "search order/1 invalid query returns nil" do
       user = user_fixture()
-      order = order_fixture(user.id)
+      _order = order_fixture(user.id)
       assert is_nil(List.first(Users.search_orders("XYZ123")))
     end
   end
@@ -202,7 +204,7 @@ defmodule AOFF.UsersTest do
             "order_id" => order.id
           }
         )
-      order_item =
+      _order_item =
         order_item_fixture(
           %{
             "order_id" => order.id,

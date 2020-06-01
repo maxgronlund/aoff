@@ -493,6 +493,8 @@ defmodule AOFF.Shop do
         where: p.date_id == ^date_id,
         order_by: p.username,
         join: oi in assoc(p, :order_items),
+        join: o in assoc(oi, :order),
+        where: o.state == ^"payment_accepted",
         join: pr in assoc(oi, :product),
         where: pr.membership == ^false,
         distinct: true

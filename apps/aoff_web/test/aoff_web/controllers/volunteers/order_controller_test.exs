@@ -29,13 +29,19 @@ defmodule AOFFWeb.Volunteer.OrderControllerTest do
       {:ok, conn: conn, user: user}
     end
 
-    test "list orders", %{conn: conn, user: user} do
+    test "list orders", %{conn: conn} do
       conn = get(conn, Routes.volunteer_order_path(conn, :index))
       assert html_response(conn, 200) =~ gettext("Orders")
     end
 
     test "show order", %{conn: conn, user: user} do
-      order = order_fixture(user.id)
+      IO.inspect order =
+        order_fixture(user.id,
+          %{
+            "state" => "payment_accepted",
+            "payment_date" => AOFF.Time.today(),
+            "order_nr" => 0987654321
+          })
       conn = get(conn, Routes.volunteer_order_path(conn, :show, order))
       assert html_response(conn, 200) =~ Integer.to_string(order.order_nr)
     end

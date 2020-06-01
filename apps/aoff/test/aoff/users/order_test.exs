@@ -65,9 +65,9 @@ defmodule AOFF.Users.OrderTest do
       assert %Ecto.Changeset{} = Users.change_order(order)
     end
 
-    test "create_order/0 returns an order with an order id", %{user: user} do
-      last_order_nr = Users.last_order_nr()
-      assert order_fixture(user.id).order_nr == last_order_nr + 1
+    test "create_order/0 returns an order without an order id", %{user: user} do
+      order = order_fixture(user.id)
+      refute Map.has_key?(order, :order_id)
     end
   end
 end

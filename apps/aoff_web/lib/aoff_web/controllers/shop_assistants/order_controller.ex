@@ -12,7 +12,8 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
 
   def new(conn, %{"user_id" => user_id}) do
     order = Users.current_order(user_id)
-
+    date_id = get_session(conn, :shop_assistant_date_id)
+    date = Shop.get_date!(date_id)
     changeset = Users.change_order_item(%OrderItem{})
 
     render(
@@ -20,6 +21,7 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
       "new.html",
       user: order.user,
       order: order,
+      date: date,
       products: products(),
       dates: dates(),
       changeset: changeset

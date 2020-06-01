@@ -9,35 +9,16 @@
 
 h2 = gettext("Invoices")
 = @user.username
+.mt-1
 
-/ table.table
-/   thead
-/     tr
-/       th = gettext("Order Nr.")
-
-/       th = gettext("Amount")
-/       th
-/   tbody
-/     = for order <- @orders do
-/       = if closed?(order.state) do
-/         tr
-/           td = order.order_nr
-/           td = order.total
-/           td class="text-right"
-/             = link gettext("Show"), to: Routes.user_order_path(@conn, :show, @user, order), class: "button button-outline float-right"
-
-
-.row.mt-1
-  .column
-    = for order <- @orders do
-      = if closed?(order.state) do
-        = link  to: Routes.user_order_path(@conn, :show, @user, order) do
-          .alert.alert-box
-            h3 = "\# #{order.order_nr}"
-            .row
-              .column
-
-                = AOFF.Time.date_as_string(order.payment_date)
-              .column
-                .float-right
-                  b = order.total
+= for order <- @orders do
+  = if closed?(order.state) do
+    = link  to: Routes.user_order_path(@conn, :show, @user, order) do
+      .tile
+        h3 = "\# #{order.order_nr}"
+        .row
+          .column
+            = AOFF.Time.date_as_string(order.payment_date)
+          .column
+            .float-right
+              b = order.total
