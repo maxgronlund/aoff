@@ -3,21 +3,24 @@
     .alert.alert-danger
       p = gettext("Oops, something went wrong! Please check the errors below.")
   .tile
+    = if @user do
+      .row
+        .column
+          .form-group
+            = label f, :avatar, class: "control-label"
+            = file_input f, :avatar, class: "form-control full-width"
+            = error_tag f, :avatar
     .row
       .column
         .form-group
           = label f, :username, gettext("Username"), class: "control-label"
           = text_input f, :username, class: "form-control full-width"
           = error_tag f, :username
-        .form-group
-          = label f, :avatar, class: "control-label"
-          = file_input f, :avatar, class: "form-control full-width"
-          = error_tag f, :avatar
       .column
-        .form-group
-          = label f, :member_nr, gettext("Member Nr."), class: "control-label"
-          = number_input f, :member_nr, class: "form-control full-width"
-          = error_tag f, :member_nr
+        / .form-group
+        /   = label f, :member_nr, gettext("Member Nr."), class: "control-label"
+        /   = number_input f, :member_nr, class: "form-control full-width"
+        /   = error_tag f, :member_nr
 
         .form-group
           = label f, :expiration_date, gettext("Expiration date"), class: "control-label"
@@ -68,9 +71,13 @@
             = checkbox f, :text_editor, class: "form-control"
             = label f, :text_editor, gettext("Text editor"),class: "control-label label-inline"
 
-
-  .form-group
-    .float-right
-      = link gettext("Cancel"), to: @cancel_path, class: "button button-outline"
-      | &nbsp;
-      = submit gettext("Save"), class: "button"
+    .row.mt-1
+      .column
+        .form-group
+          .float-right
+            = link gettext("Cancel"), to: @cancel_path, class: "button button-outline"
+            | &nbsp;
+            = if @user do
+              = submit gettext("Save"), class: "button"
+            - else
+              = submit gettext("Paid"), class: "button"

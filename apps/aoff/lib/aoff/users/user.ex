@@ -213,8 +213,7 @@ defmodule AOFF.Users.User do
         attrs,
         %{
           "member_nr" => last_member_nr + 1,
-          "expiration_date" => ~D[2020-01-01],
-          "registration_date" => Date.utc_today()
+          "registration_date" => AOFF.Time.today()
         }
       )
 

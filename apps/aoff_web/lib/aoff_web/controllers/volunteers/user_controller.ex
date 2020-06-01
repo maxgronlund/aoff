@@ -42,8 +42,7 @@ defmodule AOFFWeb.Volunteer.UserController do
 
     changeset =
       Users.change_user(%User{
-        expiration_date: Date.add(AOFF.Time.today(), 365),
-        member_nr: last_member_nr + 1
+        expiration_date: Date.add(AOFF.Time.today(), 365)
       })
 
     {:ok, message} =
@@ -55,7 +54,6 @@ defmodule AOFFWeb.Volunteer.UserController do
 
     cancel_path = redirect_path(conn)
 
-
     render(
       conn,
       "new.html",
@@ -63,7 +61,7 @@ defmodule AOFFWeb.Volunteer.UserController do
       email: "",
       message: message,
       user: false,
-      cancel_path: cancel_path
+      cancel_path: cancel_path,
     )
   end
 
@@ -72,6 +70,7 @@ defmodule AOFFWeb.Volunteer.UserController do
 
     case Users.create_user(user_params) do
       {:ok, user} ->
+        IO.inspect user
         conn
         |> put_flash(
           :info,
