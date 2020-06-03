@@ -9,13 +9,18 @@ defmodule AOFFWeb.Purchaser.ProductController do
 
   def index(conn, _params) do
     products = Shop.list_products()
-    render(conn, "index.html", products: products)
+    conn
+    |> assign(:selected_menu_item, :volunteer)
+    |> assign(:title, gettext("Products"))
+    |> render("index.html", products: products)
   end
 
   def new(conn, _params) do
     changeset = Shop.change_product(%Product{})
-
-    render(conn, "new.html", changeset: changeset, amount: 0, product: false)
+    conn
+    |> assign(:selected_menu_item, :volunteer)
+    |> assign(:title, gettext("New Product"))
+    |> render("new.html", changeset: changeset, amount: 0, product: false)
   end
 
   def create(conn, %{"product" => product_params}) do
@@ -42,6 +47,7 @@ defmodule AOFFWeb.Purchaser.ProductController do
 
   def show(conn, %{"id" => id}) do
     product = Shop.get_product!(id)
+
     render(conn, "show.html", product: product)
   end
 
@@ -49,7 +55,10 @@ defmodule AOFFWeb.Purchaser.ProductController do
     product = Shop.get_product!(id)
     changeset = Shop.change_product(product)
 
-    render(conn, "edit.html", product: product, changeset: changeset, amount: price(product.price))
+    conn
+    |> assign(:selected_menu_item, :volunteer)
+    |> assign(:title, gettext("Edit Product"))
+    |> render("edit.html", product: product, changeset: changeset, amount: price(product.price))
   end
 
   def update(conn, %{"id" => id, "product" => product_params}) do
@@ -96,7 +105,7 @@ defmodule AOFFWeb.Purchaser.ProductController do
 
   defp authenticate(conn, _opts) do
     if conn.assigns.purchaser do
-      assign(conn, :selected_menu_item, :volunteer)
+      conn
     else
       conn
       |> put_status(401)

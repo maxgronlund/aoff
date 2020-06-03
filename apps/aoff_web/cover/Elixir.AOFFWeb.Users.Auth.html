@@ -103,7 +103,7 @@ td.source {
 </head>
 <body>
 <h1><code>cover/Elixir.AOFFWeb.Users.Auth.html</code></h1>
-<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/controllers/users/auth.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-05-22 at 00:50:11</p></footer>
+<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/controllers/users/auth.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-03 at 13:38:17</p></footer>
 <table>
 <tbody>
 <tr>
@@ -148,12 +148,12 @@ td.source {
 </tr>
 <tr class="hit">
 <td class="line" id="L9"><a href="#L9">9</a></td>
-<td class="hits">197</td>
+<td class="hits">218</td>
 <td class="source"><code>    user_id = get_session(conn, :user_id)</code></td>
 </tr>
 <tr class="hit">
 <td class="line" id="L10"><a href="#L10">10</a></td>
-<td class="hits">197</td>
+<td class="hits">218</td>
 <td class="source"><code>    user = user_id &amp;&amp; Users.get_user(user_id)</code></td>
 </tr>
 <tr>
@@ -173,47 +173,47 @@ td.source {
 </tr>
 <tr class="hit">
 <td class="line" id="L14"><a href="#L14">14</a></td>
-<td class="hits">197</td>
+<td class="hits">218</td>
 <td class="source"><code>    |&gt; assign(:valid_member, user &amp;&amp; valid_member?(user))</code></td>
 </tr>
 <tr class="hit">
 <td class="line" id="L15"><a href="#L15">15</a></td>
-<td class="hits">197</td>
+<td class="hits">218</td>
 <td class="source"><code>    |&gt; assign(:admin, user &amp;&amp; user.admin)</code></td>
 </tr>
 <tr class="hit">
 <td class="line" id="L16"><a href="#L16">16</a></td>
-<td class="hits">197</td>
+<td class="hits">218</td>
 <td class="source"><code>    |&gt; assign(:volunteer, user &amp;&amp; user.volunteer)</code></td>
 </tr>
 <tr class="hit">
 <td class="line" id="L17"><a href="#L17">17</a></td>
-<td class="hits">197</td>
+<td class="hits">218</td>
 <td class="source"><code>    |&gt; assign(:purchaser, user &amp;&amp; user.purchasing_manager)</code></td>
 </tr>
 <tr class="hit">
 <td class="line" id="L18"><a href="#L18">18</a></td>
-<td class="hits">197</td>
+<td class="hits">218</td>
 <td class="source"><code>    |&gt; assign(:shop_assistant, user &amp;&amp; user.shop_assistant)</code></td>
 </tr>
 <tr class="hit">
 <td class="line" id="L19"><a href="#L19">19</a></td>
-<td class="hits">197</td>
+<td class="hits">218</td>
 <td class="source"><code>    |&gt; assign(:text_editor, user &amp;&amp; user.text_editor)</code></td>
 </tr>
 <tr class="hit">
 <td class="line" id="L20"><a href="#L20">20</a></td>
-<td class="hits">197</td>
+<td class="hits">218</td>
 <td class="source"><code>    |&gt; assign(:manage_membership, user &amp;&amp; user.manage_membership)</code></td>
 </tr>
 <tr class="hit">
 <td class="line" id="L21"><a href="#L21">21</a></td>
-<td class="hits">197</td>
+<td class="hits">218</td>
 <td class="source"><code>    |&gt; assign(:current_order, user &amp;&amp; Users.current_order(user_id))</code></td>
 </tr>
 <tr class="hit">
 <td class="line" id="L22"><a href="#L22">22</a></td>
-<td class="hits">197</td>
+<td class="hits">218</td>
 <td class="source"><code>    |&gt; assign(:order_items_count, user &amp;&amp; Users.order_items_count(user_id))</code></td>
 </tr>
 <tr>
@@ -348,7 +348,7 @@ td.source {
 </tr>
 <tr class="hit">
 <td class="line" id="L49"><a href="#L49">49</a></td>
-<td class="hits">181</td>
+<td class="hits">202</td>
 <td class="source"><code>    if user.expiration_date == nil do</code></td>
 </tr>
 <tr>
@@ -363,7 +363,7 @@ td.source {
 </tr>
 <tr class="hit">
 <td class="line" id="L52"><a href="#L52">52</a></td>
-<td class="hits">181</td>
+<td class="hits">202</td>
 <td class="source"><code>      case Date.compare(user.expiration_date, Date.utc_today()) do</code></td>
 </tr>
 <tr>

@@ -103,12 +103,12 @@ td.source {
 </head>
 <body>
 <h1><code>cover/Elixir.AOFFWeb.Users.MembershipView.html</code></h1>
-<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/views/users/membership_view.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-05-22 at 00:50:12</p></footer>
+<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/views/users/membership_view.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-03 at 13:38:17</p></footer>
 <table>
 <tbody>
 <tr class="hit">
 <td class="line" id="L1"><a href="#L1">1</a></td>
-<td class="hits">4</td>
+<td class="hits">2</td>
 <td class="source"><code>defmodule AOFFWeb.Users.MembershipView do</code></td>
 </tr>
 <tr class="miss">
@@ -208,6 +208,86 @@ td.source {
 </tr>
 <tr>
 <td class="line" id="L21"><a href="#L21">21</a></td>
+<td class="hits"></td>
+<td class="source"><code></code></td>
+</tr>
+<tr>
+<td class="line" id="L22"><a href="#L22">22</a></td>
+<td class="hits"></td>
+<td class="source"><code>  def name(product) do</code></td>
+</tr>
+<tr class="hit">
+<td class="line" id="L23"><a href="#L23">23</a></td>
+<td class="hits">1</td>
+<td class="source"><code>    case Gettext.get_locale() do</code></td>
+</tr>
+<tr class="hit">
+<td class="line" id="L24"><a href="#L24">24</a></td>
+<td class="hits">1</td>
+<td class="source"><code>      "da" -&gt; product.name_da</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L25"><a href="#L25">25</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>      "en" -&gt; product.name_en</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L26"><a href="#L26">26</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>      _ -&gt; product.name_en</code></td>
+</tr>
+<tr>
+<td class="line" id="L27"><a href="#L27">27</a></td>
+<td class="hits"></td>
+<td class="source"><code>    end</code></td>
+</tr>
+<tr>
+<td class="line" id="L28"><a href="#L28">28</a></td>
+<td class="hits"></td>
+<td class="source"><code>  end</code></td>
+</tr>
+<tr>
+<td class="line" id="L29"><a href="#L29">29</a></td>
+<td class="hits"></td>
+<td class="source"><code></code></td>
+</tr>
+<tr>
+<td class="line" id="L30"><a href="#L30">30</a></td>
+<td class="hits"></td>
+<td class="source"><code>  def description(product) do</code></td>
+</tr>
+<tr class="hit">
+<td class="line" id="L31"><a href="#L31">31</a></td>
+<td class="hits">1</td>
+<td class="source"><code>    case Gettext.get_locale() do</code></td>
+</tr>
+<tr class="hit">
+<td class="line" id="L32"><a href="#L32">32</a></td>
+<td class="hits">1</td>
+<td class="source"><code>      "da" -&gt; product.description_da</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L33"><a href="#L33">33</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>      "en" -&gt; product.description_en</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L34"><a href="#L34">34</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>      _ -&gt; product.description_en</code></td>
+</tr>
+<tr>
+<td class="line" id="L35"><a href="#L35">35</a></td>
+<td class="hits"></td>
+<td class="source"><code>    end</code></td>
+</tr>
+<tr>
+<td class="line" id="L36"><a href="#L36">36</a></td>
+<td class="hits"></td>
+<td class="source"><code>  end</code></td>
+</tr>
+<tr>
+<td class="line" id="L37"><a href="#L37">37</a></td>
 <td class="hits"></td>
 <td class="source"><code>end</code></td>
 </tr>

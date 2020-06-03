@@ -4,9 +4,10 @@ defmodule AOFFWeb.Content.AboutController do
   alias AOFF.System
   alias AOFF.Content
 
+  plug :navbar when action in [:index, :show]
+
   def index(conn, _params) do
     categories = Content.list_categories()
-    conn = assign(conn, :selected_menu_item, :about_aoff)
 
     {:ok, message} =
       System.find_or_create_message(
@@ -37,7 +38,15 @@ defmodule AOFFWeb.Content.AboutController do
         |> redirect(to: Routes.about_path(conn, :index))
 
       category ->
-        render(conn, "show.html", category: category)
+        conn
+        |> assign(:title, category.title)
+        |> render("show.html", category: category)
     end
+  end
+
+  defp navbar(conn, _opts) do
+    conn
+    |> assign(:selected_menu_item, :volunteer)
+    |> assign(:title, gettext("About AOFF"))
   end
 end

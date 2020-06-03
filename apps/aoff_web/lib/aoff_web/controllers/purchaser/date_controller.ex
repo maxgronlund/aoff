@@ -18,8 +18,10 @@ defmodule AOFFWeb.Purchaser.DateController do
     dates = Shop.list_all_dates(Date.utc_today(), page, @dates_pr_page)
     date = Shop.get_next_date(AOFF.Time.today())
 
-    render(
-      conn,
+    conn
+    |> assign(:selected_menu_item, :volunteer)
+    |> assign(:title, gettext("Shoppinglists"))
+    |> render(
       "index.html",
       dates: dates,
       date: date,
@@ -32,12 +34,11 @@ defmodule AOFFWeb.Purchaser.DateController do
     date = Shop.get_date!(id)
     products = Shop.paid_orders_list(date.id)
 
-    render(conn, "show.html", date: date, products: products)
+    conn
+    |> assign(:selected_menu_item, :volunteer)
+    |> assign(:title, gettext("Shoppinglist"))
+    |> render("show.html", date: date, products: products)
   end
-
-  # defp shop_assistans() do
-  #   Enum.map(Users.list_shop_assistans(), fn u -> {u.username, u.id} end)
-  # end
 
   defp authenticate(conn, _opts) do
     if conn.assigns.purchaser do

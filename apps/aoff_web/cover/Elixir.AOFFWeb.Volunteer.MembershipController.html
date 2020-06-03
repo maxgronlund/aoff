@@ -103,17 +103,17 @@ td.source {
 </head>
 <body>
 <h1><code>cover/Elixir.AOFFWeb.Volunteer.MembershipController.html</code></h1>
-<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/controllers/volunteers/membership_controller.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-05-22 at 00:50:12</p></footer>
+<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/controllers/volunteers/membership_controller.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-03 at 13:38:17</p></footer>
 <table>
 <tbody>
-<tr class="miss">
+<tr class="hit">
 <td class="line" id="L1"><a href="#L1">1</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="hits">2</td>
 <td class="source"><code>defmodule AOFFWeb.Volunteer.MembershipController do</code></td>
 </tr>
-<tr class="miss">
+<tr class="hit">
 <td class="line" id="L2"><a href="#L2">2</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="hits">3</td>
 <td class="source"><code>  use AOFFWeb, :controller</code></td>
 </tr>
 <tr>
@@ -151,14 +151,14 @@ td.source {
 <td class="hits"></td>
 <td class="source"><code>  def index(conn, _params) do</code></td>
 </tr>
-<tr class="miss">
+<tr class="hit">
 <td class="line" id="L10"><a href="#L10">10</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="hits">1</td>
 <td class="source"><code>    memberships = Shop.list_memberships()</code></td>
 </tr>
-<tr class="miss">
+<tr class="hit">
 <td class="line" id="L11"><a href="#L11">11</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="hits">1</td>
 <td class="source"><code>    render(conn, "index.html", memberships: memberships)</code></td>
 </tr>
 <tr>
@@ -176,15 +176,15 @@ td.source {
 <td class="hits"></td>
 <td class="source"><code>  defp authenticate(conn, _opts) do</code></td>
 </tr>
-<tr class="miss">
+<tr class="hit">
 <td class="line" id="L15"><a href="#L15">15</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="hits">1</td>
 <td class="source"><code>    if conn.assigns.volunteer do</code></td>
 </tr>
-<tr class="miss">
+<tr class="hit">
 <td class="line" id="L16"><a href="#L16">16</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>      assign(conn, :page, :volunteer)</code></td>
+<td class="hits">1</td>
+<td class="source"><code>      assign(conn, :selected_menu_item, :volunteer)</code></td>
 </tr>
 <tr>
 <td class="line" id="L17"><a href="#L17">17</a></td>

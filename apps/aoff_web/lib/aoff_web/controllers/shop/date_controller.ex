@@ -4,8 +4,9 @@ defmodule AOFFWeb.Shop.DateController do
   alias AOFF.Shop
   alias AOFF.System
 
+  plug :navbar when action in [:show]
+
   def show(conn, %{"id" => id}) do
-    conn = assign(conn, :selected_menu_item, :shop)
     date = Shop.get_date!(id)
     products = Shop.list_products(:for_sale)
 
@@ -47,6 +48,12 @@ defmodule AOFFWeb.Shop.DateController do
       :gt -> true
       _ -> false
     end
+  end
+
+  defp navbar(conn, _opts) do
+    conn
+    |> assign(:selected_menu_item, :volunteer)
+    |> assign(:title, gettext("Shop"))
   end
 
   # def index(conn, _params) do

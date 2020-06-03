@@ -103,7 +103,7 @@ td.source {
 </head>
 <body>
 <h1><code>cover/Elixir.AOFFWeb.Committees.CommitteeView.html</code></h1>
-<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/views/committee/committee_view.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-05-22 at 00:50:11</p></footer>
+<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/views/committee/committee_view.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-03 at 13:38:17</p></footer>
 <table>
 <tbody>
 <tr class="hit">
@@ -126,14 +126,14 @@ td.source {
 <td class="hits"></td>
 <td class="source"><code>  def date(date) do</code></td>
 </tr>
-<tr class="miss">
+<tr class="hit">
 <td class="line" id="L5"><a href="#L5">5</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>    {:ok, date} = AOFFWeb.Cldr.Date.to_string(date, locale: "da")</code></td>
+<td class="hits">1</td>
+<td class="source"><code>    {:ok, date} = AOFFWeb.Cldr.Date.to_string(date, locale: Gettext.get_locale())</code></td>
 </tr>
-<tr class="miss">
+<tr class="hit">
 <td class="line" id="L6"><a href="#L6">6</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="hits">1</td>
 <td class="source"><code>    date</code></td>
 </tr>
 <tr>
@@ -153,12 +153,12 @@ td.source {
 </tr>
 <tr class="hit">
 <td class="line" id="L10"><a href="#L10">10</a></td>
-<td class="hits">9</td>
+<td class="hits">11</td>
 <td class="source"><code>    if current_user do</code></td>
 </tr>
 <tr class="hit">
 <td class="line" id="L11"><a href="#L11">11</a></td>
-<td class="hits">9</td>
+<td class="hits">11</td>
 <td class="source"><code>      Enum.find(committee.members, fn x -&gt; x.user_id == current_user.id end)</code></td>
 </tr>
 <tr>

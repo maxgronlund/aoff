@@ -103,7 +103,7 @@ td.source {
 </head>
 <body>
 <h1><code>cover/Elixir.AOFFWeb.Users.OrderItemController.html</code></h1>
-<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/controllers/users/order_item_controller.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-05-22 at 00:50:12</p></footer>
+<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/controllers/users/order_item_controller.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-03 at 13:38:17</p></footer>
 <table>
 <tbody>
 <tr class="miss">
@@ -211,178 +211,183 @@ td.source {
 <td class="hits"></td>
 <td class="source"><code></code></td>
 </tr>
-<tr class="miss">
+<tr>
 <td class="line" id="L22"><a href="#L22">22</a></td>
+<td class="hits"></td>
+<td class="source"><code>    # TODO: add count to order item</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L23"><a href="#L23">23</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>    order_item_params =</code></td>
 </tr>
 <tr>
-<td class="line" id="L23"><a href="#L23">23</a></td>
+<td class="line" id="L24"><a href="#L24">24</a></td>
 <td class="hits"></td>
 <td class="source"><code>      params</code></td>
 </tr>
 <tr>
-<td class="line" id="L24"><a href="#L24">24</a></td>
+<td class="line" id="L25"><a href="#L25">25</a></td>
 <td class="hits"></td>
 <td class="source"><code>      |&gt; Map.merge(%{</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L25"><a href="#L25">25</a></td>
+<td class="line" id="L26"><a href="#L26">26</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>        "price" =&gt; product.price,</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L26"><a href="#L26">26</a></td>
+<td class="line" id="L27"><a href="#L27">27</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>        "order_id" =&gt; order.id</code></td>
 </tr>
 <tr>
-<td class="line" id="L27"><a href="#L27">27</a></td>
+<td class="line" id="L28"><a href="#L28">28</a></td>
 <td class="hits"></td>
 <td class="source"><code>      })</code></td>
 </tr>
 <tr>
-<td class="line" id="L28"><a href="#L28">28</a></td>
+<td class="line" id="L29"><a href="#L29">29</a></td>
 <td class="hits"></td>
 <td class="source"><code></code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L29"><a href="#L29">29</a></td>
+<td class="line" id="L30"><a href="#L30">30</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>    result = Users.add_order_item_to_basket(pick_up_params, order_item_params)</code></td>
 </tr>
 <tr>
-<td class="line" id="L30"><a href="#L30">30</a></td>
+<td class="line" id="L31"><a href="#L31">31</a></td>
 <td class="hits"></td>
 <td class="source"><code></code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L31"><a href="#L31">31</a></td>
+<td class="line" id="L32"><a href="#L32">32</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>    case result do</code></td>
 </tr>
 <tr>
-<td class="line" id="L32"><a href="#L32">32</a></td>
+<td class="line" id="L33"><a href="#L33">33</a></td>
 <td class="hits"></td>
 <td class="source"><code>      {:ok, %OrderItem{} = _order_item} -&gt;</code></td>
 </tr>
 <tr>
-<td class="line" id="L33"><a href="#L33">33</a></td>
-<td class="hits"></td>
-<td class="source"><code>        conn</code></td>
-</tr>
-<tr>
 <td class="line" id="L34"><a href="#L34">34</a></td>
 <td class="hits"></td>
-<td class="source"><code>        |&gt; put_flash(</code></td>
+<td class="source"><code>        conn</code></td>
 </tr>
 <tr>
 <td class="line" id="L35"><a href="#L35">35</a></td>
 <td class="hits"></td>
+<td class="source"><code>        |&gt; put_flash(</code></td>
+</tr>
+<tr>
+<td class="line" id="L36"><a href="#L36">36</a></td>
+<td class="hits"></td>
 <td class="source"><code>          :info,</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L36"><a href="#L36">36</a></td>
+<td class="line" id="L37"><a href="#L37">37</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>          gettext("%{name} is added to your basket.", name: params["product_name"])</code></td>
 </tr>
 <tr>
-<td class="line" id="L37"><a href="#L37">37</a></td>
+<td class="line" id="L38"><a href="#L38">38</a></td>
 <td class="hits"></td>
 <td class="source"><code>        )</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L38"><a href="#L38">38</a></td>
+<td class="line" id="L39"><a href="#L39">39</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>        |&gt; redirect(to: Routes.shop_date_path(conn, :show, params["date_id"]))</code></td>
-</tr>
-<tr>
-<td class="line" id="L39"><a href="#L39">39</a></td>
-<td class="hits"></td>
-<td class="source"><code></code></td>
 </tr>
 <tr>
 <td class="line" id="L40"><a href="#L40">40</a></td>
 <td class="hits"></td>
-<td class="source"><code>      {:error, _reason} -&gt;</code></td>
+<td class="source"><code></code></td>
 </tr>
 <tr>
 <td class="line" id="L41"><a href="#L41">41</a></td>
 <td class="hits"></td>
-<td class="source"><code>        conn</code></td>
+<td class="source"><code>      {:error, _reason} -&gt;</code></td>
 </tr>
-<tr class="miss">
+<tr>
 <td class="line" id="L42"><a href="#L42">42</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>        |&gt; put_flash(:error, gettext("Sorry an error occured"))</code></td>
+<td class="hits"></td>
+<td class="source"><code>        conn</code></td>
 </tr>
 <tr class="miss">
 <td class="line" id="L43"><a href="#L43">43</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>        |&gt; redirect(to: Routes.shop_date_path(conn, :show, params["date_id"]))</code></td>
+<td class="source"><code>        |&gt; put_flash(:error, gettext("Sorry an error occured"))</code></td>
 </tr>
-<tr>
+<tr class="miss">
 <td class="line" id="L44"><a href="#L44">44</a></td>
-<td class="hits"></td>
-<td class="source"><code>    end</code></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>        |&gt; redirect(to: Routes.shop_date_path(conn, :show, params["date_id"]))</code></td>
 </tr>
 <tr>
 <td class="line" id="L45"><a href="#L45">45</a></td>
 <td class="hits"></td>
-<td class="source"><code>  end</code></td>
+<td class="source"><code>    end</code></td>
 </tr>
 <tr>
 <td class="line" id="L46"><a href="#L46">46</a></td>
 <td class="hits"></td>
-<td class="source"><code></code></td>
+<td class="source"><code>  end</code></td>
 </tr>
 <tr>
 <td class="line" id="L47"><a href="#L47">47</a></td>
 <td class="hits"></td>
-<td class="source"><code>  def delete(conn, %{"id" =&gt; id}) do</code></td>
+<td class="source"><code></code></td>
 </tr>
-<tr class="miss">
+<tr>
 <td class="line" id="L48"><a href="#L48">48</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>    order_item = Users.get_order_item!(id)</code></td>
+<td class="hits"></td>
+<td class="source"><code>  def delete(conn, %{"id" =&gt; id}) do</code></td>
 </tr>
 <tr class="miss">
 <td class="line" id="L49"><a href="#L49">49</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>    order = order_item.order</code></td>
+<td class="source"><code>    order_item = Users.get_order_item!(id)</code></td>
 </tr>
 <tr class="miss">
 <td class="line" id="L50"><a href="#L50">50</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>    {:ok, _order_item} = Users.delete_order_item(order_item)</code></td>
+<td class="source"><code>    order = order_item.order</code></td>
 </tr>
-<tr>
+<tr class="miss">
 <td class="line" id="L51"><a href="#L51">51</a></td>
-<td class="hits"></td>
-<td class="source"><code></code></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>    {:ok, _order_item} = Users.delete_order_item(order_item)</code></td>
 </tr>
 <tr>
 <td class="line" id="L52"><a href="#L52">52</a></td>
 <td class="hits"></td>
-<td class="source"><code>    conn</code></td>
+<td class="source"><code></code></td>
 </tr>
-<tr class="miss">
+<tr>
 <td class="line" id="L53"><a href="#L53">53</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>    |&gt; put_flash(:info, gettext("Order item deleted successfully."))</code></td>
+<td class="hits"></td>
+<td class="source"><code>    conn</code></td>
 </tr>
 <tr class="miss">
 <td class="line" id="L54"><a href="#L54">54</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>    |&gt; put_flash(:info, gettext("Order item deleted successfully."))</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L55"><a href="#L55">55</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>    |&gt; redirect(to: Routes.user_order_path(conn, :show, order.user, order))</code></td>
 </tr>
 <tr>
-<td class="line" id="L55"><a href="#L55">55</a></td>
+<td class="line" id="L56"><a href="#L56">56</a></td>
 <td class="hits"></td>
 <td class="source"><code>  end</code></td>
 </tr>
 <tr>
-<td class="line" id="L56"><a href="#L56">56</a></td>
+<td class="line" id="L57"><a href="#L57">57</a></td>
 <td class="hits"></td>
 <td class="source"><code>end</code></td>
 </tr>

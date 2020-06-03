@@ -103,7 +103,7 @@ td.source {
 </head>
 <body>
 <h1><code>cover/Elixir.AOFFWeb.Shop.DateView.html</code></h1>
-<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/views/shop/date_view.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-05-22 at 00:50:12</p></footer>
+<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/views/shop/date_view.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-03 at 13:38:17</p></footer>
 <table>
 <tbody>
 <tr class="hit">
@@ -229,7 +229,7 @@ td.source {
 <tr class="hit">
 <td class="line" id="L25"><a href="#L25">25</a></td>
 <td class="hits">2</td>
-<td class="source"><code>    {:ok, date} = AOFFWeb.Cldr.Date.to_string(date, locale: "da")</code></td>
+<td class="source"><code>    {:ok, date} = AOFFWeb.Cldr.Date.to_string(date, locale: Gettext.get_locale())</code></td>
 </tr>
 <tr class="hit">
 <td class="line" id="L26"><a href="#L26">26</a></td>
@@ -284,7 +284,7 @@ td.source {
 <tr>
 <td class="line" id="L36"><a href="#L36">36</a></td>
 <td class="hits"></td>
-<td class="source"><code>  def host_message() do</code></td>
+<td class="source"><code>  def closed_for_orders_message() do</code></td>
 </tr>
 <tr class="miss">
 <td class="line" id="L37"><a href="#L37">37</a></td>
@@ -299,12 +299,12 @@ td.source {
 <tr>
 <td class="line" id="L39"><a href="#L39">39</a></td>
 <td class="hits"></td>
-<td class="source"><code>        "/shop/dates/:id - host",</code></td>
+<td class="source"><code>        "/shop/dates/:id - closed for orders",</code></td>
 </tr>
 <tr>
 <td class="line" id="L40"><a href="#L40">40</a></td>
 <td class="hits"></td>
-<td class="source"><code>        "For hosts",</code></td>
+<td class="source"><code>        "Closed for orders",</code></td>
 </tr>
 <tr>
 <td class="line" id="L41"><a href="#L41">41</a></td>
@@ -339,230 +339,120 @@ td.source {
 <tr>
 <td class="line" id="L47"><a href="#L47">47</a></td>
 <td class="hits"></td>
-<td class="source"><code>  def purchaser_message() do</code></td>
+<td class="source"><code>  def name(product) do</code></td>
 </tr>
 <tr class="miss">
 <td class="line" id="L48"><a href="#L48">48</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>    {:ok, message} =</code></td>
+<td class="source"><code>    case Gettext.get_locale() do</code></td>
 </tr>
-<tr>
+<tr class="miss">
 <td class="line" id="L49"><a href="#L49">49</a></td>
-<td class="hits"></td>
-<td class="source"><code>      System.find_or_create_message(</code></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>      "da" -&gt; product.name_da</code></td>
 </tr>
-<tr>
+<tr class="miss">
 <td class="line" id="L50"><a href="#L50">50</a></td>
-<td class="hits"></td>
-<td class="source"><code>        "/shop/dates/:id - purchaser",</code></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>      "en" -&gt; product.name_en</code></td>
 </tr>
-<tr>
+<tr class="miss">
 <td class="line" id="L51"><a href="#L51">51</a></td>
-<td class="hits"></td>
-<td class="source"><code>        "For purchasers",</code></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>      _ -&gt; product.name_en</code></td>
 </tr>
 <tr>
 <td class="line" id="L52"><a href="#L52">52</a></td>
 <td class="hits"></td>
-<td class="source"><code>        Gettext.get_locale()</code></td>
+<td class="source"><code>    end</code></td>
 </tr>
 <tr>
 <td class="line" id="L53"><a href="#L53">53</a></td>
 <td class="hits"></td>
-<td class="source"><code>      )</code></td>
+<td class="source"><code>  end</code></td>
 </tr>
 <tr>
 <td class="line" id="L54"><a href="#L54">54</a></td>
 <td class="hits"></td>
 <td class="source"><code></code></td>
 </tr>
-<tr class="miss">
+<tr>
 <td class="line" id="L55"><a href="#L55">55</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>    message</code></td>
-</tr>
-<tr>
-<td class="line" id="L56"><a href="#L56">56</a></td>
-<td class="hits"></td>
-<td class="source"><code>  end</code></td>
-</tr>
-<tr>
-<td class="line" id="L57"><a href="#L57">57</a></td>
-<td class="hits"></td>
-<td class="source"><code></code></td>
-</tr>
-<tr>
-<td class="line" id="L58"><a href="#L58">58</a></td>
-<td class="hits"></td>
-<td class="source"><code>  def closed_for_orders_message() do</code></td>
-</tr>
-<tr class="miss">
-<td class="line" id="L59"><a href="#L59">59</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>    {:ok, message} =</code></td>
-</tr>
-<tr>
-<td class="line" id="L60"><a href="#L60">60</a></td>
-<td class="hits"></td>
-<td class="source"><code>      System.find_or_create_message(</code></td>
-</tr>
-<tr>
-<td class="line" id="L61"><a href="#L61">61</a></td>
-<td class="hits"></td>
-<td class="source"><code>        "/shop/dates/:id - closed for orders",</code></td>
-</tr>
-<tr>
-<td class="line" id="L62"><a href="#L62">62</a></td>
-<td class="hits"></td>
-<td class="source"><code>        "Closed for orders",</code></td>
-</tr>
-<tr>
-<td class="line" id="L63"><a href="#L63">63</a></td>
-<td class="hits"></td>
-<td class="source"><code>        Gettext.get_locale()</code></td>
-</tr>
-<tr>
-<td class="line" id="L64"><a href="#L64">64</a></td>
-<td class="hits"></td>
-<td class="source"><code>      )</code></td>
-</tr>
-<tr>
-<td class="line" id="L65"><a href="#L65">65</a></td>
-<td class="hits"></td>
-<td class="source"><code></code></td>
-</tr>
-<tr class="miss">
-<td class="line" id="L66"><a href="#L66">66</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>    message</code></td>
-</tr>
-<tr>
-<td class="line" id="L67"><a href="#L67">67</a></td>
-<td class="hits"></td>
-<td class="source"><code>  end</code></td>
-</tr>
-<tr>
-<td class="line" id="L68"><a href="#L68">68</a></td>
-<td class="hits"></td>
-<td class="source"><code></code></td>
-</tr>
-<tr>
-<td class="line" id="L69"><a href="#L69">69</a></td>
-<td class="hits"></td>
-<td class="source"><code>  def name(product) do</code></td>
-</tr>
-<tr class="miss">
-<td class="line" id="L70"><a href="#L70">70</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>    case Gettext.get_locale() do</code></td>
-</tr>
-<tr class="miss">
-<td class="line" id="L71"><a href="#L71">71</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>      "da" -&gt; product.name_da</code></td>
-</tr>
-<tr class="miss">
-<td class="line" id="L72"><a href="#L72">72</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>      "en" -&gt; product.name_en</code></td>
-</tr>
-<tr class="miss">
-<td class="line" id="L73"><a href="#L73">73</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>      _ -&gt; product.name_en</code></td>
-</tr>
-<tr>
-<td class="line" id="L74"><a href="#L74">74</a></td>
-<td class="hits"></td>
-<td class="source"><code>    end</code></td>
-</tr>
-<tr>
-<td class="line" id="L75"><a href="#L75">75</a></td>
-<td class="hits"></td>
-<td class="source"><code>  end</code></td>
-</tr>
-<tr>
-<td class="line" id="L76"><a href="#L76">76</a></td>
-<td class="hits"></td>
-<td class="source"><code></code></td>
-</tr>
-<tr>
-<td class="line" id="L77"><a href="#L77">77</a></td>
 <td class="hits"></td>
 <td class="source"><code>  def description(product) do</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L78"><a href="#L78">78</a></td>
+<td class="line" id="L56"><a href="#L56">56</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>    case Gettext.get_locale() do</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L79"><a href="#L79">79</a></td>
+<td class="line" id="L57"><a href="#L57">57</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>      "da" -&gt; product.description_da</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L80"><a href="#L80">80</a></td>
+<td class="line" id="L58"><a href="#L58">58</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>      "en" -&gt; product.description_en</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L81"><a href="#L81">81</a></td>
+<td class="line" id="L59"><a href="#L59">59</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>      _ -&gt; product.description_en</code></td>
 </tr>
 <tr>
-<td class="line" id="L82"><a href="#L82">82</a></td>
+<td class="line" id="L60"><a href="#L60">60</a></td>
 <td class="hits"></td>
 <td class="source"><code>    end</code></td>
 </tr>
 <tr>
-<td class="line" id="L83"><a href="#L83">83</a></td>
+<td class="line" id="L61"><a href="#L61">61</a></td>
 <td class="hits"></td>
 <td class="source"><code>  end</code></td>
 </tr>
 <tr>
-<td class="line" id="L84"><a href="#L84">84</a></td>
+<td class="line" id="L62"><a href="#L62">62</a></td>
 <td class="hits"></td>
 <td class="source"><code></code></td>
 </tr>
 <tr>
-<td class="line" id="L85"><a href="#L85">85</a></td>
+<td class="line" id="L63"><a href="#L63">63</a></td>
 <td class="hits"></td>
 <td class="source"><code>  def this_weeks_content(product) do</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L86"><a href="#L86">86</a></td>
+<td class="line" id="L64"><a href="#L64">64</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>    case Gettext.get_locale() do</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L87"><a href="#L87">87</a></td>
+<td class="line" id="L65"><a href="#L65">65</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>      "da" -&gt; product.this_weeks_content_da</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L88"><a href="#L88">88</a></td>
+<td class="line" id="L66"><a href="#L66">66</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>      "en" -&gt; product.this_weeks_content_en</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L89"><a href="#L89">89</a></td>
+<td class="line" id="L67"><a href="#L67">67</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>      _ -&gt; product.this_weeks_content_en</code></td>
 </tr>
 <tr>
-<td class="line" id="L90"><a href="#L90">90</a></td>
+<td class="line" id="L68"><a href="#L68">68</a></td>
 <td class="hits"></td>
 <td class="source"><code>    end</code></td>
 </tr>
 <tr>
-<td class="line" id="L91"><a href="#L91">91</a></td>
+<td class="line" id="L69"><a href="#L69">69</a></td>
 <td class="hits"></td>
 <td class="source"><code>  end</code></td>
 </tr>
 <tr>
-<td class="line" id="L92"><a href="#L92">92</a></td>
+<td class="line" id="L70"><a href="#L70">70</a></td>
 <td class="hits"></td>
 <td class="source"><code>end</code></td>
 </tr>

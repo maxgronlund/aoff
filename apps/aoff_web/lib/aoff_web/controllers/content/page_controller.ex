@@ -11,7 +11,11 @@ defmodule AOFFWeb.Content.PageController do
         |> redirect(to: Routes.about_path(conn, :index))
 
       page ->
-        render(conn, "show.html", category: page.category, page: page)
+        conn
+        |> assign(:selected_menu_item, :about_aoff)
+        |> assign(:title, page.title)
+        |> render("show.html", category: page.category, page: page)
     end
   end
+
 end

@@ -7,13 +7,13 @@ defmodule AOFFWeb.UserController do
   alias AOFF.System
   plug Auth
   plug :authenticate when action in [:index, :show, :edit, :update, :delete]
-  plug :navbar when action in [:new, :show, :edit]
+  plug :navbar when action in [:new, :edit]
 
-  def index(conn, _params) do
-    authorize(conn, conn.assigns.current_user)
-    users = Users.list_users()
-    render(conn, "index.html", users: users)
-  end
+  # def index(conn, _params) do
+  #   authorize(conn, conn.assigns.current_user)
+  #   users = Users.list_users()
+  #   render(conn, "index.html", users: users)
+  # end
 
   def new(conn, _params) do
     last_member_nr = Users.last_member_nr() || 0
@@ -71,8 +71,11 @@ defmodule AOFFWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    conn = assign(conn, :selected_menu_item, :user)
     user = get_user!(conn, id)
+    conn =
+      conn
+      |> assign(:selected_menu_item, :user)
+      |> assign(:title, user.username)
     host_dates = Users.host_dates(Date.utc_today(), user.id)
 
     {:ok, message} =
@@ -87,6 +90,10 @@ defmodule AOFFWeb.UserController do
 
   def edit(conn, %{"id" => id}) do
     user = get_user!(conn, id)
+    conn =
+      conn
+      |> assign(:selected_menu_item, :user)
+      |> assign(:title, gettext("Edit account"))
     changeset = Users.change_user(user)
 
     render(
@@ -172,7 +179,8 @@ defmodule AOFFWeb.UserController do
   end
 
   defp navbar(conn, _opts) do
-    assign(conn, :selected_menu_item, :user)
+    conn
+    |> assign(:selected_menu_item, :user)
   end
 
   defp avatar_format() do

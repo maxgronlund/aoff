@@ -103,7 +103,7 @@ td.source {
 </head>
 <body>
 <h1><code>cover/Elixir.AOFFWeb.Volunteer.CategoryController.html</code></h1>
-<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/controllers/volunteers/category_controller.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-05-22 at 00:50:11</p></footer>
+<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/controllers/volunteers/category_controller.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-03 at 13:38:17</p></footer>
 <table>
 <tbody>
 <tr class="hit">
@@ -731,73 +731,83 @@ td.source {
 <td class="hits"></td>
 <td class="source"><code>  defp navbar(conn, _opts) do</code></td>
 </tr>
-<tr class="hit">
+<tr>
 <td class="line" id="L126"><a href="#L126">126</a></td>
-<td class="hits">4</td>
-<td class="source"><code>    assign(conn, :page, :volunteer)</code></td>
+<td class="hits"></td>
+<td class="source"><code>    conn</code></td>
 </tr>
 <tr>
 <td class="line" id="L127"><a href="#L127">127</a></td>
 <td class="hits"></td>
-<td class="source"><code>  end</code></td>
+<td class="source"><code>    |&gt; assign(:selected_menu_item, :volunteer)</code></td>
 </tr>
-<tr>
+<tr class="hit">
 <td class="line" id="L128"><a href="#L128">128</a></td>
-<td class="hits"></td>
-<td class="source"><code></code></td>
+<td class="hits">4</td>
+<td class="source"><code>    |&gt; assign(:title, gettext("Volunteer"))</code></td>
 </tr>
 <tr>
 <td class="line" id="L129"><a href="#L129">129</a></td>
 <td class="hits"></td>
-<td class="source"><code>  defp image_format() do</code></td>
+<td class="source"><code>  end</code></td>
 </tr>
-<tr class="hit">
+<tr>
 <td class="line" id="L130"><a href="#L130">130</a></td>
-<td class="hits">2</td>
-<td class="source"><code>    {:ok, message} =</code></td>
+<td class="hits"></td>
+<td class="source"><code></code></td>
 </tr>
 <tr>
 <td class="line" id="L131"><a href="#L131">131</a></td>
 <td class="hits"></td>
-<td class="source"><code>      System.find_or_create_message(</code></td>
+<td class="source"><code>  defp image_format() do</code></td>
 </tr>
-<tr>
+<tr class="hit">
 <td class="line" id="L132"><a href="#L132">132</a></td>
-<td class="hits"></td>
-<td class="source"><code>        "/volunteer/categorys/:id/edit",</code></td>
+<td class="hits">2</td>
+<td class="source"><code>    {:ok, message} =</code></td>
 </tr>
 <tr>
 <td class="line" id="L133"><a href="#L133">133</a></td>
 <td class="hits"></td>
-<td class="source"><code>        "Image format",</code></td>
+<td class="source"><code>      System.find_or_create_message(</code></td>
 </tr>
 <tr>
 <td class="line" id="L134"><a href="#L134">134</a></td>
 <td class="hits"></td>
-<td class="source"><code>        Gettext.get_locale()</code></td>
+<td class="source"><code>        "/volunteer/categorys/:id/edit",</code></td>
 </tr>
 <tr>
 <td class="line" id="L135"><a href="#L135">135</a></td>
 <td class="hits"></td>
-<td class="source"><code>      )</code></td>
+<td class="source"><code>        "Image format",</code></td>
 </tr>
 <tr>
 <td class="line" id="L136"><a href="#L136">136</a></td>
 <td class="hits"></td>
-<td class="source"><code></code></td>
+<td class="source"><code>        Gettext.get_locale()</code></td>
 </tr>
-<tr class="hit">
+<tr>
 <td class="line" id="L137"><a href="#L137">137</a></td>
-<td class="hits">2</td>
-<td class="source"><code>    message</code></td>
+<td class="hits"></td>
+<td class="source"><code>      )</code></td>
 </tr>
 <tr>
 <td class="line" id="L138"><a href="#L138">138</a></td>
 <td class="hits"></td>
+<td class="source"><code></code></td>
+</tr>
+<tr class="hit">
+<td class="line" id="L139"><a href="#L139">139</a></td>
+<td class="hits">2</td>
+<td class="source"><code>    message</code></td>
+</tr>
+<tr>
+<td class="line" id="L140"><a href="#L140">140</a></td>
+<td class="hits"></td>
 <td class="source"><code>  end</code></td>
 </tr>
 <tr>
-<td class="line" id="L139"><a href="#L139">139</a></td>
+<td class="line" id="L141"><a href="#L141">141</a></td>
 <td class="hits"></td>
 <td class="source"><code>end</code></td>
 </tr>

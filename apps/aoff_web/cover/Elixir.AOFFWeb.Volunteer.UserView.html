@@ -103,12 +103,12 @@ td.source {
 </head>
 <body>
 <h1><code>cover/Elixir.AOFFWeb.Volunteer.UserView.html</code></h1>
-<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/views/volunteer/user_view.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-05-22 at 00:50:12</p></footer>
+<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/views/volunteer/user_view.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-03 at 13:38:17</p></footer>
 <table>
 <tbody>
-<tr class="miss">
+<tr class="hit">
 <td class="line" id="L1"><a href="#L1">1</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="hits">12</td>
 <td class="source"><code>defmodule AOFFWeb.Volunteer.UserView do</code></td>
 </tr>
 <tr class="miss">
@@ -126,9 +126,9 @@ td.source {
 <td class="hits"></td>
 <td class="source"><code>  def valid_membership(user) do</code></td>
 </tr>
-<tr class="miss">
+<tr class="hit">
 <td class="line" id="L5"><a href="#L5">5</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="hits">1</td>
 <td class="source"><code>    if user.expiration_date == nil do</code></td>
 </tr>
 <tr class="miss">
@@ -141,14 +141,14 @@ td.source {
 <td class="hits"></td>
 <td class="source"><code>    else</code></td>
 </tr>
-<tr class="miss">
+<tr class="hit">
 <td class="line" id="L8"><a href="#L8">8</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="hits">1</td>
 <td class="source"><code>      case Date.compare(user.expiration_date, Date.utc_today()) do</code></td>
 </tr>
-<tr class="miss">
+<tr class="hit">
 <td class="line" id="L9"><a href="#L9">9</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="hits">1</td>
 <td class="source"><code>        :gt -&gt; gettext("Valid member")</code></td>
 </tr>
 <tr class="miss">
@@ -186,14 +186,14 @@ td.source {
 <td class="hits"></td>
 <td class="source"><code>  def date(date) do</code></td>
 </tr>
-<tr class="miss">
+<tr class="hit">
 <td class="line" id="L17"><a href="#L17">17</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>    {:ok, date} = AOFFWeb.Cldr.Date.to_string(date, locale: "da")</code></td>
+<td class="hits">2</td>
+<td class="source"><code>    {:ok, date} = AOFFWeb.Cldr.Date.to_string(date, locale: Gettext.get_locale())</code></td>
 </tr>
-<tr class="miss">
+<tr class="hit">
 <td class="line" id="L18"><a href="#L18">18</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="hits">2</td>
 <td class="source"><code>    date</code></td>
 </tr>
 <tr>

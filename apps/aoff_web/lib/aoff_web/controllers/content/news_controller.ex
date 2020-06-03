@@ -5,8 +5,9 @@ defmodule AOFFWeb.Content.NewsController do
 
   def index(conn, _params) do
     news_list = Content.list_news()
-
-    assign(conn, :selected_menu_item, :news)
+    conn
+    |> assign(:selected_menu_item, :news)
+    |> assign(:title, gettext("News"))
     |> render("index.html", news_list: news_list)
   end
 
@@ -31,6 +32,7 @@ defmodule AOFFWeb.Content.NewsController do
     case Content.get_news!(id) do
       %AOFF.Content.News{} = news ->
         assign(conn, :selected_menu_item, :news)
+        |> assign(:title, news.title)
         |> render("show.html", news: news)
 
       _ ->

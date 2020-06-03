@@ -103,7 +103,9 @@ defmodule AOFFWeb.Volunteer.VolunteerController do
 
   defp authenticate(conn, _opts) do
     if conn.assigns.volunteer do
-      assign(conn, :selected_menu_item, :volunteer)
+      conn
+      |> assign(:selected_menu_item, :volunteer)
+      |> assign(:title, gettext("Volunteer"))
     else
       conn
       |> put_status(401)

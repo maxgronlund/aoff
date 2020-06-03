@@ -6,6 +6,7 @@ defmodule AOFFWeb.ShopAssistant.DateController do
 
   plug Auth
   plug :authenticate when action in [:index, :show]
+  plug :navbar when action in [:index]
 
   @dates_pr_page 8
 
@@ -34,7 +35,9 @@ defmodule AOFFWeb.ShopAssistant.DateController do
     query = params["query"]
 
     conn =
-      put_session(conn, :shop_assistant_date_id, date.id)
+      conn
+      |> put_session(:shop_assistant_date_id, date.id)
+      |> assign(:title, gettext("Shop duty"))
 
     pick_ups =
       if query do
@@ -61,5 +64,11 @@ defmodule AOFFWeb.ShopAssistant.DateController do
       |> render(:"401")
       |> halt()
     end
+  end
+
+  defp navbar(conn, _opts) do
+    conn
+    |> assign(:selected_menu_item, :shop)
+    |> assign(:title, gettext("Shop duties"))
   end
 end

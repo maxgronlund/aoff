@@ -103,7 +103,7 @@ td.source {
 </head>
 <body>
 <h1><code>cover/Elixir.AOFFWeb.Admin.UserView.html</code></h1>
-<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/views/admin/user_view.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-05-22 at 00:50:11</p></footer>
+<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/views/admin/user_view.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-03 at 13:38:17</p></footer>
 <table>
 <tbody>
 <tr class="hit">
@@ -154,80 +154,90 @@ td.source {
 <tr class="miss">
 <td class="line" id="L10"><a href="#L10">10</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>        :lt -&gt; gettext("Inactive")</code></td>
+<td class="source"><code>        :eq -&gt; gettext("Valid member")</code></td>
 </tr>
-<tr>
+<tr class="miss">
 <td class="line" id="L11"><a href="#L11">11</a></td>
-<td class="hits"></td>
-<td class="source"><code>      end</code></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>        :lt -&gt; gettext("Inactive")</code></td>
 </tr>
 <tr>
 <td class="line" id="L12"><a href="#L12">12</a></td>
 <td class="hits"></td>
-<td class="source"><code>    end</code></td>
+<td class="source"><code>      end</code></td>
 </tr>
 <tr>
 <td class="line" id="L13"><a href="#L13">13</a></td>
 <td class="hits"></td>
-<td class="source"><code>  end</code></td>
+<td class="source"><code>    end</code></td>
 </tr>
 <tr>
 <td class="line" id="L14"><a href="#L14">14</a></td>
 <td class="hits"></td>
-<td class="source"><code></code></td>
+<td class="source"><code>  end</code></td>
 </tr>
 <tr>
 <td class="line" id="L15"><a href="#L15">15</a></td>
 <td class="hits"></td>
+<td class="source"><code></code></td>
+</tr>
+<tr>
+<td class="line" id="L16"><a href="#L16">16</a></td>
+<td class="hits"></td>
 <td class="source"><code>  def valid?(user) do</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L16"><a href="#L16">16</a></td>
+<td class="line" id="L17"><a href="#L17">17</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>    if user.expiration_date == nil do</code></td>
 </tr>
 <tr>
-<td class="line" id="L17"><a href="#L17">17</a></td>
+<td class="line" id="L18"><a href="#L18">18</a></td>
 <td class="hits"></td>
 <td class="source"><code>      false</code></td>
 </tr>
 <tr>
-<td class="line" id="L18"><a href="#L18">18</a></td>
+<td class="line" id="L19"><a href="#L19">19</a></td>
 <td class="hits"></td>
 <td class="source"><code>    else</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L19"><a href="#L19">19</a></td>
+<td class="line" id="L20"><a href="#L20">20</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>      case Date.compare(user.expiration_date, Date.utc_today()) do</code></td>
 </tr>
 <tr>
-<td class="line" id="L20"><a href="#L20">20</a></td>
+<td class="line" id="L21"><a href="#L21">21</a></td>
 <td class="hits"></td>
 <td class="source"><code>        :gt -&gt; true</code></td>
 </tr>
 <tr>
-<td class="line" id="L21"><a href="#L21">21</a></td>
-<td class="hits"></td>
-<td class="source"><code>        :lt -&gt; false</code></td>
-</tr>
-<tr>
 <td class="line" id="L22"><a href="#L22">22</a></td>
 <td class="hits"></td>
-<td class="source"><code>      end</code></td>
+<td class="source"><code>        :eq -&gt; true</code></td>
 </tr>
 <tr>
 <td class="line" id="L23"><a href="#L23">23</a></td>
 <td class="hits"></td>
-<td class="source"><code>    end</code></td>
+<td class="source"><code>        :lt -&gt; false</code></td>
 </tr>
 <tr>
 <td class="line" id="L24"><a href="#L24">24</a></td>
 <td class="hits"></td>
-<td class="source"><code>  end</code></td>
+<td class="source"><code>      end</code></td>
 </tr>
 <tr>
 <td class="line" id="L25"><a href="#L25">25</a></td>
+<td class="hits"></td>
+<td class="source"><code>    end</code></td>
+</tr>
+<tr>
+<td class="line" id="L26"><a href="#L26">26</a></td>
+<td class="hits"></td>
+<td class="source"><code>  end</code></td>
+</tr>
+<tr>
+<td class="line" id="L27"><a href="#L27">27</a></td>
 <td class="hits"></td>
 <td class="source"><code>end</code></td>
 </tr>

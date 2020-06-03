@@ -18,7 +18,10 @@ defmodule AOFFWeb.Volunteer.UserController do
         page = params["page"] || "0"
         Users.list_users(String.to_integer(page))
       end
+
     conn
+    |> assign(:selected_menu_item, :volunteer)
+    |> assign(:title, gettext("Admin Users"))
     |> put_session(:shop_assistant_date_id, nil)
     |> render("index.html", users: users, pages: Users.user_pages())
   end
@@ -27,8 +30,10 @@ defmodule AOFFWeb.Volunteer.UserController do
 
     user = Volunteers.get_user!(id)
     changeset = Volunteers.change_user(user)
-    render(
-      conn,
+    conn
+    |> assign(:selected_menu_item, :volunteer)
+    |> assign(:title, gettext("Edit Account"))
+    |> render(
       "edit.html",
       user: user,
       changeset: changeset,
@@ -109,7 +114,10 @@ defmodule AOFFWeb.Volunteer.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Volunteers.get_user!(id)
-    render(conn, "show.html", user: user)
+    conn
+    |> assign(:selected_menu_item, :volunteer)
+    |> assign(:title, user.username)
+    |> render("show.html", user: user)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
@@ -143,7 +151,7 @@ defmodule AOFFWeb.Volunteer.UserController do
 
   defp authenticate(conn, _opts) do
     if conn.assigns.volunteer do
-      assign(conn, :selected_menu_item, :volunteer)
+      conn
     else
       conn
       |> put_status(401)

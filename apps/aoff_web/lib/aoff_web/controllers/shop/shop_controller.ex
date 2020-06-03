@@ -4,10 +4,10 @@ defmodule AOFFWeb.Shop.ShopController do
   alias AOFF.Shop
   alias AOFF.System
 
-  def index(conn, _params) do
-    conn = assign(conn, :selected_menu_item, :shop)
-    dates = Shop.list_dates(AOFF.Time.today(), 0, 4)
+  plug :navbar when action in [:index]
 
+  def index(conn, _params) do
+    dates = Shop.list_dates(AOFF.Time.today(), 0, 4)
     unless conn.assigns.valid_member do
       {:ok, expired_message} =
         System.find_or_create_message(
@@ -33,5 +33,11 @@ defmodule AOFFWeb.Shop.ShopController do
     else
       render(conn, "index.html", dates: dates)
     end
+  end
+
+  defp navbar(conn, _opts) do
+    conn
+    |> assign(:selected_menu_item, :volunteer)
+    |> assign(:title, gettext("Shop"))
   end
 end
