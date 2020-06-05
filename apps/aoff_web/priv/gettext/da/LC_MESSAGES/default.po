@@ -264,7 +264,7 @@ msgstr "Betal for medlemskab"
 #: lib/aoff_web/templates/shop_assistant/order/new.html.slime:1
 #: lib/aoff_web/templates/users/order/show.html.slime:1 lib/aoff_web/templates/volunteer/order/show.html.slime:1
 msgid "Pickup date"
-msgstr "Afhentnings dato"
+msgstr "Afhentes"
 
 #, elixir-format
 #: lib/aoff_web/templates/shop/shop/index.html.slime:1

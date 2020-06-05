@@ -30,15 +30,17 @@
     table.table
       thead
         tr
-          th = gettext("Product")
-          th = gettext("Pickup date")
+          th
+            = gettext("Product")
           th = gettext("Price")
           th
       tbody
         = for order_item <- @order.order_items do
           tr
-            td = name(order_item.product)
-            td = date(order_item.date.date)
+            td
+              b = name(order_item.product)
+              br
+              = date(order_item.date.date)
             td = order_item.product.price
             td
               = if open?(@order.state) do
@@ -57,7 +59,6 @@
         tr
           td
             b=gettext("Amount")
-          td
           td
           td
             .float-right
