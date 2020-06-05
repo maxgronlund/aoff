@@ -11,6 +11,7 @@ defmodule AOFF.Committees.Meeting do
     field :name, :string
     field :summary, :string
     field :date, :date
+    field :time, :time
     belongs_to :committee, Committee
 
     timestamps()
@@ -23,6 +24,7 @@ defmodule AOFF.Committees.Meeting do
       :committee_id,
       :name,
       :date,
+      :time,
       :agenda,
       :summary,
       :location
@@ -31,6 +33,7 @@ defmodule AOFF.Committees.Meeting do
       :committee_id,
       :name,
       :date,
+      :time,
       :agenda,
       :location
     ])

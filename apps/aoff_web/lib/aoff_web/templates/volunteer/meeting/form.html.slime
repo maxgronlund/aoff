@@ -17,32 +17,39 @@ javascript:
   = if @changeset.action do
     .alert.alert-danger
       p = gettext("Oops, something went wrong! Please check the errors below.")
-  .row
-    .column
-      .form-group
-        = label f, :name, gettext("Meeting name"), class: "control-label"
-        = text_input f, :name, class: "form-control full-width"
-        = error_tag f, :name
-      .form-group
-        = label f, :location, gettext("Meeting location"), class: "control-label"
-        = textarea f, :location, class: "form-control full-width", style: "height: 118px;"
-        = error_tag f, :location
-    .column
-      .form-group
-        = label f, :date, gettext("Meeting date"), class: "control-label"
-        = date_select f, :date, class: "form-control full-width"
-        = error_tag f, :date
-  .form-group
-    = label f, :agenda, gettext("Meeting agenda"), class: "control-label"
-    = textarea f, :agenda, class: "form-control full-width"
-    .mt-1
-      = error_tag f, :agenda
-  .form-group
-    = label f, :summary, gettext("Meeting summary"), class: "control-label"
-    = textarea f, :summary, class: "form-control full-width"
-    = error_tag f, :summary
+  .tile
+    .row
+      .column
+        .form-group
+          = label f, :name, gettext("Meeting name"), class: "control-label"
+          = text_input f, :name, class: "form-control full-width"
+          = error_tag f, :name
+        .form-group
+          = label f, :location, gettext("Meeting location"), class: "control-label"
+          = textarea f, :location, class: "form-control full-width", style: "height: 118px;"
+          = error_tag f, :location
+      .column
+        .form-group
+          = label f, :date, gettext("Meeting date"), class: "control-label"
+          = date_select f, :date, class: "form-control full-width"
+          = error_tag f, :date
+        .form-group
+          = label f, :time, gettext("Meeting time"), class: "control-label"
+          = time_select f, :time, class: "form-control full-width"
+          = error_tag f, :time
+    .form-group
+      = label f, :agenda, gettext("Meeting agenda"), class: "control-label"
+      = textarea f, :agenda, class: "form-control full-width"
+      .mt-1
+        = error_tag f, :agenda
+    .form-group
+      = label f, :summary, gettext("Meeting summary"), class: "control-label"
+      = textarea f, :summary, class: "form-control full-width"
+      = error_tag f, :summary
 
 
-    = hidden_input f, :committee_id, value: @committee.id
-  .form-group.mt-1
-    = submit gettext("Save"), class: "button float-right"
+      = hidden_input f, :committee_id, value: @committee.id
+    .row
+      .column
+        .form-group.mt-1
+          = submit gettext("Save"), class: "button float-right"

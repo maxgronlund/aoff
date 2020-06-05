@@ -29,7 +29,7 @@ h2 = @user.username
 
 = if @user.shop_assistant && @host_dates do
   h3 = gettext("Upcoming host dates")
-  .blog
+  .tiles.button-tiles
     = for date <- @host_dates do
       = link to: Routes.shop_assistant_date_path(@conn, :show, date) do
         .card.is-shady
@@ -54,38 +54,24 @@ h2 = @user.username
 
 = if @upcomming_meetings do
   h3 = gettext("Upcomming meetings")
-  .blog
+  .tiles.button-tiles
     = for meeting <- @upcomming_meetings do
       = link to: Routes.committee_committee_meeting_path(@conn, :show, meeting.committee, meeting) do
         .card.is-shady
           .card-header-title.is-centered
             = date(meeting.date)
-
+            |&nbsp;-&nbsp;
+            = time(meeting.time)
           .card-content
-            = meeting.name
-            | &nbsp;:&nbsp;
-            = meeting.committee.name
+            b = meeting.name
             br
-
+            = meeting.committee.name
+            hr
+            = gettext("Address")
+            br/
             = text_to_html meeting.location
           .card-footer-item.is-button
             = gettext("Show")
-
-
-  /h3 = gettext("Upcomming meetings")
-  /= for meeting <- @upcomming_meetings do
-  /  .tile
-  /    .row
-  /      .column
-  /        b
-  /          = meeting.name
-  /          | &nbsp;:&nbsp;
-  /          = meeting.committee.name
-  /    .row
-  /      .column
-  /        = date(meeting.date)
-  /      .column
-  /        = text_to_html meeting.location
 
 h3 = gettext("invoices")
 .tile

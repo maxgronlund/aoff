@@ -19,8 +19,21 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
              )
     setup do
       user = user_fixture(%{"expiration_date" => AOFF.Time.today()})
-      product = product_fixture(%{"membership" => true, "state" => "open"})
       order = order_fixture(user.id)
+
+
+      conn =
+        build_conn()
+        |> Plug.Session.call(@session)
+        |> Conn.fetch_session()
+        |> put_session(:user_id, user.id)
+        |> configure_session(renew: true)
+
+      {:ok, conn: conn, user: user, order: order}
+    end
+
+    test "index/2 extends the membership", %{conn: conn, user: user, order: order} do
+      product = product_fixture(%{"membership" => true, "state" => "open"})
       date = date_fixture()
 
       pick_up =
@@ -39,19 +52,32 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
           "pick_up_id" => pick_up.id
         })
 
-      conn =
-        build_conn()
-        |> Plug.Session.call(@session)
-        |> Conn.fetch_session()
-        |> put_session(:user_id, user.id)
-        |> configure_session(renew: true)
-
-      {:ok, conn: conn, user: user, order: order}
-    end
-
-    test "index/2 extends the membership", %{conn: conn, user: user, order: order} do
       _conn = get(conn, Routes.shop_payment_accepted_path(conn, :index, order.token))
       assert Users.get_user!(user.id).expiration_date == Date.add(AOFF.Time.today(), 365)
+    end
+
+    test "index/2 updates the order state", %{conn: conn, user: user, order: order} do
+      product = product_fixture(%{"membership" => true, "state" => "open"})
+      date = date_fixture()
+
+      pick_up =
+        pick_up_fixture(%{
+          "date_id" => date.id,
+          "user_id" => user.id,
+          "order_id" => order.id
+        })
+
+      _order_item =
+        order_item_fixture(%{
+          "order_id" => order.id,
+          "product_id" => product.id,
+          "date_id" => date.id,
+          "user_id" => user.id,
+          "pick_up_id" => pick_up.id
+        })
+
+      _conn = get(conn, Routes.shop_payment_accepted_path(conn, :index, order.token))
+      assert Users.get_order!(order.id).state == "payment_accepted"
     end
   end
 end

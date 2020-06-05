@@ -17,6 +17,10 @@ defmodule AOFFWeb.UserView do
     date
   end
 
+  def time(time) do
+    AOFF.Time.time_as_string(time)
+  end
+
   alias AOFF.Users
 
   @not_found "<i class='red'>" <> gettext("Missing host") <> "</i>"
