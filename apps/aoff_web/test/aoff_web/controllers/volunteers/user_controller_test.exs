@@ -29,7 +29,7 @@ defmodule AOFFWeb.Volunteer.UserControllerTest do
       {:ok, conn: conn, user: user}
     end
 
-    test "list users", %{conn: conn, user: user} do
+    test "list users", %{conn: conn} do
       conn = get(conn, Routes.volunteer_user_path(conn, :index))
       assert html_response(conn, 200) =~ gettext("Admin Users")
     end
@@ -54,7 +54,7 @@ defmodule AOFFWeb.Volunteer.UserControllerTest do
       assert html_response(conn, 200) =~ gettext("Edit Account")
     end
 
-    test "deletes chosen user", %{conn: conn, user: user} do
+    test "deletes chosen user", %{conn: conn} do
       userb =
         user_fixture(%{
           "username" => "delete me",
