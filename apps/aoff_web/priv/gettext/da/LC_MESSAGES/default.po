@@ -34,9 +34,9 @@ msgid "Admin Shop"
 msgstr "Butiks vært"
 
 #, elixir-format
-#: lib/aoff_web/templates/admin/admin/index.html.slime:1
-#: lib/aoff_web/templates/admin/user/index.html.slime:1 lib/aoff_web/templates/volunteer/user/index.html.slime:1
-#: lib/aoff_web/templates/volunteer/user/index.html.slime:1
+#: lib/aoff_web/controllers/volunteers/user_controller.ex:24
+#: lib/aoff_web/templates/admin/admin/index.html.slime:1 lib/aoff_web/templates/admin/user/index.html.slime:1
+#: lib/aoff_web/templates/volunteer/user/index.html.slime:1 lib/aoff_web/templates/volunteer/user/index.html.slime:1
 msgid "Admin Users"
 msgstr "Medlemmer"
 
@@ -110,7 +110,7 @@ msgstr "Beskrivelse"
 
 #, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:12
-#: lib/aoff_web/templates/user/show.html.slime:8 lib/aoff_web/templates/volunteer/date/form.html.slime:1
+#: lib/aoff_web/templates/user/show.html.slime:4 lib/aoff_web/templates/volunteer/date/form.html.slime:1
 #: lib/aoff_web/templates/volunteer/date/index.html.slime:1 lib/aoff_web/templates/volunteer/date/show.html.slime:1
 msgid "Early shift"
 msgstr "Tidlig butiksvagt"
@@ -169,20 +169,20 @@ msgid "Invalid email/password combination"
 msgstr "Ugyldig email/password kombination"
 
 #, elixir-format
+#: lib/aoff_web/controllers/emails/email_controller.ex:31
 #: lib/aoff_web/templates/users/order/show.html.slime:1
 msgid "Invoice"
 msgstr "Faktura"
 
 #, elixir-format
-#: lib/aoff_web/templates/user/show.html.slime:8
-#: lib/aoff_web/templates/users/order/index.html.slime:1 lib/aoff_web/templates/users/order/index.html.slime:1
-#: lib/aoff_web/templates/users/order/show.html.slime:1
+#: lib/aoff_web/templates/users/order/index.html.slime:1
+#: lib/aoff_web/templates/users/order/index.html.slime:1 lib/aoff_web/templates/users/order/show.html.slime:1
 msgid "Invoices"
 msgstr "Fakturaer"
 
 #, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:12
-#: lib/aoff_web/templates/user/show.html.slime:8 lib/aoff_web/templates/volunteer/date/form.html.slime:7
+#: lib/aoff_web/templates/user/show.html.slime:4 lib/aoff_web/templates/volunteer/date/form.html.slime:7
 #: lib/aoff_web/templates/volunteer/date/index.html.slime:1 lib/aoff_web/templates/volunteer/date/show.html.slime:1
 msgid "Late shift"
 msgstr "Sen butiksvagt"
@@ -294,21 +294,21 @@ msgid "Product"
 msgstr "Varer"
 
 #, elixir-format
-#: lib/aoff_web/controllers/purchaser/product_controller.ex:88
+#: lib/aoff_web/controllers/purchaser/product_controller.ex:97
 msgid "Product deleted successfully."
 msgstr "Varen er fjernet"
 
 #, elixir-format
-#: lib/aoff_web/controllers/purchaser/product_controller.ex:66
-#: lib/aoff_web/controllers/purchaser/product_controller.ex:70
+#: lib/aoff_web/controllers/purchaser/product_controller.ex:75
+#: lib/aoff_web/controllers/purchaser/product_controller.ex:79
 msgid "Product updated successfully."
 msgstr "Varen er opdateret"
 
 #, elixir-format
-#: lib/aoff_web/templates/purchaser/product/edit.html.slime:1
-#: lib/aoff_web/templates/purchaser/product/index.html.slime:1 lib/aoff_web/templates/purchaser/product/index.html.slime:1
-#: lib/aoff_web/templates/purchaser/product/new.html.slime:1 lib/aoff_web/templates/purchaser/purchaser/index.html.slime:1
-#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:7
+#: lib/aoff_web/controllers/purchaser/product_controller.ex:14
+#: lib/aoff_web/templates/purchaser/product/edit.html.slime:1 lib/aoff_web/templates/purchaser/product/index.html.slime:1
+#: lib/aoff_web/templates/purchaser/product/index.html.slime:1 lib/aoff_web/templates/purchaser/product/new.html.slime:1
+#: lib/aoff_web/templates/purchaser/purchaser/index.html.slime:1 lib/aoff_web/templates/shop_assistant/date/show.html.slime:7
 msgid "Products"
 msgstr "Varer"
 
@@ -359,7 +359,8 @@ msgid "Search"
 msgstr "Søg"
 
 #, elixir-format
-#: lib/aoff_web/templates/layout/navbar.html.slime:1
+#: lib/aoff_web/controllers/shop/date_controller.ex:56
+#: lib/aoff_web/controllers/shop/shop_controller.ex:41 lib/aoff_web/templates/layout/navbar.html.slime:1
 #: lib/aoff_web/templates/purchaser/product/new.html.slime:1 lib/aoff_web/templates/shop/date/show.html.slime:3
 #: lib/aoff_web/templates/users/order/show.html.slime:1
 msgid "Shop"
@@ -392,9 +393,10 @@ msgstr "Kort beskrivelse"
 #, elixir-format
 #: lib/aoff_web/templates/committees/committee/index.html.slime:1
 #: lib/aoff_web/templates/committees/committee/show.html.slime:9 lib/aoff_web/templates/content/about/show.html.slime:3
-#: lib/aoff_web/templates/user/show.html.slime:8 lib/aoff_web/templates/volunteer/category/show.html.slime:5
-#: lib/aoff_web/templates/volunteer/committee/index.html.slime:3 lib/aoff_web/templates/volunteer/message/form.html.slime:5
-#: lib/aoff_web/templates/volunteer/message/index.html.slime:1 lib/aoff_web/templates/volunteer/user/index.html.slime:6
+#: lib/aoff_web/templates/user/show.html.slime:4 lib/aoff_web/templates/user/show.html.slime:4
+#: lib/aoff_web/templates/volunteer/category/show.html.slime:5 lib/aoff_web/templates/volunteer/committee/index.html.slime:3
+#: lib/aoff_web/templates/volunteer/message/form.html.slime:5 lib/aoff_web/templates/volunteer/message/index.html.slime:1
+#: lib/aoff_web/templates/volunteer/user/index.html.slime:6
 msgid "Show"
 msgstr "Vis"
 
@@ -424,13 +426,13 @@ msgstr "Titel"
 
 #, elixir-format
 #: lib/aoff_web/controllers/admin/user_controller.ex:53
-#: lib/aoff_web/controllers/users/user_controller.ex:128 lib/aoff_web/controllers/volunteers/user_controller.ex:141
+#: lib/aoff_web/controllers/users/user_controller.ex:148 lib/aoff_web/controllers/volunteers/user_controller.ex:148
 msgid "User deleted successfully."
 msgstr "Kontoen er slettet"
 
 #, elixir-format
 #: lib/aoff_web/controllers/admin/user_controller.ex:40
-#: lib/aoff_web/controllers/users/user_controller.ex:108 lib/aoff_web/controllers/volunteers/user_controller.ex:122
+#: lib/aoff_web/controllers/users/user_controller.ex:128 lib/aoff_web/controllers/volunteers/user_controller.ex:129
 msgid "User updated successfully."
 msgstr "Kontoen er blevet opdateret"
 
@@ -447,7 +449,8 @@ msgid "Valid to: %{expiration_date}"
 msgstr "Gyldig til: %{expiration_date}"
 
 #, elixir-format
-#: lib/aoff_web/templates/admin/user/form.html.slime:1
+#: lib/aoff_web/controllers/volunteers/category_controller.ex:128
+#: lib/aoff_web/controllers/volunteers/volunteer_controller.ex:108 lib/aoff_web/templates/admin/user/form.html.slime:1
 #: lib/aoff_web/templates/admin/user/index.html.slime:1 lib/aoff_web/templates/layout/navbar.html.slime:1
 #: lib/aoff_web/templates/layout/user_tabs.html.slime:1 lib/aoff_web/templates/purchaser/date/index.html.slime:1
 #: lib/aoff_web/templates/purchaser/date/show.html.slime:1 lib/aoff_web/templates/purchaser/product/edit.html.slime:1
@@ -470,7 +473,7 @@ msgid "Volunteer"
 msgstr "Frivillig"
 
 #, elixir-format
-#: lib/aoff_web/controllers/users/user_controller.ex:50
+#: lib/aoff_web/controllers/users/user_controller.ex:51
 msgid "Welcome %{username}, your account is created"
 msgstr "Velkommen %{username}, din konto er oprettet, tid til at betale for et abonnoment"
 
@@ -499,7 +502,6 @@ msgstr "Beskeder"
 
 #, elixir-format
 #: lib/aoff_web/templates/admin/user/form.html.slime:1
-#: lib/aoff_web/templates/volunteer/user/form.html.slime:1
 msgid "Member Nr."
 msgstr "Medlems Nr."
 
@@ -511,8 +513,9 @@ msgid "Username / Member Nr. / email"
 msgstr "Brugernavn/ Medlems Nr. / email"
 
 #, elixir-format
-#: lib/aoff_web/templates/purchaser/product/index.html.slime:1
-#: lib/aoff_web/templates/purchaser/product/new.html.slime:1 lib/aoff_web/templates/purchaser/product/new.html.slime:1
+#: lib/aoff_web/controllers/purchaser/product_controller.ex:22
+#: lib/aoff_web/templates/purchaser/product/index.html.slime:1 lib/aoff_web/templates/purchaser/product/new.html.slime:1
+#: lib/aoff_web/templates/purchaser/product/new.html.slime:1
 msgid "New Product"
 msgstr "Opret Varer"
 
@@ -529,8 +532,8 @@ msgid "Delete account"
 msgstr "Slet konto"
 
 #, elixir-format
-#: lib/aoff_web/templates/user/show.html.slime:4
-#: lib/aoff_web/templates/volunteer/user/show.html.slime:1
+#: lib/aoff_web/controllers/users/user_controller.ex:109
+#: lib/aoff_web/templates/user/show.html.slime:4 lib/aoff_web/templates/volunteer/user/show.html.slime:1
 msgid "Edit account"
 msgstr "Rediger konto"
 
@@ -545,16 +548,16 @@ msgid "Show on page: Yes"
 msgstr "Vis på side: √"
 
 #, elixir-format
-#: lib/aoff_web/templates/committees/committee/index.html.slime:1
-#: lib/aoff_web/templates/committees/committee/show.html.slime:1 lib/aoff_web/templates/committees/meeting/show.html.slime:1
-#: lib/aoff_web/templates/content/about/show.html.slime:1 lib/aoff_web/templates/content/page/show.html.slime:1
-#: lib/aoff_web/templates/layout/navbar.html.slime:1
+#: lib/aoff_web/controllers/content/about_controller.ex:50
+#: lib/aoff_web/templates/committees/committee/index.html.slime:1 lib/aoff_web/templates/committees/committee/show.html.slime:1
+#: lib/aoff_web/templates/committees/meeting/show.html.slime:1 lib/aoff_web/templates/content/about/show.html.slime:1
+#: lib/aoff_web/templates/content/page/show.html.slime:1 lib/aoff_web/templates/layout/navbar.html.slime:1
 msgid "About AOFF"
 msgstr "Om AOFF"
 
 #, elixir-format
-#: lib/aoff_web/templates/content/news/show.html.slime:1
-#: lib/aoff_web/templates/layout/navbar.html.slime:1
+#: lib/aoff_web/controllers/content/news_controller.ex:10
+#: lib/aoff_web/templates/content/news/show.html.slime:1 lib/aoff_web/templates/layout/navbar.html.slime:1
 msgid "News"
 msgstr "Nyheder"
 
@@ -606,7 +609,7 @@ msgstr "Telefon"
 
 #, elixir-format
 #: lib/aoff_web/templates/shop/date/show.html.slime:4
-#: lib/aoff_web/templates/shop/shop/index.html.slime:1 lib/aoff_web/templates/user/show.html.slime:8
+#: lib/aoff_web/templates/shop/shop/index.html.slime:1 lib/aoff_web/templates/user/show.html.slime:4
 #: lib/aoff_web/templates/volunteer/date/index.html.slime:1
 msgid "%{date} - closed"
 msgstr "%{date} - lukket"
@@ -626,7 +629,7 @@ msgid "Next >"
 msgstr "Næste >"
 
 #, elixir-format
-#: lib/aoff_web/templates/user/show.html.slime:8
+#: lib/aoff_web/templates/user/show.html.slime:4
 msgid "Upcoming host dates"
 msgstr "Komende dage hvor du er vært"
 
@@ -642,8 +645,8 @@ msgid "Forgot password"
 msgstr "Glemt password"
 
 #, elixir-format
-#: lib/aoff_web/templates/email/reset_password.html.eex:328
-#: lib/aoff_web/templates/email/reset_password.html.eex:353
+#: lib/aoff_web/controllers/emails/email_controller.ex:20
+#: lib/aoff_web/templates/email/reset_password.html.eex:328 lib/aoff_web/templates/email/reset_password.html.eex:353
 msgid "Reset password"
 msgstr "Gendan password"
 
@@ -692,7 +695,7 @@ msgid "OK"
 msgstr "OK"
 
 #, elixir-format
-#: lib/aoff_web/controllers/purchaser/product_controller.ex:29
+#: lib/aoff_web/controllers/purchaser/product_controller.ex:34
 msgid "Please attach image."
 msgstr "Upload venligst et billed"
 
@@ -886,9 +889,9 @@ msgid "Back to the shop"
 msgstr "Tilbage til butikken"
 
 #, elixir-format
-#: lib/aoff_web/templates/purchaser/product/edit.html.slime:1
-#: lib/aoff_web/templates/purchaser/product/edit.html.slime:1 lib/aoff_web/templates/purchaser/product_note/edit.html.slime:1
-#: lib/aoff_web/templates/purchaser/product_note/edit.html.slime:1
+#: lib/aoff_web/controllers/purchaser/product_controller.ex:60
+#: lib/aoff_web/templates/purchaser/product/edit.html.slime:1 lib/aoff_web/templates/purchaser/product/edit.html.slime:1
+#: lib/aoff_web/templates/purchaser/product_note/edit.html.slime:1 lib/aoff_web/templates/purchaser/product_note/edit.html.slime:1
 msgid "Edit Product"
 msgstr "Rediger Varer"
 
@@ -1020,7 +1023,7 @@ msgid "Committee deleted successfully."
 msgstr "Udvalget er slettet"
 
 #, elixir-format
-#: lib/aoff_web/templates/committees/committee/show.html.slime:1
+#: lib/aoff_web/templates/committees/committee/show.html.slime:3
 msgid "Committee members"
 msgstr "Medlemmer"
 
@@ -1153,8 +1156,9 @@ msgid "New Meeting"
 msgstr "Planlæg møde"
 
 #, elixir-format
-#: lib/aoff_web/templates/user/edit.html.slime:1
-#: lib/aoff_web/templates/volunteer/user/edit.html.slime:1 lib/aoff_web/templates/volunteer/user/edit.html.slime:1
+#: lib/aoff_web/controllers/volunteers/user_controller.ex:35
+#: lib/aoff_web/templates/user/edit.html.slime:1 lib/aoff_web/templates/volunteer/user/edit.html.slime:1
+#: lib/aoff_web/templates/volunteer/user/edit.html.slime:1
 msgid "Edit Account"
 msgstr "Rediger konto"
 
@@ -1351,7 +1355,7 @@ msgid "This weeks content en"
 msgstr "This weeks content"
 
 #, elixir-format
-#: lib/aoff_web/controllers/content/about_controller.ex:36
+#: lib/aoff_web/controllers/content/about_controller.ex:37
 #: lib/aoff_web/controllers/content/page_controller.ex:10 lib/aoff_web/controllers/volunteers/message_controller.ex:37
 msgid "Language updated"
 msgstr "Sproget er skiftet"
@@ -1476,9 +1480,9 @@ msgid "Order created and paied"
 msgstr "Ordren er oprettet og betalt"
 
 #, elixir-format
-#: lib/aoff_web/templates/purchaser/date/index.html.slime:1
-#: lib/aoff_web/templates/purchaser/date/index.html.slime:1 lib/aoff_web/templates/purchaser/date/show.html.slime:1
-#: lib/aoff_web/templates/purchaser/product_note/edit.html.slime:1
+#: lib/aoff_web/controllers/purchaser/date_controller.ex:23
+#: lib/aoff_web/templates/purchaser/date/index.html.slime:1 lib/aoff_web/templates/purchaser/date/index.html.slime:1
+#: lib/aoff_web/templates/purchaser/date/show.html.slime:1 lib/aoff_web/templates/purchaser/product_note/edit.html.slime:1
 msgid "Shoppinglists"
 msgstr "Indkøbslister"
 
@@ -1505,7 +1509,7 @@ msgid "Create membership"
 msgstr "Opret medlemskab"
 
 #, elixir-format
-#: lib/aoff_web/controllers/volunteers/user_controller.ex:78
+#: lib/aoff_web/controllers/volunteers/user_controller.ex:82
 msgid "A membership for %{username} is created"
 msgstr "Medlemskab for %{username} er oprettet"
 
@@ -1532,8 +1536,9 @@ msgid "Collection List"
 msgstr "Opsamlingsliste"
 
 #, elixir-format
-#: lib/aoff_web/templates/shop_assistant/date/index.html.slime:1
-#: lib/aoff_web/templates/shop_assistant/date/index.html.slime:1 lib/aoff_web/templates/shop_assistant/date/show.html.slime:1
+#: lib/aoff_web/controllers/shop_assistants/date_controller.ex:72
+#: lib/aoff_web/templates/shop_assistant/date/index.html.slime:1 lib/aoff_web/templates/shop_assistant/date/index.html.slime:1
+#: lib/aoff_web/templates/shop_assistant/date/show.html.slime:1
 msgid "Shop duties"
 msgstr "Butiks vagter"
 
@@ -1607,3 +1612,38 @@ msgstr "Annulleret"
 #: lib/aoff_web/templates/users/order/show.html.slime:5
 msgid "Empty basket"
 msgstr "Tøm kurven"
+
+#, elixir-format
+#: lib/aoff_web/templates/volunteer/user/form.html.slime:1
+msgid "Paid"
+msgstr "Betalt"
+
+#, elixir-format
+#: lib/aoff_web/templates/user/show.html.slime:4
+msgid "Profile"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/controllers/shop_assistants/date_controller.ex:40
+msgid "Shop duty"
+msgstr "Butiks vagter"
+
+#, elixir-format
+#: lib/aoff_web/controllers/purchaser/date_controller.ex:39
+msgid "Shoppinglist"
+msgstr "Indkøbslister"
+
+#, elixir-format
+#: lib/aoff_web/templates/user/show.html.slime:4
+msgid "Upcomming meetings"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/user/show.html.slime:4
+msgid "Upcomming pick ups"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/aoff_web/templates/user/show.html.slime:4
+msgid "invoices"
+msgstr "Fakturaer"

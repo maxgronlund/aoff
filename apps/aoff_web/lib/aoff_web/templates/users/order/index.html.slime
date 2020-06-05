@@ -1,7 +1,7 @@
 .breadcrumb aria-label="breadcrumbs"
   ul
     li
-      = link gettext("Account"), to: Routes.user_path(@conn, :show, @current_user)
+      = link @user.username, to: Routes.user_path(@conn, :show, @user)
     li.is-active
       |&nbsp;&nbsp;
       = gettext("Invoices")

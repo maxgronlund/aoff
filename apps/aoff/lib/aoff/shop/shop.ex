@@ -508,6 +508,41 @@ defmodule AOFF.Shop do
   end
 
   @doc """
+  Returns the list of pick_ups.
+
+  ## Examples
+
+      iex> list_upcomming_pick_ups(user_id)
+      [%PickUp{}, ...]
+
+  """
+  def list_upcomming_pick_ups(user_id, next_date) do
+    query =
+      from(
+        p in PickUp,
+        where: p.user_id == ^user_id and p.picked_up == ^false,
+        join: oi in assoc(p, :order_items),
+        join: o in assoc(oi, :order),
+        where: o.state == ^"payment_accepted",
+        join: pr in assoc(oi, :product),
+        where: pr.membership == ^false,
+        join: d in assoc(p, :date),
+        where: d.date >= ^next_date,
+        distinct: true
+      )
+
+    pick_ups =
+      query
+      |> Repo.all()
+      |> Repo.preload(:user)
+      |> Repo.preload(:order)
+      |> Repo.preload(order_items: [:product])
+      |> Repo.preload(:date)
+
+    if Enum.empty?(pick_ups), do: false, else: pick_ups
+  end
+
+  @doc """
   Gets a single pick_up.
 
   Raises `Ecto.NoResultsError` if the PickUp does not exist.

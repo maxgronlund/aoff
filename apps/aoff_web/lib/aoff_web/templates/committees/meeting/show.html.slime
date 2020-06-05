@@ -29,14 +29,20 @@
           data: [confirm: gettext("Are you sure?")],\
           method: :delete,
           class: "button button-red"
-
-.tile
-  h4.mt-2 = gettext("Meeting agenda")
-  .auto-columns
-    = raw @meeting.agenda
-  br
-.tile
-  h4.mt-2 = gettext("Meeting summary")
-  .auto-columns
-    = raw @meeting.summary
+.row
+  .column
+    h3 = gettext("Meeting agenda")
+.row
+  .column
+    .tile
+      .auto-columns
+        = raw @meeting.agenda
+.row
+  .column
+    h3 = gettext("Meeting summary")
+.row
+  .column
+    .tile
+      .auto-columns
+        = raw @meeting.summary
 

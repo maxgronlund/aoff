@@ -5,6 +5,7 @@ defmodule AOFFWeb.UserController do
   alias AOFF.Users.User
   alias AOFFWeb.Users.Auth
   alias AOFF.System
+  alias AOFF.Shop
   plug Auth
   plug :authenticate when action in [:index, :show, :edit, :update, :delete]
   plug :navbar when action in [:new, :edit]
@@ -71,7 +72,12 @@ defmodule AOFFWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
+    today = AOFF.Time.today()
     user = get_user!(conn, id)
+    upcomming_pick_ups =
+      Shop.list_upcomming_pick_ups(user.id, today)
+    upcomming_meetings =
+      AOFF.Committees.list_user_meetings(user.id, today)
     conn =
       conn
       |> assign(:selected_menu_item, :user)
@@ -85,7 +91,14 @@ defmodule AOFFWeb.UserController do
         Gettext.get_locale()
       )
 
-    render(conn, "show.html", user: user, message: message, host_dates: host_dates)
+    render(conn,
+      "show.html",
+      user: user,
+      message: message,
+      host_dates: host_dates,
+      upcomming_pick_ups: upcomming_pick_ups,
+      upcomming_meetings: upcomming_meetings
+    )
   end
 
   def edit(conn, %{"id" => id}) do

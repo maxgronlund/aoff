@@ -29,7 +29,7 @@
       br
       i = @news.author
 
-      h4 = @news.teaser
+      h4 = text_to_html @news.teaser
     .column
       = img_tag AOFF.Uploader.Image.url({@news.image, @news}, :original)
       .image-caption

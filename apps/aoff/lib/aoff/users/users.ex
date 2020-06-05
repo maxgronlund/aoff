@@ -43,8 +43,11 @@ defmodule AOFF.Users do
           d.shop_assistant_a == ^user_id or d.shop_assistant_b == ^user_id or
             d.shop_assistant_c == ^user_id or d.shop_assistant_d == ^user_id
 
-    dates
-    |> Repo.all()
+    host_dates =
+      dates
+      |> Repo.all()
+
+    if Enum.empty?(host_dates), do: false, else: host_dates
   end
 
 

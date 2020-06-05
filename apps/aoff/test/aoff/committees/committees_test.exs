@@ -136,7 +136,7 @@ defmodule AOFF.CommitteesTest do
 
     test "list_members/0 returns all members", %{user: user, committee: committee} do
       member = member_fixture(%{"user_id" => user.id, "committee_id" => committee.id})
-      assert Committees.list_members() == [member]
+      assert Committees.list_members(committee.id) == [member]
     end
 
     test "get_member!/1 returns the member with given id", %{user: user, committee: committee} do

@@ -11,8 +11,71 @@
     | &nbsp;
     br/
     | &nbsp;
-.alert.alert-box
-  h2 = @user.username
+
+h2 = @user.username
+= if @upcomming_pick_ups do
+  h3 = gettext("Upcomming pick ups")
+  .tile
+    = for pick_up <- @upcomming_pick_ups do
+      .row
+        .column
+          /- IO.inspect pick_up
+          b = date(pick_up.date.date)
+      .row
+        .column
+          = for order_item <- pick_up.order_items do
+            = name(order_item.product)
+            br
+
+= if @user.shop_assistant && @host_dates do
+  h3 = gettext("Upcoming host dates")
+  .blog
+    = for date <- @host_dates do
+      = link to: Routes.shop_assistant_date_path(@conn, :show, date) do
+        .card.is-shady
+          = if date.open do
+            .card-header-title.is-centered
+              = date(date.date)
+            - else
+              .card-header-title.is-centered.is-red
+                = gettext("%{date} - closed", date: date(date.date))
+          .card-content
+            b = gettext("Early shift")
+            br/ = raw shop_assistant(date.shop_assistant_a)
+            br/
+            = raw shop_assistant(date.shop_assistant_b)
+            hr
+            b = gettext("Late shift")
+            br/ = raw shop_assistant(date.shop_assistant_c)
+            br/
+            = raw shop_assistant(date.shop_assistant_d)
+          .card-footer-item.is-button
+            = gettext("Show")
+
+= if @upcomming_meetings do
+  h3 = gettext("Upcomming meetings")
+  = for meeting <- @upcomming_meetings do
+    .tile
+      .row
+        .column
+          b
+            = meeting.name
+            | &nbsp;:&nbsp;
+            = meeting.committee.name
+      .row
+        .column
+          = date(meeting.date)
+        .column
+          = text_to_html meeting.location
+
+h3 = gettext("invoices")
+.tile
+  .row
+    .column
+      = link gettext("Show"), to: Routes.user_order_path(@conn, :index, @user), class: "button float-right"
+
+h3 = gettext("Profile")
+.tile
   .row
     .column
       = if @volunteer do
@@ -61,34 +124,6 @@
 
 
 
-.tile
-  .row.mt-1
-    .column
-      = link gettext("Invoices"), to: Routes.user_order_path(@conn, :index, @user), class: "button button-outline"
-
-h4 = gettext("Upcoming host dates")
-.blog
-  = for date <- @host_dates do
-    = link to: Routes.shop_assistant_date_path(@conn, :show, date) do
-      .card.is-shady
-        = if date.open do
-          .card-header-title.is-centered
-            = date(date.date)
-          - else
-            .card-header-title.is-centered.is-red
-              = gettext("%{date} - closed", date: date(date.date))
-        .card-content
-          b = gettext("Early shift")
-          br/ = raw shop_assistant(date.shop_assistant_a)
-          br/
-          = raw shop_assistant(date.shop_assistant_b)
-          hr
-          b = gettext("Late shift")
-          br/ = raw shop_assistant(date.shop_assistant_c)
-          br/
-          = raw shop_assistant(date.shop_assistant_d)
-        .card-footer-item.is-button
-          = gettext("Show")
 
 
 

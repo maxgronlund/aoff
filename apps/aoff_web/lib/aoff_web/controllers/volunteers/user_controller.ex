@@ -75,7 +75,6 @@ defmodule AOFFWeb.Volunteer.UserController do
 
     case Users.create_user(user_params) do
       {:ok, user} ->
-        IO.inspect user
         conn
         |> put_flash(
           :info,

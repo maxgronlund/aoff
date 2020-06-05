@@ -35,7 +35,7 @@ defmodule AOFFWeb.Volunteer.OrderControllerTest do
     end
 
     test "show order", %{conn: conn, user: user} do
-      IO.inspect order =
+      order =
         order_fixture(user.id,
           %{
             "state" => "payment_accepted",

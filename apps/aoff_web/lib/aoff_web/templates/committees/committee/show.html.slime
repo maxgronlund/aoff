@@ -8,19 +8,22 @@
       | &nbsp;
       = @committee.name
 
-h2 = @committee.name
-
-.auto-columns
-  = raw @committee.description
-hr.mt-1/
 .row
   .column
-    h3 = gettext("Committee members")
+    h2 = @committee.name
   = if committee_member(@committee, @current_user) || @admin do
     .column
       = link gettext("Add committee member"),\
         to: Routes.volunteer_committee_member_path(@conn, :new, @committee),\
         class: "button float-right"
+
+.tile
+  .auto-columns
+    = raw @committee.description
+
+.row
+  .column
+    h3 = gettext("Committee members")
 .profiles.mt-2
   = for member <- @committee.members do
     .profile
@@ -67,12 +70,13 @@ hr.mt-1/
             = link gettext("Show"),\
               to: Routes.committee_committee_meeting_path(@conn, :show, @committee, meeting),\
               class: "button button-outline float-right"
-
+.row
+  .column
+    h3 = gettext("Live chat")
 = if committee_member(@committee, @current_user) do
   .tile
     .row
       .column
-        h3 = gettext("Live chat")
 
 
         #chat-box style="height: 500px; max-width: 100%;"

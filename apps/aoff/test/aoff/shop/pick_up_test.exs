@@ -25,9 +25,9 @@ defmodule AOFF.Shop.PickUpTest do
     alias AOFF.Shop.PickUp
 
     setup do
-      date = date_fixture()
+      date = date_fixture(%{"date" => Date.add(Date.utc_today(), 14)})
       user = user_fixture()
-      order = order_fixture(user.id)
+      order = order_fixture(user.id, %{"state" => "payment_accepted"})
 
       {:ok, date: date, user: user, order: order}
     end
@@ -46,6 +46,44 @@ defmodule AOFF.Shop.PickUpTest do
       })
 
       assert List.first(Shop.list_pick_ups(date.id)).id == pick_up.id
+    end
+
+    test "list_upcomming_pick_ups/0 returns all upcomming pick_ups for a given user", %{date: date, user: user, order: order} do
+      pick_up = create_pick_up(date, user, order)
+      product = product_fixture()
+
+      order_item_fixture(%{
+        "product_id" => product.id,
+        "user_id" => user.id,
+        "date_id" => date.id,
+        "pick_up_id" => pick_up.id,
+        "price" => product.price,
+        "order_id" => order.id
+      })
+
+      dates =
+        Shop.list_upcomming_pick_ups(user.id, Date.utc_today())
+      assert List.first(dates).id == pick_up.id
+    end
+
+    test "list_upcomming_pick_ups/0 returns false", %{date: date, user: user, order: order} do
+      pick_up = create_pick_up(date, user, order)
+      product = product_fixture()
+
+      order_item_fixture(%{
+        "product_id" => product.id,
+        "user_id" => user.id,
+        "date_id" => date.id,
+        "pick_up_id" => pick_up.id,
+        "price" => product.price,
+        "order_id" => order.id
+      })
+
+      next_date = Date.add(Date.utc_today, 42)
+
+      pick_ups =
+        Shop.list_upcomming_pick_ups(user.id, next_date)
+      assert pick_ups == false
     end
 
     test "get_pick_up!/1 returns the pick_up with given id", %{

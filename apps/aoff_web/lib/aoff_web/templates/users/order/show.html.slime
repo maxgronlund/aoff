@@ -1,14 +1,15 @@
 .breadcrumb aria-label="breadcrumbs"
   ul
-    li
-      = link gettext("Shop"), to: Routes.shop_shop_path(@conn, :index)
-    li.is-active
-      = if open?(@order.state) do
+    = if open?(@order.state) do
+      li
+        = link gettext("Shop"), to: Routes.shop_shop_path(@conn, :index)
+      li
         = gettext("Basket")
-      - else
-        = link gettext("Invoices"), to: Routes.user_order_path(@conn, :index, @current_user)
-
-
+    - else
+      li = link @order.user.username, to: Routes.user_path(@conn, :show, @order.user)
+      li = link gettext("Invoices"), to: Routes.user_order_path(@conn, :index, @current_user)
+      li.is-active
+        = gettext("Invoice")
 
 .row
   .column
