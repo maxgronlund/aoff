@@ -56,23 +56,24 @@ h2 = @user.username
   h3 = gettext("Upcomming meetings")
   .tiles.button-tiles
     = for meeting <- @upcomming_meetings do
-      = link to: Routes.committee_committee_meeting_path(@conn, :show, meeting.committee, meeting) do
-        .card.is-shady
-          .card-header-title.is-centered
-            = date(meeting.date)
-            |&nbsp;-&nbsp;
-            = time(meeting.time)
-          .card-content
-            b = meeting.name
-            br
-            = meeting.committee.name
-            hr
-            = gettext("Address")
-            br/
-            = text_to_html meeting.location
-          .card-footer-item.is-button
-            = gettext("Show")
-
+      .card.is-shady
+        .card-header-title.is-centered
+          = date(meeting.date)
+          |&nbsp;-&nbsp;
+          = time(meeting.time)
+        .card-content
+          b = meeting.name
+          br
+          = meeting.committee.name
+          hr
+          = gettext("Address")
+          br/
+          = text_to_html meeting.location
+        .card-footer.is-button
+          = link gettext("Show"),\
+            to: Routes.committee_committee_meeting_path(@conn, :show, meeting.committee, meeting),\
+            class: "card-footer-item is-button"
+.mt-3
 h3 = gettext("invoices")
 .tile
   .row

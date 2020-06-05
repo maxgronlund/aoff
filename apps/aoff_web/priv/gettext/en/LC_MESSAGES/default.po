@@ -214,7 +214,7 @@ msgstr ""
 #, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:7
 #: lib/aoff_web/templates/user/show.html.slime:4 lib/aoff_web/templates/volunteer/user/show.html.slime:1
-#: lib/aoff_web/views/shop_assistant/date_view.ex:37 lib/aoff_web/views/users/user_view.ex:33
+#: lib/aoff_web/views/shop_assistant/date_view.ex:37 lib/aoff_web/views/users/user_view.ex:37
 #: lib/aoff_web/views/volunteer/date_view.ex:21 lib/aoff_web/views/volunteer/user_view.ex:46
 msgid "Mobile: %{mobile}"
 msgstr ""
@@ -596,7 +596,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/views/shop_assistant/date_view.ex:4
-#: lib/aoff_web/views/users/user_view.ex:22 lib/aoff_web/views/volunteer/date_view.ex:11
+#: lib/aoff_web/views/users/user_view.ex:26 lib/aoff_web/views/volunteer/date_view.ex:11
 #: lib/aoff_web/views/volunteer/user_view.ex:35
 msgid "Missing host"
 msgstr ""
@@ -1647,4 +1647,14 @@ msgstr ""
 #: lib/aoff_web/templates/purchaser/product/form.html.slime:1
 #: lib/aoff_web/templates/purchaser/product/index.html.slime:1
 msgid "Position on page"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/user/show.html.slime:4
+msgid "Address"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/aoff_web/templates/volunteer/meeting/form.html.slime:9
+msgid "Meeting time"
 msgstr ""
