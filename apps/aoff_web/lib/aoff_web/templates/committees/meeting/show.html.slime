@@ -13,9 +13,9 @@
 .row
   .column
     h2 = @meeting.name
-    i = date(@meeting.date)
+    b = date(@meeting.date)
     br
-      = @meeting.location
+    = text_to_html @meeting.location
 = if committee_member(@meeting.committee, @current_user) || @admin do
   .row
     .column

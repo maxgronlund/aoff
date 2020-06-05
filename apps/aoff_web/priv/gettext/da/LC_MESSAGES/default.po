@@ -1555,7 +1555,7 @@ msgstr "Opret order"
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/page/form.html.slime:9
 msgid "Highest number is postet on top."
-msgstr ""
+msgstr "Højeste numer vises øverst"
 
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/page/form.html.slime:9
@@ -1596,7 +1596,7 @@ msgstr "Position: %{position}"
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/page/form.html.slime:9
 msgid "position"
-msgstr ""
+msgstr "Position"
 
 #, elixir-format
 #: lib/aoff_web/views/volunteer/order_view.ex:37
@@ -1621,7 +1621,7 @@ msgstr "Betalt"
 #, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:4
 msgid "Profile"
-msgstr ""
+msgstr "Konto"
 
 #, elixir-format
 #: lib/aoff_web/controllers/shop_assistants/date_controller.ex:40
@@ -1636,12 +1636,12 @@ msgstr "Indkøbslister"
 #, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:4
 msgid "Upcomming meetings"
-msgstr ""
+msgstr "Kommende møder"
 
 #, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:4
 msgid "Upcomming pick ups"
-msgstr ""
+msgstr "Kommende opsamlinger"
 
 #, elixir-format, fuzzy
 #: lib/aoff_web/templates/user/show.html.slime:4
