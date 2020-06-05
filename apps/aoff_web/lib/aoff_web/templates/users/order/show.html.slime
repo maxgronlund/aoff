@@ -40,6 +40,8 @@
             td
               b = name(order_item.product)
               br
+              i = gettext("Pickup date")
+              br
               = date(order_item.date.date)
             td = order_item.product.price
             td
