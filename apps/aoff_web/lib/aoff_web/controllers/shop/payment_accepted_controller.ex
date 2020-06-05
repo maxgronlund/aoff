@@ -7,17 +7,21 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
   def index(conn, %{"id" => id}) do
     order = Users.get_order_by_token!(id)
 
-    if order.state == "open" do
-      case Users.payment_accepted(order) do
-        {:ok, %Users.Order{}} ->
-          Users.extend_memberships(order)
-          # Create a new order for the basket.
-          Users.create_order(%{"user_id" => order.user_id})
-          accepted(conn, order)
+    cond do
+      order && order.state == "open" ->
+        case Users.payment_accepted(order) do
+          {:ok, %Users.Order{}} ->
+            Users.extend_memberships(order)
+            # Create a new order for the basket.
+            Users.create_order(%{"user_id" => order.user_id})
+            accepted(conn, order)
 
-        _ ->
-          error(conn)
-      end
+          _ ->
+            error(conn)
+        end
+      order ->
+        accepted(conn, order)
+      true -> error(conn)
     end
   end
 

@@ -500,7 +500,7 @@ defmodule AOFF.Users do
   """
   def get_order_by_token!(token) do
     Order
-    |> Repo.get_by!(token: token)
+    |> Repo.get_by(token: token)
     |> Repo.preload(:user)
   end
 
@@ -522,8 +522,6 @@ defmodule AOFF.Users do
   alias AOFF.Shop.Product
 
   def extend_memberships(order) do
-
-    Repo.all(Order)
     for _membership <- memberships_in_order(order.id) do
       user = order.user
       today = Date.utc_today()
