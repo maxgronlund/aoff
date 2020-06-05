@@ -69,31 +69,32 @@ hr.mt-1/
               class: "button button-outline float-right"
 
 = if committee_member(@committee, @current_user) do
-  .row
-    .column
-      h4 = gettext("Live chat")
+  .tile
+    .row
+      .column
+        h3 = gettext("Live chat")
 
 
-      #chat-box style="height: 500px; max-width: 100%;"
+        #chat-box style="height: 500px; max-width: 100%;"
 
-        = for message <- @messages do
-          .date
-            = message.posted
-          .message
-            b = message.username
-            br/
-            = text_to_html(message.body)
+          = for message <- @messages do
+            .date
+              = message.posted
+            .message
+              b = message.username
+              br/
+              = text_to_html(message.body)
 
-      form#chat-form
-        div style="height: 0px; overflow: hidden;"
-          input#user-name placeholder="#{@current_user.username}" type="text" value="#{@current_user.username}" disabled="disabled" style="visibility: hidden;"
+        form#chat-form
+          div style="height: 0px; overflow: hidden;"
+            input#user-name placeholder="#{@current_user.username}" type="text" value="#{@current_user.username}" disabled="disabled" style="visibility: hidden;"
 
-          input#committee-id  type="text" value="#{@committee.id}" disabled="disabled" style="visibility: hidden;"
+            input#committee-id  type="text" value="#{@committee.id}" disabled="disabled" style="visibility: hidden;"
 
-        textarea#user-msg.full-width placeholder=(gettext("Write here"))
-        br
-        .float-right
-          button type="submit" #{gettext("Send")}
+          textarea#user-msg.full-width placeholder=(gettext("Write here"))
+          br
+          .float-right
+            button type="submit" #{gettext("Send")}
 
 
 

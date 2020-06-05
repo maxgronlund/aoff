@@ -30,13 +30,13 @@
           method: :delete,
           class: "button button-red"
 
-hr
-h4.mt-2 = gettext("Meeting agenda")
-.auto-columns
-  = raw @meeting.agenda
-br
-hr
-h4.mt-2 = gettext("Meeting summary")
-.auto-columns
-  = raw @meeting.summary
+.tile
+  h4.mt-2 = gettext("Meeting agenda")
+  .auto-columns
+    = raw @meeting.agenda
+  br
+.tile
+  h4.mt-2 = gettext("Meeting summary")
+  .auto-columns
+    = raw @meeting.summary
 

@@ -567,7 +567,7 @@ margin-bottom: 1.5rem;
 .profiles .profile {
   max-width: 100%;
   position: relative;
-  /*background-color: #ddd*/
+  background-color: #fff;
   border: 0.1rem solid #dbdbdb;
   border-radius: 4px;
 }
@@ -671,6 +671,7 @@ hr {
   border: 1px solid #dbdbdb;
   margin-bottom: 10px;
   border-radius: 4px;
+  background-color: #fff;
 }
 
 #chat-box .message {
