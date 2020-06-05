@@ -27,10 +27,12 @@
       .card-content
         = for_sale(product.for_sale)
         br/
+        = gettext("Position on page")
+        |&nbsp;:&nbsp;
+        = product.position
+        br/
         = show_on_landing_page(product.show_on_landing_page)
-
         hr
-
         b= gettext("Description")
         = text_to_html(description(product))
         hr

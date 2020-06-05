@@ -28,6 +28,11 @@
           = label f, gettext("Price"), class: "control-label"
           = number_input f, :price, class: "form-control full-width", min: "0", step: "0.5", value: @amount
           = error_tag f, :price
+      .column
+        .form-group
+          = label f, gettext("Position on page"), class: "control-label"
+          = number_input f, :position, class: "form-control full-width", step: "1"
+          = error_tag f, :position
     .row
       .column
         .form-group

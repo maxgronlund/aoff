@@ -11,7 +11,8 @@ defmodule AOFF.Shop.ProductFixture do
     "price" => Money.new(43, :DKK),
     "for_sale" => true,
     "membership" => false,
-    "show_on_landing_page" => true
+    "show_on_landing_page" => true,
+    "position" => 1
   }
 
   @update_attrs %{
@@ -23,7 +24,8 @@ defmodule AOFF.Shop.ProductFixture do
     "this_weeks_content_en" => "some updated en this weeks content",
     "price" => Money.new(45, :DKK),
     "for_sale" => false,
-    "show_on_landing_page" => false
+    "show_on_landing_page" => false,
+    "position" => 2
   }
 
   @invalid_attrs %{
@@ -36,7 +38,8 @@ defmodule AOFF.Shop.ProductFixture do
     "price" => nil,
     "for_sale" => nil,
     "membership" => nil,
-    "show_on_landing_page" => nil
+    "show_on_landing_page" => nil,
+    "position" => nil
   }
 
   def create_product_attrs(attrs \\ %{}) do

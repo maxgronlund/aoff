@@ -225,17 +225,9 @@ defmodule AOFF.Shop do
   """
   def list_products do
     query =
-      case Gettext.get_locale() do
-        "da" ->
-          from p in Product,
-            order_by: [asc: p.name_da],
-            where: p.deleted == false and p.membership == false
-
-        "en" ->
-          from p in Product,
-            order_by: [asc: p.name_en],
-            where: p.deleted == false and p.membership == false
-      end
+      from p in Product,
+      order_by: [asc: p.position],
+      where: p.deleted == false and p.membership == false
 
     Repo.all(query)
   end
@@ -251,17 +243,9 @@ defmodule AOFF.Shop do
   """
   def list_products(:for_sale) do
     query =
-      case Gettext.get_locale() do
-        "da" ->
-          from p in Product,
-            order_by: [asc: p.name_da],
-            where: p.for_sale == true and p.deleted == false and p.membership == false
-
-        "en" ->
-          from p in Product,
-            order_by: [asc: p.name_en],
-            where: p.for_sale == true and p.deleted == false and p.membership == false
-      end
+      from p in Product,
+        order_by: [asc: p.position],
+        where: p.for_sale == true and p.deleted == false and p.membership == false
 
     Repo.all(query)
   end
@@ -277,19 +261,9 @@ defmodule AOFF.Shop do
   """
   def list_memberships() do
     query =
-      case Gettext.get_locale() do
-        "da" ->
-          from p in Product,
-            order_by: [asc: p.name_da],
-            where: p.deleted == false and p.membership == true
-
-        "en" ->
-          from p in Product,
-            order_by: [asc: p.name_en],
-            where: p.deleted == false and p.membership == true
-      end
-
-
+      from p in Product,
+        order_by: [asc: p.position],
+        where: p.deleted == false and p.membership == true
 
     Repo.all(query)
   end

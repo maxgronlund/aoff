@@ -523,7 +523,7 @@ msgstr "Opret Varer"
 #: lib/aoff_web/templates/purchaser/product/form.html.slime:1
 #: lib/aoff_web/templates/volunteer/page/form.html.slime:9
 msgid "Show on landing page"
-msgstr "Vis på forsiden"
+msgstr "Vises på forsiden"
 
 #, elixir-format
 #: lib/aoff_web/templates/user/show.html.slime:4
