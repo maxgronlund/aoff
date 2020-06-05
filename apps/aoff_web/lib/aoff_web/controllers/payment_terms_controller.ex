@@ -3,6 +3,7 @@ defmodule AOFFWeb.PaymentTermsController do
 
   alias AOFF.System
   alias AOFFWeb.Users.Auth
+  alias AOFF.Users
   plug Auth
 
   plug :authenticate when action in [:show]
@@ -16,6 +17,12 @@ defmodule AOFFWeb.PaymentTermsController do
       )
 
     render(conn, :show, message: message, order_id: order_id)
+  end
+
+  def show(conn, _params) do
+    IO.inspect "fobar"
+    order = Users.current_order(conn.assigns.current_user.id)
+    conn |> redirect(to: Routes.payment_terms_path(conn, :show, order_id: order.id))
   end
 
   defp authenticate(conn, _opts) do
