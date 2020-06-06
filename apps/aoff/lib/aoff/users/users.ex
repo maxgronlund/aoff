@@ -502,6 +502,7 @@ defmodule AOFF.Users do
     Order
     |> Repo.get_by(token: token)
     |> Repo.preload(:user)
+    |> Repo.preload(order_items: [:product, :date])
   end
 
   def delete_order(%Order{} = order) do
