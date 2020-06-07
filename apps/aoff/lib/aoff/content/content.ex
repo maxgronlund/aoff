@@ -157,8 +157,9 @@ defmodule AOFF.Content do
   """
   def list_categories() do
     query =
-      from b in Category,
-        where: b.locale == ^Gettext.get_locale()
+      from c in Category,
+        where: c.locale == ^Gettext.get_locale(),
+        order_by: [desc: c.position]
 
     query
     |> Repo.all()

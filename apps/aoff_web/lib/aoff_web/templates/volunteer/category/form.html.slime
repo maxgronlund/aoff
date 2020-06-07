@@ -33,6 +33,10 @@ javascript:
       = textarea f, :description, class: "form-control full-width"
       = error_tag f, :description
       i= gettext("Make the description short. max 32 words")
+    .form-group
+      = label f, :position, gettext("Position"), class: "control-label"
+      = number_input f, :position
+      = error_tag f, :position
     .row
       .column
         .form-group.mt-1
