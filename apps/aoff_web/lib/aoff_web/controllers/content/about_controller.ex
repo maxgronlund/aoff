@@ -46,7 +46,7 @@ defmodule AOFFWeb.Content.AboutController do
 
   defp navbar(conn, _opts) do
     conn
-    |> assign(:selected_menu_item, :volunteer)
+    |> assign(:selected_menu_item, :about_aoff)
     |> assign(:title, gettext("About AOFF"))
   end
 end
