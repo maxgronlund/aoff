@@ -44,18 +44,23 @@ defmodule AOFFWeb.Volunteer.NewsController do
   end
 
   def edit(conn, %{"id" => id}) do
-    news = Content.get_news!(id)
-    changeset = Content.change_news(news)
+    if news = Content.get_news!(id) do
+      changeset = Content.change_news(news)
 
-    render(
-      conn,
-      "edit.html",
-      news: news,
-      changeset: changeset,
-      date: news.date,
-      author: news.author,
-      image_format: image_format()
-    )
+      render(
+        conn,
+        "edit.html",
+        news: news,
+        changeset: changeset,
+        date: news.date,
+        author: news.author,
+        image_format: image_format()
+      )
+    else
+      conn
+      |> put_flash(:error, gettext("The news for the selected language does not exist."))
+      |> redirect(to: Routes.news_path(conn, :index))
+    end
   end
 
   def update(conn, %{"id" => id, "news" => news_params}) do
