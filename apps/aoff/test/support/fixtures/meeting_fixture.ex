@@ -7,7 +7,8 @@ defmodule AOFF.Committees.MeetingFixture do
     "summary" => "some meeting summary",
     "location" => "some location",
     "agenda" => "some agenda",
-    "date" => Date.utc_today()
+    "date" => Date.utc_today(),
+    "time" => Time.utc_now()
   }
 
   @update_attrs %{
@@ -16,7 +17,8 @@ defmodule AOFF.Committees.MeetingFixture do
     "summary" => "some updated meeting summary",
     "location" => "some updated location",
     "agenda" => "some updated agenda",
-    "date" => Date.add(Date.utc_today(), 12)
+    "date" => Date.add(Date.utc_today(), 12),
+    "time" => Time.add(Time.utc_now(),1234)
   }
 
   @invalid_attrs %{
@@ -25,7 +27,8 @@ defmodule AOFF.Committees.MeetingFixture do
     "summary" => nil,
     "location" => nil,
     "agenda" => nil,
-    "date" => nil
+    "date" => nil,
+    "time" => nil
   }
 
   def valid_meeting_attrs(attrs \\ %{}) do

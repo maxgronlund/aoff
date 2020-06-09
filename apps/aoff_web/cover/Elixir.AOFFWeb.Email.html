@@ -103,7 +103,7 @@ td.source {
 </head>
 <body>
 <h1><code>cover/Elixir.AOFFWeb.Email.html</code></h1>
-<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/controllers/emails/email_controller.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-05 at 12:09:30</p></footer>
+<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/controllers/emails/email_controller.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-09 at 15:37:55</p></footer>
 <table>
 <tbody>
 <tr>
@@ -129,160 +129,180 @@ td.source {
 <tr>
 <td class="line" id="L5"><a href="#L5">5</a></td>
 <td class="hits"></td>
-<td class="source"><code>  import AOFFWeb.Gettext</code></td>
+<td class="source"><code>  alias AOFF.Users</code></td>
 </tr>
 <tr>
 <td class="line" id="L6"><a href="#L6">6</a></td>
 <td class="hits"></td>
-<td class="source"><code></code></td>
+<td class="source"><code>  import AOFFWeb.Gettext</code></td>
 </tr>
 <tr>
 <td class="line" id="L7"><a href="#L7">7</a></td>
 <td class="hits"></td>
-<td class="source"><code>  @email_from Application.get_env(:aoff_web, AOFFWeb.Mailer)[:email_from]</code></td>
+<td class="source"><code></code></td>
 </tr>
 <tr>
 <td class="line" id="L8"><a href="#L8">8</a></td>
 <td class="hits"></td>
-<td class="source"><code></code></td>
+<td class="source"><code>  @email_from Application.get_env(:aoff_web, AOFFWeb.Mailer)[:email_from]</code></td>
 </tr>
 <tr>
 <td class="line" id="L9"><a href="#L9">9</a></td>
 <td class="hits"></td>
+<td class="source"><code></code></td>
+</tr>
+<tr>
+<td class="line" id="L10"><a href="#L10">10</a></td>
+<td class="hits"></td>
 <td class="source"><code>  def reset_password_email(username_and_email, reset_password_url) do</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L10"><a href="#L10">10</a></td>
+<td class="line" id="L11"><a href="#L11">11</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>    {:ok, message} =</code></td>
 </tr>
 <tr>
-<td class="line" id="L11"><a href="#L11">11</a></td>
+<td class="line" id="L12"><a href="#L12">12</a></td>
 <td class="hits"></td>
 <td class="source"><code>      System.find_or_create_message(</code></td>
 </tr>
 <tr>
-<td class="line" id="L12"><a href="#L12">12</a></td>
+<td class="line" id="L13"><a href="#L13">13</a></td>
 <td class="hits"></td>
 <td class="source"><code>        "/reset_password/:id/create",</code></td>
 </tr>
 <tr>
-<td class="line" id="L13"><a href="#L13">13</a></td>
+<td class="line" id="L14"><a href="#L14">14</a></td>
 <td class="hits"></td>
 <td class="source"><code>        "Reset password",</code></td>
 </tr>
 <tr>
-<td class="line" id="L14"><a href="#L14">14</a></td>
+<td class="line" id="L15"><a href="#L15">15</a></td>
 <td class="hits"></td>
 <td class="source"><code>        Gettext.get_locale()</code></td>
 </tr>
 <tr>
-<td class="line" id="L15"><a href="#L15">15</a></td>
+<td class="line" id="L16"><a href="#L16">16</a></td>
 <td class="hits"></td>
 <td class="source"><code>      )</code></td>
 </tr>
 <tr>
-<td class="line" id="L16"><a href="#L16">16</a></td>
-<td class="hits"></td>
-<td class="source"><code></code></td>
-</tr>
-<tr>
 <td class="line" id="L17"><a href="#L17">17</a></td>
 <td class="hits"></td>
-<td class="source"><code>    new_email()</code></td>
+<td class="source"><code></code></td>
 </tr>
 <tr>
 <td class="line" id="L18"><a href="#L18">18</a></td>
 <td class="hits"></td>
-<td class="source"><code>    |&gt; to(username_and_email)</code></td>
+<td class="source"><code>    new_email()</code></td>
 </tr>
 <tr>
 <td class="line" id="L19"><a href="#L19">19</a></td>
 <td class="hits"></td>
+<td class="source"><code>    |&gt; to(username_and_email)</code></td>
+</tr>
+<tr>
+<td class="line" id="L20"><a href="#L20">20</a></td>
+<td class="hits"></td>
 <td class="source"><code>    |&gt; from(@email_from)</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L20"><a href="#L20">20</a></td>
+<td class="line" id="L21"><a href="#L21">21</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>    |&gt; subject(gettext("Reset password"))</code></td>
 </tr>
 <tr>
-<td class="line" id="L21"><a href="#L21">21</a></td>
+<td class="line" id="L22"><a href="#L22">22</a></td>
 <td class="hits"></td>
 <td class="source"><code>    |&gt; put_header("Reply-To", @email_from)</code></td>
 </tr>
 <tr>
-<td class="line" id="L22"><a href="#L22">22</a></td>
+<td class="line" id="L23"><a href="#L23">23</a></td>
 <td class="hits"></td>
 <td class="source"><code>    |&gt; put_layout({AOFFWeb.EmailView, :reset_password})</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L23"><a href="#L23">23</a></td>
+<td class="line" id="L24"><a href="#L24">24</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
 <td class="source"><code>    |&gt; render(:reset_password, reset_password_url: reset_password_url, message: message)</code></td>
 </tr>
 <tr>
-<td class="line" id="L24"><a href="#L24">24</a></td>
-<td class="hits"></td>
-<td class="source"><code>  end</code></td>
-</tr>
-<tr>
 <td class="line" id="L25"><a href="#L25">25</a></td>
 <td class="hits"></td>
-<td class="source"><code></code></td>
+<td class="source"><code>  end</code></td>
 </tr>
 <tr>
 <td class="line" id="L26"><a href="#L26">26</a></td>
 <td class="hits"></td>
-<td class="source"><code>  def invoice_email(username_and_email, order_id, invoice_url) do</code></td>
+<td class="source"><code></code></td>
 </tr>
 <tr>
 <td class="line" id="L27"><a href="#L27">27</a></td>
 <td class="hits"></td>
-<td class="source"><code></code></td>
+<td class="source"><code>  def invoice_email(order, cardno, paymenttype) do</code></td>
 </tr>
 <tr>
 <td class="line" id="L28"><a href="#L28">28</a></td>
 <td class="hits"></td>
-<td class="source"><code>    new_email()</code></td>
-</tr>
-<tr>
-<td class="line" id="L29"><a href="#L29">29</a></td>
-<td class="hits"></td>
-<td class="source"><code>    |&gt; to(username_and_email)</code></td>
-</tr>
-<tr>
-<td class="line" id="L30"><a href="#L30">30</a></td>
-<td class="hits"></td>
-<td class="source"><code>    |&gt; from(@email_from)</code></td>
+<td class="source"><code></code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L31"><a href="#L31">31</a></td>
+<td class="line" id="L29"><a href="#L29">29</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>    |&gt; subject(gettext("Invoice"))</code></td>
+<td class="source"><code>    user = Users.get_user!(order.user_id)</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L30"><a href="#L30">30</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>    username_and_email = {user.username, user.email}</code></td>
+</tr>
+<tr>
+<td class="line" id="L31"><a href="#L31">31</a></td>
+<td class="hits"></td>
+<td class="source"><code></code></td>
 </tr>
 <tr>
 <td class="line" id="L32"><a href="#L32">32</a></td>
 <td class="hits"></td>
-<td class="source"><code>    |&gt; put_header("Reply-To", @email_from)</code></td>
+<td class="source"><code>    new_email()</code></td>
 </tr>
 <tr>
 <td class="line" id="L33"><a href="#L33">33</a></td>
 <td class="hits"></td>
-<td class="source"><code>    |&gt; put_layout({AOFFWeb.EmailView, :reset_password})</code></td>
-</tr>
-<tr class="miss">
-<td class="line" id="L34"><a href="#L34">34</a></td>
-<td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>    |&gt; render(:reset_password, invoice_url: invoice_url, message: "invoice")</code></td>
+<td class="source"><code>    |&gt; to(username_and_email)</code></td>
 </tr>
 <tr>
+<td class="line" id="L34"><a href="#L34">34</a></td>
+<td class="hits"></td>
+<td class="source"><code>    |&gt; from(@email_from)</code></td>
+</tr>
+<tr class="miss">
 <td class="line" id="L35"><a href="#L35">35</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>    |&gt; subject(gettext("Invoice"))</code></td>
+</tr>
+<tr>
+<td class="line" id="L36"><a href="#L36">36</a></td>
+<td class="hits"></td>
+<td class="source"><code>    |&gt; put_header("Reply-To", @email_from)</code></td>
+</tr>
+<tr>
+<td class="line" id="L37"><a href="#L37">37</a></td>
+<td class="hits"></td>
+<td class="source"><code>    |&gt; put_layout({AOFFWeb.EmailView, :invoice})</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L38"><a href="#L38">38</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>    |&gt; render(:invoice, order: order, cardno: cardno, paymenttype: paymenttype)</code></td>
+</tr>
+<tr>
+<td class="line" id="L39"><a href="#L39">39</a></td>
 <td class="hits"></td>
 <td class="source"><code>  end</code></td>
 </tr>
 <tr>
-<td class="line" id="L36"><a href="#L36">36</a></td>
+<td class="line" id="L40"><a href="#L40">40</a></td>
 <td class="hits"></td>
 <td class="source"><code>end</code></td>
 </tr>

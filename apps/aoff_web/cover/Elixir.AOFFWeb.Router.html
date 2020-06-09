@@ -103,12 +103,12 @@ td.source {
 </head>
 <body>
 <h1><code>cover/Elixir.AOFFWeb.Router.html</code></h1>
-<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/router.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-05 at 12:09:30</p></footer>
+<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/router.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-09 at 15:37:55</p></footer>
 <table>
 <tbody>
 <tr class="hit">
 <td class="line" id="L1"><a href="#L1">1</a></td>
-<td class="hits">360</td>
+<td class="hits">363</td>
 <td class="source"><code>defmodule AOFFWeb.Router do</code></td>
 </tr>
 <tr class="hit">
@@ -123,7 +123,7 @@ td.source {
 </tr>
 <tr class="hit">
 <td class="line" id="L4"><a href="#L4">4</a></td>
-<td class="hits">120</td>
+<td class="hits">121</td>
 <td class="source"><code>  pipeline :browser do</code></td>
 </tr>
 <tr>
@@ -193,17 +193,17 @@ td.source {
 </tr>
 <tr class="hit">
 <td class="line" id="L18"><a href="#L18">18</a></td>
-<td class="hits">120</td>
+<td class="hits">121</td>
 <td class="source"><code>    if current_user = conn.assigns[:current_user] do</code></td>
 </tr>
 <tr class="hit">
 <td class="line" id="L19"><a href="#L19">19</a></td>
-<td class="hits">105</td>
+<td class="hits">106</td>
 <td class="source"><code>      token = Phoenix.Token.sign(conn, "user socket", current_user.id)</code></td>
 </tr>
 <tr class="hit">
 <td class="line" id="L20"><a href="#L20">20</a></td>
-<td class="hits">105</td>
+<td class="hits">106</td>
 <td class="source"><code>      assign(conn, :user_token, token)</code></td>
 </tr>
 <tr>
@@ -553,7 +553,7 @@ td.source {
 </tr>
 <tr class="hit">
 <td class="line" id="L90"><a href="#L90">90</a></td>
-<td class="hits">1</td>
+<td class="hits">2</td>
 <td class="source"><code>    get "/payment_accepted/:id", AOFFWeb.Shop.PaymentAcceptedController, :index</code></td>
 </tr>
 <tr class="miss">

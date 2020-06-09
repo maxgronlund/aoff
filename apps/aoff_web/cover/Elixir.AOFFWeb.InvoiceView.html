@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>cover/Elixir.AOFFWeb.PickupView.html</title>
+<title>cover/Elixir.AOFFWeb.InvoiceView.html</title>
 <style>body {
   font: 14px/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
@@ -102,14 +102,14 @@ td.source {
 </style>
 </head>
 <body>
-<h1><code>cover/Elixir.AOFFWeb.PickupView.html</code></h1>
-<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/views/pickup_view.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-09 at 15:37:55</p></footer>
+<h1><code>cover/Elixir.AOFFWeb.InvoiceView.html</code></h1>
+<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/views/invoice_view.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-09 at 15:37:55</p></footer>
 <table>
 <tbody>
 <tr class="miss">
 <td class="line" id="L1"><a href="#L1">1</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>defmodule AOFFWeb.PickupView do</code></td>
+<td class="source"><code>defmodule AOFFWeb.InvoiceView do</code></td>
 </tr>
 <tr class="miss">
 <td class="line" id="L2"><a href="#L2">2</a></td>
@@ -118,6 +118,31 @@ td.source {
 </tr>
 <tr>
 <td class="line" id="L3"><a href="#L3">3</a></td>
+<td class="hits"></td>
+<td class="source"><code></code></td>
+</tr>
+<tr>
+<td class="line" id="L4"><a href="#L4">4</a></td>
+<td class="hits"></td>
+<td class="source"><code>  def date(date) do</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L5"><a href="#L5">5</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>    {:ok, date} = AOFFWeb.Cldr.Date.to_string(date, locale: Gettext.get_locale())</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L6"><a href="#L6">6</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>    date</code></td>
+</tr>
+<tr>
+<td class="line" id="L7"><a href="#L7">7</a></td>
+<td class="hits"></td>
+<td class="source"><code>  end</code></td>
+</tr>
+<tr>
+<td class="line" id="L8"><a href="#L8">8</a></td>
 <td class="hits"></td>
 <td class="source"><code>end</code></td>
 </tr>

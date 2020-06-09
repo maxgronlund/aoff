@@ -103,7 +103,7 @@ td.source {
 </head>
 <body>
 <h1><code>cover/Elixir.AOFFWeb.EmailView.html</code></h1>
-<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/views/email_view.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-05 at 12:09:30</p></footer>
+<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/views/email_view.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-09 at 15:37:55</p></footer>
 <table>
 <tbody>
 <tr class="miss">
@@ -118,6 +118,116 @@ td.source {
 </tr>
 <tr>
 <td class="line" id="L3"><a href="#L3">3</a></td>
+<td class="hits"></td>
+<td class="source"><code></code></td>
+</tr>
+<tr>
+<td class="line" id="L4"><a href="#L4">4</a></td>
+<td class="hits"></td>
+<td class="source"><code>  def date(date) do</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L5"><a href="#L5">5</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>    {:ok, date} = AOFFWeb.Cldr.Date.to_string(date, locale: Gettext.get_locale())</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L6"><a href="#L6">6</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>    date</code></td>
+</tr>
+<tr>
+<td class="line" id="L7"><a href="#L7">7</a></td>
+<td class="hits"></td>
+<td class="source"><code>  end</code></td>
+</tr>
+<tr>
+<td class="line" id="L8"><a href="#L8">8</a></td>
+<td class="hits"></td>
+<td class="source"><code></code></td>
+</tr>
+<tr>
+<td class="line" id="L9"><a href="#L9">9</a></td>
+<td class="hits"></td>
+<td class="source"><code>  def name(product) do</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L10"><a href="#L10">10</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>    case Gettext.get_locale() do</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L11"><a href="#L11">11</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>      "da" -&gt; product.name_da</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L12"><a href="#L12">12</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>      "en" -&gt; product.name_en</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L13"><a href="#L13">13</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>      _ -&gt; product.name_en</code></td>
+</tr>
+<tr>
+<td class="line" id="L14"><a href="#L14">14</a></td>
+<td class="hits"></td>
+<td class="source"><code>    end</code></td>
+</tr>
+<tr>
+<td class="line" id="L15"><a href="#L15">15</a></td>
+<td class="hits"></td>
+<td class="source"><code>  end</code></td>
+</tr>
+<tr>
+<td class="line" id="L16"><a href="#L16">16</a></td>
+<td class="hits"></td>
+<td class="source"><code></code></td>
+</tr>
+<tr>
+<td class="line" id="L17"><a href="#L17">17</a></td>
+<td class="hits"></td>
+<td class="source"><code>  def paymenttype(paymenttype) do</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L18"><a href="#L18">18</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>    case paymenttype do</code></td>
+</tr>
+<tr>
+<td class="line" id="L19"><a href="#L19">19</a></td>
+<td class="hits"></td>
+<td class="source"><code>      "1" -&gt; "Dankort/Visa-Dankort"</code></td>
+</tr>
+<tr>
+<td class="line" id="L20"><a href="#L20">20</a></td>
+<td class="hits"></td>
+<td class="source"><code>      "2" -&gt; "MasterCard"</code></td>
+</tr>
+<tr>
+<td class="line" id="L21"><a href="#L21">21</a></td>
+<td class="hits"></td>
+<td class="source"><code>      "3" -&gt; "Visa / Visa Electron"</code></td>
+</tr>
+<tr>
+<td class="line" id="L22"><a href="#L22">22</a></td>
+<td class="hits"></td>
+<td class="source"><code>      _ -&gt; "Betalingskort"</code></td>
+</tr>
+<tr>
+<td class="line" id="L23"><a href="#L23">23</a></td>
+<td class="hits"></td>
+<td class="source"><code>    end</code></td>
+</tr>
+<tr>
+<td class="line" id="L24"><a href="#L24">24</a></td>
+<td class="hits"></td>
+<td class="source"><code>  end</code></td>
+</tr>
+<tr>
+<td class="line" id="L25"><a href="#L25">25</a></td>
 <td class="hits"></td>
 <td class="source"><code>end</code></td>
 </tr>

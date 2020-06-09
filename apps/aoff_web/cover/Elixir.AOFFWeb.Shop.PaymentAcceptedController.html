@@ -103,17 +103,17 @@ td.source {
 </head>
 <body>
 <h1><code>cover/Elixir.AOFFWeb.Shop.PaymentAcceptedController.html</code></h1>
-<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/controllers/shop/payment_accepted_controller.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-05 at 12:09:30</p></footer>
+<footer><p>File generated from <code>/Users/maxgronlund/Documents/aoff/apps/aoff_web/lib/aoff_web/controllers/shop/payment_accepted_controller.ex</code> by <a href="http://erlang.org/doc/man/cover.html">cover</a> at 2020-06-09 at 15:37:55</p></footer>
 <table>
 <tbody>
 <tr class="hit">
 <td class="line" id="L1"><a href="#L1">1</a></td>
-<td class="hits">2</td>
+<td class="hits">4</td>
 <td class="source"><code>defmodule AOFFWeb.Shop.PaymentAcceptedController do</code></td>
 </tr>
 <tr class="hit">
 <td class="line" id="L2"><a href="#L2">2</a></td>
-<td class="hits">3</td>
+<td class="hits">6</td>
 <td class="source"><code>  use AOFFWeb, :controller</code></td>
 </tr>
 <tr>
@@ -139,182 +139,182 @@ td.source {
 <tr>
 <td class="line" id="L7"><a href="#L7">7</a></td>
 <td class="hits"></td>
-<td class="source"><code>  def index(conn, %{"id" =&gt; id}) do</code></td>
-</tr>
-<tr class="hit">
-<td class="line" id="L8"><a href="#L8">8</a></td>
-<td class="hits">1</td>
-<td class="source"><code>    order = Users.get_order_by_token!(id)</code></td>
+<td class="source"><code>  def index(conn, %{"id" =&gt; id, "cardno" =&gt; cardno, "paymenttype" =&gt; paymenttype}) do</code></td>
 </tr>
 <tr>
-<td class="line" id="L9"><a href="#L9">9</a></td>
+<td class="line" id="L8"><a href="#L8">8</a></td>
 <td class="hits"></td>
 <td class="source"><code></code></td>
 </tr>
-<tr class="hit">
-<td class="line" id="L10"><a href="#L10">10</a></td>
-<td class="hits">1</td>
-<td class="source"><code>    if order.state == "open" do</code></td>
-</tr>
-<tr class="hit">
-<td class="line" id="L11"><a href="#L11">11</a></td>
-<td class="hits">1</td>
-<td class="source"><code>      case Users.payment_accepted(order) do</code></td>
+<tr class="miss">
+<td class="line" id="L9"><a href="#L9">9</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>    order = Users.get_order_by_token!(id)</code></td>
 </tr>
 <tr>
-<td class="line" id="L12"><a href="#L12">12</a></td>
+<td class="line" id="L10"><a href="#L10">10</a></td>
 <td class="hits"></td>
-<td class="source"><code>        {:ok, %Users.Order{}} -&gt;</code></td>
+<td class="source"><code></code></td>
 </tr>
-<tr class="hit">
+<tr class="miss">
+<td class="line" id="L11"><a href="#L11">11</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>    cond do</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L12"><a href="#L12">12</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>      order &amp;&amp; order.state == "open" -&gt;</code></td>
+</tr>
+<tr class="miss">
 <td class="line" id="L13"><a href="#L13">13</a></td>
-<td class="hits">1</td>
-<td class="source"><code>          Users.extend_memberships(order)</code></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>        case Users.payment_accepted(order) do</code></td>
 </tr>
 <tr>
 <td class="line" id="L14"><a href="#L14">14</a></td>
 <td class="hits"></td>
-<td class="source"><code>          # Create a new order for the basket.</code></td>
-</tr>
-<tr class="hit">
-<td class="line" id="L15"><a href="#L15">15</a></td>
-<td class="hits">1</td>
-<td class="source"><code>          Users.create_order(%{"user_id" =&gt; order.user_id})</code></td>
-</tr>
-<tr class="hit">
-<td class="line" id="L16"><a href="#L16">16</a></td>
-<td class="hits">1</td>
-<td class="source"><code>          accepted(conn, order)</code></td>
-</tr>
-<tr>
-<td class="line" id="L17"><a href="#L17">17</a></td>
-<td class="hits"></td>
-<td class="source"><code></code></td>
-</tr>
-<tr>
-<td class="line" id="L18"><a href="#L18">18</a></td>
-<td class="hits"></td>
-<td class="source"><code>        _ -&gt;</code></td>
+<td class="source"><code>          {:ok, %Users.Order{}} -&gt;</code></td>
 </tr>
 <tr class="miss">
-<td class="line" id="L19"><a href="#L19">19</a></td>
+<td class="line" id="L15"><a href="#L15">15</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>          error(conn)</code></td>
+<td class="source"><code>            Users.extend_memberships(order)</code></td>
+</tr>
+<tr>
+<td class="line" id="L16"><a href="#L16">16</a></td>
+<td class="hits"></td>
+<td class="source"><code>            # Create a new order for the basket.</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L17"><a href="#L17">17</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>            Users.create_order(%{"user_id" =&gt; order.user_id})</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L18"><a href="#L18">18</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>            accepted(conn, order, cardno, paymenttype)</code></td>
+</tr>
+<tr>
+<td class="line" id="L19"><a href="#L19">19</a></td>
+<td class="hits"></td>
+<td class="source"><code></code></td>
 </tr>
 <tr>
 <td class="line" id="L20"><a href="#L20">20</a></td>
 <td class="hits"></td>
-<td class="source"><code>      end</code></td>
+<td class="source"><code></code></td>
 </tr>
 <tr>
 <td class="line" id="L21"><a href="#L21">21</a></td>
 <td class="hits"></td>
-<td class="source"><code>    end</code></td>
+<td class="source"><code></code></td>
 </tr>
 <tr>
 <td class="line" id="L22"><a href="#L22">22</a></td>
 <td class="hits"></td>
-<td class="source"><code>  end</code></td>
+<td class="source"><code>          _ -&gt;</code></td>
 </tr>
-<tr>
+<tr class="miss">
 <td class="line" id="L23"><a href="#L23">23</a></td>
-<td class="hits"></td>
-<td class="source"><code></code></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>            error(conn)</code></td>
 </tr>
 <tr>
 <td class="line" id="L24"><a href="#L24">24</a></td>
 <td class="hits"></td>
-<td class="source"><code>  defp accepted(conn, order) do</code></td>
+<td class="source"><code>        end</code></td>
 </tr>
-<tr class="hit">
+<tr class="miss">
 <td class="line" id="L25"><a href="#L25">25</a></td>
-<td class="hits">1</td>
-<td class="source"><code>    {:ok, message} =</code></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>      order -&gt;</code></td>
 </tr>
-<tr>
+<tr class="miss">
 <td class="line" id="L26"><a href="#L26">26</a></td>
-<td class="hits"></td>
-<td class="source"><code>      System.find_or_create_message(</code></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>        accepted(conn, order, cardno, paymenttype)</code></td>
 </tr>
-<tr>
+<tr class="miss">
 <td class="line" id="L27"><a href="#L27">27</a></td>
-<td class="hits"></td>
-<td class="source"><code>        "shop/payment_accepted",</code></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>      true -&gt; error(conn)</code></td>
 </tr>
 <tr>
 <td class="line" id="L28"><a href="#L28">28</a></td>
 <td class="hits"></td>
-<td class="source"><code>        "Payment accepted",</code></td>
+<td class="source"><code>    end</code></td>
 </tr>
 <tr>
 <td class="line" id="L29"><a href="#L29">29</a></td>
 <td class="hits"></td>
-<td class="source"><code>        Gettext.get_locale()</code></td>
+<td class="source"><code>  end</code></td>
 </tr>
 <tr>
 <td class="line" id="L30"><a href="#L30">30</a></td>
 <td class="hits"></td>
-<td class="source"><code>      )</code></td>
+<td class="source"><code></code></td>
 </tr>
 <tr>
 <td class="line" id="L31"><a href="#L31">31</a></td>
 <td class="hits"></td>
-<td class="source"><code></code></td>
+<td class="source"><code>  defp accepted(conn, order, cardno, paymenttype) do</code></td>
 </tr>
-<tr>
+<tr class="miss">
 <td class="line" id="L32"><a href="#L32">32</a></td>
-<td class="hits"></td>
-<td class="source"><code>    conn</code></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>    send_invoice(order, cardno, paymenttype)</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L33"><a href="#L33">33</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>    {:ok, message} =</code></td>
 </tr>
 <tr>
-<td class="line" id="L33"><a href="#L33">33</a></td>
-<td class="hits"></td>
-<td class="source"><code>    |&gt; assign(:order_items_count, 0)</code></td>
-</tr>
-<tr class="hit">
 <td class="line" id="L34"><a href="#L34">34</a></td>
-<td class="hits">1</td>
-<td class="source"><code>    |&gt; render("index.html", order: order, message: message)</code></td>
+<td class="hits"></td>
+<td class="source"><code>      System.find_or_create_message(</code></td>
 </tr>
 <tr>
 <td class="line" id="L35"><a href="#L35">35</a></td>
 <td class="hits"></td>
-<td class="source"><code>  end</code></td>
+<td class="source"><code>        "shop/payment_accepted",</code></td>
 </tr>
 <tr>
 <td class="line" id="L36"><a href="#L36">36</a></td>
 <td class="hits"></td>
-<td class="source"><code></code></td>
+<td class="source"><code>        "Payment accepted",</code></td>
 </tr>
 <tr>
 <td class="line" id="L37"><a href="#L37">37</a></td>
 <td class="hits"></td>
-<td class="source"><code>  def error(conn) do</code></td>
+<td class="source"><code>        Gettext.get_locale()</code></td>
 </tr>
 <tr>
 <td class="line" id="L38"><a href="#L38">38</a></td>
 <td class="hits"></td>
-<td class="source"><code>    conn</code></td>
+<td class="source"><code>      )</code></td>
 </tr>
 <tr>
 <td class="line" id="L39"><a href="#L39">39</a></td>
 <td class="hits"></td>
-<td class="source"><code>    |&gt; put_status(401)</code></td>
+<td class="source"><code></code></td>
 </tr>
 <tr>
 <td class="line" id="L40"><a href="#L40">40</a></td>
 <td class="hits"></td>
-<td class="source"><code>    |&gt; put_view(AOFFWeb.ErrorView)</code></td>
+<td class="source"><code>    conn</code></td>
 </tr>
 <tr>
 <td class="line" id="L41"><a href="#L41">41</a></td>
 <td class="hits"></td>
-<td class="source"><code>    |&gt; render(:"401")</code></td>
+<td class="source"><code>    |&gt; assign(:order_items_count, 0)</code></td>
 </tr>
 <tr class="miss">
 <td class="line" id="L42"><a href="#L42">42</a></td>
 <td class="hits"><pre style="display: inline;">:-(</pre></td>
-<td class="source"><code>    |&gt; halt()</code></td>
+<td class="source"><code>    |&gt; render("index.html", order: order, message: message)</code></td>
 </tr>
 <tr>
 <td class="line" id="L43"><a href="#L43">43</a></td>
@@ -323,6 +323,76 @@ td.source {
 </tr>
 <tr>
 <td class="line" id="L44"><a href="#L44">44</a></td>
+<td class="hits"></td>
+<td class="source"><code></code></td>
+</tr>
+<tr>
+<td class="line" id="L45"><a href="#L45">45</a></td>
+<td class="hits"></td>
+<td class="source"><code>  defp send_invoice(order, cardno, paymenttype) do</code></td>
+</tr>
+<tr>
+<td class="line" id="L46"><a href="#L46">46</a></td>
+<td class="hits"></td>
+<td class="source"><code>    # Create your email</code></td>
+</tr>
+<tr>
+<td class="line" id="L47"><a href="#L47">47</a></td>
+<td class="hits"></td>
+<td class="source"><code>    AOFFWeb.Email.invoice_email(order, cardno, paymenttype)</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L48"><a href="#L48">48</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>    |&gt; AOFFWeb.Mailer.deliver_now()</code></td>
+</tr>
+<tr>
+<td class="line" id="L49"><a href="#L49">49</a></td>
+<td class="hits"></td>
+<td class="source"><code>  end</code></td>
+</tr>
+<tr>
+<td class="line" id="L50"><a href="#L50">50</a></td>
+<td class="hits"></td>
+<td class="source"><code></code></td>
+</tr>
+<tr>
+<td class="line" id="L51"><a href="#L51">51</a></td>
+<td class="hits"></td>
+<td class="source"><code>  def error(conn) do</code></td>
+</tr>
+<tr>
+<td class="line" id="L52"><a href="#L52">52</a></td>
+<td class="hits"></td>
+<td class="source"><code>    conn</code></td>
+</tr>
+<tr>
+<td class="line" id="L53"><a href="#L53">53</a></td>
+<td class="hits"></td>
+<td class="source"><code>    |&gt; put_status(401)</code></td>
+</tr>
+<tr>
+<td class="line" id="L54"><a href="#L54">54</a></td>
+<td class="hits"></td>
+<td class="source"><code>    |&gt; put_view(AOFFWeb.ErrorView)</code></td>
+</tr>
+<tr>
+<td class="line" id="L55"><a href="#L55">55</a></td>
+<td class="hits"></td>
+<td class="source"><code>    |&gt; render(:"401")</code></td>
+</tr>
+<tr class="miss">
+<td class="line" id="L56"><a href="#L56">56</a></td>
+<td class="hits"><pre style="display: inline;">:-(</pre></td>
+<td class="source"><code>    |&gt; halt()</code></td>
+</tr>
+<tr>
+<td class="line" id="L57"><a href="#L57">57</a></td>
+<td class="hits"></td>
+<td class="source"><code>  end</code></td>
+</tr>
+<tr>
+<td class="line" id="L58"><a href="#L58">58</a></td>
 <td class="hits"></td>
 <td class="source"><code>end</code></td>
 </tr>

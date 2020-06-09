@@ -25,7 +25,6 @@ defmodule AOFFWeb.Email do
   end
 
   def invoice_email(order, cardno, paymenttype) do
-
     user = Users.get_user!(order.user_id)
     username_and_email = {user.username, user.email}
 
