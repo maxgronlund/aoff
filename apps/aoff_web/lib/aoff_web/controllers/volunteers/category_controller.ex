@@ -8,7 +8,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
   alias AOFF.System
   plug Auth
   plug :authorize_volunteer when action in [:index]
-  plug :authorize_admin when action in [:edit, :new, :update, :create, :delete]
+  plug :authorize_admin when action in [:new, :delete]
 
   plug :navbar when action in [:index, :new, :show, :edit]
 
