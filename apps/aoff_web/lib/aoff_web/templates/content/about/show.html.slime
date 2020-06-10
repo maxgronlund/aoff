@@ -16,6 +16,10 @@
         = link gettext("New article"),\
           to: Routes.volunteer_category_page_path(@conn, :new, @category),\
           class: "button button-outline"
+        | &nbsp;
+        = link gettext("Edit"),\
+          to: Routes.volunteer_category_path(@conn, :edit, @category),\
+          class: "button button"
 
 .tile
   .row
