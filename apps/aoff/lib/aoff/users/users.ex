@@ -729,14 +729,16 @@ defmodule AOFF.Users do
   end
 
   def payment_accepted(%Order{} = order, paymenttype \\ "1") do
-    order
-    |> Order.changeset(%{
+
+    result = Order.changeset(order, %{
       "state" => "payment_accepted",
       "order_nr" => last_order_nr() + 1,
       "payment_date" => AOFF.Time.today(),
       "paymenttype" => paymenttype
     })
     |> Repo.update()
+    IO.inspect result
+    result
   end
 
   def payment_declined(%Order{} = order) do

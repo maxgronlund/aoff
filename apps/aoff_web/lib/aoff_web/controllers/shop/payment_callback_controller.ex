@@ -9,7 +9,7 @@ defmodule AOFFWeb.Shop.PaymentCallbackController do
     cond do
       order && order.state == "open" ->
         case Users.payment_accepted(order, paymenttype) do
-          {:ok, %Users.Order{}} ->
+          {:ok, order} ->
             Users.extend_memberships(order)
             # Create a new order for the basket.
             Users.create_order(%{"user_id" => order.user_id})
@@ -22,7 +22,6 @@ defmodule AOFFWeb.Shop.PaymentCallbackController do
       true -> error(conn)
     end
   end
-
 
 
   defp accepted(conn, order, cardno, paymenttype) do
