@@ -31,7 +31,7 @@ defmodule AOFFWeb.Users.InvoiceControllerTest do
       order = order_fixture(user.id)
 
       AOFF.Users.payment_accepted(order)
-      conn = get(conn, Routes.user_order_path(conn, :show, user, order))
+      conn = get(conn, Routes.user_invoice_path(conn, :show, user, order))
 
       assert html_response(conn, 200) =~ gettext("Invoice")
     end
@@ -40,7 +40,7 @@ defmodule AOFFWeb.Users.InvoiceControllerTest do
       order = order_fixture(user.id)
 
       AOFF.Users.payment_accepted(order)
-      conn = get(conn, Routes.user_order_path(conn, :index, user))
+      conn = get(conn, Routes.user_invoice_path(conn, :index, user))
 
       assert html_response(conn, 200) =~ gettext("Invoices")
     end
