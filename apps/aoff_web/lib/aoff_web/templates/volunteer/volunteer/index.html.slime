@@ -95,7 +95,7 @@
 
 
 
-  = if @admin do
+  = if @volunteer do
     .card.is-shady
       .card-header
         .card-header-title.is-centered

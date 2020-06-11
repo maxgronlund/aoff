@@ -20,3 +20,7 @@ localhost:4000/shop/payment_accepted/LrlFEzelhuSWm3bX?txnid=260166570&orderid=wz
 
 https://synthmax.dk/shop/payment_accepted/F4AF7nIGqAVhOPuV?txnid=260166570&orderid=wzq105062020224646&amount=10000&currency=208&date=20200605&time=2247&txnfee=0&paymenttype=1&cardno=444444XXXXXX4000&hash=c1cc8a66572a92f494d8e6a2593ac719
 
+
+
+localhost:4000/shop/payment_accepted/55Pu5siRJEt7dCDH?txnid=260166570&orderid=wzq105062020224646&amount=10000&currency=208&date=20200605&time=2247&txnfee=0&paymenttype=1&cardno=444444XXXXXX4000&hash=c1cc8a66572a92f494d8e6a2593ac719
+
