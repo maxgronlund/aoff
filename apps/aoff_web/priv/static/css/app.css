@@ -1440,6 +1440,16 @@ label.panel-block:hover {
   padding: 1.5rem;
 }
 
+.tile.is-header {
+  background-color: #eee;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  max-width: 100%;
+  position: relative;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  padding: 1.5rem;
+}
+
 .button-tiles {
   grid-row-gap: 30px;
 }

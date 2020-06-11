@@ -78,7 +78,7 @@ h3 = gettext("invoices")
 .tile
   .row
     .column
-      = link gettext("Show"), to: Routes.user_order_path(@conn, :index, @user), class: "button float-right"
+      = link gettext("Show"), to: Routes.user_invoice_path(@conn, :index, @user), class: "button float-right"
 
 h3 = gettext("Profile")
 .tile

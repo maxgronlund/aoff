@@ -13,7 +13,7 @@ h2 = gettext("Invoices")
 
 = for order <- @orders do
   = if closed?(order.state) do
-    = link  to: Routes.user_order_path(@conn, :show, @user, order) do
+    = link  to: Routes.user_invoice_path(@conn, :show, @user, order) do
       .tile
         h3 = "\# #{order.order_nr}"
         .row

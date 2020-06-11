@@ -1,0 +1,103 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li = link @order.user.username, to: Routes.user_path(@conn, :show, @order.user)
+    li = link gettext("Invoices"), to: Routes.user_invoice_path(@conn, :index, @order.user)
+    li.is-active
+      | &nbsp
+      = gettext("Invoice")
+
+.tile.is-header
+  .row
+    .column
+      h2 = gettext("Invoice id# %{order_nr}", order_nr: @order.order_nr)
+      = gettext("Date: %{date}", date: date(@order.payment_date))
+      br
+      = gettext("Payment method: %{payment_method}", payment_method: "Kortbetaling")
+      br
+      = gettext("Order date: %{payment_date}", payment_date: date(@order.payment_date))
+
+    .row.mt-1
+      .column
+        b=gettext("Seller")
+        br
+        = gettext("VAT Reg No: %{vat_reg_nr}", vat_reg_nr: "3342 0609")
+        br
+        | AOFF
+        br
+        | Badstuegade 17
+        br
+        | 8000 Aarhus
+      .column
+        b=gettext("Buyer")
+        br
+        = @order.user.username
+        br
+        = gettext("Member nr. %{member_nr}", member_nr: @order.user.member_nr)
+
+  .column
+    .float-right
+      strong = @order.user.username
+
+= if Enum.empty?(@order.order_items) do
+  p.alert.alert-success
+    = gettext("Your basket is empty")
+- else
+  .tile
+    table.table
+      thead
+        tr
+          th
+            = gettext("Product")
+          th
+            .float-right
+              = gettext("Price")
+
+      tbody
+        = for order_item <- @order.order_items do
+          tr
+            td
+              b = name(order_item.product)
+              br
+              i = gettext("Pickup date")
+              br
+              = date(order_item.date.date)
+              td
+                .float-right
+                  = order_item.product.price
+
+        tr
+          td
+            .float-right
+              =gettext("Total exclusive VAT.")
+          td
+            .float-right
+              =total_exc_vat(@order.total)
+
+        tr
+          td
+            .float-right
+              =gettext("VAT. Amount")
+          td
+            .float-right
+              =vat_amount(@order.total)
+
+        tr
+          td
+            .float-right
+              b=gettext("Total amount in DKK")
+          td
+            .float-right
+              b= @order.total
+
+    .row
+      .column
+        .float-right
+          = if open?(@order.state) do
+            .float-right
+              = link gettext("Empty basket"),\
+                to: Routes.user_order_path(@conn, :delete, @user, @order),\
+                method: :delete, \
+                data: [confirm: gettext("Are you sure?")], \
+                class: "button button-outline"
+              | &nbsp;
+              = link gettext("Checkout"), to: Routes.shop_checkout_path(@conn, :edit, @order), class: "button"

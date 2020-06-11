@@ -46,8 +46,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/templates/shop/checkout/edit.html.slime:1
-#: lib/aoff_web/templates/shop_assistant/order/new.html.slime:2 lib/aoff_web/templates/users/order/show.html.slime:3
-#: lib/aoff_web/templates/volunteer/order/show.html.slime:5
+#: lib/aoff_web/templates/shop_assistant/order/new.html.slime:2 lib/aoff_web/templates/volunteer/order/show.html.slime:5
 msgid "Amount"
 msgstr ""
 
@@ -168,8 +167,8 @@ msgid "Invalid email/password combination"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/controllers/emails/email_controller.ex:35
-#: lib/aoff_web/templates/users/order/show.html.slime:1 lib/aoff_web/templates/users/order/show.html.slime:1
+#: lib/aoff_web/controllers/emails/email_controller.ex:34
+#: lib/aoff_web/templates/users/order/show.html.slime:1
 msgid "Invoice"
 msgstr ""
 
@@ -567,12 +566,12 @@ msgid "Awaits"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/controllers/volunteers/news_controller.ex:88
+#: lib/aoff_web/controllers/volunteers/news_controller.ex:93
 msgid "News deleted successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/controllers/volunteers/news_controller.ex:67
+#: lib/aoff_web/controllers/volunteers/news_controller.ex:72
 msgid "News updated successfully."
 msgstr ""
 
@@ -1682,4 +1681,69 @@ msgstr ""
 #, elixir-format
 #: lib/aoff_web/templates/email/invoice.html.slime:91
 msgid "Payment Method"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/users/order/show.html.slime:1
+msgid "Buyer"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/users/order/show.html.slime:1
+msgid "Invoice id# %{order_nr}"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/users/order/show.html.slime:1
+msgid "Member nr. %{member_nr}"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/volunteer/category/form.html.slime:6
+msgid "Position"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/users/order/show.html.slime:1
+msgid "Seller"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/controllers/volunteers/news_controller.ex:61
+msgid "The news for the selected language does not exist."
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/users/order/show.html.slime:3
+msgid "Total amount in DKK"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/users/order/show.html.slime:3
+msgid "Total exclusive VAT."
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/users/order/show.html.slime:1
+msgid "VAT Reg No: %{vat_reg_nr}"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/users/order/show.html.slime:3
+msgid "VAT. Amount"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/users/order/show.html.slime:1
+msgid "Date: %{date}"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/users/order/show.html.slime:1
+msgid "Payment method: %{payment_method}"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/users/order/show.html.slime:1
+msgid "Order date: %{payment_date}"
 msgstr ""

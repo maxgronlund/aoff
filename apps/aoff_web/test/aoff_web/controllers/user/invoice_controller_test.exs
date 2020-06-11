@@ -1,4 +1,4 @@
-defmodule AOFFWeb.Users.OrderControllerTest do
+defmodule AOFFWeb.Users.InvoiceControllerTest do
   use AOFFWeb.ConnCase
   import AOFFWeb.Gettext
 
@@ -27,18 +27,22 @@ defmodule AOFFWeb.Users.OrderControllerTest do
       {:ok, conn: conn, user: user}
     end
 
-    test "show the basket", %{conn: conn, user: user} do
-      order = order_fixture(user.id, %{"state" => "open"})
+    test "show the invoice", %{conn: conn, user: user} do
+      order = order_fixture(user.id)
+
+      AOFF.Users.payment_accepted(order)
       conn = get(conn, Routes.user_order_path(conn, :show, user, order))
 
-      assert html_response(conn, 200) =~ gettext("Basket")
+      assert html_response(conn, 200) =~ gettext("Invoice")
     end
 
-    test "delete deletes the order", %{conn: conn, user: user} do
-      order = order_fixture(user.id, %{"state" => "open"})
+    test "list invoices", %{conn: conn, user: user} do
+      order = order_fixture(user.id)
 
-      conn = delete(conn, Routes.user_order_path(conn, :delete, user, order))
-      assert redirected_to(conn) == Routes.shop_shop_path(conn, :index)
+      AOFF.Users.payment_accepted(order)
+      conn = get(conn, Routes.user_order_path(conn, :index, user))
+
+      assert html_response(conn, 200) =~ gettext("Invoices")
     end
   end
 end

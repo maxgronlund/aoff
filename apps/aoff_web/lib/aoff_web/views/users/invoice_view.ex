@@ -1,4 +1,4 @@
-defmodule AOFFWeb.Users.OrderView do
+defmodule AOFFWeb.Users.InvoiceView do
   use AOFFWeb, :view
 
   def open?(state) do

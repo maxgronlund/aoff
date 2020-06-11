@@ -1,27 +1,12 @@
 .breadcrumb aria-label="breadcrumbs"
   ul
-    = if open?(@order.state) do
-      li
-        = link gettext("Shop"), to: Routes.shop_shop_path(@conn, :index)
-      li
-        = gettext("Basket")
-    - else
-      li = link @order.user.username, to: Routes.user_path(@conn, :show, @order.user)
-      li = link gettext("Invoices"), to: Routes.user_order_path(@conn, :index, @current_user)
-      li.is-active
-        = gettext("Invoice")
-
+    li
+      = link gettext("Shop"), to: Routes.shop_shop_path(@conn, :index)
+    li
+      = gettext("Basket")
 .row
   .column
-    = if open?(@order.state) do
-      h2 = gettext("Basket")
-    - else
-      h2 = gettext("Invoice")
-
-  .column
-    .float-right
-      strong = @order.user.username
-
+    h2 = gettext("Basket")
 = if Enum.empty?(@order.order_items) do
   p.alert.alert-success
     = gettext("Your basket is empty")
@@ -32,7 +17,9 @@
         tr
           th
             = gettext("Product")
-          th = gettext("Price")
+          th
+            .float-right
+              = gettext("Price")
           th
       tbody
         = for order_item <- @order.order_items do
@@ -43,38 +30,56 @@
               i = gettext("Pickup date")
               br
               = date(order_item.date.date)
-            td = order_item.product.price
-            td
-              = if open?(@order.state) do
-                .float-right
-                  = link to: Routes.user_order_item_path(@conn, :delete, @order.user, order_item),\
-                    method: :delete,\
-                    data: [confirm: gettext("Are you sure?")] do
-                    .button.icon-button
-                      i.fa.fa-trash.red
 
-                /= link gettext("Remove"), \
-                /  to: Routes.user_order_item_path(@conn, :delete, @order.user, order_item), \
-                /  method: :delete, \
-                /  data: [confirm: gettext("Are you sure?")], \
-                /  class: "button button-outline float-right button-small"
+
+
+
+            td
+              .float-right
+                = order_item.product.price
+            td
+              .float-right
+                = link to: Routes.user_order_item_path(@conn, :delete, @order.user, order_item),\
+                  method: :delete,\
+                  data: [confirm: gettext("Are you sure?")] do
+                  .button.icon-button
+                    i.fa.fa-trash.red
+
+
         tr
           td
-            b=gettext("Amount")
+            .float-right
+              =gettext("Total exclusive VAT.")
           td
+            .float-right
+              =total_exc_vat(@order.total)
+          td
+
+        tr
+          td
+            .float-right
+              =gettext("VAT. Amount")
+          td
+            .float-right
+              =vat_amount(@order.total)
+          td
+
+        tr
+          td
+            .float-right
+              b=gettext("Total amount in DKK")
           td
             .float-right
               b= @order.total
+          td
 
     .row
       .column
         .float-right
-          = if open?(@order.state) do
-            .float-right
-              = link gettext("Empty basket"),\
-                to: Routes.user_order_path(@conn, :delete, @user, @order),\
-                method: :delete, \
-                data: [confirm: gettext("Are you sure?")], \
-                class: "button button-outline"
-              | &nbsp;
-              = link gettext("Checkout"), to: Routes.shop_checkout_path(@conn, :edit, @order), class: "button"
+          = link gettext("Empty basket"),\
+            to: Routes.user_order_path(@conn, :delete, @user, @order),\
+            method: :delete, \
+            data: [confirm: gettext("Are you sure?")], \
+            class: "button button-outline"
+          | &nbsp;
+          = link gettext("Checkout"), to: Routes.shop_checkout_path(@conn, :edit, @order), class: "button"
