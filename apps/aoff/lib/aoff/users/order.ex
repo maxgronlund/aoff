@@ -15,6 +15,7 @@ defmodule AOFF.Users.Order do
     field :order_nr, :integer
     field :token, :string
     field :payment_date, :date
+    field :paymenttype, :string, default: "1"
     field :total, Money.Ecto.Amount.Type
     belongs_to :user, User
     has_many :order_items, OrderItem
@@ -39,7 +40,8 @@ defmodule AOFF.Users.Order do
       :token,
       :total,
       :state,
-      :payment_date
+      :payment_date,
+      :paymenttype
     ])
     |> validate_required([
       :user_id,
@@ -58,6 +60,7 @@ defmodule AOFF.Users.Order do
       :order_nr,
       :token,
       :payment_date,
+      :paymenttype,
       :total])
     |> validate_required([:user_id, :state, :token])
   end

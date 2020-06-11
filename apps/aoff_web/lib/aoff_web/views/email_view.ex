@@ -19,6 +19,7 @@ defmodule AOFFWeb.EmailView do
       "1" -> "Dankort/Visa-Dankort"
       "2" -> "MasterCard"
       "3" -> "Visa / Visa Electron"
+      "cash" -> gettext("cash")
       _ -> "Betalingskort"
     end
   end

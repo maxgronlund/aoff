@@ -16,9 +16,6 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
             # Create a new order for the basket.
             Users.create_order(%{"user_id" => order.user_id})
             accepted(conn, order, cardno, paymenttype)
-
-
-
           _ ->
             error(conn)
         end

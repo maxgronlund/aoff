@@ -135,7 +135,7 @@ defmodule AOFF.Users do
 
   """
   def create_user(attrs \\ %{}) do
-    %User{}
+    %User{expiration_date: Date.add(AOFF.Time.today(), -1)}
     |> User.registration_changeset(attrs)
     |> Repo.insert()
   end
@@ -728,12 +728,13 @@ defmodule AOFF.Users do
     OrderItem.changeset(order_item, %{})
   end
 
-  def payment_accepted(%Order{} = order) do
+  def payment_accepted(%Order{} = order, paymenttype \\ "1") do
     order
     |> Order.changeset(%{
       "state" => "payment_accepted",
       "order_nr" => last_order_nr() + 1,
-      "payment_date" => AOFF.Time.today()
+      "payment_date" => AOFF.Time.today(),
+      "paymenttype" => paymenttype
     })
     |> Repo.update()
   end

@@ -1,6 +1,5 @@
-
-- unless @valid_member do
-  .alert.alert-danger
+= unless @valid_member do
+  .alert.alert-info
     h3= @message.title
     = raw @message.text
     br/

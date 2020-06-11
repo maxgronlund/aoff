@@ -53,6 +53,7 @@ defmodule AOFFWeb.UserController do
         |> redirect(to: Routes.user_path(conn, :show, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        IO.inspect changeset
         {:ok, message} =
           System.find_or_create_message(
             "/users/new",

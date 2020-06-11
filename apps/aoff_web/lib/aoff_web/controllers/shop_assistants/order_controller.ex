@@ -31,7 +31,7 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
   def update(conn, %{"id" => id}) do
     order = Users.get_order!(id)
 
-    case Users.payment_accepted(order) do
+    case Users.payment_accepted(order, "cash") do
       {:ok, order} ->
         Users.extend_memberships(order)
         # Create a new order for the basket.

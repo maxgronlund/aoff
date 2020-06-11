@@ -34,4 +34,14 @@ defmodule AOFFWeb.Users.InvoiceView do
     %Money{amount: amount} = total
     Money.multiply(Money.new(amount, :DKK), 0.2)
   end
+
+  def paymenttype(paymenttype) do
+    case paymenttype do
+      "1" -> "Dankort/Visa-Dankort"
+      "2" -> "MasterCard"
+      "3" -> "Visa / Visa Electron"
+      "cash" -> gettext("cash")
+      _ -> "Betalingskort"
+    end
+  end
 end
