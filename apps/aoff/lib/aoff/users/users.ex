@@ -425,7 +425,8 @@ defmodule AOFF.Users do
   def list_orders(:all, page \\ 0, per_page \\ @orders_pr_page) do
     query =
       from o in Order,
-        where: o.state != ^"open",
+        where: o.state != ^"open"
+        and o.state != ^"cancled",
         limit: ^per_page,
         offset: ^(page * per_page),
         order_by: [desc: o.order_nr]
@@ -729,16 +730,13 @@ defmodule AOFF.Users do
   end
 
   def payment_accepted(%Order{} = order, paymenttype \\ "1") do
-
-    result = Order.changeset(order, %{
+    Order.changeset(order, %{
       "state" => "payment_accepted",
       "order_nr" => last_order_nr() + 1,
       "payment_date" => AOFF.Time.today(),
       "paymenttype" => paymenttype
     })
     |> Repo.update()
-    IO.inspect result
-    result
   end
 
   def payment_declined(%Order{} = order) do
