@@ -2,7 +2,6 @@ defmodule AOFFWeb.EmailView do
   use AOFFWeb, :view
 
   def date(date) do
-    IO.inspect date
     if is_nil(date) do
       ""
     else

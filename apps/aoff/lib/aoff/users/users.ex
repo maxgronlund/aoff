@@ -739,16 +739,16 @@ defmodule AOFF.Users do
     |> Repo.update()
   end
 
-  def payment_declined(%Order{} = order) do
-    unless order.state == "payment_accepted" do
-      order
-      |> Order.changeset(%{
-        "state" => "payment_declined",
-        "payment_date" => AOFF.Time.today()
-      })
-      |> Repo.update()
-    end
-  end
+  # def payment_declined(%Order{} = order) do
+  #   unless order.state == "payment_accepted" do
+  #     order
+  #     |> Order.changeset(%{
+  #       "state" => "payment_declined",
+  #       "payment_date" => AOFF.Time.today()
+  #     })
+  #     |> Repo.update()
+  #   end
+  # end
 
   @doc """
   Return the last order number

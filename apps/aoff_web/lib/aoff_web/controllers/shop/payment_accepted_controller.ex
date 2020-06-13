@@ -19,8 +19,6 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
           _ ->
             error(conn)
         end
-      order ->
-        accepted(conn, order, cardno, paymenttype)
       true -> error(conn)
     end
   end

@@ -6,18 +6,22 @@ defmodule AOFFWeb.Shop.PaymentDeclinedController do
 
   def index(conn, %{"id" => id}) do
     if order = Users.get_order_by_token!(id) do
-      Users.payment_declined(order)
-    end
-
-    {:ok, message} =
+      # Users.payment_declined(order)
+      {:ok, message} =
       System.find_or_create_message(
         "shop/payment_declined",
         "Payment declined",
         Gettext.get_locale()
       )
-
-    conn
-    |> assign(:order_items_count, 0)
-    |> render("index.html", order: order, message: message)
+      conn
+      |> assign(:order_items_count, 0)
+      |> render("index.html", order: order, message: message)
+    else
+      conn
+      |> put_status(401)
+      |> put_view(AOFFWeb.ErrorView)
+      |> render(:"401")
+      |> halt()
+    end
   end
 end
