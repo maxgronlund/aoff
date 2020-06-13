@@ -52,6 +52,16 @@ defmodule AOFF.UsersTest do
       assert List.first(Users.get_users_by_username(user.username)).id == user.id
     end
 
+    test "get_user_by_member_nr/1 returns the user with the given member_nr" do
+      user = user_fixture()
+
+      assert Users.get_user_by_member_nr(user.member_nr).id == user.id
+    end
+
+    test "get_user_by_member_nr/1 returns nil" do
+      assert is_nil(Users.get_user_by_member_nr(-1))
+    end
+
     test "get_user!/1 returns the user with given id" do
       user = user_fixture()
       assert Users.get_user!(user.id).id == user.id

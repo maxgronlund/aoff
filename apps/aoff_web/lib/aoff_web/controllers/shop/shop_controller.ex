@@ -37,7 +37,7 @@ defmodule AOFFWeb.Shop.ShopController do
 
   defp navbar(conn, _opts) do
     conn
-    |> assign(:selected_menu_item, :volunteer)
+    |> assign(:selected_menu_item, :shop)
     |> assign(:title, gettext("Shop"))
   end
 end

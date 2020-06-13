@@ -44,7 +44,7 @@ defmodule AOFF.Shop do
       [%Date{}, ...]
 
   """
-  @dates_pr_page 12
+  @dates_pr_page 4
 
   def list_dates(date, page \\ 0, per_page \\ @dates_pr_page) do
     query =

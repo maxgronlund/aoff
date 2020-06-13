@@ -16,8 +16,10 @@ defmodule AOFFWeb.ShopAssistant.DateController do
         nil -> Shop.todays_page(@dates_pr_page)
         page -> String.to_integer(page)
       end
+    IO.puts "==================="
+    IO.inspect page
 
-    dates = Shop.list_all_dates(Date.utc_today(), page, @dates_pr_page)
+    dates = Shop.list_all_dates(AOFF.Time.today(), page, @dates_pr_page)
     date = Shop.get_next_date(AOFF.Time.today())
 
     render(

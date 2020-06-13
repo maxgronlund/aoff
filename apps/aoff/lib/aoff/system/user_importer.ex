@@ -5,6 +5,7 @@ defmodule AOFF.System.UserImporter do
   alias AOFF.Repo
 
   alias AOFF.Users.User
+  alias AOFF.Users
 
 
   def import(path) do
@@ -12,7 +13,7 @@ defmodule AOFF.System.UserImporter do
     rows = UserCsvParser.parse_string(str)
 
     users =
-      Enum.map(List.delete_at(rows, 0), fn [
+      Enum.map(rows, fn [
                           member_nr,
                           username,
                           email,
@@ -37,25 +38,20 @@ defmodule AOFF.System.UserImporter do
 
       member_nr = attrs["member_nr"]
 
-
-
       unless member_nr == "" do
-        AOFF.Users.get_user_by_member_nr(member_nr) |> User.import_changeset(attrs)
-        # AOFF.Users.get_user_by_member_nr(member_nr)
-        # |> User.import_changeset(attrs)
-        # |> Repo.update()
+        user = Users.get_user_by_member_nr(member_nr)
+        if  is_nil(user) do
+          IO.puts("not found: "<> attrs["username"])
+          changeset = User.import_changeset(%User{}, attrs)
+          IO.inspect Repo.insert(changeset)
+        else
+          IO.puts("found: "<> attrs["username"])
+        end
       end
-
-
-
-      # AOFF.Users.get_user_by_member_nr(attrs["member_nr"])
-      # |> User.import_changeset(attrs)
-      # |> Repo.update()
-      # %User{}
-      # |> User.import_changeset(attrs)
-      # |> Repo.insert()
     end
   end
+
+
 
   def to_date(date_str) do
     [y,m,d] =
