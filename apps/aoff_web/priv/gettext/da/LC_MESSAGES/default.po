@@ -1200,11 +1200,6 @@ msgid "Go to the shop"
 msgstr "Til butikken"
 
 #, elixir-format
-#: lib/aoff_web/templates/page/index.html.slime:2
-msgid "This weeks bags"
-msgstr "Denne uges pose"
-
-#, elixir-format
 #: lib/aoff_web/templates/shop/date/show.html.slime:1
 msgid "is added to basket"
 msgstr "er lagt i kurven"
@@ -1757,7 +1752,7 @@ msgstr "Betalingsform: %{payment_method}"
 msgid "Order date: %{payment_date}"
 msgstr "Bestillingsdato: %{payment_date}"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/page/index.html.slime:2
 msgid "Selected products"
 msgstr "Udvalgte varer"
@@ -1767,3 +1762,8 @@ msgstr "Udvalgte varer"
 #: lib/aoff_web/views/users/invoice_view.ex:43
 msgid "cash"
 msgstr "Kontant"
+
+#, elixir-format, fuzzy
+#: lib/aoff_web/templates/page/index.html.slime:2
+msgid "This week"
+msgstr "Denne uge"
