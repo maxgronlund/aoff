@@ -302,6 +302,7 @@ defmodule AOFF.Shop do
   def get_products_for_landing_page() do
     query =
       from p in Product,
+        order_by: [asc: p.position],
         where: p.show_on_landing_page == ^true
 
     query
