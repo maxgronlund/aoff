@@ -13,7 +13,7 @@ defmodule AOFFWeb.Volunteer.DateController do
     # Shop.secure_dates()
 
     page = params["page"] || "0"
-    dates = Shop.list_dates(Date.utc_today(), String.to_integer(page), 12)
+    dates = Shop.list_dates(AOFF.Time.today(), String.to_integer(page), 12)
 
     render(
       conn,

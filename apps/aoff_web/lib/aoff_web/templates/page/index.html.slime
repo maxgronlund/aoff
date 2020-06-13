@@ -16,23 +16,36 @@
 
 .row
   .column
-    .white-text
-      = if @products_ordered do
+    = if @products_ordered do
+      .white-text
         h4 = gettext("This weeks bags")
-      - else
-        h4 = gettext("Last week bags")
-    .tiles
-      = for product <- @products do
-        .card.is-black
-          = link to: Routes.shop_date_path(@conn, :show, @date) do
-            /.card-image
-            /  img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({/product.image, product}, :thumb)}"
-            .card-header-title.is-black.is-centered
-              = name(product)
-              | &nbsp;
-              = product.price
-            .card-content.is-black
-              = text_to_html(this_weeks_content(product))
+      .tiles
+        = for product <- @products do
+          .card.is-black
+            = link to: Routes.shop_date_path(@conn, :show, @date) do
+              /.card-image
+              /  img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({/product.image, product}, :thumb)}"
+              .card-header-title.is-black.is-centered
+                = name(product)
+                | &nbsp;
+                = product.price
+              .card-content.is-black
+                = text_to_html(this_weeks_content(product))
+    - else
+      .white-text
+        h4 = gettext("Selected products")
+      .tiles
+        = for product <- @products do
+          .card.is-black
+            = link to: Routes.shop_date_path(@conn, :show, @date) do
+              /.card-image
+              /  img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({/product.image, product}, :thumb)}"
+              .card-header-title.is-black.is-centered
+                = name(product)
+                | &nbsp;
+                = product.price
+              .card-content.is-black
+                = text_to_html(description(product))
 
 .row
   .column

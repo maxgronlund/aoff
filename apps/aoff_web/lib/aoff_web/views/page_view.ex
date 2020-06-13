@@ -18,10 +18,17 @@ defmodule AOFFWeb.PageView do
   end
 
   def this_weeks_content(product) do
-    case Gettext.get_locale() do
-      "da" -> product.this_weeks_content_da
-      "en" -> product.this_weeks_content_en
-      _ -> product.this_weeks_content_en
+    this_weeks_content =
+      case Gettext.get_locale() do
+        "da" -> product.this_weeks_content_da
+        "en" -> product.this_weeks_content_en
+        _ -> product.this_weeks_content_en
+      end
+    if this_weeks_content == "" do
+      description(product)
+    else
+      this_weeks_content
+
     end
   end
 end
