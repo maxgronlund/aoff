@@ -8,7 +8,7 @@ defmodule AOFFWeb.ShopAssistant.DateController do
   plug :authenticate when action in [:index, :show]
   plug :navbar when action in [:index]
 
-  @dates_pr_page 8
+  @dates_pr_page 4
 
   def index(conn, params) do
     page =
@@ -16,8 +16,6 @@ defmodule AOFFWeb.ShopAssistant.DateController do
         nil -> Shop.todays_page(@dates_pr_page)
         page -> String.to_integer(page)
       end
-    IO.puts "==================="
-    IO.inspect page
 
     dates = Shop.list_all_dates(AOFF.Time.today(), page, @dates_pr_page)
     date = Shop.get_next_date(AOFF.Time.today())
@@ -58,7 +56,7 @@ defmodule AOFFWeb.ShopAssistant.DateController do
 
   defp authenticate(conn, _opts) do
     if conn.assigns.shop_assistant do
-      assign(conn, :selected_menu_item, :shop)
+      assign(conn, :selected_menu_item, :volunteer)
     else
       conn
       |> put_status(401)
@@ -70,7 +68,7 @@ defmodule AOFFWeb.ShopAssistant.DateController do
 
   defp navbar(conn, _opts) do
     conn
-    |> assign(:selected_menu_item, :shop)
+    |> assign(:selected_menu_item, :volunteer)
     |> assign(:title, gettext("Shop duties"))
   end
 end

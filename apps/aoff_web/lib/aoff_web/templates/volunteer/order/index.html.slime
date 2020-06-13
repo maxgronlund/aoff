@@ -31,6 +31,7 @@
         = order.user.username
       .column
         = raw payment_state(order)
+        = membership(order)
       .column
         .float-right
           = link to: Routes.volunteer_order_path(@conn, :show, order) do

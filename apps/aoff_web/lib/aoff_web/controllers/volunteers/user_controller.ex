@@ -8,7 +8,7 @@ defmodule AOFFWeb.Volunteer.UserController do
 
   alias AOFFWeb.Users.Auth
   plug Auth
-  plug :authenticate when action in [:index, :show, :edit, :update, :delete]
+  plug :authenticate when action in [:index, :show, :edit, :update, :delete, :new]
 
   def index(conn, params) do
     users =
@@ -20,7 +20,6 @@ defmodule AOFFWeb.Volunteer.UserController do
       end
 
     conn
-    |> assign(:selected_menu_item, :volunteer)
     |> assign(:title, gettext("Admin Users"))
     |> put_session(:shop_assistant_date_id, nil)
     |> render("index.html", users: users, pages: Users.user_pages())
@@ -31,7 +30,6 @@ defmodule AOFFWeb.Volunteer.UserController do
     user = Volunteers.get_user!(id)
     changeset = Volunteers.change_user(user)
     conn
-    |> assign(:selected_menu_item, :volunteer)
     |> assign(:title, gettext("Edit Account"))
     |> render(
       "edit.html",
@@ -114,7 +112,6 @@ defmodule AOFFWeb.Volunteer.UserController do
   def show(conn, %{"id" => id}) do
     user = Volunteers.get_user!(id)
     conn
-    |> assign(:selected_menu_item, :volunteer)
     |> assign(:title, user.username)
     |> render("show.html", user: user)
   end
@@ -150,7 +147,7 @@ defmodule AOFFWeb.Volunteer.UserController do
 
   defp authenticate(conn, _opts) do
     if conn.assigns.volunteer do
-      conn
+      assign(conn, :selected_menu_item, :volunteer)
     else
       conn
       |> put_status(401)

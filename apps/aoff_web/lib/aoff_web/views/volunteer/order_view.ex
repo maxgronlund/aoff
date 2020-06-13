@@ -45,6 +45,12 @@ defmodule AOFFWeb.Volunteer.OrderView do
   def closed?(state) do
     !open?(state)
   end
+
+  def membership(order) do
+    order.order_items
+    # if product.membership, do: gettext("Membership"), else: gettext("order")
+    "fo"
+  end
 end
 
 
