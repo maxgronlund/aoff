@@ -8,42 +8,79 @@
       | &nbsp;
       = @order.order_nr
 
-.row
-  .column
-    h2 = gettext("Order Nr. %{nr}", nr: @order.order_nr)
-  .column
-    .float-right
-      b = @order.user.username
-      br/
-      = raw payment_state(@order)
+.tile.is-header
+  .row
+    .column
+      h2 = gettext("Invoice id# %{order_nr}", order_nr: @order.order_nr)
+      = gettext("Date: %{date}", date: date(@order.payment_date))
+      br
+      = gettext("Payment method: %{payment_method}", payment_method: "Kortbetaling")
+      br
+      = gettext("Order date: %{payment_date}", payment_date: date(@order.payment_date))
+
+    .row.mt-1
+      .column
+        b=gettext("Seller")
+        br
+        = gettext("VAT Reg No: %{vat_reg_nr}", vat_reg_nr: "3342 0609")
+        br
+        | AOFF
+        br
+        | Badstuegade 17
+        br
+        | 8000 Aarhus
+      .column
+        b=gettext("Buyer")
+        br
+        = @order.user.username
+        br
+        = gettext("Member nr. %{member_nr}", member_nr: @order.user.member_nr)
+
 .tile
   table.table
-    thead
-      tr
-        th = gettext("Product")
-        th = gettext("Pickup date")
-        th = gettext("Price")
-        th
-    tbody
-      = for order_item <- @order.order_items do
+      thead
         tr
-          td = name(order_item.product)
-          td = date(order_item.date.date)
-          td = order_item.product.price
+          th
+            = gettext("Product")
+          th
+            .float-right
+              = gettext("Price")
+
+      tbody
+        = for order_item <- @order.order_items do
+          tr
+            td
+              b = name(order_item.product)
+              br
+              i = gettext("Pickup date")
+              br
+              = date(order_item.date.date)
+              td
+                .float-right
+                  = order_item.product.price
+
+        tr
           td
-            = if open?(@order.state) do
-              = link gettext("Remove"), \
-                to: Routes.user_order_item_path(@conn, :delete, @order.user, order_item), \
-                method: :delete, \
-                data: [confirm: gettext("Are you sure?")], \
-                class: "button button-outline float-right button-small"
-      tr
-        td
-          b=gettext("Amount")
-        td
-        td
-        td
-          .float-right
-            b= @order.total
+            .float-right
+              =gettext("Total exclusive VAT.")
+          td
+            .float-right
+              =total_exc_vat(@order.total)
+
+        tr
+          td
+            .float-right
+              =gettext("VAT. Amount")
+          td
+            .float-right
+              =vat_amount(@order.total)
+
+        tr
+          td
+            .float-right
+              b=gettext("Total amount in DKK")
+          td
+            .float-right
+              b= @order.total
 
 

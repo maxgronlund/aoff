@@ -44,7 +44,9 @@
              'callbackurl': "#{@endpoint}/shop/payment_callback/#{@order.token}",
              'orderid': "#{@order.order_nr}",
              'language': "1",
-             'instantcallback': "1"
+             'instantcallback': "1",
+             'cardholder': "#{@order.user.username}",
+             'description': "Member id#{@order.user.member_nr}"
          });
 
   .row

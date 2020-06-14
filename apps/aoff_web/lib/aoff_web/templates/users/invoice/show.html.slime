@@ -34,9 +34,7 @@
         br
         = gettext("Member nr. %{member_nr}", member_nr: @order.user.member_nr)
 
-  .column
-    .float-right
-      strong = @order.user.username
+
 
 = if Enum.empty?(@order.order_items) do
   p.alert.alert-success

@@ -1743,6 +1743,10 @@ hr.double {
   padding: 1.5rem;
 }
 
+.card-content a {
+  color: #606c76;
+}
+
 .card-footer {
   background-color: transparent;
   align-items: stretch;
