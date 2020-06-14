@@ -152,6 +152,26 @@ html
                 = date(order_item.date.date)
             td
               = order_item.product.price
-        tr.total
+        tr
           td
-          td = @order.total
+            .float-right
+              =gettext("Total exclusive VAT.")
+          td
+            .float-right
+              =total_exc_vat(@order.total)
+
+        tr
+          td
+            .float-right
+              =gettext("VAT. Amount")
+          td
+            .float-right
+              =vat_amount(@order.total)
+
+        tr
+          td
+            .float-right
+              b=gettext("Total amount in DKK")
+          td
+            .float-right
+              b= @order.total

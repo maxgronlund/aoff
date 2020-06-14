@@ -34,6 +34,7 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
     case Users.payment_accepted(order, "cash") do
       {:ok, order} ->
         Users.extend_memberships(order)
+        send_invoice(order, "", "cash")
         # Create a new order for the basket.
         Users.create_order(%{"user_id" => order.user_id})
         case get_session(conn, :shop_assistant_date_id) do
@@ -46,12 +47,14 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
             |> put_flash(:info, gettext("Order created and paied"))
             |> redirect(to: Routes.shop_assistant_date_path(conn, :show, date_id))
         end
-
-
-
       _ ->
         error(conn)
     end
+  end
+
+  defp send_invoice(order, cardno, paymenttype) do
+    AOFFWeb.Email.invoice_email(order, cardno, paymenttype)
+    |> AOFFWeb.Mailer.deliver_now()
   end
 
   def delete(conn, %{"id" => id}) do

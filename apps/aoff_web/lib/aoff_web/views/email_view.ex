@@ -27,4 +27,14 @@ defmodule AOFFWeb.EmailView do
       _ -> "Betalingskort"
     end
   end
+
+  def total_exc_vat(total) do
+    %Money{amount: amount} = total
+    Money.multiply(Money.new(amount, :DKK), 0.8)
+  end
+
+  def vat_amount(total) do
+    %Money{amount: amount} = total
+    Money.multiply(Money.new(amount, :DKK), 0.2)
+  end
 end
