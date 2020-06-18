@@ -97,6 +97,7 @@ defmodule AOFFWeb.Router do
     pipe_through :browser
     resources "/dates", AOFFWeb.ShopAssistant.DateController, only: [:show, :index]
     resources "/pick_ups", AOFFWeb.ShopAssistant.PickUpController, only: [:show]
+    resources "/order_list", AOFFWeb.ShopAssistant.OrderListController, only: [:show]
     get "/", AOFFWeb.ShopAssistant.ShopAssistantController, :index
 
     resources "/users", AOFFWeb.ShopAssistant.UserController, only: [:index] do
@@ -125,7 +126,9 @@ defmodule AOFFWeb.Router do
       only: [:index, :edit, :update]
 
     resources "/news", AOFFWeb.Volunteer.NewsController
-    resources "/orders", AOFFWeb.Volunteer.OrderController, only: [:index, :show, :delete]
+    resources "/orders", AOFFWeb.Volunteer.OrderController, only: [:index, :show, :delete, :edit, :update] do
+      resources "/order_items", AOFFWeb.Volunteer.OrderItemController, only: [:create, :delete]
+    end
 
     resources "/categories", AOFFWeb.Volunteer.CategoryController, except: [:show] do
       resources "/pages", AOFFWeb.Volunteer.PageController

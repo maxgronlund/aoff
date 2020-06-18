@@ -1,0 +1,82 @@
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+        li
+          = link gettext("Orders"),\
+            to: Routes.volunteer_order_path(@conn, :index)
+        li
+          = link @order.order_nr,\
+            to: Routes.volunteer_order_path(@conn, :show, @order)
+        li.is-active
+          | &nbsp;
+          = gettext("Edit Order")
+
+h2 = gettext("Edit Order for: %{username}", username: @order.user.username)
+
+.row.mt-1
+  .column
+    .tile
+      = render "form.html", Map.put(assigns, :action, Routes.volunteer_order_order_item_path(@conn, :create, @order))
+
+.tile
+    table.table
+      thead
+        tr
+          th
+            = gettext("Product")
+          th
+            .float-right
+              = gettext("Price")
+          th
+      tbody
+        = for order_item <- @order.order_items do
+          tr
+            td
+              b = name(order_item.product)
+              = unless order_item.product.membership do
+                br
+                i = gettext("Pickup date")
+                br
+                = date(order_item.date.date)
+            td
+              .float-right
+                = order_item.product.price
+            td
+              .float-right
+                = link to: Routes.volunteer_order_order_item_path(@conn, :delete, @order, order_item),\
+                  method: :delete,\
+                  data: [confirm: gettext("Are you sure?")] do
+                  .button.icon-button
+                    i.fa.fa-trash.red
+
+
+        tr
+          td
+            .float-right
+              =gettext("Total exclusive VAT.")
+          td
+            .float-right
+              =total_exc_vat(@order.total)
+          td
+
+        tr
+          td
+            .float-right
+              =gettext("VAT. Amount")
+          td
+            .float-right
+              =vat_amount(@order.total)
+          td
+
+        tr
+          td
+            .float-right
+              b=gettext("Total amount in DKK")
+          td
+            .float-right
+              b= @order.total
+          td
+

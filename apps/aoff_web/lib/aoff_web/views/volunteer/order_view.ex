@@ -48,13 +48,21 @@ defmodule AOFFWeb.Volunteer.OrderView do
 
 
   def total_exc_vat(total) do
-    %Money{amount: amount} = total
-    Money.multiply(Money.new(amount, :DKK), 0.8)
+    if is_nil(total) do
+      0
+    else
+      %Money{amount: amount} = total
+      Money.multiply(Money.new(amount, :DKK), 0.8)
+    end
   end
 
   def vat_amount(total) do
-    %Money{amount: amount} = total
-    Money.multiply(Money.new(amount, :DKK), 0.2)
+    if is_nil(total) do
+      0
+    else
+      %Money{amount: amount} = total
+      Money.multiply(Money.new(amount, :DKK), 0.2)
+    end
   end
 
   def paymenttype(paymenttype) do

@@ -101,3 +101,17 @@ install ngrok in your user folder
 
 ./ngrok http 4000
 
+###Backup
+https://devcenter.heroku.com/articles/heroku-postgres-backups
+heroku pg:backups:schedule DATABASE_URL --at '02:00 Europe/Copenhagen' --app aoff
+
+  - download backup
+  - $ heroku pg:backups:url
+
+## Restore on localhost
+$ pg_restore --verbose --clean --no-acl --no-owner -h localhost -U POSTGRES_USER -d DATABASE_NAME latest.dump
+
+
+
+
+

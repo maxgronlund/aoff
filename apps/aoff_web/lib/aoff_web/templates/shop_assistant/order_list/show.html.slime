@@ -1,0 +1,43 @@
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+        li
+          = link gettext("Shop duties"), to: Routes.shop_assistant_date_path(@conn, :index)
+        li
+          = link date_as_string(@date.date), to: Routes.shop_assistant_date_path(@conn, :show, @date)
+        li.is-active
+          | &nbsp;
+          = gettext("Order list")
+
+
+.row
+  .column
+    h2 = raw gettext("Order list for: %{date}", date: date_as_string(@date.date))
+
+
+.tiles.button-tiles
+  = for product <- @products do
+
+    .card.is-shady
+      - {%AOFF.Shop.Product{} = product, nr} = product
+
+      /.card-header-title.is-centered
+
+      .card-content
+        h4
+          = name(product)
+          | &nbsp;
+          = gettext("- %{nr} pieces", nr: nr)
+
+        br
+        i= gettext("This weeks content")
+
+        hr
+        = text_to_html(this_weeks_content(product))
+
+
+
+

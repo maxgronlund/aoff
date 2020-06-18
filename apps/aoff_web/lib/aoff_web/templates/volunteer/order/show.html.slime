@@ -11,7 +11,7 @@
 .tile.is-header
   .row
     .column
-      h2 = gettext("Invoice id# %{order_nr}", order_nr: @order.order_nr)
+      h2 = gettext("Order id# %{order_nr}", order_nr: @order.order_nr)
       = gettext("Date: %{date}", date: date(@order.payment_date))
       br
       = gettext("Payment method: %{payment_method}", payment_method: "Kortbetaling")
@@ -85,3 +85,9 @@
               b= @order.total
 
 
+.row
+  .column
+    .float-right
+      = link gettext("Edit"),\
+        to: Routes.volunteer_order_path(@conn, :edit, @order),\
+        class: "button"

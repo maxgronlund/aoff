@@ -4,6 +4,8 @@ defmodule AOFFWeb.Volunteer.OrderController do
 
   alias AOFF.Users
   alias AOFFWeb.Users.Auth
+  alias AOFF.Users.OrderItem
+  alias AOFF.Shop
   plug Auth
   plug :authenticate when action in [:index]
 
@@ -41,85 +43,77 @@ defmodule AOFFWeb.Volunteer.OrderController do
     end
   end
 
-  # def new(conn, %{"committee_id" => committee_id}) do
-  #   committee = Committees.get_committee!(committee_id)
-  #   changeset = Committees.change_member(%Member{})
-
-  #   render(conn, "new.html",
-  #     changeset: changeset,
-  #     committee: committee,
-  #     users: list_volunteers()
-  #   )
-  # end
-
-  # def create(conn, %{"member" => member_params}) do
-  #   case Committees.create_member(member_params) do
-  #     {:ok, member} ->
-  #       conn
-  #       |> put_flash(:info, gettext("Member created successfully."))
-  #       |> redirect(to: Routes.committee_committee_path(conn, :show, member.committee_id))
-
-  #     {:error, %Ecto.Changeset{} = changeset} ->
-  #       committee = Committees.get_committee!(member_params["committee_id"])
-
-  #       render(conn, "new.html",
-  #         changeset: changeset,
-  #         committee: committee,
-  #         users: list_volunteers()
-  #       )
-  #   end
-  # end
-
   def show(conn, %{"id" => id}) do
     order = Users.get_order!(id)
     render(conn, "show.html", order: order)
   end
 
-  # def edit(conn, %{"id" => id}) do
-  #   member = Committees.get_member!(id)
-  #   changeset = Committees.change_member(member)
-
-  #   render(conn, "edit.html",
-  #     committee: member.committee,
-  #     member: member,
-  #     changeset: changeset,
-  #     users: list_volunteers()
-  #   )
-  # end
-
-  # def update(conn, %{"id" => id, "member" => member_params}) do
-  #   member = Committees.get_member!(id)
-
-  #   case Committees.update_member(member, member_params) do
-  #     {:ok, member} ->
-  #       conn
-  #       |> put_flash(:info, gettext("Member updated successfully."))
-  #       |> redirect(to: Routes.committee_committee_path(conn, :show, member.committee_id))
-
-  #     {:error, %Ecto.Changeset{} = changeset} ->
-  #       render(conn, "edit.html",
-  #         member: member,
-  #         committee: member.committee,
-  #         users: list_volunteers(),
-  #         changeset: changeset
-  #       )
-  #   end
-  # end
-
-  def delete(conn, %{"id" => id}) do
-
-    order = Users.get_order(id)
-    {:ok, _order} = Users.delete_order(order)
 
 
-    conn
-    |> put_flash(:info, gettext("Order deleted."))
-    |> redirect(to: Routes.volunteer_order_path(conn, :index))
+  def edit(conn, %{"id" => id}) do
+    order = Users.get_order!(id)
+
+    changeset = Users.change_order_item(%OrderItem{})
+
+    render(
+      conn,
+      "edit.html",
+      user: order.user,
+      order: order,
+      products: products(),
+      dates: dates(),
+      changeset: changeset
+    )
+
   end
 
-  # defp list_volunteers() do
-  #   Enum.map(Users.list_volunteers(), fn u -> {u.username, u.id} end)
+  defp products() do
+    products = Shop.list_products(:for_sale)
+    Enum.map(products, fn x -> name_and_id(x) end)
+  end
+
+  defp name_and_id(product) do
+    case Gettext.get_locale() do
+      "en" ->
+        {name_and_price(product.name_en, product.price), product.id}
+
+      _ ->
+        {name_and_price(product.name_da, product.price), product.id}
+    end
+  end
+
+  defp name_and_price(name, price) do
+    name <> " : " <> Money.to_string(price)
+  end
+
+  defp dates() do
+    dates = Shop.list_dates(Date.add(AOFF.Time.today(), 0), 0, 5)
+    Enum.map(dates, fn x -> {AOFF.Time.date_as_string(x.date), x.id} end)
+  end
+
+  def delete(conn, %{"id" => id}) do
+    order = Users.get_order!(id)
+    Users.delete_order(order)
+
+    date_id = get_session(conn, :shop_assistant_date_id)
+
+    conn
+    |> put_flash(:info, gettext("Order is cancled"))
+    |> redirect(to: Routes.shop_assistant_date_path(conn, :show, date_id))
+  end
+
+
+  # def delete(conn, %{"id" => id}) do
+
+  #   order = Users.get_order(id)
+  #   {:ok, _order} = Users.delete_order(order)
+
+
+  #   conn
+  #   |> put_flash(:info, gettext("Order deleted."))
+  #   |> redirect(to: Routes.volunteer_order_path(conn, :index))
   # end
+
 
   defp authenticate(conn, _opts) do
     if conn.assigns.volunteer do
