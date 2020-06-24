@@ -1,4 +1,4 @@
-= if @page && @pages_count > 0 do
+= if @page > 0 && @pages_count do
   = link gettext("< Prev"),\
     to: Routes.volunteer_order_path(@conn, :index, page: Integer.to_string(@page - 1)),\
     class: "button button-outline"
