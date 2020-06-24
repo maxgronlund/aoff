@@ -85,6 +85,37 @@ defmodule AOFF.Users.User do
   end
 
   @doc false
+  def volunteer_changeset(user, attrs) do
+    attrs =
+      Map.merge(
+        attrs,
+        %{
+          "member_nr" => last_member_nr(attrs) + 1,
+          "registration_date" => AOFF.Time.today()
+        }
+      )
+
+    user
+    |> cast(attrs, [
+      :id,
+      :email,
+      :username,
+      :member_nr,
+      :password,
+      :mobile,
+      :mobile_country_code,
+      :expiration_date,
+      :registration_date,
+      :volunteer,
+      :purchasing_manager,
+      :shop_assistant,
+      :text_editor,
+      :manage_membership
+    ])
+    |> validate(attrs)
+  end
+
+  @doc false
   def admin_changeset(user, attrs) do
     user
     |> cast(attrs, [
@@ -122,6 +153,27 @@ defmodule AOFF.Users.User do
     |> unique_constraint(:email)
     |> put_pass_hash()
     |> cast_attachments(attrs, [:avatar])
+  end
+
+  defp validate(user, attrs) do
+    user
+    |> validate_required([
+      :username,
+      :email,
+      :member_nr,
+      :password,
+      :expiration_date,
+      :volunteer,
+      :purchasing_manager,
+      :shop_assistant,
+      :text_editor,
+      :manage_membership
+    ])
+    |> validate_confirmation(:email)
+    |> validate_format(:email, ~r/@/)
+    |> validate_length(:password, min: 6, max: 100)
+    |> unique_constraint(:email)
+    |> put_pass_hash()
   end
 
   defp admin_changeset_without_password(user, attrs) do
@@ -212,7 +264,7 @@ defmodule AOFF.Users.User do
       Map.merge(
         attrs,
         %{
-          "member_nr" => last_member_nr + 1,
+          "member_nr" => last_member_nr(attrs) + 1,
           "registration_date" => AOFF.Time.today()
         }
       )
@@ -246,6 +298,10 @@ defmodule AOFF.Users.User do
     |> unique_constraint(:email)
     |> put_pass_hash()
     |> cast_attachments(attrs, [:avatar])
+  end
+
+  def last_member_nr(attrs) do
+    last_member_nr = Users.last_member_nr() || attrs["member_nr"] || 0
   end
 
   @doc false

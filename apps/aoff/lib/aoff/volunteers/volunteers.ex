@@ -82,6 +82,25 @@ defmodule AOFF.Volunteers do
   end
 
   @doc """
+  Register a user.
+
+  ## Examples
+      iex> register_user(%{field: value})
+      {:ok, %User{}}
+
+      iex> register_user(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def register_user(attrs \\ %{}) do
+    result = %User{expiration_date: Date.add(AOFF.Time.today(), -1)}
+    |> User.volunteer_changeset(attrs)
+    |> Repo.insert()
+    IO.inspect result
+    result
+  end
+
+  @doc """
   Updates a user.
 
   ## Examples

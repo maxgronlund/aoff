@@ -4,8 +4,6 @@
     .breadcrumb aria-label="breadcrumbs"
       ul
         li
-          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
-        li
           = link gettext("Shop duties"), to: Routes.shop_assistant_date_path(@conn, :index)
         li.is-active
           | &nbsp;
@@ -18,10 +16,17 @@
     = link gettext("Create order"),\
       to: Routes.shop_assistant_user_path(@conn, :index),\
       class: "button button-outline"
-    | &nbsp;
-    = link gettext("Create membership"),\
-      to: Routes.volunteer_user_path(@conn, :new),\
-      class: "button button-outline"
+    = if @volunteer do
+      | &nbsp;
+      = link gettext("Create membership"),\
+        to: Routes.volunteer_user_path(@conn, :new),\
+        class: "button button-outline"
+    - else
+      | &nbsp;
+      = link gettext("Create membership"),\
+        to: "#",\
+        class: "button button-outline",\
+        disabled: "disable"
   .column
     = link gettext("Hosts"), to: "#hosts", class: "button-outline button"
     | &nbsp;

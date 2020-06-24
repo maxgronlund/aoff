@@ -6,6 +6,7 @@ defmodule AOFFWeb.Volunteer.UserController do
   alias AOFF.Users.User
   alias AOFF.System
 
+
   alias AOFFWeb.Users.Auth
   plug Auth
   plug :authenticate when action in [:index, :show, :edit, :update, :delete, :new]
@@ -71,7 +72,7 @@ defmodule AOFFWeb.Volunteer.UserController do
   def create(conn, %{"user" => user_params}) do
     user_params = Map.put(user_params, "terms_accepted", true)
 
-    case Users.create_user(user_params) do
+    case Volunteers.register_user(user_params) do
       {:ok, user} ->
         conn
         |> put_flash(

@@ -127,7 +127,7 @@ defmodule AOFF.Users do
   Register a user.
 
   ## Examples
-      iex> register_user(%{field: value})
+      iex> create_user(%{field: value})
       {:ok, %User{}}
 
       iex> create_user(%{field: bad_value})
