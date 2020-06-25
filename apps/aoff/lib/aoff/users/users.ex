@@ -415,7 +415,7 @@ defmodule AOFF.Users do
           o.user_id == ^user_id
           and o.state == ^"payment_accepted"
           and o.state != ^"cancled",
-        order_by: [asc: o.order_nr]
+        order_by: [desc: o.order_nr]
 
     Repo.all(query)
   end
@@ -590,6 +590,24 @@ defmodule AOFF.Users do
   end
 
   @doc """
+  Updates a order.
+
+  ## Examples
+
+      iex> update_order(order, %{field: new_value})
+      {:ok, %Order{}}
+
+      iex> update_order(order, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  # def update_order(%Order{} = order, attrs) do
+  #   order
+  #   |> Order.changeset(attrs)
+  #   |> Repo.update()
+  # end
+
+  @doc """
   Returns an `%Ecto.Changeset{}` for tracking order changes.
 
   ## Examples
@@ -729,12 +747,15 @@ defmodule AOFF.Users do
     OrderItem.changeset(order_item, %{})
   end
 
-  def payment_accepted(%Order{} = order, paymenttype \\ "1") do
+  def payment_accepted(%Order{} = order, paymenttype \\ "1", card_nr \\ "", order_id \\ "") do
+
     Order.changeset(order, %{
       "state" => "payment_accepted",
       "order_nr" => last_order_nr() + 1,
       "payment_date" => AOFF.Time.today(),
-      "paymenttype" => paymenttype
+      "paymenttype" => paymenttype,
+      "card_nr" => card_nr,
+      "order_id" => order_id
     })
     |> Repo.update()
   end

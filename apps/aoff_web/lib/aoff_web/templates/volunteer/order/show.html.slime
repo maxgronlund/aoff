@@ -11,12 +11,18 @@
 .tile.is-header
   .row
     .column
-      h2 = gettext("Order id# %{order_nr}", order_nr: @order.order_nr)
+      h2 = gettext("Invoice id# %{order_nr}", order_nr: @order.order_nr)
       = gettext("Date: %{date}", date: date(@order.payment_date))
       br
-      = gettext("Payment method: %{payment_method}", payment_method: "Kortbetaling")
-      br
       = gettext("Order date: %{payment_date}", payment_date: date(@order.payment_date))
+      br
+      = gettext("Payment method: %{payment_method}", payment_method: "Kortbetaling")
+      - IO.inspect @order
+      = unless(@order.card_nr == "") do
+        br
+        = gettext("Card nr. %{card_nr}", card_nr: @order.card_nr)
+        br
+        = gettext("Order id. %{order_id}", order_id: @order.order_id)
 
     .row.mt-1
       .column

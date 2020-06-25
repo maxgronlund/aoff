@@ -46,7 +46,7 @@
              'language': "1",
              'instantcallback': "1",
              'cardholder': "#{@order.user.username}",
-             'description': "Member id#{@order.user.member_nr}"
+             'description': "Member id: #{@order.user.member_nr}, username: #{@order.user.username}, mobile: #{@order.user.mobile}, email: #{@order.user.email}, order nr. # #{@order.order_nr}"
          });
 
   .row

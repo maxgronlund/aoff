@@ -4,13 +4,26 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
   alias AOFF.Users
   alias AOFF.System
 
-  def index(conn, %{"id" => id, "cardno" => cardno, "paymenttype" => paymenttype}) do
 
+  def index(conn,
+    %{
+      "id" => id,
+      "cardno" => cardno,
+      "paymenttype" => paymenttype,
+      "orderid" => order_id
+    }) do
     order = Users.get_order_by_token!(id)
-
+    card_nr = "xxxx xxxx xxxx " <> card_nr(cardno)
+    current_user = conn.assigns.current_user
     cond do
+      is_nil(current_user) ->
+        error(conn)
+      order && current_user && current_user.id != order.user_id ->
+        error(conn)
+      order && order.state == "payment_accepted" ->
+        accepted(conn, order)
       order && order.state == "open" ->
-        case Users.payment_accepted(order) do
+        case Users.payment_accepted(order, paymenttype, card_nr, order_id) do
           {:ok, %Users.Order{}} ->
             Users.extend_memberships(order)
             # Create a new order for the basket.
@@ -23,18 +36,30 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
     end
   end
 
+  defp card_nr(cardno \\ "") do
+    String.slice(cardno, 12..15)
+  end
+
   defp accepted(conn, order, cardno, paymenttype) do
-    send_invoice(order, cardno, paymenttype)
+    send_invoice(order, card_nr(cardno), paymenttype)
+    conn
+    |> assign(:order_items_count, 0)
+    |> render("index.html", order: order, message: message())
+  end
+
+  defp accepted(conn, order) do
+    conn
+    |> render("index.html", order: order, message: message())
+  end
+
+  defp message() do
     {:ok, message} =
       System.find_or_create_message(
         "shop/payment_accepted",
         "Payment accepted",
         Gettext.get_locale()
       )
-
-    conn
-    |> assign(:order_items_count, 0)
-    |> render("index.html", order: order, message: message)
+    message
   end
 
   defp send_invoice(order, cardno, paymenttype) do

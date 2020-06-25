@@ -13,9 +13,11 @@ defmodule AOFF.Users.Order do
     field :state, :string, default: "open"
     field :on_deleted_state, :string, default: "open"
     field :order_nr, :integer
+    field :order_id, :string, default: ""
     field :token, :string
     field :payment_date, :date
     field :paymenttype, :string, default: "1"
+    field :card_nr, :string, default: ""
     field :total, Money.Ecto.Amount.Type
     belongs_to :user, User
     has_many :order_items, OrderItem
@@ -36,12 +38,12 @@ defmodule AOFF.Users.Order do
     order
     |> cast(attrs, [
       :user_id,
-      :order_nr,
       :token,
       :total,
       :state,
       :payment_date,
-      :paymenttype
+      :paymenttype,
+      :card_nr
     ])
     |> validate_required([
       :user_id,
@@ -53,15 +55,18 @@ defmodule AOFF.Users.Order do
 
   @doc false
   def changeset(order, attrs) do
+    IO.inspect attrs
     order
     |> cast(attrs, [:user_id,
       :state,
       :on_deleted_state,
       :order_nr,
+      :order_id,
       :token,
       :payment_date,
       :paymenttype,
-      :total])
+      :total,
+      :card_nr])
     |> validate_required([:user_id, :state, :token])
   end
 end

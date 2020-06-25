@@ -101,6 +101,10 @@ install ngrok in your user folder
 
 ./ngrok http 4000
 
+setup EPAY_ENDPOINT in your environt variables
+
+reload terminal
+$ source ~/.zshrc
 ###Backup
 https://devcenter.heroku.com/articles/heroku-postgres-backups
 heroku pg:backups:schedule DATABASE_URL --at '02:00 Europe/Copenhagen' --app aoff

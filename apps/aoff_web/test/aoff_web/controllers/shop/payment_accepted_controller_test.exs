@@ -7,6 +7,7 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
   import AOFF.Shop.DateFixture
   import AOFF.Shop.ProductFixture
   import AOFF.Shop.PickUpFixture
+  import AOFFWeb.Gettext
   alias Plug.Conn
   alias AOFF.Users
 
@@ -76,8 +77,22 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
           "pick_up_id" => pick_up.id
         })
 
-      _conn = get(conn, Routes.shop_payment_accepted_path(conn, :index, order.token, %{cardno: "0000 0000 0000 0000", paymenttype: "1"}))
-      assert Users.get_order!(order.id).state == "payment_accepted"
+      conn =
+        get(
+          conn,
+          Routes.shop_payment_accepted_path(
+            conn,
+            :index,
+            order.token,
+            %{cardno: "0000000000001234",
+            paymenttype: "1"}
+          )
+        )
+
+      assert html_response(conn, 200) =~ gettext("Back to the shop")
+      order = Users.get_order!(order.id)
+      assert order.state == "payment_accepted"
+      assert order.card_nr == "xxxx xxxx xxxx 1234"
     end
   end
 end
