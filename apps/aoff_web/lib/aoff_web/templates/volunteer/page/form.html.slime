@@ -2,7 +2,10 @@ javascript:
   tinymce.init({
     selector: '#page_text',
     menubar: false,
-    height : 300
+    toolbar: "alignleft aligncenter alignright | formatselect bold italic | indent outdent | code",
+    height : 300,
+    content_css: "#{Routes.static_path(@conn, "/css/app.css")}",
+    plugins: "code"
   });
 
 
