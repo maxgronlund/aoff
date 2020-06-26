@@ -46,7 +46,8 @@
 
         .form-group
           = label f, :email_confirmation, gettext("Confirm email"), class: "control-label"
-          = email_input f, :email_confirmation, class: "form-control full-width"
+          = email_input f, :email_confirmation, class: "form-control full-width",\
+            value: @email
           = error_tag f, :email_confirmation
 
         .form-group
