@@ -5,34 +5,6 @@
   .tile
     .row
       .column
-        = if @date do
-          .row
-            .column.column-33
-              img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.  url({@date.image, @date}, :stamp)}"
-            .column
-              .form-group
-                = label f, :image, gettext("Image"), class: "control-label"
-                = file_input f, :image, class: "form-control full-width"
-                = error_tag f, :image
-        .form-group
-          = label f, :open do
-            = checkbox f, :open, class: "form-control"
-            = label f, :open, gettext("Open"),class: "control-label label-inline"
-    .row
-      .column
-        .alert.alert-box
-          .form-group
-            = label f,:date, gettext("Pick up date"), class: "control-label"
-            = date_select f, :date, class: "form-control full-width"
-            = error_tag f, :date
-      .column
-        .alert.alert-box
-          .form-group
-            = label f, :last_order_date, gettext("Last order date"), class: " control-label"
-            = date_select f, :last_order_date, class: "form-control full-width"
-            = error_tag f, :last_order_date
-    .row
-      .column
         .alert.alert-box
           h3 =gettext("Early shift")
           .row
