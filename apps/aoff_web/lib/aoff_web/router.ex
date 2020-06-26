@@ -95,7 +95,7 @@ defmodule AOFFWeb.Router do
 
   scope "/shop_assistant", as: :shop_assistant do
     pipe_through :browser
-    resources "/dates", AOFFWeb.ShopAssistant.DateController, only: [:show, :index]
+    resources "/dates", AOFFWeb.ShopAssistant.DateController, only: [:show, :index, :edit, :update]
     resources "/pick_ups", AOFFWeb.ShopAssistant.PickUpController, only: [:show]
     resources "/order_list", AOFFWeb.ShopAssistant.OrderListController, only: [:show]
     get "/", AOFFWeb.ShopAssistant.ShopAssistantController, :index

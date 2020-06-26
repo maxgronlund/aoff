@@ -3,9 +3,10 @@ defmodule AOFFWeb.ShopAssistant.DateController do
 
   alias AOFF.Shop
   alias AOFFWeb.Users.Auth
+  alias AOFF.Users
 
   plug Auth
-  plug :authenticate when action in [:index, :show]
+  plug :authenticate when action in [:index, :show, :edit, :update]
   plug :navbar when action in [:index]
 
   @dates_pr_page 4
@@ -52,6 +53,32 @@ defmodule AOFFWeb.ShopAssistant.DateController do
       date: date,
       pick_ups: pick_ups
     )
+  end
+
+  def edit(conn, %{"id" => id}) do
+    date = Shop.get_date!(id)
+
+    changeset = Shop.change_date(date)
+    render(conn, "edit.html", date: date, changeset: changeset, users: shop_assistans())
+  end
+
+  def update(conn, %{"id" => id, "date" => date_params}) do
+    IO.puts "======== UPDATE ============="
+    date = Shop.get_date!(id)
+
+    case Shop.update_date(date, date_params) do
+      {:ok, _date} ->
+        conn
+        |> put_flash(:info, gettext("Date updated successfully."))
+        |> redirect(to: Routes.shop_assistant_date_path(conn, :show, date))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "edit.html", date: date, changeset: changeset, users: shop_assistans())
+    end
+  end
+
+  defp shop_assistans() do
+    Enum.map(Users.list_shop_assistans(), fn u -> {u.username, u.id} end)
   end
 
   defp authenticate(conn, _opts) do

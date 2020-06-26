@@ -62,7 +62,8 @@ hr/
         br/
         = gettext("Member Nr. %{nr}", nr: pick_up.member_nr)
         br/
-        = gettext("Email: %{email}", email: pick_up.user.email)
+        a href="mailto:#{pick_up.user.email}"
+          = gettext("Email: %{email}", email: pick_up.user.email)
         br/
         = gettext("Mobile: %{mobile}", mobile: pick_up.user.mobile)
       .column
@@ -118,6 +119,8 @@ h3 = gettext("Hosts")
 .row
   .column
     .float-right
-      = link gettext("Back to top"), to: "#top", class: "button"
+      = link gettext("Edit"), to: Routes.shop_assistant_date_path(@conn, :edit, @date), class: "button"
+      | &nbsp;
+      = link gettext("Back to top"), to: "#top", class: "button button-outline"
 
 

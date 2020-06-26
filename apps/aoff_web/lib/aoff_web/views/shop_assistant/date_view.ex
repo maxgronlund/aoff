@@ -33,8 +33,10 @@ defmodule AOFFWeb.ShopAssistant.DateView do
       user = Users.get_user(user_id) ->
         "<b>#{user.username}</b>
         <br/>" <>
+        "<a href=mailto:#{user.email}>" <>
           gettext("Email: %{email}", email: user.email) <>
-          "<br/>" <> gettext("Mobile: %{mobile}", mobile: user.mobile)
+        "</a>" <>
+        "<br/>" <> gettext("Mobile: %{mobile}", mobile: user.mobile)
 
       true ->
         @not_found

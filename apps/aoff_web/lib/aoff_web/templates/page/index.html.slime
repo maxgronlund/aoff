@@ -62,6 +62,21 @@
 
 .row
   .column
+    .white-text
+      h4 = gettext("News")
+    .tiles
+      = for news <- @latest_news do
+        .card.is-black
+          = link to: Routes.news_path(@conn, :show, news) do
+            .card-header-title.is-black.is-centered
+              = news.title
+            .card-content.is-black
+              = text_to_html news.teaser
+
+.row
+  .column
+    .white-text
+      h4 = gettext("Featured")
     .tiles
       = for news <- @latest_news do
         .card.is-black

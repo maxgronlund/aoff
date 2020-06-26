@@ -28,12 +28,18 @@
           placeholder: gettext("Username / Member Nr. / email"),\
           class: "full-width"
         = hidden_input f, :page, value: "1"
-    .row
-      .column
+        br
+
         .float-right
           = link gettext("Show all"), to: Routes.volunteer_user_path(@conn, :index), class: "button button-outline"
           | &nbsp;
           = submit gettext("Search")
+      .column
+        b = gettext("Statistic")
+        br
+        = gettext("Total members: %{count}", count: @members)
+        br
+        = gettext("Valid members: %{count}", count: @valid_members)
 .tiles.button-tiles
   = for user <- @users do
     .card.is-shady

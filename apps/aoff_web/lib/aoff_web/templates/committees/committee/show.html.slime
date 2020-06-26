@@ -33,7 +33,8 @@
         h4 = member.user.username
         b = member.role
         br
-        = member.user.email
+        a href="mailto:#{member.user.email}"
+          = member.user.email
         br
         = member.user.mobile
       = if @admin do

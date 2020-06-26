@@ -18,7 +18,8 @@ h2 = @user.username
       = if @volunteer do
         = img_tag AOFF.Uploader.Image.url({@user.avatar, @user}, :avatar)
         br
-      = gettext("Email: %{email}", email: @user.email)
+      a href="mailto:#{@user.email}"
+        = gettext("Email: %{email}", email: @user.email)
       br/
       = gettext("Mobile: %{mobile}", mobile: @user.mobile)
     .column

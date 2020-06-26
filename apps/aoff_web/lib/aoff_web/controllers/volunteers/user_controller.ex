@@ -23,7 +23,13 @@ defmodule AOFFWeb.Volunteer.UserController do
     conn
     |> assign(:title, gettext("Admin Users"))
     |> put_session(:shop_assistant_date_id, nil)
-    |> render("index.html", users: users, pages: Users.user_pages())
+    |> render(
+        "index.html",
+        users: users,
+        pages: Users.user_pages(),
+        members: Users.member_count(:all),
+        valid_members: Users.member_count(:valid)
+      )
   end
 
   def edit(conn, %{"id" => id}) do

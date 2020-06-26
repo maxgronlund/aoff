@@ -29,6 +29,36 @@ defmodule AOFF.Users do
     Repo.all(query)
   end
 
+  @doc """
+  Returns the count of all users
+
+  ## Examples
+    iex> member_count(:all)
+    1234
+  """
+  def member_count(:all) do
+    query =
+      from u in User,
+      select: count(u.id)
+    Repo.one(query)
+  end
+
+
+  @doc """
+  Returns the count of all users with a valid membership
+
+  ## Examples
+    iex> member_count(:all)
+    1234
+  """
+  def member_count(:valid) do
+    query =
+      from u in User,
+      where: u.expiration_date >= ^AOFF.Time.today(),
+      select: count(u.id)
+    Repo.one(query)
+  end
+
   def user_pages(per_page \\ @users_pr_page) do
     users = Repo.one(from u in User, select: count(u.id))
     Integer.floor_div(users, per_page)
