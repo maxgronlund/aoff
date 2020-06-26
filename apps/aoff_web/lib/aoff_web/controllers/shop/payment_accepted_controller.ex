@@ -14,12 +14,7 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
     }) do
     order = Users.get_order_by_token!(id)
     card_nr = "xxxx xxxx xxxx " <> card_nr(cardno)
-    current_user = conn.assigns.current_user
     cond do
-      is_nil(current_user) ->
-        error(conn)
-      order && current_user && current_user.id != order.user_id ->
-        error(conn)
       order && order.state == "payment_accepted" ->
         accepted(conn, order)
       order && order.state == "open" ->
