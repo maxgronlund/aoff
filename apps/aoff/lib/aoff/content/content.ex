@@ -189,6 +189,15 @@ defmodule AOFF.Content do
     Repo.one(query)
   end
 
+  def featured_pages() do
+    query =
+      from p in Page,
+      where: p.show_on_landing_page == ^true and p.locale == ^Gettext.get_locale,
+      order_by: [desc: p.date],
+      limit: 3
+    query |> Repo.all() |> Repo.preload(:category)
+  end
+
   @doc """
   Updates a category.
 

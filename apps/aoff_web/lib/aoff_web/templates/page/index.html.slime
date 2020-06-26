@@ -73,18 +73,19 @@
             .card-content.is-black
               = text_to_html news.teaser
 
-.row
-  .column
-    .white-text
-      h4 = gettext("Featured")
-    .tiles
-      = for news <- @latest_news do
-        .card.is-black
-          = link to: Routes.news_path(@conn, :show, news) do
-            .card-header-title.is-black.is-centered
-              = news.title
-            .card-content.is-black
-              = text_to_html news.teaser
+= unless @featured_pages == [] do
+  .row
+    .column
+      .white-text
+        h4 = gettext("Featured")
+      .tiles
+        = for page <- @featured_pages do
+          .card.is-black
+            = link to: Routes.about_page_path(@conn, :show, page.category, page) do
+              .card-header-title.is-black.is-centered
+                = page.title
+              .card-content.is-black
+                = text_to_html page.teaser
 
 
 

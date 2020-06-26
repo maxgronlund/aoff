@@ -63,7 +63,6 @@ defmodule AOFFWeb.ShopAssistant.DateController do
   end
 
   def update(conn, %{"id" => id, "date" => date_params}) do
-    IO.puts "======== UPDATE ============="
     date = Shop.get_date!(id)
 
     case Shop.update_date(date, date_params) do

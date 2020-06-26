@@ -32,7 +32,8 @@ defmodule AOFFWeb.PageController do
       message: message,
       latest_news: latest_news,
       this_weeks_bag: this_weeks_bag,
-      products_ordered: Shop.products_ordered()
+      products_ordered: Shop.products_ordered(),
+      featured_pages: Content.featured_pages()
     )
   end
 end
