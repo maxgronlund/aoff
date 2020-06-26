@@ -1525,7 +1525,7 @@ msgid "Edit opening day"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/controllers/shop_assistants/date_controller.ex:72
+#: lib/aoff_web/controllers/shop_assistants/date_controller.ex:71
 #: lib/aoff_web/controllers/volunteers/date_controller.ex:80
 msgid "Date updated successfully."
 msgstr ""
@@ -1542,7 +1542,7 @@ msgid "Collection List"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/controllers/shop_assistants/date_controller.ex:99
+#: lib/aoff_web/controllers/shop_assistants/date_controller.ex:98
 #: lib/aoff_web/templates/shop_assistant/date/edit.html.slime:1 lib/aoff_web/templates/shop_assistant/date/edit.html.slime:1
 #: lib/aoff_web/templates/shop_assistant/date/index.html.slime:1 lib/aoff_web/templates/shop_assistant/date/index.html.slime:1
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:1 lib/aoff_web/templates/shop_assistant/order_list/show.html.slime:1
@@ -1820,7 +1820,8 @@ msgstr ""
 msgid "Featured"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
+#: lib/aoff_web/templates/users/invoice/show.html.slime:1
 #: lib/aoff_web/templates/volunteer/order/show.html.slime:1
 msgid "Order id. %{order_id}"
 msgstr ""
@@ -1835,7 +1836,7 @@ msgstr ""
 msgid "Total members: %{count}"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/volunteer/user/index.html.slime:6
 msgid "Valid members: %{count}"
 msgstr ""

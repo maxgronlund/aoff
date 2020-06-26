@@ -1525,7 +1525,7 @@ msgid "Edit opening day"
 msgstr "Rediger vagtplan"
 
 #, elixir-format
-#: lib/aoff_web/controllers/shop_assistants/date_controller.ex:72
+#: lib/aoff_web/controllers/shop_assistants/date_controller.ex:71
 #: lib/aoff_web/controllers/volunteers/date_controller.ex:80
 msgid "Date updated successfully."
 msgstr "Vagtplanen er opdateret"
@@ -1542,7 +1542,7 @@ msgid "Collection List"
 msgstr "Opsamlingsliste"
 
 #, elixir-format
-#: lib/aoff_web/controllers/shop_assistants/date_controller.ex:99
+#: lib/aoff_web/controllers/shop_assistants/date_controller.ex:98
 #: lib/aoff_web/templates/shop_assistant/date/edit.html.slime:1 lib/aoff_web/templates/shop_assistant/date/edit.html.slime:1
 #: lib/aoff_web/templates/shop_assistant/date/index.html.slime:1 lib/aoff_web/templates/shop_assistant/date/index.html.slime:1
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:1 lib/aoff_web/templates/shop_assistant/order_list/show.html.slime:1
@@ -1813,29 +1813,30 @@ msgstr "Bestillings liste for: %{date}"
 #: lib/aoff_web/templates/users/invoice/show.html.slime:1
 #: lib/aoff_web/templates/volunteer/order/show.html.slime:1
 msgid "Card nr. %{card_nr}"
-msgstr ""
+msgstr "Kort nr. %{card_nr}"
 
 #, elixir-format
 #: lib/aoff_web/templates/page/index.html.slime:6
 msgid "Featured"
-msgstr ""
+msgstr "Featured"
 
-#, elixir-format, fuzzy
+#, elixir-format
+#: lib/aoff_web/templates/users/invoice/show.html.slime:1
 #: lib/aoff_web/templates/volunteer/order/show.html.slime:1
 msgid "Order id. %{order_id}"
-msgstr "Ordre nr# %{order_nr}"
+msgstr "Ordre id. %{order_id}"
 
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/user/index.html.slime:6
 msgid "Statistic"
-msgstr ""
+msgstr "Statestik"
 
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/user/index.html.slime:6
 msgid "Total members: %{count}"
-msgstr ""
+msgstr "Antal medlemmer: %{count}"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/volunteer/user/index.html.slime:6
 msgid "Valid members: %{count}"
 msgstr "Gyldigt medlemskab"

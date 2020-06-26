@@ -18,6 +18,8 @@
       = unless(@order.card_nr == "") do
         br
         = gettext("Card nr. %{card_nr}", card_nr: @order.card_nr)
+        br
+        = gettext("Order id. %{order_id}", order_id: @order.order_id)
 
     .row.mt-1
       .column
