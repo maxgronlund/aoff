@@ -16,6 +16,7 @@ defmodule AOFF.Repo.Migrations.AddIndexToOrders do
   def down do
     alter table("orders") do
       modify :order_nr, :integer, default: 100
+      drop unique_index(:orders, [:order_id])
     end
 
     alter table("order_items") do
