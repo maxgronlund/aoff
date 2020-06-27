@@ -1,5 +1,6 @@
 defmodule AOFFWeb.Router do
   use AOFFWeb, :router
+  use Airbrakex.Plug
 
   pipeline :browser do
     plug :accepts, ["html"]

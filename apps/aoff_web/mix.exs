@@ -53,6 +53,7 @@ defmodule AOFFWeb.MixProject do
       {:ex_aws_s3, "~> 2.0"},
       {:hackney, "~> 1.6"},
       {:poison, "~> 3.1"},
+      {:airbrakex, "~> 0.1.8"},
       {:httpoison, "~> 1.6"},
       {:sweet_xml, "~> 0.6"},
       {:ex_cldr_dates_times, "~> 2.0"},

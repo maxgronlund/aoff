@@ -1839,4 +1839,4 @@ msgstr "Antal medlemmer: %{count}"
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/user/index.html.slime:6
 msgid "Valid members: %{count}"
-msgstr "Gyldigt medlemskab"
+msgstr "Gyldige medlemmer: %{count}"

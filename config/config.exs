@@ -100,6 +100,14 @@ config :aoff_web,
     token: System.get_env("CPSMS_TOKEN")
   ]
 
+config :airbrakex,
+  project_key: System.get_env("AIRBRAKE_API_KEY"),
+  project_id: System.get_env("AIRBRAKE_PROJECT_ID"),
+  logger_level: :error,
+  environment: Mix.env
+
+
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
