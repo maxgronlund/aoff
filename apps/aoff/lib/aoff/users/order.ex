@@ -55,7 +55,6 @@ defmodule AOFF.Users.Order do
 
   @doc false
   def changeset(order, attrs) do
-    IO.inspect attrs
     order
     |> cast(attrs, [:user_id,
       :state,

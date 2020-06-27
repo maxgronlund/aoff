@@ -398,7 +398,11 @@ defmodule AOFF.Users do
         order
 
       _ ->
-        {:ok, _order} = create_order(%{"user_id" => user_id})
+        {:ok, _order} = create_order(
+          %{
+            "user_id" => user_id
+          }
+        )
         # make sure to preload the order_items and the user
         current_order(user_id)
     end
