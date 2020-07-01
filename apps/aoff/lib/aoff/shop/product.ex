@@ -23,6 +23,7 @@ defmodule AOFF.Shop.Product do
     field :this_weeks_content_en, :string, default: ""
     field :notes, :string, default: ""
     field :position, :integer, default: 0
+    field :collection, :boolean, default: false
 
     has_many :order_items, OrderItem
 
@@ -44,7 +45,8 @@ defmodule AOFF.Shop.Product do
       :this_weeks_content_da,
       :this_weeks_content_en,
       :notes,
-      :position
+      :position,
+      :collection
     ])
     |> cast_attachments(attrs, [:image])
     |> validate_required([

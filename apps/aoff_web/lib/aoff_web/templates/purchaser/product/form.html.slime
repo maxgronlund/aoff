@@ -54,8 +54,9 @@
           = label f, :this_weeks_content_en, gettext("This weeks content en"), class: "control-label"
           = textarea f, :this_weeks_content_en, style: "height: 150px;" , class: "form-control full-width"
           = error_tag f, :this_weeks_content_en
-    .alert.alert-box
-      .tiles
+
+    .tile
+      .row
         .column
           .form-group
             = checkbox f, :for_sale, class: "form-control"
@@ -67,11 +68,15 @@
             = label f, :show_on_landing_page, gettext("Show on landing page"), class: "control-label label-inline"
             = error_tag f, :show_on_landing_page
         .column
+          .form-group
+            = checkbox f, :collection, class: "form-control"
+            = label f, :collection, gettext("Is a collection"), class: "control-label label-inline"
+            = error_tag f, :collection
+        .column
           = if @manage_membership do
             .form-group
               = checkbox f, :membership, class: "form-control"
               = label f, :membership, gettext("Is a membership"), class: "control-label label-inline"
-
               = error_tag f, :membership
     .row
       .column

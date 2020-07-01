@@ -29,12 +29,12 @@
           = name(product)
           | &nbsp;
           = gettext("- %{nr} pieces", nr: nr)
+        = if product.collection do
+          br
+          i= gettext("This weeks content")
 
-        br
-        i= gettext("This weeks content")
-
-        hr
-        = text_to_html(this_weeks_content(product))
+          hr
+          = text_to_html(this_weeks_content(product))
 
 
 
