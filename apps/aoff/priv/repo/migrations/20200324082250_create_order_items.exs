@@ -4,7 +4,7 @@ defmodule AOFF.Repo.Migrations.CreateOrderItems do
   def change do
     create table(:order_items, primary_key: false) do
       add :id, :binary_id, primary_key: true
-      add :state, :string, default: "initial"
+      # add :state, :string, default: "initial"
       add :price, :integer, default: 0
       add :order_id, references(:orders, delete_all: :delete_all, type: :binary_id)
       add :date_id, references(:dates, on_delete: :delete_all, type: :binary_id)

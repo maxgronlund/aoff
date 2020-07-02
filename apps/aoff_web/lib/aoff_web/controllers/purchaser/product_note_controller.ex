@@ -11,7 +11,7 @@ defmodule AOFFWeb.Purchaser.ProductNoteController do
         "date_id" => date_id,
         "id" => id
       }) do
-    IO.inspect product = Shop.get_product!(id)
+    product = Shop.get_product!(id)
     changeset = Shop.change_product(product)
     date = Shop.get_date!(date_id)
 

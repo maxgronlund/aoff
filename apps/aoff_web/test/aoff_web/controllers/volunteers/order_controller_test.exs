@@ -42,9 +42,9 @@ defmodule AOFFWeb.Volunteer.OrderControllerTest do
         order_fixture(user.id,
           %{
             "state" => "payment_accepted",
-            "payment_date" => AOFF.Time.today(),
-            "order_nr" => 0987654321
+            "payment_date" => AOFF.Time.today()
           })
+      {:ok, order} = AOFF.Users.payment_accepted(order, "1", "0000 0000 0000 2134", "1234" )
       conn = get(conn, Routes.volunteer_order_path(conn, :show, order))
       assert html_response(conn, 200) =~ Integer.to_string(order.order_nr)
     end

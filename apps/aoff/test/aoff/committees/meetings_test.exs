@@ -34,7 +34,7 @@ defmodule AOFF.Committees.MeetingsTest do
       %{committee: committee} do
       user = user_fixture()
       _member = member_fixture(%{"user_id" => user.id, "committee_id" => committee.id})
-      meeting =
+      _meeting =
         meeting_fixture(
           %{
             "committee_id" => committee.id,

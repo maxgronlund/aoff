@@ -67,7 +67,7 @@ defmodule AOFF.Users.OrderTest do
 
     test "create_order/0 returns an order without an order id", %{user: user} do
       order = order_fixture(user.id)
-      refute Map.has_key?(order, :order_id)
+      assert order.order_id == ""
     end
   end
 end

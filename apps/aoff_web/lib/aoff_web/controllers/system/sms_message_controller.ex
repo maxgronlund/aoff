@@ -25,7 +25,6 @@ defmodule AOFFWeb.System.SMSMessageController do
       case sms_api().send_sms_message(sms_message_params) do
         {:ok, %HTTPoison.Response{} = response} ->
           IO.inspect(response)
-
         {:error, reason} ->
           IO.inspect(reason)
       end
@@ -46,34 +45,6 @@ defmodule AOFFWeb.System.SMSMessageController do
   defp sms_api() do
     Application.get_env(:aoff, :sms_api)
   end
-
-  # todo
-  # defp send_sms_message(sms_message_params) do
-  #   IO.puts "===================="
-
-  #   IO.inspect sms_message_params["mobile"]
-  #   IO.inspect sms_message_params["text"]
-
-  #   # endpoint = Application.get_env(:aoff_web, :cpsms)[:endpoint]
-  #   # token = Application.get_env(:aoff_web, :cpsms)[:token]
-
-  #   # body =
-  #   #   Poison.encode!(%{
-  #   #     to: "4581907375",
-  #   #     message: "test message from aoff",
-  #   #     from: "Max - AOFF"
-  #   #   })
-
-  #   # HTTPoison.post(
-  #   #   endpoint,
-  #   #   body,
-  #   #   [
-  #   #     {"content-type", "application/json"},
-  #   #     {"Authorization: Basic #{token}", ""}
-  #   #   ]
-  #   # )
-  #   {:error, "========= test=========="}
-  # end
 
   def show(conn, %{"id" => id}) do
     sms_message = System.get_sms_message!(id)

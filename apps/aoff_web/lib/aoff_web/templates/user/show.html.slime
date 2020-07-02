@@ -18,7 +18,6 @@ h2 = @user.username
     = for pick_up <- @upcomming_pick_ups do
       .row
         .column
-          /- IO.inspect pick_up
           b = date(pick_up.date.date)
       .row
         .column

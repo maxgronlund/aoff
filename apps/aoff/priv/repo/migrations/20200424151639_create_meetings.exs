@@ -5,8 +5,11 @@ defmodule AOFF.Repo.Migrations.CreateMeetings do
     create table(:meetings, primary_key: false) do
       add :id, :binary_id, primary_key: true
       add :name, :string
-      add :description, :text
       add :summary, :text
+      add :date, :date
+      add :time, :time
+      add :agenda, :text
+      add :location, :text
       add :committee_id, references(:committees, on_delete: :delete_all, type: :binary_id)
 
       timestamps()

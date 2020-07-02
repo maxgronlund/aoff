@@ -9,6 +9,7 @@ defmodule AOFF.Repo.Migrations.CreatePickUps do
       add :username, :string
       add :email, :string
       add :member_nr, :integer
+      add :send_sms_notification, :boolean, default: true
       add :order_id, references(:orders, on_delete: :delete_all, type: :binary_id)
       add :user_id, references(:users, on_delete: :delete_all, type: :binary_id)
 

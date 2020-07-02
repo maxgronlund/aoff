@@ -43,7 +43,7 @@ defmodule AOFF.System.UserImporter do
         if  is_nil(user) do
           IO.puts("not found: "<> attrs["username"])
           changeset = User.import_changeset(%User{}, attrs)
-          IO.inspect Repo.insert(changeset)
+          Repo.insert(changeset)
         else
           IO.puts("found: "<> attrs["username"])
         end

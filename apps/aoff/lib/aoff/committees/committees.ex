@@ -117,8 +117,6 @@ defmodule AOFF.Committees do
     Committee.changeset(committee, %{})
   end
 
-  alias AOFF.Committees.Meeting
-
   @doc """
   Returns the list of meetings.
 
