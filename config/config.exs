@@ -104,9 +104,8 @@ config :airbrakex,
   project_key: System.get_env("AIRBRAKE_API_KEY"),
   project_id: System.get_env("AIRBRAKE_PROJECT_ID"),
   logger_level: :error,
-  environment: Mix.env
-
-
+  environment: Mix.env,
+  ignore: [Phoenix.Router.NoRouteError]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
