@@ -1,6 +1,6 @@
 header
   = link to: "/" do
-    div class="aoff-nav-logo"
+    .aoff-nav-logo
 
 
   nav.nav-collapse

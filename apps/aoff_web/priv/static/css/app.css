@@ -1213,8 +1213,6 @@ header*/
   background: url(/images/uk-flag.png);
 }
 
-
-
 .aoff-nav-logo {
   background: url(/images/aoff-logo-small-white.svg);
   background-repeat: no-repeat;
@@ -1645,7 +1643,7 @@ html, body {
 .site-footer, .page-wrap:after {
   margin-top: 28px;
   /* .push must be the same height as footer */
-    height: 142px;
+    height: 201px;
 }
 .site-footer {
   padding: 20px;
@@ -1653,6 +1651,12 @@ html, body {
   color: #fff;
   text-align: center;
   font-size: 0.9em;
+}
+
+
+.inspection-report {
+  width: 169px;
+  height: 54px;
 }
 
 .is-center {

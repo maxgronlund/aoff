@@ -54,6 +54,16 @@ html lang="da"
       = footer.title
       = raw(footer.text)
 
+      = link to: "https://www.findsmiley.dk/Sider/KontrolRapport.aspx?Virk1768211", target: "blank" do
+        = if Gettext.get_locale() == "da" do
+          = img_tag Routes.static_url(@conn, "/images/Banner_groen_847x274.gif"),\
+            class: "inspection-report"
+        - else
+          = img_tag Routes.static_url(@conn, "/images/Banner_groen_eng_847x274.gif"),\
+            class: "inspection-report"
+
+
+
     script src="#{Routes.static_path(@conn, "/js/app.js")}"
     script src="#{Routes.static_path(@conn, "/js/fastclick.js")}"
     script src="#{Routes.static_path(@conn, "/js/scroll.js")}"
