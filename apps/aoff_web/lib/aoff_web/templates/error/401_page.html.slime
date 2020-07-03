@@ -1,5 +1,16 @@
-.row
-  .column
-    .white-text.mt-4.is-center
-      h1 401
-      = gettext("Access denied")
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8" /
+    meta content="IE=edge" http-equiv="X-UA-Compatible" /
+    meta content="width=device-width, initial-scale=1" name="viewport" /
+    meta content="" name="description" /
+    meta content="" name="author" /
+    title Welcome to Phoenix!
+    link href="/css/app.css" rel="stylesheet" /
+  body
+    .row
+      .column
+        .white-text.mt-4.is-center
+          h1 401
+          = gettext("Access denied")
