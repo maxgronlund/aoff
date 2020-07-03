@@ -55,12 +55,6 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let committee_channel = socket.channel("committee:lobby", {})
-committee_channel.join()
-  .receive("ok", resp => { console.log("Joined committee lobby successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join committee lobby", resp) })
-
-
 let shop_channel = socket.channel("shop:date", {})
 shop_channel.join()
   .receive("ok", resp => { console.log("Joined shop date successfully", resp) })

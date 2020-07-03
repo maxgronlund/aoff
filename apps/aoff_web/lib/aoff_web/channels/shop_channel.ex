@@ -45,7 +45,7 @@ defmodule AOFFWeb.ShopChannel do
   end
 
   # It is also common to receive messages from the client and
-  # broadcast to everyone in the current topic (committee:lobby).
+  # broadcast to everyone in the current topic.
   def handle_in("shout", payload, socket) do
     broadcast(socket, "shout", payload)
     {:noreply, socket}

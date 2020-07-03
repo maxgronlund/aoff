@@ -9,7 +9,6 @@ defmodule AOFFWeb.UserSocket do
 
   ## Channels
   # TODO: replace with live view
-  channel "committee:lobby", AOFFWeb.CommitteeChannel
   channel "shop:date", AOFFWeb.ShopChannel
   channel "pick:up", AOFFWeb.PickUpChannel
 

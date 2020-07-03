@@ -35,10 +35,11 @@
         hr
         b= gettext("Description")
         = text_to_html(description(product))
-        hr
-        b= gettext("This weeks content")
-        br
-        = text_to_html(this_weeks_content(product))
+        = if product.collection do
+          hr
+          b= gettext("This weeks content")
+          br
+          = text_to_html(this_weeks_content(product))
       .card-bottom
         .is-bottom
           .p-1
