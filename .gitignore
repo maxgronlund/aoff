@@ -9,3 +9,5 @@ erl_crash.dump
 *.dump
 .elixir_ls/
 *.DS_Store
+/apps/aoff_web/cover
+/apps/aoff/cover

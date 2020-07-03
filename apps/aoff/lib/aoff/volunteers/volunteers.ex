@@ -93,11 +93,9 @@ defmodule AOFF.Volunteers do
 
   """
   def register_user(attrs \\ %{}) do
-    result = %User{expiration_date: Date.add(AOFF.Time.today(), -1)}
+    %User{expiration_date: Date.add(AOFF.Time.today(), -1)}
     |> User.volunteer_changeset(attrs)
     |> Repo.insert()
-    IO.inspect result
-    result
   end
 
   @doc """

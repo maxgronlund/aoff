@@ -1,4 +1,4 @@
-defmodule AOFF.Repo.Migrations.CreateMessages do
+defmodule AOFF.Repo.Migrations.CreateChatMessages do
   use Ecto.Migration
 
   def change do

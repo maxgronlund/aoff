@@ -166,13 +166,12 @@ defmodule AOFF.UsersTest do
 
     test "search order/1 with a valid order_nr" do
       user = user_fixture()
-      order = order_fixture(user.id, %{
-                "state" => "payment_accepted",
-                "order_nr" => 123456789
-              })
-      order_nr = Integer.to_string(order.order_nr)
-      assert List.first(Users.search_orders(order_nr)).id == order.id
+      order = order_fixture(user.id)
+      {:ok, order} = Users.payment_accepted(order, "1", "0000 0000 0000 2134", "1234" )
+      assert List.first(Users.search_orders(Integer.to_string(order.order_nr))).id == order.id
     end
+
+
 
     test "search order/1 with a valid username" do
       user = user_fixture()

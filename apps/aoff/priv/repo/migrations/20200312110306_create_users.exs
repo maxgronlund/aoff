@@ -12,6 +12,7 @@ defmodule AOFF.Repo.Migrations.CreateUsers do
       add :password_reset_expires, :utc_datetime_usec
       add :email, :string
       add :mobile, :string
+      add :mobile_country_code, :string, default: "45"
       add :expiration_date, :date
       add :admin, :boolean, default: false
       add :volunteer, :boolean, default: false
@@ -19,6 +20,9 @@ defmodule AOFF.Repo.Migrations.CreateUsers do
       add :shop_assistant, :boolean, default: false
       add :terms_accepted, :boolean, default: false
       add :registration_date, :date
+      add :bounce_to_url, :string, default: ""
+      add :text_editor, :boolean, default: false
+      add :manage_membership, :boolean, default: false
 
       timestamps()
     end

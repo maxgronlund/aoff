@@ -53,7 +53,18 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
           "pick_up_id" => pick_up.id
         })
 
-      _conn = get(conn, Routes.shop_payment_accepted_path(conn, :index, order.token, %{cardno: "0000 0000 0000 0000", paymenttype: "1"}))
+      _conn = get(
+          conn,
+          Routes.shop_payment_accepted_path(
+            conn,
+            :index,
+            order.token,
+            %{
+              cardno: "0000 0000 0000 0000",
+              paymenttype: "1",
+              orderid: "12341234"}
+            )
+          )
       assert Users.get_user!(user.id).expiration_date == Date.add(AOFF.Time.today(), 365)
     end
 
@@ -85,7 +96,8 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
             :index,
             order.token,
             %{cardno: "0000000000001234",
-            paymenttype: "1"}
+            paymenttype: "1",
+            orderid: "12341234"}
           )
         )
 

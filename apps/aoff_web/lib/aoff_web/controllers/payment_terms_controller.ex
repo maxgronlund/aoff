@@ -20,7 +20,6 @@ defmodule AOFFWeb.PaymentTermsController do
   end
 
   def show(conn, _params) do
-    IO.inspect "fobar"
     order = Users.current_order(conn.assigns.current_user.id)
     conn |> redirect(to: Routes.payment_terms_path(conn, :show, order_id: order.id))
   end

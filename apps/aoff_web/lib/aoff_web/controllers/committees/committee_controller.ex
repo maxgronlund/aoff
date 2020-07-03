@@ -2,7 +2,6 @@ defmodule AOFFWeb.Committees.CommitteeController do
   use AOFFWeb, :controller
 
   alias AOFF.Committees
-  alias AOFF.Chats
   alias AOFF.System
 
   # alias AOFFWeb.Users.Auth
@@ -18,7 +17,7 @@ defmodule AOFFWeb.Committees.CommitteeController do
   def show(conn, %{"id" => id}) do
     if committee = Committees.get_committee!(id) do
       conn = assign(conn, :selected_menu_item, :about_aoff)
-      messages = Chats.list_messages(id)
+
 
       {:ok, committees_text} =
         System.find_or_create_message(
@@ -29,7 +28,6 @@ defmodule AOFFWeb.Committees.CommitteeController do
 
       render(conn, "show.html",
         committee: committee,
-        messages: messages,
         committees_text: committees_text
       )
     else
