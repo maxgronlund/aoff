@@ -130,5 +130,6 @@ Restore on localhost, replace POSTGRES_USER and DATABASE_NAME
 $ pg_restore --verbose --clean --no-acl --no-owner -h localhost -U maxgronlund -d aoff_dev latest.dump
 ```
 
-
+## Smiley
+https://www.findsmiley.dk/om_smiley/info_til_virksomheder/Sider/Generelt/Hent_smileyer.aspx
 
