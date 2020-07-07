@@ -19,7 +19,6 @@ First you have to set up some environment variables
     export POSTGRES_USER='YOU POSTGRES USER'
     export POSTGRES_USERNAME='YOUR POSTGRES USERNAME'
     export POSTGRES_PASSWORD='YOU POSTGRES PASSWORD'
-
     export AOFF_AWS_S3_BUCKET='aoff'
     export AOFF_AWS_ACCESS_KEY_ID='ASK MAX-GRØNLUND FOR THIS'
     export AOFF_AWS_SECRET_ACCESS_KEY='ASK MAX-GRØNLUND FOR THIS'
@@ -45,7 +44,7 @@ $ mix run apps/aoff/priv/repo/seeds.exs
 ## Image aspect ratio
 The [aspect ratio](https://en.wikipedia.org/wiki/Aspect_ratio_(image)) for images is based on the [golden ratio](https://en.wikipedia.org/wiki/Golden_ratio)
 
-###Image
+### Image
 - stamp: 100x62
 - thumb: 310x192
 - original 720x445
