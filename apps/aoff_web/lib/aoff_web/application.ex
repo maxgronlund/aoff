@@ -10,10 +10,13 @@ defmodule AOFFWeb.Application do
     children = [
       # Start the PubSub system
       {Phoenix.PubSub, name: AOFFWeb.PubSub},
+
+      AOFFWeb.Telemetry,
       # Start the endpoint when the application starts
       AOFFWeb.Endpoint
       # Starts a worker by calling: AOFFWeb.Worker.start_link(arg)
       # {AOFFWeb.Worker, arg},
+
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

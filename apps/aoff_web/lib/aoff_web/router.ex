@@ -67,7 +67,7 @@ defmodule AOFFWeb.Router do
     pipe_through [:browser, :admins_only]
     get "/", AOFFWeb.Admin.AdminController, :index
     resources "/users", AOFFWeb.Admin.UserController
-    live_dashboard "/dashboard"
+    live_dashboard "/dashboard", metrics: AOFF.Web.Telemetry
   end
 
   scope "/committee", as: :committee do
