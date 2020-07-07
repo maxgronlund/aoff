@@ -36,10 +36,9 @@ defmodule AOFF.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:ecto_sql, "~> 3.0"},
+      {:ecto_sql, "~> 3.4"},
       {:postgrex, ">= 0.0.0"},
       {:jason, "~> 1.0"},
-      {:phoenix_slime, "~> 0.12.0"},
       {:comeonin, "~> 5.3"},
       {:bcrypt_elixir, "~> 2.0.3"},
       {:pbkdf2_elixir, "~> 1.0"},

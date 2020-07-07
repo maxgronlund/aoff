@@ -37,12 +37,18 @@ defmodule AOFFWeb.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.5.1"},
+      {:phoenix, "~> 1.5.3"},
       {:phoenix_pubsub, "~> 2.0"},
       {:plug_cowboy, "~> 2.1"},
-      {:phoenix_ecto, "~> 4.0"},
+      {:phoenix_ecto, "~> 4.1"},
+      {:phoenix_live_view, "~> 0.13.0"},
+      {:floki, ">= 0.0.0", only: :test},
       {:phoenix_html, "~> 2.11"},
+      {:phoenix_slime, "~> 0.12.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:phoenix_live_dashboard, "~> 0.2.0"},
+      {:telemetry_metrics, "~> 0.4"},
+      {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:aoff, in_umbrella: true},
       {:jason, "~> 1.0"},

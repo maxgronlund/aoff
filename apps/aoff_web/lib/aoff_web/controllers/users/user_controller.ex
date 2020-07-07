@@ -150,14 +150,12 @@ defmodule AOFFWeb.UserController do
   end
 
   defp get_user!(conn, id) do
-    user = Users.get_user!(id)
-
-    if user do
+    if user = Users.get_user(id) do
       authorize(conn, user)
     else
       conn
       |> put_status(404)
-      |> put_view(BEWeb.ErrorView)
+      |> put_view(AOFFWeb.ErrorView)
       |> render(:"404")
       |> halt()
     end

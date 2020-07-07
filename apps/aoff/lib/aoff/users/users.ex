@@ -125,6 +125,8 @@ defmodule AOFF.Users do
   """
   def get_user!(id) do
     Repo.get!(User, id)
+  rescue
+    Ecto.Query.CastError -> Ecto.NoResultsError
   end
 
   @doc """
@@ -141,9 +143,13 @@ defmodule AOFF.Users do
       nil
 
   """
+
   def get_user(id) do
     Repo.get(User, id)
+  rescue
+    Ecto.Query.CastError -> nil
   end
+
 
   def get_user_by_reset_password_token(token) do
     cond do
@@ -517,6 +523,8 @@ defmodule AOFF.Users do
     |> Repo.get!(id)
     |> Repo.preload(:user)
     |> Repo.preload(order_items: [:product, :date])
+  rescue
+    Ecto.Query.CastError -> nil
   end
 
   @doc """
@@ -538,6 +546,8 @@ defmodule AOFF.Users do
     |> Repo.get_by(token: token)
     |> Repo.preload(:user)
     |> Repo.preload(order_items: [:product, :date])
+  rescue
+    Ecto.Query.CastError -> nil
   end
 
   def delete_order(%Order{} = order) do
@@ -684,6 +694,8 @@ defmodule AOFF.Users do
     OrderItem
     |> Repo.get!(id)
     |> Repo.preload(order: [:user])
+  rescue
+    Ecto.Query.CastError -> nil
   end
 
   @doc """

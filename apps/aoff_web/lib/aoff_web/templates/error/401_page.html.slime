@@ -6,7 +6,7 @@ html lang="en"
     meta content="width=device-width, initial-scale=1" name="viewport" /
     meta content="" name="description" /
     meta content="" name="author" /
-    title Welcome to Phoenix!
+    title AOFF
     link href="/css/app.css" rel="stylesheet" /
   body
     .row
@@ -14,3 +14,6 @@ html lang="en"
         .white-text.mt-4.is-center
           h1 401
           = gettext("Access denied")
+          br
+        .is-center
+          = link gettext("Back"), to: "/", class: "button"

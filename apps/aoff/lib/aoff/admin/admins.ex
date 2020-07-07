@@ -52,6 +52,8 @@ defmodule AOFF.Admin.Admins do
   """
   def get_user!(id) do
     Repo.get!(User, id)
+  rescue
+    Ecto.Query.CastError -> nil
   end
 
   @doc """
