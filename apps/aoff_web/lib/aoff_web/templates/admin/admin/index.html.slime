@@ -2,3 +2,5 @@ h2 = gettext("Admin")
 
 .tile
   = link gettext("Admin Users"), to: Routes.admin_user_path(@conn, :index), class: "button"
+  | &nbsp;
+  = link gettext("Dashboard"), to: Routes.live_dashboard_path(@conn, :home), class: "button"

@@ -11,6 +11,7 @@ html lang="da"
     link rel="stylesheet" href="#{Routes.static_path(@conn, "/css/app.css")}"
     link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
 
+    = csrf_meta_tag()
     script src="#{Routes.static_path(@conn, "/js/responsive-nav.js")}"
 
     script referrerpolicy="origin" src="https://cdn.tiny.cloud/1/tzlwj2zjulv5ip3mavrlk4ljknmkqv7n8yyivelsou29j4eg/tinymce/5/tinymce.min.js"

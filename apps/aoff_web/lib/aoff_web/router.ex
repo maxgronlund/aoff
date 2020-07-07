@@ -1,6 +1,7 @@
 defmodule AOFFWeb.Router do
   use AOFFWeb, :router
   use Airbrakex.Plug
+  import Phoenix.LiveDashboard.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -32,6 +33,10 @@ defmodule AOFFWeb.Router do
   #   forward "/sent_emails", Bamboo.EmailPreviewPlug
   # end
 
+  pipeline :admins_only do
+    plug BasicAuth, use_config: {:aoff_web, :basic_auth}
+  end
+
   scope "/", AOFFWeb do
     pipe_through :browser
 
@@ -59,9 +64,10 @@ defmodule AOFFWeb.Router do
   end
 
   scope "/admin", as: :admin do
-    pipe_through :browser
+    pipe_through [:browser, :admins_only]
     get "/", AOFFWeb.Admin.AdminController, :index
     resources "/users", AOFFWeb.Admin.UserController
+    live_dashboard "/dashboard"
   end
 
   scope "/committee", as: :committee do

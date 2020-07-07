@@ -4,7 +4,7 @@ defmodule AOFFWeb.Admin.UserController do
   alias AOFF.Users
   alias AOFF.Admin.Admins
 
-  plug BasicAuth, use_config: {:aoff_web, :basic_auth}
+  # plug BasicAuth, use_config: {:aoff_web, :basic_auth}
 
   def index(conn, params) do
     users =
