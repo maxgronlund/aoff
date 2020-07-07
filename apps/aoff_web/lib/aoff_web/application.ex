@@ -11,7 +11,6 @@ defmodule AOFFWeb.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: AOFFWeb.PubSub},
 
-      AOFFWeb.Telemetry,
       # Start the endpoint when the application starts
       AOFFWeb.Endpoint
       # Starts a worker by calling: AOFFWeb.Worker.start_link(arg)
@@ -21,7 +20,7 @@ defmodule AOFFWeb.Application do
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: AOFFWeb.Supervisor]
+    opts = [strategy: :one_for_one, name: AOFF.Web.Telemetry]
     Supervisor.start_link(children, opts)
   end
 

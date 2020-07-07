@@ -24,7 +24,7 @@ defmodule AOFFWeb.MixProject do
   def application do
     [
       mod: {AOFFWeb.Application, []},
-      extra_applications: [:logger, :runtime_tools, :bamboo]
+      extra_applications: [:logger, :runtime_tools, :bamboo, :os_mon]
     ]
   end
 
