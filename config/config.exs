@@ -16,7 +16,8 @@ config :aoff_web, AOFFWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "Uc830879o+fgFbSBJg54+TesvR7F8Rw/1AKFMw6koyGxYWGWqECDDMjkvijqSxgS",
   render_errors: [view: AOFFWeb.ErrorView, accepts: ~w(html json)],
-  pubsub_server: AOFFWeb.PubSub
+  pubsub_server: AOFFWeb.PubSub,
+  live_view: [signing_salt: "bxyFEm6N"]
 
 config :gettext, :default_locale, "da"
 
