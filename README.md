@@ -102,11 +102,11 @@ install ngrok in your user folder
 
 setup EPAY_ENDPOINT in your environt variables
 
-##Reload terminal
+## Reload terminal
 $ source ~/.zshrc
 
 
-##Backup
+## Backup
 https://devcenter.heroku.com/articles/heroku-postgres-backups
 
 List backups
@@ -114,7 +114,7 @@ List backups
 $ heroku pg:backups --app aoff
 ```
 
-Dowhload backup, re
+Dowhload backup
 ```
 $ heroku pg:backups:download --app aoff
 ```
@@ -126,7 +126,7 @@ heroku pg:backups:schedule DATABASE_URL --at '02:00 Europe/Copenhagen' --app aof
 
 Restore on localhost, replace POSTGRES_USER and DATABASE_NAME
 ```
-$ pg_restore --verbose --clean --no-acl --no-owner -h localhost -U maxgronlund -d aoff_dev latest.dump
+$ pg_restore --verbose --clean --no-acl --no-owner -h localhost -U DATA_BASE_USER -d DATA_BASE latest.dump
 ```
 
 ## Smiley
