@@ -71,7 +71,7 @@ defmodule AOFFWeb.Volunteer.UserController do
       email: "",
       message: message,
       user: false,
-      cancel_path: cancel_path,
+      cancel_path: cancel_path
     )
   end
 

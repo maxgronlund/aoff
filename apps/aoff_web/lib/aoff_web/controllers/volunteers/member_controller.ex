@@ -9,11 +9,6 @@ defmodule AOFFWeb.Volunteer.MemberController do
   plug Auth
   plug :authenticate when action in [:edit, :new, :update, :create, :delete]
 
-  def index(conn, %{"committee_id" => committee_id}) do
-    committee = Committees.get_committee!(committee_id)
-    members = Committees.list_members()
-    render(conn, "index.html", committee: committee, members: members)
-  end
 
   def new(conn, %{"committee_id" => committee_id}) do
     committee = Committees.get_committee!(committee_id)
@@ -42,11 +37,6 @@ defmodule AOFFWeb.Volunteer.MemberController do
           users: list_volunteers()
         )
     end
-  end
-
-  def show(conn, %{"id" => id}) do
-    member = Committees.get_member!(id)
-    render(conn, "show.html", member: member)
   end
 
   def edit(conn, %{"id" => id}) do
