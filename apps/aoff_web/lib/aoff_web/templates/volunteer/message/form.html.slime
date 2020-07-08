@@ -1,13 +1,12 @@
 javascript:
   tinymce.init({
-    selector: '#message_text',,
+    selector: '#message_text',
     menubar: false,
     toolbar: "alignleft aligncenter alignright | formatselect bold italic | indent outdent | code",
     height : 300,
     content_css: "#{Routes.static_path(@conn, "/css/app.css")}",
     plugins: "code"
   });
-
 
 = form_for @changeset, @action, fn f ->
   = if @changeset.action do
