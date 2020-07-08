@@ -96,7 +96,7 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
   end
 
   defp dates() do
-    dates = Shop.list_dates(Date.add(AOFF.Time.today(), -7), 0, 5)
+    dates = Shop.list_dates(Date.add(AOFF.Time.today(), -7), 0, 7)
     Enum.map(dates, fn x -> {AOFF.Time.date_as_string(x.date), x.id} end)
   end
 
