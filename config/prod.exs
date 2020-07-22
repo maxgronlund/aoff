@@ -54,6 +54,12 @@ config :logger, level: :info
 
 config :aoff, :sms_api, AOFF.SMSApi
 
+# config/config.exs
+config :aoff_web, AOFFWeb.Mailer,
+  adapter: Bamboo.SendGridAdapter,
+  api_key: System.get_env("AOFF_SEND_GRID_API_KEY"),
+  email_from: System.get_env("AOFF_EMAIL_FROM")
+
 # Finally import the config/prod.secret.exs which loads secrets
 # and configuration from environment variables.
 import_config "prod.secret.exs"

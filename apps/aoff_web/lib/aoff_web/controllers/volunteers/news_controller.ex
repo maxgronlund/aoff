@@ -7,8 +7,18 @@ defmodule AOFFWeb.Volunteer.NewsController do
   alias AOFFWeb.Users.Auth
   alias AOFF.System
   plug Auth
-  plug :authenticate when action in [:edit, :new, :update, :create, :delete]
-  plug :navbar when action in [:new, :edit]
+  plug :authenticate when action in [:edit, :new, :update, :create, :delete, :index]
+  plug :navbar when action in [:new, :edit, :index, :show]
+
+  def index(conn, _params) do
+    news_list = Content.list_news(:all)
+    render(conn, "index.html", news_list: news_list)
+  end
+
+  def show(conn, %{"id" => id}) do
+    news = Content.get_news!(id)
+    render(conn, "show.html", news: news)
+  end
 
   def new(conn, _params) do
     changeset = Content.change_news(%News{})
@@ -70,7 +80,7 @@ defmodule AOFFWeb.Volunteer.NewsController do
       {:ok, news} ->
         conn
         |> put_flash(:info, gettext("News updated successfully."))
-        |> redirect(to: Routes.news_path(conn, :show, news))
+        |> redirect(to: Routes.volunteer_news_path(conn, :show, news))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(

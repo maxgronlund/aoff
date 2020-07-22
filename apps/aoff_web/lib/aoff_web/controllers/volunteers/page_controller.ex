@@ -26,6 +26,11 @@ defmodule AOFFWeb.Volunteer.PageController do
   #   render(conn, "index.html", categories: categories, help_text: help_text)
   # end
 
+  def show(conn, %{"category_id" => category_id, "id" => id}) do
+    page = Content.get_page!(category_id, id)
+    render(conn, "show.html", page: page, category: page.category)
+  end
+
   def prev_pos(pages) do
     case List.first(pages) do
       %Page{} = page ->

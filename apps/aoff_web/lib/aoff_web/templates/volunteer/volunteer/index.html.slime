@@ -101,6 +101,17 @@
           .card-footer-item.is-button
             = gettext("Go to")
 
+    .card.is-shady
+      = link to: Routes.volunteer_news_path(@conn, :index) do
+        .card-header
+          .card-header-title.is-centered
+            = @news.title
+        .card-content
+          p = raw @news.text
+        .card-footer.is-button
+          .card-footer-item.is-button
+            = gettext("Go to")
+
   = if @manage_membership || @admin do
     .card.is-shady
       = link to: Routes.volunteer_membership_path(@conn, :index) do

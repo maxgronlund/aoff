@@ -1066,17 +1066,17 @@ msgid "Listing Committees"
 msgstr "Udvalg"
 
 #, elixir-format
-#: lib/aoff_web/controllers/volunteers/member_controller.ex:33
+#: lib/aoff_web/controllers/volunteers/member_controller.ex:28
 msgid "Member created successfully."
 msgstr "Medlemmet er tilføjet"
 
 #, elixir-format
-#: lib/aoff_web/controllers/volunteers/member_controller.ex:88
+#: lib/aoff_web/controllers/volunteers/member_controller.ex:78
 msgid "Member deleted successfully."
 msgstr "Medlemmet er fjernet"
 
 #, elixir-format
-#: lib/aoff_web/controllers/volunteers/member_controller.ex:70
+#: lib/aoff_web/controllers/volunteers/member_controller.ex:60
 msgid "Member updated successfully."
 msgstr "Medlemmet er blevet opdateret"
 
@@ -1845,3 +1845,8 @@ msgstr "Vælg en anden dag"
 #: lib/aoff_web/templates/admin/admin/index.html.slime:1
 msgid "Dashboard"
 msgstr "Dashboard"
+
+#, elixir-format
+#: lib/aoff_web/templates/volunteer/page/form.html.slime:12
+msgid "Publish"
+msgstr "Publiceret"

@@ -137,7 +137,7 @@ defmodule AOFFWeb.Router do
       resources "/order_items", AOFFWeb.Volunteer.OrderItemController, only: [:create, :delete]
     end
 
-    resources "/categories", AOFFWeb.Volunteer.CategoryController, except: [:show] do
+    resources "/categories", AOFFWeb.Volunteer.CategoryController do
       resources "/pages", AOFFWeb.Volunteer.PageController
     end
 

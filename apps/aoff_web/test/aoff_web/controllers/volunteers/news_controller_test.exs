@@ -58,7 +58,7 @@ defmodule AOFFWeb.Volunteers.NewsControllerTest do
       news = news_fixture()
       attrs = update_news_attrs()
       conn = put(conn, Routes.volunteer_news_path(conn, :update, news), news: attrs)
-      assert redirected_to(conn) == Routes.news_path(conn, :show, news)
+      assert redirected_to(conn) == Routes.volunteer_news_path(conn, :show, news)
 
       conn = get(conn, Routes.news_path(conn, :show, news))
       assert html_response(conn, 200) =~ attrs["title"]

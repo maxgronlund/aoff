@@ -42,7 +42,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
   end
 
   def show(conn, %{"id" => id}) do
-    if category = Content.get_category!(id) do
+    if category = Content.get_category!(:all, id) do
       render(conn, "show.html", category: category)
     else
       conn

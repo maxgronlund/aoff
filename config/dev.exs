@@ -75,3 +75,9 @@ config :phoenix, :plug_init_mode, :runtime
 config :phoenix, :stacktrace_depth, 20
 
 config :aoff, :sms_api, AOFF.SMSApi
+
+# config/config.exs
+config :aoff_web, AOFFWeb.Mailer,
+  adapter: Bamboo.SendGridAdapter,
+  api_key: System.get_env("AOFF_SEND_GRID_API_KEY"),
+  email_from: System.get_env("AOFF_EMAIL_FROM")

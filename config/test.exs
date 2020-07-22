@@ -17,4 +17,10 @@ config :aoff_web, AOFFWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+# config/config.exs
+config :aoff_web, AOFFWeb.Mailer,
+  adapter: Bamboo.TestAdapter,
+  api_key: System.get_env("AOFF_SEND_GRID_API_KEY"),
+  email_from: System.get_env("AOFF_EMAIL_FROM")
+
 config :aoff, :sms_api, AOFF.Test.SMSApi

@@ -1,29 +1,44 @@
-h2 Listing News
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+    li.is-active
+      |&nbsp;&nbsp;
+      = gettext("News")
 
-/ table.table
-/   thead
-/     tr
-/       th Date
-/       th Title
-/       th Image
-/       th Caption
-/       th Text
-/       th Author
-/       th
-/   tbody
-/     = for news <- @news do
-/       tr
-/         td= news.date
-/         td= news.title
-/         td= news.image
-/         td= news.caption
-/         td= news.text
-/         td= news.author
-/         td class="text-right"
-/           = link "Show", to: Routes.news_path(@conn, :show, news), class: "btn btn-default btn-xs"
-/           | &nbsp;
-/           = link "Edit", to: Routes.news_path(@conn, :edit, news), class: "btn btn-default btn-xs"
-/           | &nbsp;
-/           = link "Delete", to: Routes.news_path(@conn, :delete, news), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
+      .row
+  .column
+    h2 = gettext("Listing News")
 
-/ = link "New News", to: Routes.news_path(@conn, :new)
+  .column
+    .float-right.mt-1
+      = link gettext("New News"),\
+        to: Routes.volunteer_news_path(@conn, :new),
+        class: "button button-outline"
+
+br
+.tiles.button-tiles
+  = for news <- @news_list do
+    .card.is-shady
+      = link to: Routes.volunteer_news_path(@conn, :show, news) do
+        .card-header
+          .card-header-title.is-centered
+            = if news.publish do
+              = news.title
+            - else
+              .red
+                = news.title
+        .card-image
+          img.modal-button alt=("#{news.title}") src="#{ AOFF.Uploader.Image.url({news.image, news}, :original)}"
+        .card-content
+          = unless news.publish do
+            b.red = gettext("!Not published")
+            br/
+          b = date(news.date)
+          br/
+          = text_to_html news.teaser
+
+        .card-footer.is-button
+          .card-footer-item.is-button
+            = gettext("Read More")
+

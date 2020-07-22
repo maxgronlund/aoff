@@ -64,6 +64,10 @@ javascript:
           = label f, :text, gettext("Text"), class: "control-label"
           = textarea f, :text, class: "form-control full-width", style: "height: 175px;"
           = error_tag f, :text
+        .form-group
+          = label f, :publish do
+            = checkbox f, :publish, class: "form-control"
+            = label f, :publish, gettext("Publish"), class: "control-label label-inline"
 
 
 

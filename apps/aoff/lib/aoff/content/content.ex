@@ -9,7 +9,7 @@ defmodule AOFF.Content do
   alias AOFF.Content.News
 
   @doc """
-  Returns the list of news for the selected language ordered by date.
+  Returns the list of published news for the selected language ordered by date.
 
   ## Examples
 
@@ -21,6 +21,27 @@ defmodule AOFF.Content do
 
   """
   def list_news do
+    query =
+      from n in News,
+        where: n.locale == ^Gettext.get_locale() and n.publish == ^true,
+        order_by: [desc: n.date]
+
+    Repo.all(query)
+  end
+
+  @doc """
+  Returns a list of all news for the selected language ordered by date.
+
+  ## Examples
+
+      iex> list_news()
+      [%News{}, ...]
+
+      iex> latest_news()
+      []
+
+  """
+  def list_news(:all) do
     query =
       from n in News,
         where: n.locale == ^Gettext.get_locale(),
@@ -46,7 +67,7 @@ defmodule AOFF.Content do
   def latest_news() do
     query =
       from n in News,
-        where: n.locale == ^Gettext.get_locale(),
+        where: n.locale == ^Gettext.get_locale() and n.publish == ^true,
         order_by: [desc: n.date],
         limit: 3
 
@@ -181,9 +202,33 @@ defmodule AOFF.Content do
   """
   def get_category!(title) do
     query =
-      from b in Category,
-        where: b.title == ^title and b.locale == ^Gettext.get_locale(),
-        select: b,
+      from c in Category,
+        where: c.title == ^title and c.locale == ^Gettext.get_locale(),
+        select: c,
+        preload: [pages: ^from(p in Page, where: p.publish == ^true, order_by: [desc: p.position])]
+
+    Repo.one(query)
+  end
+
+  @doc """
+  Gets a single category.
+
+  Raises `Ecto.NoResultsError` if the News does not exist.
+
+  ## Examples
+
+      iex> get_category!(123)
+      %Page{}
+
+      iex> get_category!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_category!(:all, title) do
+    query =
+      from c in Category,
+        where: c.title == ^title and c.locale == ^Gettext.get_locale(),
+        select: c,
         preload: [pages: ^from(p in Page, order_by: [desc: p.position])]
 
     Repo.one(query)

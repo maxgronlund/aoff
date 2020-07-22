@@ -83,12 +83,6 @@ config :ex_aws,
     region: System.get_env("AOFF_AWS_REGION")
   ]
 
-# config/config.exs
-config :aoff_web, AOFFWeb.Mailer,
-  adapter: Bamboo.SendGridAdapter,
-  api_key: System.get_env("AOFF_SEND_GRID_API_KEY"),
-  email_from: System.get_env("AOFF_EMAIL_FROM")
-
 config :aoff_web,
   epay: [
     merchantnumber: System.get_env("EPAY_MERCHANT_NR"),

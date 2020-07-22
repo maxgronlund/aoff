@@ -30,23 +30,18 @@
     .card.is-shady
       .card-header
         .card-header-title.is-centered
-          = page.title
+          = if page.publish do
+            = page.title
+          - else
+            .red
+              = page.title
       .card-image
         img.modal-button alt=("#{page.title}") src="#{AOFF.Uploader.Image.url({page.image, page}, :thumb)}"
 
 
       .card-content
-
-        .float-right
-          = link gettext("Edit"), to: Routes.volunteer_category_page_path(@conn, :edit, @category, page), class: "button button-small"
-          | &nbsp;
-          = link gettext("Delete"),\
-            to: Routes.volunteer_category_page_path(@conn, :delete, @category, page),\
-            method: :delete,\
-            data: [confirm: "Are you sure?"],\
-            class: "button button-red button-small"
-        br
-
+        = unless page.publish do
+          b.red = gettext("!Not published")
         p = page.teaser
       .card-footer.is-button
         = link gettext("Show"), to: Routes.volunteer_category_page_path(@conn, :show, @category, page), class: "card-footer-item is-button"

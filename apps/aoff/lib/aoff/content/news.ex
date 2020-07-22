@@ -17,6 +17,7 @@ defmodule AOFF.Content.News do
     field :title, :string
     field :show_on_landing_page, :boolean, default: false
     field :locale, :string, default: "da"
+    field :publish, :boolean, default: true
 
     timestamps()
   end
@@ -32,7 +33,8 @@ defmodule AOFF.Content.News do
       :text,
       :author,
       :show_on_landing_page,
-      :locale
+      :locale,
+      :publish
     ])
     |> cast_attachments(attrs, [:image])
     |> validate_required([

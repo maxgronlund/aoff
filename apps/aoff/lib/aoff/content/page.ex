@@ -21,6 +21,7 @@ defmodule AOFF.Content.Page do
     field :show_on_landing_page, :boolean, default: false
     field :locale, :string, default: "da"
     field :position, :integer, default: 0
+    field :publish, :boolean, default: true
     belongs_to :category, Category
     timestamps()
   end
@@ -39,7 +40,8 @@ defmodule AOFF.Content.Page do
       :tag,
       :show_on_landing_page,
       :locale,
-      :position
+      :position,
+      :publish
     ])
     |> cast_attachments(attrs, [:image])
     |> validate_required([
