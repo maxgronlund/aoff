@@ -48,7 +48,7 @@ defmodule AOFFWeb.Volunteer.UserController do
   end
 
   def new(conn, _params) do
-    last_member_nr = Users.last_member_nr() || 0
+    # last_member_nr = Users.last_member_nr() || 0
 
     changeset =
       Users.change_user(%User{

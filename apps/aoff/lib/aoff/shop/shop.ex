@@ -57,7 +57,7 @@ defmodule AOFF.Shop do
     Repo.all(query)
   end
 
-  def list_all_dates(date, page \\ 0, per_page \\ @dates_pr_page) do
+  def list_all_dates(_date, page \\ 0, per_page \\ @dates_pr_page) do
     query =
       from d in Date,
         order_by: [asc: d.date],

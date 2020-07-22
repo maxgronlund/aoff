@@ -3,7 +3,6 @@ defmodule AOFF.Users.Order do
   import Ecto.Changeset
 
   alias AOFF.Users.User
-  alias AOFF.Users
   alias AOFF.Users.OrderItem
   alias AOFF.Shop.PickUp
 

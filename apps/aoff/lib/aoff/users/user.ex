@@ -155,7 +155,7 @@ defmodule AOFF.Users.User do
     |> cast_attachments(attrs, [:avatar])
   end
 
-  defp validate(user, attrs) do
+  defp validate(user, _attrs) do
     user
     |> validate_required([
       :username,
@@ -258,7 +258,7 @@ defmodule AOFF.Users.User do
   end
 
   def registration_changeset(user, attrs) do
-    last_member_nr = Users.last_member_nr() || attrs["member_nr"] || 0
+    # last_member_nr = Users.last_member_nr() || attrs["member_nr"] || 0
 
     attrs =
       Map.merge(
@@ -301,7 +301,7 @@ defmodule AOFF.Users.User do
   end
 
   def last_member_nr(attrs) do
-    last_member_nr = Users.last_member_nr() || attrs["member_nr"] || 0
+    Users.last_member_nr() || attrs["member_nr"] || 0
   end
 
   @doc false
