@@ -172,7 +172,9 @@ defmodule AOFF.Committees do
   """
   def get_meeting!(id) do
     Repo.get!(Meeting, id)
-    |> Repo.preload(committee: [:members])
+    |> Repo.preload(:moderator)
+    |> Repo.preload(:minutes_taker)
+    |> Repo.preload([committee: [:members]])
   end
 
   @doc """

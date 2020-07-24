@@ -18,7 +18,6 @@ javascript:
     plugins: "code"
   });
 
-
 = form_for @changeset, @action, fn f ->
   = if @changeset.action do
     .alert.alert-danger
@@ -43,6 +42,22 @@ javascript:
           = label f, :time, gettext("Meeting time"), class: "control-label"
           = time_select f, :time, class: "form-control full-width"
           = error_tag f, :time
+
+    .row
+      .column
+        .form-group
+          = label f, :moderator_id, gettext("Moderator"), class: "control-label"
+          = select f, :moderator_id, \
+            @users,\
+            prompt: gettext("select moderator"),\
+            class: "form-control full-width"
+      .column
+        .form-group
+          = label f, :minutes_taker_id, gettext("Minutes taker"), class: "control-label"
+          = select f, :minutes_taker_id, \
+            @users,\
+            prompt: gettext("Select minutes taker"),\
+            class: "form-control full-width"
     .form-group
       = label f, :agenda, gettext("Meeting agenda"), class: "control-label"
       = textarea f, :agenda, class: "form-control full-width"

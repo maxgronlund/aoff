@@ -69,9 +69,6 @@ javascript:
             = checkbox f, :publish, class: "form-control"
             = label f, :publish, gettext("Publish"), class: "control-label label-inline"
 
-
-
-
     .row.mt-1
       .column
         .form-group
