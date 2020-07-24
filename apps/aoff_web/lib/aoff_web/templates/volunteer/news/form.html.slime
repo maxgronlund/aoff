@@ -1,6 +1,6 @@
 javascript:
   tinymce.init({
-    selector: '#news_text',,
+    selector: '#news_text',
     menubar: false,
     toolbar: "alignleft aligncenter alignright | formatselect bold italic | indent outdent | code",
     height : 300,
