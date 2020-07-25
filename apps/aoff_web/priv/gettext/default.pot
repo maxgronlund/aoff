@@ -1934,6 +1934,7 @@ msgid "terms and condition"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff/system/time.ex:43
-msgid ", Time: "
+#: lib/aoff_web/views/committee/committee_view.ex:12
+#: lib/aoff_web/views/committee/meeting_view.ex:7
+msgid "%{date} - Time: %{time}"
 msgstr ""

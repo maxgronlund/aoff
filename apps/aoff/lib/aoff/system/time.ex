@@ -1,7 +1,5 @@
 defmodule AOFF.Time do
   use Timex
-  import AOFFWeb.Gettext
-
 
   def now_as_string() do
     {:ok, time_now} =
@@ -34,12 +32,8 @@ defmodule AOFF.Time do
   end
 
   def time_as_string(time) do
-
     {:ok, time} = Timex.format(time, "{h24}:{0m}")
     time
   end
 
-  def date_time_as_string(date, time) do
-    date_as_string(date) <> gettext(", Time: ") <> time_as_string(time)
-  end
 end

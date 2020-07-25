@@ -1947,6 +1947,7 @@ msgid "terms and condition"
 msgstr "Regler og vilkår"
 
 #, elixir-format
-#: lib/aoff/system/time.ex:43
-msgid ", Time: "
-msgstr " - kl. "
+#: lib/aoff_web/views/committee/committee_view.ex:12
+#: lib/aoff_web/views/committee/meeting_view.ex:7
+msgid "%{date} - Time: %{time}"
+msgstr "%{date} - kl. %{time}"
