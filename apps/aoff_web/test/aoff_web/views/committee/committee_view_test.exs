@@ -11,11 +11,6 @@ defmodule AOFFWeb.Committees.CommitteeViewTest do
   # Bring render/3 and render_to_string/3 for testing custom views
   # import Phoenix.View
 
-  test "date/1 returns the date as a string" do
-    assert CommitteeView.date(AOFF.Time.today()) ==
-             AOFF.Time.today_as_string()
-  end
-
   test "committee_member/2 returns false if the user isn't a member" do
     user = user_fixture()
     committee = committee_fixture()

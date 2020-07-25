@@ -2,10 +2,10 @@ javascript:
   tinymce.init({
     selector: '#committee_description',
     menubar: false,
-    toolbar: "alignleft aligncenter alignright | formatselect bold italic | indent outdent | code",
+    toolbar: "alignleft aligncenter alignright | formatselect bold italic | indent outdent | bullist numlist | code",
     height : 300,
     content_css: "#{Routes.static_path(@conn, "/css/app.css")}",
-    plugins: "code"
+    plugins: "code lists"
   });
 
 = form_for @changeset, @action, fn f ->
