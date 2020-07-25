@@ -7,7 +7,7 @@
         li
           = link gettext("Committees"), to: Routes.volunteer_committee_path(@conn, :index)
         li
-          = link @committee.name, to: Routes.volunteer_committee_path(@conn, :show, @committee)
+          = link @committee.name, to: Routes.committee_committee_path(@conn, :show, @committee)
         li.is-active
           | &nbsp;
           = gettext("New Meeting")
