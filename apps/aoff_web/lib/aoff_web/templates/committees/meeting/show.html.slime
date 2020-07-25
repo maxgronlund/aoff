@@ -29,6 +29,30 @@
           data: [confirm: gettext("Are you sure?")],\
           method: :delete,
           class: "button button-red"
+.tile
+  .row
+    = if moderator = @meeting.moderator do
+      .column.profile
+        b = gettext("Moderator")
+        .profile-avatar
+          = img_tag AOFF.Uploader.Image.url({moderator.avatar, moderator}, :avatar)
+        .profile-content
+          h4 = moderator.username
+          a href="mailto:#{moderator.email}"
+            = moderator.email
+          br
+          = moderator.mobile
+    = if minutes_taker = @meeting.minutes_taker do
+      .column.profile
+        b = gettext("Minutes taker")
+        .profile-avatar
+          = img_tag AOFF.Uploader.Image.url({minutes_taker.avatar, minutes_taker}, :avatar)
+        .profile-content
+          h4 = minutes_taker.username
+          a href="mailto:#{minutes_taker.email}"
+            = minutes_taker.email
+          br
+          = minutes_taker.mobile
 .row
   .column
     h3 = gettext("Meeting agenda")

@@ -633,23 +633,6 @@ defmodule AOFF.Users do
     |> Repo.update()
   end
 
-  @doc """
-  Updates a order.
-
-  ## Examples
-
-      iex> update_order(order, %{field: new_value})
-      {:ok, %Order{}}
-
-      iex> update_order(order, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  # def update_order(%Order{} = order, attrs) do
-  #   order
-  #   |> Order.changeset(attrs)
-  #   |> Repo.update()
-  # end
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking order changes.

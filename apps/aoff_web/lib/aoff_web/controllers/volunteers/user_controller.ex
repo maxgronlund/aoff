@@ -48,8 +48,6 @@ defmodule AOFFWeb.Volunteer.UserController do
   end
 
   def new(conn, _params) do
-    # last_member_nr = Users.last_member_nr() || 0
-
     changeset =
       Users.change_user(%User{
         expiration_date: Date.add(AOFF.Time.today(), 365)

@@ -1,6 +1,6 @@
 javascript:
   tinymce.init({
-    selector: '#news_text',,
+    selector: '#news_text',
     menubar: false,
     toolbar: "alignleft aligncenter alignright | formatselect bold italic | indent outdent | code",
     height : 300,
@@ -68,9 +68,6 @@ javascript:
           = label f, :publish do
             = checkbox f, :publish, class: "form-control"
             = label f, :publish, gettext("Publish"), class: "control-label label-inline"
-
-
-
 
     .row.mt-1
       .column

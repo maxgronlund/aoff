@@ -33,6 +33,7 @@ defmodule AOFF.Users.User do
 
     has_many :orders, Order
     has_many :pick_ups, PickUp
+    # has_many :meetings, AOFF.Committees.Meeting
 
     timestamps()
   end

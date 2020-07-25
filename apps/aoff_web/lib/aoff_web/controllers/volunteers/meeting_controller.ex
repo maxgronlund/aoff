@@ -5,13 +5,19 @@ defmodule AOFFWeb.Volunteer.MeetingController do
   alias AOFF.Committees.Meeting
 
   alias AOFFWeb.Users.Auth
+  alias AOFF.Users
   plug Auth
   plug :authenticate when action in [:index, :edit, :new, :update, :create, :delete]
 
   def new(conn, %{"committee_id" => committee_id}) do
     committee = Committees.get_committee!(committee_id)
     changeset = Committees.change_meeting(%Meeting{date: Date.add(Date.utc_today(), 14)})
-    render(conn, "new.html", changeset: changeset, committee: committee)
+    render(
+      conn,
+      "new.html",
+      changeset: changeset,
+      committee: committee,
+      users: list_volunteers())
   end
 
   def create(conn, %{"meeting" => meeting_params}) do
@@ -32,7 +38,14 @@ defmodule AOFFWeb.Volunteer.MeetingController do
     meeting = Committees.get_meeting!(id)
     changeset = Committees.change_meeting(meeting)
 
-    render(conn, "edit.html", committee: meeting.committee, meeting: meeting, changeset: changeset)
+    render(
+      conn,
+      "edit.html",
+      committee: meeting.committee,
+      meeting: meeting,
+      changeset: changeset,
+      users: list_volunteers()
+    )
   end
 
   def update(conn, %{"id" => id, "meeting" => meeting_params}) do
@@ -70,5 +83,9 @@ defmodule AOFFWeb.Volunteer.MeetingController do
       |> render(:"401")
       |> halt()
     end
+  end
+
+  defp list_volunteers() do
+    Enum.map(Users.list_volunteers(), fn u -> {u.username, u.id} end)
   end
 end
