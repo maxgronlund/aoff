@@ -40,7 +40,7 @@ defmodule AOFFWeb.Shop.PaymentCallbackController do
     |> render("index.html")
   end
 
-  defp accepted(conn, order) do
+  defp accepted(conn, _order) do
     conn
     |> render("index.html")
   end
