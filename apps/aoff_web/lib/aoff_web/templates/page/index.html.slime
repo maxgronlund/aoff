@@ -60,18 +60,19 @@
         to: "/users/new",\
         class: "button button-xlarge button-full-width"
 
-.row
-  .column
-    .white-text
-      h4 = gettext("News")
-    .tiles
-      = for news <- @latest_news do
-        .card.is-black
-          = link to: Routes.news_path(@conn, :show, news) do
-            .card-header-title.is-black.is-centered
-              = news.title
-            .card-content.is-black
-              = text_to_html news.teaser
+= unless @latest_news == [] do
+  .row
+    .column
+      .white-text
+        h4 = gettext("News")
+      .tiles
+        = for news <- @latest_news do
+          .card.is-black
+            = link to: Routes.news_path(@conn, :show, news) do
+              .card-header-title.is-black.is-centered
+                = news.title
+              .card-content.is-black
+                = text_to_html news.teaser
 
 = unless @featured_pages == [] do
   .row
