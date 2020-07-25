@@ -49,8 +49,6 @@
                 = link gettext("Edit"),\
                   to: Routes.volunteer_committee_member_path(@conn, :edit, @committee, member),\
                   class: "button button-small"
-
-
 .row.mt-1
   .column
     h3 = gettext("Meetings")
@@ -59,15 +57,20 @@
       = link gettext("New Meeting"),\
         to: Routes.volunteer_committee_meeting_path(@conn, :new, @committee),\
         class: "button float-right"
-.row
-  .column
+
+= unless @committee.meetings == [] do
+  .tiles.button-tiles
     = for meeting <- @committee.meetings do
-      .alert.alert-box
-        b = meeting.name
-        .row
-          .column
-            i = date(meeting.date)
-          .column
-            = link gettext("Show"),\
-              to: Routes.committee_committee_meeting_path(@conn, :show, @committee, meeting),\
-              class: "button button-outline float-right"
+      .card.is-shady
+        .card-header-title.is-centered
+          = date_time(meeting)
+        .card-content
+          b = meeting.name
+          hr
+          = gettext("Address")
+          br/
+          = text_to_html meeting.location
+        .card-footer.is-button
+          = link gettext("Show"),\
+            to: Routes.committee_committee_meeting_path(@conn, :show, @committee, meeting),\
+            class: "card-footer-item is-button"

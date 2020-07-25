@@ -13,8 +13,9 @@
 .row
   .column
     h2 = @meeting.name
-    b = date(@meeting.date)
+    b = date_time(@meeting)
     br
+    b= gettext("Address")
     = text_to_html @meeting.location
 = if committee_member(@meeting.committee, @current_user) || @admin do
   .row
@@ -29,10 +30,11 @@
           data: [confirm: gettext("Are you sure?")],\
           method: :delete,
           class: "button button-red"
-.tile
-  .row
-    = if moderator = @meeting.moderator do
-      .column.profile
+
+.row
+  = if moderator = @meeting.moderator do
+    .column.profile
+      .tile
         b = gettext("Moderator")
         .profile-avatar
           = img_tag AOFF.Uploader.Image.url({moderator.avatar, moderator}, :avatar)
@@ -41,9 +43,11 @@
           a href="mailto:#{moderator.email}"
             = moderator.email
           br
-          = moderator.mobile
-    = if minutes_taker = @meeting.minutes_taker do
-      .column.profile
+          = gettext("Mobile: %{mobile}", mobile: moderator.mobile)
+
+  = if minutes_taker = @meeting.minutes_taker do
+    .column.profile
+      .tile
         b = gettext("Minutes taker")
         .profile-avatar
           = img_tag AOFF.Uploader.Image.url({minutes_taker.avatar, minutes_taker}, :avatar)
@@ -52,21 +56,22 @@
           a href="mailto:#{minutes_taker.email}"
             = minutes_taker.email
           br
-          = minutes_taker.mobile
-.row
-  .column
-    h3 = gettext("Meeting agenda")
-.row
-  .column
-    .tile
-      .auto-columns
+          = gettext("Mobile: %{mobile}", mobile: minutes_taker.mobile)
+= if @meeting.agenda do
+  .row
+    .column
+      h3 = gettext("Meeting agenda")
+  .row
+    .column
+      .tile
         = raw @meeting.agenda
-.row
-  .column
-    h3 = gettext("Meeting summary")
-.row
-  .column
-    .tile
-      .auto-columns
+
+= if @meeting.summary do
+  .row
+    .column
+      h3 = gettext("Meeting summary")
+  .row
+    .column
+      .tile
         = raw @meeting.summary
 
