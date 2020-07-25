@@ -1,3 +1,19 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("About AOFF"), to: Routes.about_path(@conn, :index)
+    li
+      = link gettext("Listing Committees"), to: Routes.committee_committee_path(@conn, :index)
+    li
+      = link @committee.name, to: Routes.committee_committee_path(@conn, :show, @committee)
+    li
+      = link @meeting.name, to: Routes.committee_committee_meeting_path(@conn, :show, @committee, @meeting)
+
+    li.is-active
+      | &nbsp;
+      = gettext("Edit")
+
+
 h2 = gettext("Edit Meeting")
 
 = render "form.html", Map.put(assigns, :action, Routes.volunteer_committee_meeting_path(@conn, :update, @committee, @meeting))

@@ -10,7 +10,7 @@ javascript:
 
 javascript:
   tinymce.init({
-    selector: '#meeting_agenda',,
+    selector: '#meeting_agenda',
     menubar: false,
     toolbar: "alignleft aligncenter alignright | formatselect bold italic | indent outdent | code",
     height : 300,
@@ -73,4 +73,8 @@ javascript:
     .row
       .column
         .form-group.mt-1
-          = submit gettext("Save"), class: "button float-right"
+          .float-right
+            = link gettext("Cancel"), to: Routes.committee_committee_path(@conn, :show, @committee),\
+              class: "button button-outline"
+            |&nbsp;
+            = submit gettext("Save"), class: "button"

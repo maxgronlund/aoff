@@ -1046,7 +1046,7 @@ msgstr "Møde referat"
 #: lib/aoff_web/templates/volunteer/meeting/form.html.slime:15
 #: lib/aoff_web/templates/volunteer/meeting/form.html.slime:15
 msgid "Meeting time"
-msgstr "Møde navn"
+msgstr "Tidspunkt"
 
 #, elixir-format
 #: lib/aoff_web/controllers/volunteers/meeting_controller.ex:57
