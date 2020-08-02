@@ -30,6 +30,29 @@ defmodule AOFF.Users do
   end
 
   @doc """
+  Returns a stream of users with username and email.
+
+  ## Examples
+
+      iex> list_users()
+      [Stream<["name", "email"]>, ...]
+
+  """
+
+  def stream_users(callback) do
+      query =
+        from u in User,
+          order_by: [asc: u.username],
+          select: [u.username, u.email]
+
+      stream = Repo.stream(query, [])
+
+    Repo.transaction(fn ->
+      callback.(stream)
+    end)
+  end
+
+  @doc """
   Returns the count of all users
 
   ## Examples

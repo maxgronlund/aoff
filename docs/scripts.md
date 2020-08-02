@@ -48,3 +48,9 @@ mix phx.gen.html.slime System SMSMessage sms_messages sms:string  text:text user
 
 mix ecto.gen.migration add_times_to_shifts
 
+
+mix phx.gen.html.slime Products Supplier suppliers name:string
+
+
+
+

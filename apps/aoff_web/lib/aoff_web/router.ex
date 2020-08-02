@@ -127,6 +127,8 @@ defmodule AOFFWeb.Router do
     get "/", AOFFWeb.Volunteer.VolunteerController, :index
     resources "/dates", AOFFWeb.Volunteer.DateController, except: [:show]
     resources "/users", AOFFWeb.Volunteer.UserController
+
+    resources "/users_csv", AOFFWeb.Volunteer.UsersCSVController, only: [:index]
     resources "/messages", AOFFWeb.Volunteer.MessageController, except: [:new, :create]
 
     resources "/memberships", AOFFWeb.Volunteer.MembershipController,

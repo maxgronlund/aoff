@@ -17,6 +17,10 @@
       = link gettext("Create membership"),\
         to: Routes.volunteer_user_path(@conn, :new),\
         class: "button"
+      |&nbsp;
+      = link gettext("Download as csv"),\
+        to: Routes.volunteer_users_csv_path(@conn, :index), \
+        class: "button button-outline"
 
 .tile
   = form_for @conn, Routes.volunteer_user_path(@conn, :index), [method: :get], fn f ->

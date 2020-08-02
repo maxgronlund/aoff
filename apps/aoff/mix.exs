@@ -54,7 +54,7 @@ defmodule AOFF.MixProject do
       {:puid, "~> 1.0"},
       {:tzdata, "~> 1.0.3"},
       {:timex, "~> 3.5"},
-      {:nimble_csv, "~> 0.6"}
+      {:nimble_csv, "~> 0.7"}
     ]
   end
 
