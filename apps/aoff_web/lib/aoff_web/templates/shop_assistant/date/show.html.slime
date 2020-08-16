@@ -58,17 +58,19 @@ hr/
   .tile
     .row
       .column
-        b = pick_up.username
-        br/
+        h4 = pick_up.username
+        b = gettext("Order Nr. %{nr}", nr: pick_up.order.order_nr)
+        hr/
         = gettext("Member Nr. %{nr}", nr: pick_up.member_nr)
         br/
         a href="mailto:#{pick_up.user.email}"
           = gettext("Email: %{email}", email: pick_up.user.email)
         br/
+        a href="tel:+#{pick_up.user.mobile_country_code}#{pick_up.user.mobile}"
+          = gettext("call: %{mobile}", mobile: pick_up.user.mobile)
+        |&nbsp;|&nbsp;
         a href="sms:+#{pick_up.user.mobile_country_code}#{pick_up.user.mobile}"
-          = gettext("Mobile: %{mobile}", mobile: pick_up.user.mobile)
-
-
+          = gettext("Send SMS")
 
       .column
         = gettext("Order Nr. %{nr}", nr: pick_up.order.order_nr)
@@ -80,9 +82,13 @@ hr/
           br
     .row.mt-1
       .column
-
-
         .float-right
+
+          = if pick_up.send_sms_notification do
+            .button.sms_button.button-outline pick_up_id="#{pick_up.id}" id="sms-#{pick_up. id}"
+              = gettext("Send Reminder")
+            |&nbsp;
+
           = if pick_up.picked_up do
             = link gettext("Handed"),\
               to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up),\
@@ -94,13 +100,6 @@ hr/
               to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up),\
               class: "button button-outline hidden",
               id: "#{pick_up.id}"
-
-            /.button.button-outline.hidden id="#{pick_up.id}"
-            /  = gettext("Handed")
-            = if pick_up.send_sms_notification do
-              | &nbsp;
-              .button.sms_button.button-outline pick_up_id="#{pick_up.id}" id="sms-#{pick_up. id}"
-                = gettext("Send Reminder")
 
 a name="hosts"
 h3 = gettext("Hosts")
