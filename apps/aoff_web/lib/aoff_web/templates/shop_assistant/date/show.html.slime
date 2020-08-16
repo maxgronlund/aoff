@@ -65,7 +65,11 @@ hr/
         a href="mailto:#{pick_up.user.email}"
           = gettext("Email: %{email}", email: pick_up.user.email)
         br/
-        = gettext("Mobile: %{mobile}", mobile: pick_up.user.mobile)
+        a href="sms:+#{pick_up.user.mobile_country_code}#{pick_up.user.mobile}"
+          = gettext("Mobile: %{mobile}", mobile: pick_up.user.mobile)
+
+
+
       .column
         = gettext("Order Nr. %{nr}", nr: pick_up.order.order_nr)
         br
@@ -76,6 +80,8 @@ hr/
           br
     .row.mt-1
       .column
+
+
         .float-right
           = if pick_up.picked_up do
             = link gettext("Handed"),\

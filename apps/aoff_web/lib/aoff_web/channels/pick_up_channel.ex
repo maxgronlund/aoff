@@ -1,6 +1,8 @@
 defmodule AOFFWeb.PickUpChannel do
   use Phoenix.Channel
 
+  alias AOFF.System
+
   def join("pick:up", payload, socket) do
     if authorized?(payload) do
       {:ok, socket}
@@ -32,9 +34,16 @@ defmodule AOFFWeb.PickUpChannel do
     user = pick_up.user
     mobile = String.replace(user.mobile_country_code <> user.mobile, " ", "")
 
+    {:ok, pickup_message} =
+      System.find_or_create_message(
+        "/channels/pickup_channel",
+        "Hi USERNAME. Remember to pickup your order today before 6 PM",
+        Gettext.get_locale()
+      )
+
     params = %{
       "mobile" => mobile,
-      "text" => "Hej #{user.username}. Husk at hente dine varer i dag inden kl 18:30"
+      "text" => "Hej #{user.username}. Husk at hente dine varer i dag inden kl 18:00"
     }
 
     AOFF.SMSApi.send_sms_message(params)
