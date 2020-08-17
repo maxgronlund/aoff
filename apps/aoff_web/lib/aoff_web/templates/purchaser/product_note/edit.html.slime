@@ -13,5 +13,5 @@
           = gettext("Edit Product")
 
 
-h2 = gettext("Edit Product")
+h2 = name(@product)
 = render "form.html", Map.put(assigns, :action, Routes.purchaser_date_product_note_path(@conn, :update, @date, @product))
