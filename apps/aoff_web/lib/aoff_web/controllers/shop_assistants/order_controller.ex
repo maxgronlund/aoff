@@ -37,16 +37,19 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
         send_invoice(order, "", "cash")
         # Create a new order for the basket.
         Users.create_order(%{"user_id" => order.user_id})
+
         case get_session(conn, :shop_assistant_date_id) do
           nil ->
             conn
             |> put_flash(:info, gettext("Order created and paied"))
             |> redirect(to: Routes.shop_assistant_date_path(conn, :index))
+
           date_id ->
             conn
             |> put_flash(:info, gettext("Order created and paied"))
             |> redirect(to: Routes.shop_assistant_date_path(conn, :show, date_id))
         end
+
       _ ->
         error(conn)
     end

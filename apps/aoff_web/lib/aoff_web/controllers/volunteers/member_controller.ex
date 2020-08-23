@@ -9,7 +9,6 @@ defmodule AOFFWeb.Volunteer.MemberController do
   plug Auth
   plug :authenticate when action in [:edit, :new, :update, :create, :delete]
 
-
   def new(conn, %{"committee_id" => committee_id}) do
     committee = Committees.get_committee!(committee_id)
     changeset = Committees.change_member(%Member{})

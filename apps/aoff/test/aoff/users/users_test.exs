@@ -3,7 +3,6 @@ defmodule AOFF.UsersTest do
 
   alias AOFF.Users
 
-
   import AOFF.Users.UserFixture
   import AOFF.Users.OrderFixture
   import AOFF.Users.OrderItemFixture
@@ -15,21 +14,24 @@ defmodule AOFF.UsersTest do
     test "authenticate_by_email_and_pass/2 when email and pass is valid" do
       _user = user_fixture()
       attrs = valid_attrs()
+
       assert {:ok, %Users.User{}} =
-        Users.authenticate_by_email_and_pass(attrs["email"], attrs["password"])
+               Users.authenticate_by_email_and_pass(attrs["email"], attrs["password"])
     end
 
     test "authenticate_by_email_and_pass/2 when pass is invalid" do
       _user = user_fixture()
       attrs = valid_attrs()
+
       assert {:error, :unauthorized} ==
-        Users.authenticate_by_email_and_pass(attrs["email"], "chunky-becon")
+               Users.authenticate_by_email_and_pass(attrs["email"], "chunky-becon")
     end
 
     test "authenticate_by_email_and_pass/2 when email is invalid" do
       _user = user_fixture()
+
       assert {:error, :not_found} ==
-        Users.authenticate_by_email_and_pass("no-one@example.com", "chunky-becon")
+               Users.authenticate_by_email_and_pass("no-one@example.com", "chunky-becon")
     end
   end
 
@@ -97,7 +99,6 @@ defmodule AOFF.UsersTest do
       attrs = valid_attrs()
 
       assert {:ok, %User{} = user} = Users.create_user(attrs)
-
       assert user.username == attrs["username"]
       assert user.email == attrs["email"]
       assert user.mobile == attrs["mobile"]
@@ -167,11 +168,9 @@ defmodule AOFF.UsersTest do
     test "search order/1 with a valid order_nr" do
       user = user_fixture()
       order = order_fixture(user.id)
-      {:ok, order} = Users.payment_accepted(order, "1", "0000 0000 0000 2134", "1234" )
+      {:ok, order} = Users.payment_accepted(order, "1", "0000 0000 0000 2134", "1234")
       assert List.first(Users.search_orders(Integer.to_string(order.order_nr))).id == order.id
     end
-
-
 
     test "search order/1 with a valid username" do
       user = user_fixture()
@@ -190,11 +189,18 @@ defmodule AOFF.UsersTest do
       _order = order_fixture(user.id)
       assert is_nil(List.first(Users.search_orders("XYZ123")))
     end
+
+    test "confirm_user/1 updates the confirmed_at field" do
+      user = user_fixture()
+      assert is_nil(user.confirmed_at)
+      {:ok, %User{confirmed_at: confirmed_at}} = Users.confirm_user(user)
+      assert confirmed_at == AOFF.Time.today()
+    end
   end
 
   describe "membership" do
-
     alias AOFF.Users.User
+
     setup do
       user = user_fixture(%{"expiration_date" => AOFF.Time.today()})
       {:ok, user: user}
@@ -205,34 +211,33 @@ defmodule AOFF.UsersTest do
       product = product_fixture(%{"membership" => true})
       order = order_fixture(user.id)
       date = date_fixture()
+
       pick_up =
-        pick_up_fixture(
-          %{
-            "date_id" => date.id,
-            "user_id" => user.id,
-            "order_id" => order.id
-          }
-        )
+        pick_up_fixture(%{
+          "date_id" => date.id,
+          "user_id" => user.id,
+          "order_id" => order.id
+        })
+
       _order_item =
-        order_item_fixture(
-          %{
-            "order_id" => order.id,
-            "product_id" => product.id,
-            "date_id" => date.id,
-            "user_id" => user.id,
-            "pick_up_id" => pick_up.id
-          }
-        )
+        order_item_fixture(%{
+          "order_id" => order.id,
+          "product_id" => product.id,
+          "date_id" => date.id,
+          "user_id" => user.id,
+          "pick_up_id" => pick_up.id
+        })
+
       order = Users.get_order!(order.id)
       users = Users.extend_memberships(order)
       user = List.first(users)
-
 
       assert {:ok, %User{}} = user
       {:ok, user} = user
 
       assert user.expiration_date == Date.add(expiration_date, 365)
     end
+
     # test "last_member_nr/0 returne the last member_nr" do
     #   _user = user_fixture()
     #   user = user_fixture(%{"member_nr" => 2})

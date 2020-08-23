@@ -35,15 +35,16 @@ defmodule AOFFWeb.Volunteer.PageController do
     case List.first(pages) do
       %Page{} = page ->
         page.position + 10
-      _ -> 0
+
+      _ ->
+        0
     end
   end
 
   def new(conn, %{"category_id" => category_id}) do
     category = Content.get_category!(category_id)
     prev_pos = prev_pos(category.pages)
-    changeset =
-      Content.change_page(%Page{position: prev_pos})
+    changeset = Content.change_page(%Page{position: prev_pos})
 
     render(
       conn,

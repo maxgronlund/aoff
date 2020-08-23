@@ -49,7 +49,13 @@ defmodule AOFFWeb.Router do
       resources "/orders", Users.OrderController, only: [:show, :delete]
       resources "/invoices", Users.InvoiceController, only: [:index, :show]
       resources "/membership", Users.MembershipController, only: [:new, :create]
+      resources "/welcome", Users.WelcomeController, only: [:index]
+      resources "/confirm_account", Users.ConfirmAccountController, only: [:index]
+      resources "/send_confirmation_email", Users.ConfirmationEmailController, only: [:new, :create, :show]
     end
+
+    resources "/confirm_account", Users.ConfirmAccountController, only: [:show]
+
 
     resources "/reset_password", ResetPasswordController,
       only: [:new, :create, :edit, :update, :index]
@@ -102,7 +108,10 @@ defmodule AOFFWeb.Router do
 
   scope "/shop_assistant", as: :shop_assistant do
     pipe_through :browser
-    resources "/dates", AOFFWeb.ShopAssistant.DateController, only: [:show, :index, :edit, :update]
+
+    resources "/dates", AOFFWeb.ShopAssistant.DateController,
+      only: [:show, :index, :edit, :update]
+
     resources "/pick_ups", AOFFWeb.ShopAssistant.PickUpController, only: [:show]
     resources "/order_list", AOFFWeb.ShopAssistant.OrderListController, only: [:show]
     get "/", AOFFWeb.ShopAssistant.ShopAssistantController, :index
@@ -135,7 +144,9 @@ defmodule AOFFWeb.Router do
       only: [:index, :edit, :update]
 
     resources "/news", AOFFWeb.Volunteer.NewsController
-    resources "/orders", AOFFWeb.Volunteer.OrderController, only: [:index, :show, :delete, :edit, :update] do
+
+    resources "/orders", AOFFWeb.Volunteer.OrderController,
+      only: [:index, :show, :delete, :edit, :update] do
       resources "/order_items", AOFFWeb.Volunteer.OrderItemController, only: [:create, :delete]
     end
 

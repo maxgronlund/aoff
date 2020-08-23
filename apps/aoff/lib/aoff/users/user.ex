@@ -30,12 +30,18 @@ defmodule AOFF.Users.User do
     field :registration_date, :date
     field :manage_membership, :boolean, default: false
     field :bounce_to_url, :string, default: "/"
+    field :confirmed_at, :date
 
     has_many :orders, Order
     has_many :pick_ups, PickUp
     # has_many :meetings, AOFF.Committees.Meeting
 
     timestamps()
+  end
+
+  def confirmation_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:confirmed_at])
   end
 
   def bounce_to_changeset(user, attrs) do
@@ -148,7 +154,6 @@ defmodule AOFF.Users.User do
       :text_editor,
       :manage_membership
     ])
-    |> validate_confirmation(:email)
     |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 6, max: 100)
     |> unique_constraint(:email)
@@ -170,7 +175,6 @@ defmodule AOFF.Users.User do
       :text_editor,
       :manage_membership
     ])
-    |> validate_confirmation(:email)
     |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 6, max: 100)
     |> unique_constraint(:email)
@@ -208,7 +212,6 @@ defmodule AOFF.Users.User do
     ])
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
-    |> validate_confirmation(:email)
     |> cast_attachments(attrs, [:avatar])
   end
 
@@ -250,23 +253,23 @@ defmodule AOFF.Users.User do
       :email,
       :password
     ])
-    |> validate_confirmation(:email)
     |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 6, max: 100)
+    |> validate_length(:mobile_country_code, min: 2, max: 3)
     |> unique_constraint(:email)
     |> put_pass_hash()
     |> cast_attachments(attrs, [:avatar])
   end
 
   def registration_changeset(user, attrs) do
-    # last_member_nr = Users.last_member_nr() || attrs["member_nr"] || 0
-
     attrs =
       Map.merge(
         attrs,
         %{
           "member_nr" => last_member_nr(attrs) + 1,
-          "registration_date" => AOFF.Time.today()
+          "registration_date" => AOFF.Time.today(),
+          "password_reset_token" => Ecto.UUID.generate(),
+          "password_reset_expires" => AOFF.Time.now()
         }
       )
 
@@ -281,7 +284,9 @@ defmodule AOFF.Users.User do
       :member_nr,
       :expiration_date,
       :terms_accepted,
-      :registration_date
+      :registration_date,
+      :password_reset_token,
+      :password_reset_expires
     ])
     |> validate_required([
       :username,
@@ -293,9 +298,10 @@ defmodule AOFF.Users.User do
       :registration_date
     ])
     |> validate_acceptance(:terms_accepted)
-    |> validate_confirmation(:email)
     |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 6, max: 100)
+    |> validate_length(:mobile, is: 8)
+    |> validate_length(:mobile_country_code, min: 2, max: 3)
     |> unique_constraint(:email)
     |> put_pass_hash()
     |> cast_attachments(attrs, [:avatar])
@@ -332,7 +338,6 @@ defmodule AOFF.Users.User do
     ])
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
-    |> validate_confirmation(:email)
     |> cast_attachments(attrs, [:avatar])
   end
 

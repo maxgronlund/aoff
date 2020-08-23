@@ -45,12 +45,27 @@ defmodule AOFFWeb.UserController do
   def create(conn, %{"user" => user_params}) do
     case Users.create_user(user_params) do
       {:ok, user} ->
-        Auth.login(conn, user)
-        |> put_flash(
-          :info,
-          gettext("Welcome %{username}, your account is created", username: user.username)
-        )
-        |> redirect(to: Routes.user_path(conn, :show, user))
+        # Auth.login(conn, user)
+        # |> put_flash(
+        #   :info,
+        #   gettext("Welcome %{username}, your account is created", username: user.username)
+        # )
+        # |> redirect(to: Routes.user_path(conn, :show, user))
+
+        username_and_email = {user.username, user.email}
+
+        confirm_account_url =
+          AOFFWeb.Router.Helpers.url(conn) <>
+            conn.request_path <>
+            "/" <>
+            user.password_reset_token <>
+            "/confirm_account"
+
+        # Create your email
+        AOFFWeb.Email.confirm_account_email(username_and_email, confirm_account_url)
+        |> AOFFWeb.Mailer.deliver_now()
+
+        redirect(conn, to: Routes.user_welcome_path(conn, :index, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:ok, message} =
@@ -74,14 +89,14 @@ defmodule AOFFWeb.UserController do
   def show(conn, %{"id" => id}) do
     today = AOFF.Time.today()
     user = get_user!(conn, id)
-    upcomming_pick_ups =
-      Shop.list_upcomming_pick_ups(user.id, today)
-    upcomming_meetings =
-      AOFF.Committees.list_user_meetings(user.id, today)
+    upcomming_pick_ups = Shop.list_upcomming_pick_ups(user.id, today)
+    upcomming_meetings = AOFF.Committees.list_user_meetings(user.id, today)
+
     conn =
       conn
       |> assign(:selected_menu_item, :user)
       |> assign(:title, user.username)
+
     host_dates = Users.host_dates(Date.utc_today(), user.id)
 
     {:ok, message} =
@@ -91,7 +106,8 @@ defmodule AOFFWeb.UserController do
         Gettext.get_locale()
       )
 
-    render(conn,
+    render(
+      conn,
       "show.html",
       user: user,
       message: message,
@@ -103,10 +119,12 @@ defmodule AOFFWeb.UserController do
 
   def edit(conn, %{"id" => id}) do
     user = get_user!(conn, id)
+
     conn =
       conn
       |> assign(:selected_menu_item, :user)
       |> assign(:title, gettext("Edit account"))
+
     changeset = Users.change_user(user)
 
     render(

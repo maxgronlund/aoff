@@ -1,11 +1,12 @@
 h2 = @message.title
 .row
   .column
-    .auto-columns
-      = raw @message.text
-      = if @text_editor do
-        | &nbsp;
-        = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message, %{"request_url" => @conn.request_path})
+    .tile
+      .auto-columns
+        = raw @message.text
+        = if @text_editor do
+          | &nbsp;
+          = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message, %{"request_url" => @conn.request_path})
 
 .row.mt-1
   .column

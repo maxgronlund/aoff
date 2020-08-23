@@ -1,0 +1,9 @@
+h2 = @message.title
+.row
+  .column
+    .tile
+      = @message.text
+      br
+      = link(gettext("Resend confirmation email"),\
+        to: Routes.user_confirmation_email_path(@conn, :new, @user),\
+        class: "button")

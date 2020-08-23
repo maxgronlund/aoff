@@ -40,12 +40,12 @@ defmodule AOFF.Users do
   """
 
   def stream_users(callback) do
-      query =
-        from u in User,
-          order_by: [asc: u.username],
-          select: [u.username, u.email]
+    query =
+      from u in User,
+        order_by: [asc: u.username],
+        select: [u.username, u.email]
 
-      stream = Repo.stream(query, [])
+    stream = Repo.stream(query, [])
 
     Repo.transaction(fn ->
       callback.(stream)
@@ -62,10 +62,10 @@ defmodule AOFF.Users do
   def member_count(:all) do
     query =
       from u in User,
-      select: count(u.id)
+        select: count(u.id)
+
     Repo.one(query)
   end
-
 
   @doc """
   Returns the count of all users with a valid membership
@@ -77,8 +77,9 @@ defmodule AOFF.Users do
   def member_count(:valid) do
     query =
       from u in User,
-      where: u.expiration_date >= ^AOFF.Time.today(),
-      select: count(u.id)
+        where: u.expiration_date >= ^AOFF.Time.today(),
+        select: count(u.id)
+
     Repo.one(query)
   end
 
@@ -102,7 +103,6 @@ defmodule AOFF.Users do
 
     if Enum.empty?(host_dates), do: false, else: host_dates
   end
-
 
   @doc """
   Returns the list of users.
@@ -173,7 +173,6 @@ defmodule AOFF.Users do
     Ecto.Query.CastError -> nil
   end
 
-
   def get_user_by_reset_password_token(token) do
     cond do
       token == "" -> nil
@@ -197,6 +196,20 @@ defmodule AOFF.Users do
     %User{expiration_date: Date.add(AOFF.Time.today(), -1)}
     |> User.registration_changeset(attrs)
     |> Repo.insert()
+  end
+
+  @doc """
+  Confirm a user
+
+  ### Example
+      iex confirm_user(user)
+      {:ok, %User{}}
+
+  """
+  def confirm_user(user) do
+    user
+    |> User.confirmation_changeset(%{confirmed_at: AOFF.Time.today()})
+    |> Repo.update()
   end
 
   @doc """
@@ -387,6 +400,7 @@ defmodule AOFF.Users do
   def authenticate_by_email_and_pass(email, given_pass) do
     user = get_user_by_email(email)
     hash_mod_of_user = hash_mod_of_user(user)
+
     cond do
       {:error, :no_user} == hash_mod_of_user(user) ->
         Bcrypt.no_user_verify()
@@ -401,6 +415,7 @@ defmodule AOFF.Users do
         if hash_mod_of_user(user) == Drupal7PasswordHash do
           User.update_password_changeset(user, %{"password" => given_pass})
         end
+
         {:ok, user}
 
       true ->
@@ -427,11 +442,11 @@ defmodule AOFF.Users do
         order
 
       _ ->
-        {:ok, _order} = create_order(
-          %{
+        {:ok, _order} =
+          create_order(%{
             "user_id" => user_id
-          }
-        )
+          })
+
         # make sure to preload the order_items and the user
         current_order(user_id)
     end
@@ -441,25 +456,24 @@ defmodule AOFF.Users do
     query =
       if is_numeric(query) do
         from o in Order,
-        join: u in assoc(o, :user),
-        where:
-          o.order_nr == ^query or u.member_nr == ^query
+          join: u in assoc(o, :user),
+          where: o.order_nr == ^query or u.member_nr == ^query
       else
         from o in Order,
-        join: u in assoc(o, :user),
-        where:
-          o.state != ^"cancled"
-            and ilike(u.username, ^"%#{query}%")
-            and o.state != "open"
-          or o.state != ^"cancled"
-            and  ilike(u.email, ^"%#{query}%")
-            and o.state != "open"
+          join: u in assoc(o, :user),
+          where:
+            (o.state != ^"cancled" and
+               ilike(u.username, ^"%#{query}%") and
+               o.state != "open") or
+              (o.state != ^"cancled" and
+                 ilike(u.email, ^"%#{query}%") and
+                 o.state != "open")
       end
+
     query
     |> Repo.all()
     |> Repo.preload(:user)
   end
-
 
   @doc """
   Returns the list of orders.
@@ -475,9 +489,9 @@ defmodule AOFF.Users do
     query =
       from o in Order,
         where:
-          o.user_id == ^user_id
-          and o.state == ^"payment_accepted"
-          and o.state != ^"cancled",
+          o.user_id == ^user_id and
+            o.state == ^"payment_accepted" and
+            o.state != ^"cancled",
         order_by: [desc: o.order_nr]
 
     Repo.all(query)
@@ -488,8 +502,9 @@ defmodule AOFF.Users do
   def list_orders(:all, page \\ 0, per_page \\ @orders_pr_page) do
     query =
       from o in Order,
-        where: o.state != ^"open"
-        and o.state != ^"cancled",
+        where:
+          o.state != ^"open" and
+            o.state != ^"cancled",
         limit: ^per_page,
         offset: ^(page * per_page),
         order_by: [desc: o.order_nr]
@@ -585,7 +600,6 @@ defmodule AOFF.Users do
       })
       |> Repo.update()
     end
-
   end
 
   alias AOFF.Shop.Product
@@ -655,7 +669,6 @@ defmodule AOFF.Users do
     |> Order.changeset(attrs)
     |> Repo.update()
   end
-
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking order changes.
@@ -800,7 +813,6 @@ defmodule AOFF.Users do
   end
 
   def payment_accepted(%Order{} = order, paymenttype \\ "1", card_nr \\ "", order_id \\ "") do
-
     Order.changeset(order, %{
       "state" => "payment_accepted",
       "order_nr" => last_order_nr() + 1,

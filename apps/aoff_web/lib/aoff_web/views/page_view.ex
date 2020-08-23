@@ -24,11 +24,11 @@ defmodule AOFFWeb.PageView do
         "en" -> product.this_weeks_content_en
         _ -> product.this_weeks_content_en
       end
+
     if this_weeks_content == "" do
       description(product)
     else
       this_weeks_content
-
     end
   end
 end

@@ -25,6 +25,7 @@ defmodule AOFFWeb.System.SMSMessageController do
       case sms_api().send_sms_message(sms_message_params) do
         {:ok, %HTTPoison.Response{} = response} ->
           IO.inspect(response)
+
         {:error, reason} ->
           IO.inspect(reason)
       end

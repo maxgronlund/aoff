@@ -16,33 +16,35 @@ defmodule AOFF.Committees.MeetingsTest do
       {:ok, committee: committee}
     end
 
-    test "list_user_meetings/3 returns all upcomming meetings for a given user", %{committee: committee} do
+    test "list_user_meetings/3 returns all upcomming meetings for a given user", %{
+      committee: committee
+    } do
       user = user_fixture()
       _member = member_fixture(%{"user_id" => user.id, "committee_id" => committee.id})
+
       meeting =
-        meeting_fixture(
-          %{
-            "committee_id" => committee.id,
-            "date" => Date.add(Date.utc_today(), 5)
-          }
-        )
+        meeting_fixture(%{
+          "committee_id" => committee.id,
+          "date" => Date.add(Date.utc_today(), 5)
+        })
+
       meetings = Committees.list_user_meetings(user.id, Date.utc_today())
       assert List.first(meetings).id == meeting.id
     end
 
     test "list_user_meetings/3 returns false if no upcomming meetings for a given user exists",
-      %{committee: committee} do
+         %{committee: committee} do
       user = user_fixture()
       _member = member_fixture(%{"user_id" => user.id, "committee_id" => committee.id})
+
       _meeting =
-        meeting_fixture(
-          %{
-            "committee_id" => committee.id,
-            "date" => Date.add(Date.utc_today(), -5)
-          }
-        )
+        meeting_fixture(%{
+          "committee_id" => committee.id,
+          "date" => Date.add(Date.utc_today(), -5)
+        })
+
       meetings = Committees.list_user_meetings(user.id, Date.utc_today())
-      assert  meetings == false
+      assert meetings == false
     end
 
     test "list_meetings/1 returns all meetings for a given commitee", %{committee: committee} do

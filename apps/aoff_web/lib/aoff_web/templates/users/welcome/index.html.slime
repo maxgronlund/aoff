@@ -1,0 +1,11 @@
+h2 = @message.title
+
+.row
+  .column
+    .tile
+      = @message.text
+      br
+      = link("OK" ,to: Routes.page_path(@conn, :index), class: "button float-right")
+      |&nbsp;
+      br
+      |&nbsp;

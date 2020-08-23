@@ -15,7 +15,6 @@ defmodule AOFFWeb.Application do
       AOFFWeb.Endpoint
       # Starts a worker by calling: AOFFWeb.Worker.start_link(arg)
       # {AOFFWeb.Worker, arg},
-
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

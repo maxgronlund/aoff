@@ -7,7 +7,6 @@ defmodule AOFF.System.UserImporter do
   alias AOFF.Users.User
   alias AOFF.Users
 
-
   def import(path) do
     str = HTTPoison.get!(path).body
     rows = UserCsvParser.parse_string(str)
@@ -35,32 +34,31 @@ defmodule AOFF.System.UserImporter do
       end)
 
     for attrs <- users do
-
       member_nr = attrs["member_nr"]
 
       unless member_nr == "" do
         user = Users.get_user_by_member_nr(member_nr)
-        if  is_nil(user) do
-          IO.puts("not found: "<> attrs["username"])
+
+        if is_nil(user) do
+          IO.puts("not found: " <> attrs["username"])
           changeset = User.import_changeset(%User{}, attrs)
           Repo.insert(changeset)
         else
-          IO.puts("found: "<> attrs["username"])
+          IO.puts("found: " <> attrs["username"])
         end
       end
     end
   end
 
-
-
   def to_date(date_str) do
-    [y,m,d] =
+    [y, m, d] =
       Regex.run(~r/\d+-\d+-\d+/, date_str)
       |> List.first()
       |> String.replace("-", " ")
       |> String.split()
       |> Enum.map(fn n -> String.to_integer(n) end)
-    {:ok, date} = Date.new(y,m,d)
+
+    {:ok, date} = Date.new(y, m, d)
     date
   end
 end

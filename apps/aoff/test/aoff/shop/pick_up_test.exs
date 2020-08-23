@@ -48,7 +48,11 @@ defmodule AOFF.Shop.PickUpTest do
       assert List.first(Shop.list_pick_ups(date.id)).id == pick_up.id
     end
 
-    test "list_upcomming_pick_ups/0 returns all upcomming pick_ups for a given user", %{date: date, user: user, order: order} do
+    test "list_upcomming_pick_ups/0 returns all upcomming pick_ups for a given user", %{
+      date: date,
+      user: user,
+      order: order
+    } do
       pick_up = create_pick_up(date, user, order)
       product = product_fixture()
 
@@ -61,8 +65,7 @@ defmodule AOFF.Shop.PickUpTest do
         "order_id" => order.id
       })
 
-      dates =
-        Shop.list_upcomming_pick_ups(user.id, Date.utc_today())
+      dates = Shop.list_upcomming_pick_ups(user.id, Date.utc_today())
       assert List.first(dates).id == pick_up.id
     end
 
@@ -79,10 +82,9 @@ defmodule AOFF.Shop.PickUpTest do
         "order_id" => order.id
       })
 
-      next_date = Date.add(Date.utc_today, 42)
+      next_date = Date.add(Date.utc_today(), 42)
 
-      pick_ups =
-        Shop.list_upcomming_pick_ups(user.id, next_date)
+      pick_ups = Shop.list_upcomming_pick_ups(user.id, next_date)
       assert pick_ups == false
     end
 

@@ -4,16 +4,25 @@ defmodule AOFFWeb.Volunteer.OrderView do
   def payment_state(order) do
     case order.state do
       "payment_accepted" ->
-        {:ok, date} = AOFFWeb.Cldr.Date.to_string(order.payment_date, locale: Gettext.get_locale())
+        {:ok, date} =
+          AOFFWeb.Cldr.Date.to_string(order.payment_date, locale: Gettext.get_locale())
+
         gettext("Payed: %{date}", date: date)
+
       "payment_declined" ->
-        {:ok, date} = AOFFWeb.Cldr.Date.to_string(order.payment_date, locale: Gettext.get_locale())
+        {:ok, date} =
+          AOFFWeb.Cldr.Date.to_string(order.payment_date, locale: Gettext.get_locale())
+
         gettext("Payment declined: %{date}", date: date)
+
       "open" ->
         gettext("Basket")
+
       "cancled" ->
         gettext("Cancled")
-      _ -> order.state
+
+      _ ->
+        order.state
     end
   end
 
@@ -46,7 +55,6 @@ defmodule AOFFWeb.Volunteer.OrderView do
     !open?(state)
   end
 
-
   def total_exc_vat(total) do
     if is_nil(total) do
       0
@@ -75,5 +83,3 @@ defmodule AOFFWeb.Volunteer.OrderView do
     end
   end
 end
-
-

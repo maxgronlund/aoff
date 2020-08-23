@@ -6,7 +6,6 @@ defmodule AOFFWeb.Volunteer.UserController do
   alias AOFF.Users.User
   alias AOFF.System
 
-
   alias AOFFWeb.Users.Auth
   plug Auth
   plug :authenticate when action in [:index, :show, :edit, :update, :delete, :new]
@@ -24,18 +23,18 @@ defmodule AOFFWeb.Volunteer.UserController do
     |> assign(:title, gettext("Admin Users"))
     |> put_session(:shop_assistant_date_id, nil)
     |> render(
-        "index.html",
-        users: users,
-        pages: Users.user_pages(),
-        members: Users.member_count(:all),
-        valid_members: Users.member_count(:valid)
-      )
+      "index.html",
+      users: users,
+      pages: Users.user_pages(),
+      members: Users.member_count(:all),
+      valid_members: Users.member_count(:valid)
+    )
   end
 
   def edit(conn, %{"id" => id}) do
-
     user = Volunteers.get_user!(id)
     changeset = Volunteers.change_user(user)
+
     conn
     |> assign(:title, gettext("Edit Account"))
     |> render(
@@ -109,6 +108,7 @@ defmodule AOFFWeb.Volunteer.UserController do
     case get_session(conn, :shop_assistant_date_id) do
       nil ->
         Routes.volunteer_user_path(conn, :index)
+
       date_id ->
         Routes.shop_assistant_date_path(conn, :show, date_id)
     end
@@ -116,6 +116,7 @@ defmodule AOFFWeb.Volunteer.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Volunteers.get_user!(id)
+
     conn
     |> assign(:title, user.username)
     |> render("show.html", user: user)
@@ -131,7 +132,8 @@ defmodule AOFFWeb.Volunteer.UserController do
         |> redirect(to: Routes.volunteer_user_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn,
+        render(
+          conn,
           "edit.html",
           user: user,
           changeset: changeset,

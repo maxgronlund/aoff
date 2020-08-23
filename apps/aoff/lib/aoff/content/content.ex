@@ -91,8 +91,8 @@ defmodule AOFF.Content do
   def get_news!(id) do
     query =
       from n in News,
-      where: n.id == ^id and n.locale == ^Gettext.get_locale,
-      limit: 1
+        where: n.id == ^id and n.locale == ^Gettext.get_locale(),
+        limit: 1
 
     Repo.one(query)
   end
@@ -205,7 +205,9 @@ defmodule AOFF.Content do
       from c in Category,
         where: c.title == ^title and c.locale == ^Gettext.get_locale(),
         select: c,
-        preload: [pages: ^from(p in Page, where: p.publish == ^true, order_by: [desc: p.position])]
+        preload: [
+          pages: ^from(p in Page, where: p.publish == ^true, order_by: [desc: p.position])
+        ]
 
     Repo.one(query)
   end
@@ -237,9 +239,10 @@ defmodule AOFF.Content do
   def featured_pages() do
     query =
       from p in Page,
-      where: p.show_on_landing_page == ^true and p.locale == ^Gettext.get_locale,
-      order_by: [desc: p.date],
-      limit: 3
+        where: p.show_on_landing_page == ^true and p.locale == ^Gettext.get_locale(),
+        order_by: [desc: p.date],
+        limit: 3
+
     query |> Repo.all() |> Repo.preload(:category)
   end
 

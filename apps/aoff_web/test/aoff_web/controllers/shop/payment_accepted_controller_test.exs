@@ -22,7 +22,6 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
       user = user_fixture(%{"expiration_date" => AOFF.Time.today()})
       order = order_fixture(user.id, %{"payment_date" => AOFF.Time.now()})
 
-
       conn =
         build_conn()
         |> Plug.Session.call(@session)
@@ -53,7 +52,8 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
           "pick_up_id" => pick_up.id
         })
 
-      _conn = get(
+      _conn =
+        get(
           conn,
           Routes.shop_payment_accepted_path(
             conn,
@@ -62,9 +62,11 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
             %{
               cardno: "0000 0000 0000 0000",
               paymenttype: "1",
-              orderid: "12341234"}
-            )
+              orderid: "12341234"
+            }
           )
+        )
+
       assert Users.get_user!(user.id).expiration_date == Date.add(AOFF.Time.today(), 365)
     end
 
@@ -95,9 +97,7 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
             conn,
             :index,
             order.token,
-            %{cardno: "0000000000001234",
-            paymenttype: "1",
-            orderid: "12341234"}
+            %{cardno: "0000000000001234", paymenttype: "1", orderid: "12341234"}
           )
         )
 

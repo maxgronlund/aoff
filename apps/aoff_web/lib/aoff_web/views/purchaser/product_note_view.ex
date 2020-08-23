@@ -13,5 +13,4 @@ defmodule AOFFWeb.Purchaser.ProductNoteView do
       _ -> product.name_en
     end
   end
-
 end

@@ -35,5 +35,4 @@ defmodule AOFF.Time do
     {:ok, time} = Timex.format(time, "{h24}:{0m}")
     time
   end
-
 end

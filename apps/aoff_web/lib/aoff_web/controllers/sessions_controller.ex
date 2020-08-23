@@ -18,6 +18,11 @@ defmodule AOFFWeb.SessionController do
         )
         |> redirect(to: Routes.user_path(conn, :show, user.id))
 
+      {:error, :confirmation_missing, conn} ->
+        user = AOFF.Users.get_user_by_email(email)
+        conn
+        |> redirect(to: Routes.confirm_account_path(conn, :show, user))
+
       {:error, _reason, conn} ->
         conn
         |> put_flash(:error, gettext("Invalid email/password combination"))

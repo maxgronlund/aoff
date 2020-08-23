@@ -226,8 +226,8 @@ defmodule AOFF.Shop do
   def list_products do
     query =
       from p in Product,
-      order_by: [asc: p.position],
-      where: p.deleted == false and p.membership == false
+        order_by: [asc: p.position],
+        where: p.deleted == false and p.membership == false
 
     Repo.all(query)
   end
@@ -322,7 +322,7 @@ defmodule AOFF.Shop do
           create_product(%{
             "name_da" => "Medlemsskab",
             "name_en" => "Membership",
-            "membership"  => true,
+            "membership" => true,
             "price" => Money.new(100 * 100, :DKK),
             "description_da" => "Et års medlemskab",
             "description_en" => "One year of membership - "

@@ -5,6 +5,7 @@ defmodule AOFFWeb.Content.NewsController do
 
   def index(conn, _params) do
     news_list = Content.list_news()
+
     conn
     |> assign(:selected_menu_item, :news)
     |> assign(:title, gettext("News"))

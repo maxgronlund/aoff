@@ -35,7 +35,7 @@ defmodule AOFFWeb.Users.Auth do
 
   def login_by_email_and_pass(conn, email, given_pass) do
     case Users.authenticate_by_email_and_pass(email, given_pass) do
-      {:ok, user} -> {:ok, login(conn, user)}
+      {:ok, user} -> validate_confirmation(user, conn)
       {:error, :unauthorized} -> {:error, :unauthorized, conn}
       {:error, :not_found} -> {:error, :not_found, conn}
     end
@@ -43,6 +43,16 @@ defmodule AOFFWeb.Users.Auth do
 
   def logout(conn) do
     configure_session(conn, drop: true)
+  end
+
+  def validate_confirmation(user, conn) do
+    cond do
+      user.confirmed_at ->
+        {:ok, login(conn, user)}
+
+      true ->
+        {:error, :confirmation_missing, conn}
+    end
   end
 
   defp valid_member?(user) do

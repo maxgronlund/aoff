@@ -18,7 +18,6 @@ defmodule AOFFWeb.Committees.CommitteeController do
     if committee = Committees.get_committee!(id) do
       conn = assign(conn, :selected_menu_item, :about_aoff)
 
-
       {:ok, committees_text} =
         System.find_or_create_message(
           "/info - committees",

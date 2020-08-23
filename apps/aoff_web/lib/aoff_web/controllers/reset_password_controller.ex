@@ -28,6 +28,7 @@ defmodule AOFFWeb.ResetPasswordController do
         "Send reset pasword email",
         Gettext.get_locale()
       )
+
     message
   end
 
@@ -56,8 +57,10 @@ defmodule AOFFWeb.ResetPasswordController do
         # Create your email
         AOFFWeb.Email.reset_password_email(username_and_email, reset_password_url)
         |> AOFFWeb.Mailer.deliver_now()
+
       _ ->
         changeset = Users.change_user(%User{})
+
         conn
         |> put_flash(:error, gettext("Please check the email"))
         |> render("new.html", changeset: changeset, message: new_message())

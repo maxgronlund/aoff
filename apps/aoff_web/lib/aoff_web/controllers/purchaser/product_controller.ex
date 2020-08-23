@@ -9,6 +9,7 @@ defmodule AOFFWeb.Purchaser.ProductController do
 
   def index(conn, _params) do
     products = Shop.list_products()
+
     conn
     |> assign(:selected_menu_item, :volunteer)
     |> assign(:title, gettext("Products"))
@@ -17,6 +18,7 @@ defmodule AOFFWeb.Purchaser.ProductController do
 
   def new(conn, _params) do
     changeset = Shop.change_product(%Product{})
+
     conn
     |> assign(:selected_menu_item, :volunteer)
     |> assign(:title, gettext("New Product"))

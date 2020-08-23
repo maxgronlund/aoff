@@ -39,32 +39,40 @@ defmodule AOFFWeb.Volunteer.OrderControllerTest do
 
     test "show order", %{conn: conn, user: user} do
       order =
-        order_fixture(user.id,
+        order_fixture(
+          user.id,
           %{
             "state" => "payment_accepted",
             "payment_date" => AOFF.Time.today()
-          })
-      {:ok, order} = AOFF.Users.payment_accepted(order, "1", "0000 0000 0000 2134", "1234" )
+          }
+        )
+
+      {:ok, order} = AOFF.Users.payment_accepted(order, "1", "0000 0000 0000 2134", "1234")
       conn = get(conn, Routes.volunteer_order_path(conn, :show, order))
       assert html_response(conn, 200) =~ Integer.to_string(order.order_nr)
     end
 
     test "edit order", %{conn: conn, user: user} do
       order =
-        order_fixture(user.id,
+        order_fixture(
+          user.id,
           %{
             "state" => "payment_accepted",
             "payment_date" => AOFF.Time.today(),
-            "order_nr" => 0987654321
-          })
+            "order_nr" => 0_987_654_321
+          }
+        )
+
       conn = get(conn, Routes.volunteer_order_path(conn, :edit, order))
-      assert html_response(conn, 200) =~ gettext("Edit Order for: %{username}", username: user.username)
+
+      assert html_response(conn, 200) =~
+               gettext("Edit Order for: %{username}", username: user.username)
     end
 
     test "delete order", %{conn: conn, user: user, date: date} do
       order = order_fixture(user.id)
       conn = delete(conn, Routes.volunteer_order_path(conn, :delete, order))
-      assert redirected_to(conn) ==  Routes.shop_assistant_date_path(conn, :show, date.id)
+      assert redirected_to(conn) == Routes.shop_assistant_date_path(conn, :show, date.id)
     end
 
     # test "update user redirects when data is valid", %{conn: conn, user: user} do

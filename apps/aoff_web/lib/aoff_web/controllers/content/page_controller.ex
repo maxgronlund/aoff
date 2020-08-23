@@ -17,5 +17,4 @@ defmodule AOFFWeb.Content.PageController do
         |> render("show.html", category: page.category, page: page)
     end
   end
-
 end

@@ -1,5 +1,4 @@
 defmodule AOFFWeb.ShopAssistant.OrderListController do
-
   use AOFFWeb, :controller
   alias AOFF.Shop
 
@@ -12,5 +11,4 @@ defmodule AOFFWeb.ShopAssistant.OrderListController do
     |> assign(:title, gettext("Order list"))
     |> render("show.html", date: date, products: products)
   end
-
 end

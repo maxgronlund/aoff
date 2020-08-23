@@ -1,0 +1,3 @@
+<%= @message.title %>
+<%= gettext("Go to the link below") %>
+<%= @confirm_account_url%>

@@ -3,19 +3,22 @@ defmodule AOFFWeb.Shop.PaymentCallbackController do
 
   alias AOFF.Users
 
-  def index(conn,
-    %{
-      "id" => id,
-      "cardno" => cardno,
-      "paymenttype" => paymenttype,
-      "orderid" => order_id
-    }) do
+  def index(
+        conn,
+        %{
+          "id" => id,
+          "cardno" => cardno,
+          "paymenttype" => paymenttype,
+          "orderid" => order_id
+        }
+      ) do
     order = Users.get_order_by_token!(id)
     card_nr = "xxxx xxxx xxxx " <> card_nr(cardno)
 
     cond do
       order && order.state == "payment_accepted" ->
         accepted(conn, order)
+
       order && order.state == "open" ->
         case Users.payment_accepted(order, paymenttype, card_nr, order_id) do
           {:ok, order} ->
@@ -23,10 +26,13 @@ defmodule AOFFWeb.Shop.PaymentCallbackController do
             # Create a new order for the basket.
             Users.create_order(%{"user_id" => order.user_id})
             accepted(conn, order, card_nr, paymenttype)
+
           _ ->
             error(conn)
         end
-      true -> error(conn)
+
+      true ->
+        error(conn)
     end
   end
 
@@ -36,6 +42,7 @@ defmodule AOFFWeb.Shop.PaymentCallbackController do
 
   defp accepted(conn, order, card_nr, paymenttype) do
     send_invoice(order, card_nr, paymenttype)
+
     conn
     |> render("index.html")
   end
@@ -44,7 +51,6 @@ defmodule AOFFWeb.Shop.PaymentCallbackController do
     conn
     |> render("index.html")
   end
-
 
   defp send_invoice(order, card_nr, paymenttype) do
     AOFFWeb.Email.invoice_email(order, card_nr, paymenttype)
@@ -58,5 +64,4 @@ defmodule AOFFWeb.Shop.PaymentCallbackController do
     |> render(:"401")
     |> halt()
   end
-
 end

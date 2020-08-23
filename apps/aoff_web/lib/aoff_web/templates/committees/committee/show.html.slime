@@ -20,36 +20,7 @@
 .tile
   .auto-columns
     = raw @committee.description
-
 .row
-  .column
-    h3 = gettext("Committee members")
-.profiles.mt-2
-  = for member <- @committee.members do
-    .profile
-      .profile-avatar
-        = img_tag AOFF.Uploader.Image.url({member.user.avatar, member.user}, :avatar)
-      .profile-content
-        h4 = member.user.username
-        b = member.role
-        br
-        a href="mailto:#{member.user.email}"
-          = member.user.email
-        br
-        = member.user.mobile
-      = if @admin do
-        .row
-          .column
-            .float-right
-              .pr-6
-                = link gettext("Remove"),\
-                  to: Routes.volunteer_committee_member_path(@conn, :delete, @committee, member),\
-                  method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red button-small"
-                | &nbsp;
-                = link gettext("Edit"),\
-                  to: Routes.volunteer_committee_member_path(@conn, :edit, @committee, member),\
-                  class: "button button-small"
-.row.mt-1
   .column
     h3 = gettext("Meetings")
   = if committee_member(@committee, @current_user) || @admin do
@@ -74,3 +45,33 @@
           = link gettext("Show"),\
             to: Routes.committee_committee_meeting_path(@conn, :show, @committee, meeting),\
             class: "card-footer-item is-button"
+br/
+.row.mt-1
+  .column
+    h3 = gettext("Committee members")
+.profiles.mt-2
+  = for member <- @committee.members do
+    .profile
+      .profile-avatar
+        = img_tag AOFF.Uploader.Image.url({member.user.avatar, member.user}, :avatar)
+      .profile-content
+        h4 = member.user.username
+        b = member.role
+        = if committee_member(@committee, @current_user) do
+          br
+          a href="mailto:#{member.user.email}"
+            = member.user.email
+          br
+          = member.user.mobile
+      = if @admin do
+        .row
+          .column
+            .float-right
+              .pr-6
+                = link gettext("Remove"),\
+                  to: Routes.volunteer_committee_member_path(@conn, :delete, @committee, member),\
+                  method: :delete, data: [confirm: gettext("Are you sure?")], class: "button button-red button-small"
+                | &nbsp;
+                = link gettext("Edit"),\
+                  to: Routes.volunteer_committee_member_path(@conn, :edit, @committee, member),\
+                  class: "button button-small"

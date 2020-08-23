@@ -8,6 +8,7 @@ defmodule AOFFWeb.Shop.ShopController do
 
   def index(conn, _params) do
     dates = Shop.list_dates(AOFF.Time.today(), 0, 6)
+
     unless conn.assigns.valid_member do
       {:ok, expired_message} =
         System.find_or_create_message(

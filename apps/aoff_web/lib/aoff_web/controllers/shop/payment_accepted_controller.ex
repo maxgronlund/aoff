@@ -4,19 +4,22 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
   alias AOFF.Users
   alias AOFF.System
 
-
-  def index(conn,
-    %{
-      "id" => id,
-      "cardno" => cardno,
-      "paymenttype" => paymenttype,
-      "orderid" => order_id
-    }) do
+  def index(
+        conn,
+        %{
+          "id" => id,
+          "cardno" => cardno,
+          "paymenttype" => paymenttype,
+          "orderid" => order_id
+        }
+      ) do
     order = Users.get_order_by_token!(id)
     card_nr = "xxxx xxxx xxxx " <> card_nr(cardno)
+
     cond do
       order && order.state == "payment_accepted" ->
         accepted(conn, order)
+
       order && order.state == "open" ->
         case Users.payment_accepted(order, paymenttype, card_nr, order_id) do
           {:ok, %Users.Order{}} ->
@@ -24,10 +27,13 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
             # Create a new order for the basket.
             Users.create_order(%{"user_id" => order.user_id})
             accepted(conn, order, cardno, paymenttype)
+
           _ ->
             error(conn)
         end
-      true -> error(conn)
+
+      true ->
+        error(conn)
     end
   end
 
@@ -37,6 +43,7 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
 
   defp accepted(conn, order, cardno, paymenttype) do
     send_invoice(order, card_nr(cardno), paymenttype)
+
     conn
     |> assign(:order_items_count, 0)
     |> render("index.html", order: order, message: message())
@@ -54,6 +61,7 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
         "Payment accepted",
         Gettext.get_locale()
       )
+
     message
   end
 

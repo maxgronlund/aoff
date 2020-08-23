@@ -130,7 +130,6 @@ defmodule AOFF.Committees do
     Repo.all(Meeting)
   end
 
-
   @doc """
   Returns a list of meetings for a given user.
 
@@ -143,16 +142,17 @@ defmodule AOFF.Committees do
   def list_user_meetings(user_id, today) do
     query =
       from mt in Meeting,
-      where: mt.date >= ^today,
-      join: c in assoc(mt, :committee),
-      join: mb in assoc(c, :members),
-      where: mb.user_id == ^user_id,
-      distinct: true
+        where: mt.date >= ^today,
+        join: c in assoc(mt, :committee),
+        join: mb in assoc(c, :members),
+        where: mb.user_id == ^user_id,
+        distinct: true
 
     meetings =
       query
       |> Repo.all()
       |> Repo.preload(:committee)
+
     if Enum.any?(meetings), do: meetings, else: false
   end
 
@@ -174,7 +174,7 @@ defmodule AOFF.Committees do
     Repo.get!(Meeting, id)
     |> Repo.preload(:moderator)
     |> Repo.preload(:minutes_taker)
-    |> Repo.preload([committee: [:members]])
+    |> Repo.preload(committee: [:members])
   end
 
   @doc """
@@ -254,7 +254,7 @@ defmodule AOFF.Committees do
   def list_members(committee_id) do
     query =
       from m in Member,
-      where: m.committee_id ==^ committee_id
+        where: m.committee_id == ^committee_id
 
     Repo.all(query)
   end

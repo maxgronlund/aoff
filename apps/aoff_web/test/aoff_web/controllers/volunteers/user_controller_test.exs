@@ -8,7 +8,6 @@ defmodule AOFFWeb.Volunteer.UserControllerTest do
   import AOFF.Users.UserFixture
   import AOFFWeb.Gettext
 
-
   describe "as a volunteer" do
     @session Plug.Session.init(
                store: :cookie,

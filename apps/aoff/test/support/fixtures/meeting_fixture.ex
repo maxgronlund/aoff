@@ -18,7 +18,7 @@ defmodule AOFF.Committees.MeetingFixture do
     "location" => "some updated location",
     "agenda" => "some updated agenda",
     "date" => Date.add(Date.utc_today(), 12),
-    "time" => Time.add(Time.utc_now(),1234)
+    "time" => Time.add(Time.utc_now(), 1234)
   }
 
   @invalid_attrs %{

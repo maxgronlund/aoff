@@ -12,12 +12,14 @@ defmodule AOFFWeb.Volunteer.MeetingController do
   def new(conn, %{"committee_id" => committee_id}) do
     committee = Committees.get_committee!(committee_id)
     changeset = Committees.change_meeting(%Meeting{date: Date.add(Date.utc_today(), 14)})
+
     render(
       conn,
       "new.html",
       changeset: changeset,
       committee: committee,
-      users: list_volunteers())
+      users: list_volunteers()
+    )
   end
 
   def create(conn, %{"meeting" => meeting_params}) do

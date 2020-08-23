@@ -17,7 +17,6 @@ defmodule AOFF.Repo.Migrations.CreateDates do
       add :late_shift_from, :time, default: "~T[17:00:00]"
       add :late_shift_to, :time, default: "~T[18:00:00]"
 
-
       timestamps()
     end
 

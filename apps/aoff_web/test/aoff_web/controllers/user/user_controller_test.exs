@@ -4,6 +4,8 @@ defmodule AOFFWeb.UserControllerTest do
   # alias AOFF.Users
 
   alias Plug.Conn
+  alias AOFF.System
+  alias AOFF.Users
 
   import AOFF.Users.UserFixture
   import AOFFWeb.Gettext
@@ -55,6 +57,41 @@ defmodule AOFFWeb.UserControllerTest do
       # assert_error_sent 404, fn ->
       #   get(conn, Routes.user_path(conn, :show, user))
       # end
+    end
+  end
+
+  describe "as a guest" do
+    test "render form for new user", %{conn: conn} do
+      {:ok, message} =
+        System.find_or_create_message(
+          "/users/new",
+          "Create account",
+          Gettext.get_locale()
+        )
+
+      conn = get(conn, Routes.user_path(conn, :new))
+      assert html_response(conn, 200) =~ message.text
+    end
+
+    test "create user with valid data", %{conn: conn} do
+      attrs = valid_attrs()
+      conn = post(conn, Routes.user_path(conn, :create), user: attrs)
+      user = Users.get_user_by_email(attrs["emial"])
+      assert redirected_to(conn) == Routes.user_welcome_path(conn, :show, user)
+    end
+
+    test "create user with invalid data", %{conn: conn} do
+      attrs = invalid_attrs()
+      conn = post(conn, Routes.user_path(conn, :create), user: attrs)
+
+      {:ok, message} =
+        System.find_or_create_message(
+          "/users/new",
+          "Create account",
+          Gettext.get_locale()
+        )
+
+      assert html_response(conn, 200) =~ message.title
     end
   end
 

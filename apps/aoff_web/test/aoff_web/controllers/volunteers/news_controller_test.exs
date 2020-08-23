@@ -75,7 +75,6 @@ defmodule AOFFWeb.Volunteers.NewsControllerTest do
       news = news_fixture()
       conn = delete(conn, Routes.volunteer_news_path(conn, :delete, news))
       assert redirected_to(conn) == Routes.news_path(conn, :index)
-
     end
   end
 end

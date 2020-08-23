@@ -1,7 +1,6 @@
 defmodule AOFFWeb.Volunteer.OrderController do
   use AOFFWeb, :controller
 
-
   alias AOFF.Users
   alias AOFFWeb.Users.Auth
   alias AOFF.Users.OrderItem
@@ -14,12 +13,14 @@ defmodule AOFFWeb.Volunteer.OrderController do
   def index(conn, params) do
     page = page(params)
     pages_count = pages_count(params)
+
     orders =
       if query = params["query"] do
         Users.search_orders(query)
       else
         Users.list_orders(:all, page, @orders_pr_page)
       end
+
     conn
     |> put_session(:shop_assistant_date_id, nil)
     |> render("index.html",
@@ -48,8 +49,6 @@ defmodule AOFFWeb.Volunteer.OrderController do
     render(conn, "show.html", order: order)
   end
 
-
-
   def edit(conn, %{"id" => id}) do
     order = Users.get_order!(id)
 
@@ -64,7 +63,6 @@ defmodule AOFFWeb.Volunteer.OrderController do
       dates: dates(),
       changeset: changeset
     )
-
   end
 
   defp products() do
@@ -102,18 +100,15 @@ defmodule AOFFWeb.Volunteer.OrderController do
     |> redirect(to: Routes.shop_assistant_date_path(conn, :show, date_id))
   end
 
-
   # def delete(conn, %{"id" => id}) do
 
   #   order = Users.get_order(id)
   #   {:ok, _order} = Users.delete_order(order)
 
-
   #   conn
   #   |> put_flash(:info, gettext("Order deleted."))
   #   |> redirect(to: Routes.volunteer_order_path(conn, :index))
   # end
-
 
   defp authenticate(conn, _opts) do
     if conn.assigns.volunteer do
