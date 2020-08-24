@@ -5,6 +5,10 @@ body {
   background: #f0f3f5;
 }
 
+p {
+  margin-bottom: 0px !important;
+}
+
 .content {
   margin-top: 70px;
 }
@@ -519,7 +523,7 @@ label.panel-block:hover {
 }
 
 .auto-columns {
-  columns: 3 280px;
+  columns: 2 500px;
   column-gap: 1.5em;
 }
 
