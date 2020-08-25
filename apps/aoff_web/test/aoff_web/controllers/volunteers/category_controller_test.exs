@@ -7,6 +7,8 @@ defmodule AOFFWeb.Volunteers.CategoryControllerTest do
   import AOFF.Content.CategoryFixture
   import AOFF.Users.UserFixture
 
+  alias AOFF.Content
+
   describe "volunteer" do
     @session Plug.Session.init(
                store: :cookie,
@@ -67,8 +69,10 @@ defmodule AOFFWeb.Volunteers.CategoryControllerTest do
       attrs = create_category_attrs()
       conn = post(conn, Routes.volunteer_category_path(conn, :create), category: attrs)
 
+      category = Content.get_category!(attrs["title"])
+
       assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.volunteer_category_path(conn, :edit, attrs["title"])
+      assert redirected_to(conn) == Routes.volunteer_category_path(conn, :edit, category)
 
       # conn = get(conn, Routes.about_path(conn, :show, id))
       # assert html_response(conn, 200) =~ attrs["title"]

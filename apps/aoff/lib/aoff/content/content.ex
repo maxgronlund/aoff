@@ -179,7 +179,7 @@ defmodule AOFF.Content do
   def list_categories() do
     query =
       from c in Category,
-        where: c.locale == ^Gettext.get_locale(),
+        where: c.locale == ^Gettext.get_locale() and not(c.identifier == "Calendar"),
         order_by: [desc: c.position]
 
     query
@@ -358,10 +358,11 @@ defmodule AOFF.Content do
       %Post{}
 
       iex> get_page!(456)
-      ** (Ecto.NoResultsError)
+      ** nil
 
   """
   def get_page!(category_title, title) do
+    # TODO: rename to get_page
     query =
       from p in Page,
         where: p.title == ^title,
@@ -437,7 +438,7 @@ defmodule AOFF.Content do
       %Ecto.Changeset{source: %Page{}}
 
   """
-  def change_page(%Page{} = post) do
-    Page.changeset(post, %{})
+  def change_page(%Page{} = page) do
+    Page.changeset(page, %{})
   end
 end

@@ -1,1 +1,24 @@
-c
+.row
+  .column
+    h2 = gettext("Calendar")
+  = if @text_editor || @admin do
+    .column
+      = link gettext("Create event"), to: Routes.volunteer_calendar_path(@conn, :new), class: "button float-right"
+
+.tiles.button-tiles
+  = for page <- @calendar.pages do
+    .card.is-shady
+      = link to: Routes.calendar_path(@conn, :show, page) do
+        .card-header
+          .card-header-title.is-centered
+            = date(page.date)
+        .card-image
+          img.modal-button alt=("#{page.title}") src="#{ AOFF.Uploader.Image.url({page.image, page}, :original)}"
+        .card-content
+          b = page.title
+          br/
+          /= text_to_html page.teaser
+
+        .card-footer.is-button
+          .card-footer-item.is-button
+            = gettext("Read More")

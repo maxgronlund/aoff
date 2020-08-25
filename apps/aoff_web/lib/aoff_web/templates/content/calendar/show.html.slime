@@ -1,0 +1,31 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("Calendar"), to: Routes.calendar_path(@conn, :index)
+    li.is-active
+      | &nbsp;
+      = @page.title
+
+.row
+  .column
+    h2 = date(@page.date)
+
+  = if @text_editor || @admin do
+    .column
+      = link gettext("Edit"), to: Routes.volunteer_calendar_path(@conn, :edit, @page), class: "button float-right"
+
+.tile
+  .row
+    .column
+      b = @page.title
+
+      h4 = text_to_html @page.teaser
+    .column
+      = img_tag AOFF.Uploader.Image.url({@page.image, @page}, :original)
+      .image-caption
+        = @page.caption
+
+  .row
+    .column
+      .auto-columns
+        = raw(@page.text)

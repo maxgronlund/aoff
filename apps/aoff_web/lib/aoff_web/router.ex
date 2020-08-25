@@ -148,6 +148,7 @@ defmodule AOFFWeb.Router do
       only: [:index, :edit, :update]
 
     resources "/news", AOFFWeb.Volunteer.NewsController
+    resources "/calendar", AOFFWeb.Volunteer.CalendarController
 
     resources "/orders", AOFFWeb.Volunteer.OrderController,
       only: [:index, :show, :delete, :edit, :update] do

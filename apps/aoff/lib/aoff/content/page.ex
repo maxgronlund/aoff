@@ -48,6 +48,7 @@ defmodule AOFF.Content.Page do
       :category_id,
       :date,
       :title,
+      :teaser,
       :text,
       :author,
       :show_on_landing_page,
