@@ -1,0 +1,5 @@
+h2 @message.title
+.row
+  .column
+    .tile
+      = raw @message.text

@@ -37,15 +37,15 @@ defmodule AOFFWeb.ResendConfirmEmailController do
   defp resend_confirm_email(conn, user) do
     username_and_email = {user.username, user.email}
 
-    confirm_account_url =
+    confirm_email_url =
       AOFFWeb.Router.Helpers.url(conn) <>
         conn.request_path <>
         "/" <>
         user.password_reset_token <>
-        "/confirm_account"
+        "/confirm_email"
 
     # Create your email
-    AOFFWeb.Email.confirm_account_email(username_and_email, confirm_account_url)
+    AOFFWeb.Email.confirm_email_email(username_and_email, confirm_email_url)
     |> AOFFWeb.Mailer.deliver_now()
   end
 end

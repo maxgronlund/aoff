@@ -22,7 +22,7 @@ defmodule AOFFWeb.SessionController do
         user = AOFF.Users.get_user_by_email(email)
 
         conn
-        |> redirect(to: Routes.confirm_account_path(conn, :show, user))
+        |> redirect(to: Routes.confirm_email_path(conn, :show, user))
 
       {:error, _reason, conn} ->
         conn

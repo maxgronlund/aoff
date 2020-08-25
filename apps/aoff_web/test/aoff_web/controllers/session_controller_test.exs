@@ -51,7 +51,7 @@ defmodule AOFFWeb.SessionControllerTest do
   end
 
   describe "accunt not confirmed" do
-    test "redirect to confirm_account when credentials are valid", %{conn: conn} do
+    test "redirect to confirm_email when credentials are valid", %{conn: conn} do
       attrs = valid_attrs()
       _user = user_fixture()
 
@@ -73,7 +73,7 @@ defmodule AOFFWeb.SessionControllerTest do
       user = Users.get_user_by_email(attrs["email"])
 
       assert redirected_to(conn) ==
-               Routes.confirm_account_path(conn, :show, user)
+               Routes.confirm_email_path(conn, :show, user)
     end
   end
 

@@ -37,20 +37,20 @@ defmodule AOFFWeb.Email do
     |> render(:invoice, order: order, cardno: cardno, paymenttype: paymenttype)
   end
 
-  def confirm_account_email(username_and_email, confirm_account_url) do
+  def confirm_email_email(username_and_email, confirm_email_url) do
     {:ok, message} =
       System.find_or_create_message(
-        "/confirm_account/:id/create",
-        "Confirm account",
+        "Confirm email email",
+        "Confirm email email",
         Gettext.get_locale()
       )
 
     new_email()
     |> to(username_and_email)
     |> from(@email_from)
-    |> subject(gettext("Confirm account"))
+    |> subject(gettext("Confirm email"))
     |> put_header("Reply-To", @email_from)
-    |> put_layout({AOFFWeb.EmailView, :confirm_account})
-    |> render(:confirm_account, confirm_account_url: confirm_account_url, message: message)
+    |> put_layout({AOFFWeb.EmailView, :confirm_email})
+    |> render(:confirm_email, confirm_email_url: confirm_email_url, message: message)
   end
 end

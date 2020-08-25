@@ -1,4 +1,4 @@
-defmodule AOFFWeb.Users.ConfirmAccountController do
+defmodule AOFFWeb.Users.ConfirmEmailController do
   use AOFFWeb, :controller
 
   alias AOFF.Users
@@ -10,8 +10,8 @@ defmodule AOFFWeb.Users.ConfirmAccountController do
 
       {:ok, message} =
         System.find_or_create_message(
-          "Welcome",
-          "Welcome",
+          "Email confirmed",
+          "Email confirmed",
           Gettext.get_locale()
         )
 

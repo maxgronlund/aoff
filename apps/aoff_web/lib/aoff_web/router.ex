@@ -51,7 +51,7 @@ defmodule AOFFWeb.Router do
       resources "/invoices", Users.InvoiceController, only: [:index, :show]
       resources "/membership", Users.MembershipController, only: [:new, :create]
       resources "/welcome", Users.WelcomeController, only: [:index]
-      resources "/confirm_account", Users.ConfirmAccountController, only: [:index]
+      resources "/confirm_email", Users.ConfirmEmailController, only: [:index]
 
 
     end
@@ -59,7 +59,7 @@ defmodule AOFFWeb.Router do
     resources "/resend_confirm_email", ResendConfirmEmailController,
         only: [:new, :create, :index]
 
-    resources "/confirm_account", Users.ConfirmAccountController, only: [:show]
+    resources "/confirm_email", Users.ConfirmEmailController, only: [:show]
 
     resources "/reset_password", ResetPasswordController,
       only: [:new, :create, :edit, :update, :index]

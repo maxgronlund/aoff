@@ -1,0 +1,16 @@
+h2 = @message.title
+.row
+  .column
+    .tile
+      .auto-columns = raw @message.text
+
+      = if @text_editor do
+        br
+        = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message, %{"request_url" => @conn.request_path})
+      br
+      = link gettext("Login"), to: "/sessions/new", class: "button float-right"
+      |&nbsp;
+      br
+      |&nbsp;
+
+

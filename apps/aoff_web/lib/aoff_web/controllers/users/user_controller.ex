@@ -45,24 +45,17 @@ defmodule AOFFWeb.UserController do
   def create(conn, %{"user" => user_params}) do
     case Users.create_user(user_params) do
       {:ok, user} ->
-        # Auth.login(conn, user)
-        # |> put_flash(
-        #   :info,
-        #   gettext("Welcome %{username}, your account is created", username: user.username)
-        # )
-        # |> redirect(to: Routes.user_path(conn, :show, user))
-
         username_and_email = {user.username, user.email}
 
-        confirm_account_url =
+        confirm_email_url =
           AOFFWeb.Router.Helpers.url(conn) <>
             conn.request_path <>
             "/" <>
             user.password_reset_token <>
-            "/confirm_account"
+            "/confirm_email"
 
         # Create your email
-        AOFFWeb.Email.confirm_account_email(username_and_email, confirm_account_url)
+        AOFFWeb.Email.confirm_email_email(username_and_email, confirm_email_url)
         |> AOFFWeb.Mailer.deliver_now()
 
         redirect(conn, to: Routes.user_welcome_path(conn, :index, user))

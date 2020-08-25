@@ -76,8 +76,8 @@ defmodule AOFFWeb.UserControllerTest do
     test "create user with valid data", %{conn: conn} do
       attrs = valid_attrs()
       conn = post(conn, Routes.user_path(conn, :create), user: attrs)
-      user = Users.get_user_by_email(attrs["emial"])
-      assert redirected_to(conn) == Routes.user_welcome_path(conn, :show, user)
+      user = Users.get_user_by_email(attrs["email"])
+      assert redirected_to(conn) == Routes.user_welcome_path(conn, :index, user)
     end
 
     test "create user with invalid data", %{conn: conn} do

@@ -3,9 +3,9 @@ h2 = @message.title
 .row
   .column
     .tile
-      = @message.text
+      = raw @message.text
       br
-      = link("OK" ,to: Routes.page_path(@conn, :index), class: "button float-right")
+      = link(gettext("Login"), to: "/sessions/new", class: "button float-right")
       |&nbsp;
       br
       |&nbsp;

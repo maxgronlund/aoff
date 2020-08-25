@@ -294,7 +294,8 @@ msgid "Committees"
 msgstr "Udvalg"
 
 #, elixir-format
-#: lib/aoff_web/templates/volunteer/user/form.html.slime:1
+#: lib/aoff_web/controllers/emails/email_controller.ex:51
+#: lib/aoff_web/templates/email/confirm_email.html.eex:353 lib/aoff_web/templates/volunteer/user/form.html.slime:1
 msgid "Confirm email"
 msgstr "Bekræft email"
 
@@ -483,11 +484,13 @@ msgstr "Rediger vagtplan"
 #, elixir-format
 #: lib/aoff_web/templates/content/about/index.html.slime:1
 #: lib/aoff_web/templates/content/about/index.html.slime:3 lib/aoff_web/templates/purchaser/product_note/form.html.slime:1
-#: lib/aoff_web/templates/purchaser/product_note/form.html.slime:5 lib/aoff_web/templates/reset_password/new.html.slime:1
+#: lib/aoff_web/templates/purchaser/product_note/form.html.slime:5 lib/aoff_web/templates/resend_confirm_email/index.html.slime:1
+#: lib/aoff_web/templates/resend_confirm_email/new.html.slime:1 lib/aoff_web/templates/reset_password/new.html.slime:1
 #: lib/aoff_web/templates/shop/checkout/edit.html.slime:1 lib/aoff_web/templates/shop/date/show.html.slime:3
 #: lib/aoff_web/templates/shop/payment_accepted/index.html.slime:1 lib/aoff_web/templates/shop/payment_declined/index.html.slime:1
 #: lib/aoff_web/templates/shop/shop/membership_expired.html.slime:1 lib/aoff_web/templates/user/form.html.slime:1
-#: lib/aoff_web/templates/user/new.html.slime:1 lib/aoff_web/templates/users/membership/new.html.slime:1
+#: lib/aoff_web/templates/user/new.html.slime:1 lib/aoff_web/templates/users/confirm_email/confirmation_missing.html.slime:1
+#: lib/aoff_web/templates/users/confirm_email/index.html.slime:1 lib/aoff_web/templates/users/membership/new.html.slime:1
 #: lib/aoff_web/templates/volunteer/category/form.html.slime:8 lib/aoff_web/templates/volunteer/category/index.html.slime:1
 #: lib/aoff_web/templates/volunteer/news/form.html.slime:8 lib/aoff_web/templates/volunteer/page/form.html.slime:8
 #: lib/aoff_web/templates/volunteer/user/new.html.slime:1 lib/aoff_web/templates/volunteer/volunteer/index.html.slime:1
@@ -776,7 +779,8 @@ msgstr "Log ud"
 #, elixir-format
 #: lib/aoff_web/templates/layout/navbar.html.slime:1
 #: lib/aoff_web/templates/session/new.html.slime:1 lib/aoff_web/templates/session/new.html.slime:1
-#: lib/aoff_web/templates/shop/shop/membership_expired.html.slime:4
+#: lib/aoff_web/templates/shop/shop/membership_expired.html.slime:4 lib/aoff_web/templates/users/confirm_email/index.html.slime:1
+#: lib/aoff_web/templates/users/welcome/index.html.slime:1
 msgid "Login"
 msgstr "Log ind"
 
@@ -1041,6 +1045,7 @@ msgid "Not found"
 msgstr "Siden findes ikke"
 
 #, elixir-format
+#: lib/aoff_web/templates/resend_confirm_email/index.html.slime:1
 #: lib/aoff_web/templates/reset_password/index.html.slime:1
 msgid "OK"
 msgstr "OK"
@@ -1048,13 +1053,13 @@ msgstr "OK"
 #, elixir-format
 #: lib/aoff_web/templates/admin/user/form.html.slime:1
 #: lib/aoff_web/templates/purchaser/product/form.html.slime:1 lib/aoff_web/templates/purchaser/product_note/form.html.slime:1
-#: lib/aoff_web/templates/reset_password/email_form.html.slime:1 lib/aoff_web/templates/reset_password/password_form.html.slime:1
-#: lib/aoff_web/templates/shop_assistant/date/form.html.slime:1 lib/aoff_web/templates/shop_assistant/order/form.html.slime:1
-#: lib/aoff_web/templates/user/form.html.slime:1 lib/aoff_web/templates/volunteer/committee/form.html.slime:8
-#: lib/aoff_web/templates/volunteer/date/form.html.slime:1 lib/aoff_web/templates/volunteer/meeting/form.html.slime:15
-#: lib/aoff_web/templates/volunteer/message/form.html.slime:8 lib/aoff_web/templates/volunteer/news/form.html.slime:8
-#: lib/aoff_web/templates/volunteer/order/form.html.slime:1 lib/aoff_web/templates/volunteer/page/form.html.slime:8
-#: lib/aoff_web/templates/volunteer/user/form.html.slime:1
+#: lib/aoff_web/templates/resend_confirm_email/form.html.slime:1 lib/aoff_web/templates/reset_password/email_form.html.slime:1
+#: lib/aoff_web/templates/reset_password/password_form.html.slime:1 lib/aoff_web/templates/shop_assistant/date/form.html.slime:1
+#: lib/aoff_web/templates/shop_assistant/order/form.html.slime:1 lib/aoff_web/templates/user/form.html.slime:1
+#: lib/aoff_web/templates/volunteer/committee/form.html.slime:8 lib/aoff_web/templates/volunteer/date/form.html.slime:1
+#: lib/aoff_web/templates/volunteer/meeting/form.html.slime:15 lib/aoff_web/templates/volunteer/message/form.html.slime:8
+#: lib/aoff_web/templates/volunteer/news/form.html.slime:8 lib/aoff_web/templates/volunteer/order/form.html.slime:1
+#: lib/aoff_web/templates/volunteer/page/form.html.slime:8 lib/aoff_web/templates/volunteer/user/form.html.slime:1
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr "Ups! Noget gik galt! Kontroller fejlene nedenfor."
 
@@ -1376,7 +1381,7 @@ msgstr "Fjern"
 
 #, elixir-format
 #: lib/aoff_web/controllers/emails/email_controller.ex:21
-#: lib/aoff_web/templates/email/confirm_account.html.eex:328 lib/aoff_web/templates/email/reset_password.html.eex:328
+#: lib/aoff_web/templates/email/confirm_email.html.eex:328 lib/aoff_web/templates/email/reset_password.html.eex:328
 #: lib/aoff_web/templates/email/reset_password.html.eex:353
 msgid "Reset password"
 msgstr "Gendan password"
@@ -1455,6 +1460,7 @@ msgid "Seller"
 msgstr "Sælger"
 
 #, elixir-format
+#: lib/aoff_web/templates/resend_confirm_email/form.html.slime:1
 #: lib/aoff_web/templates/reset_password/email_form.html.slime:1
 msgid "Send"
 msgstr "Send"
@@ -1909,28 +1915,16 @@ msgid "call: %{mobile}"
 msgstr "Telefon: %{mobile}"
 
 #, elixir-format
-#: lib/aoff_web/templates/users/confirm_account/index.html.slime:1
-#: lib/aoff_web/templates/users/confirm_account/show.html.slime:1
-msgid "Account confirmed"
-msgstr "Kontoen er bekræftet"
-
-#, elixir-format, fuzzy
 #: lib/aoff_web/templates/layout/navbar.html.slime:1
 msgid "Calendar"
 msgstr "Kalender"
 
 #, elixir-format
-#: lib/aoff_web/controllers/emails/email_controller.ex:51
-#: lib/aoff_web/templates/email/confirm_account.html.eex:353
-msgid "Confirm account"
-msgstr "Bekræft konto"
-
-#, elixir-format
-#: lib/aoff_web/templates/email/confirm_account.text.eex:2
+#: lib/aoff_web/templates/email/confirm_account.text.eex:3
 msgid "Go to the link below"
 msgstr "Følg linket nedenfor"
 
 #, elixir-format
-#: lib/aoff_web/templates/users/confirm_account/confirmation_missing.html.slime:1
+#: lib/aoff_web/templates/users/confirm_email/confirmation_missing.html.slime:1
 msgid "Resend confirmation email"
-msgstr "Gensend email"
+msgstr "Gensend bekræft email"
