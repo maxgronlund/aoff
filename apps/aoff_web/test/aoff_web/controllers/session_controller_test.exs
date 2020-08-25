@@ -69,7 +69,9 @@ defmodule AOFFWeb.SessionControllerTest do
             }
           )
         )
+
       user = Users.get_user_by_email(attrs["email"])
+
       assert redirected_to(conn) ==
                Routes.confirm_account_path(conn, :show, user)
     end

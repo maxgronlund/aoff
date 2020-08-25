@@ -18,6 +18,5 @@ defmodule AOFFWeb.Users.ConfirmAccountControllerTest do
     user = user_fixture()
     conn = get(conn, Routes.confirm_account_path(conn, :show, user))
     assert html_response(conn, 200) =~ "fo"
-
   end
 end

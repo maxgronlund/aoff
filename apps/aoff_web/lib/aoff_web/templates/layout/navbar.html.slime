@@ -11,8 +11,8 @@ header
         li class="<%= menu_item(@conn, :volunteer) %>"
           = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
 
-      li class="<%= menu_item(@conn, :news) %>"
-        = link gettext("News"), to: Routes.news_path(@conn, :index)
+      li class="<%= menu_item(@conn, :calendar) %>"
+        = link gettext("Calendar"), to: Routes.calendar_path(@conn, :index)
 
       li class="<%= menu_item(@conn, :about_aoff) %>"
        = link gettext("About AOFF"), to: Routes.about_path(@conn, :index)
@@ -24,8 +24,6 @@ header
         li class="<%= menu_item(@conn, :user) %>"
           = link to: Routes.user_path(@conn, :show, @current_user) do
             i.fa.fa-user
-            /| &nbsp;
-            /= gettext("Account")
 
         li class="<%= menu_item(@conn, :order) %>"
           = link to: Routes.user_order_path(@conn, :show, @current_user, @current_order) do

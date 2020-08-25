@@ -28,6 +28,16 @@ defmodule AOFF.CategoryTest do
       assert {:error, %Ecto.Changeset{}} = Content.create_category(attrs)
     end
 
+    test "find_or_create_category/1 creates a category" do
+      assert {:ok, %AOFF.Content.Category{}} = Content.find_or_create_category("Birds")
+    end
+
+    test "find_or_create_category/1 finds a category" do
+      category = category_fixture()
+      {:ok, cat} = Content.find_or_create_category(category.identifier)
+      assert category.id == cat.id
+    end
+
     test "update_category/2 with valid data updates the category" do
       category = category_fixture()
       attrs = update_category_attrs()

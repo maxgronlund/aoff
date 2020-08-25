@@ -469,7 +469,7 @@ msgid "Edit User"
 msgstr "Rediger Bruger"
 
 #, elixir-format
-#: lib/aoff_web/controllers/users/user_controller.ex:112
+#: lib/aoff_web/controllers/users/user_controller.ex:126
 #: lib/aoff_web/templates/user/show.html.slime:4 lib/aoff_web/templates/volunteer/user/show.html.slime:1
 msgid "Edit account"
 msgstr "Rediger konto"
@@ -683,7 +683,7 @@ msgid "Internal server error"
 msgstr "Intern serverfejl"
 
 #, elixir-format
-#: lib/aoff_web/controllers/sessions_controller.ex:23
+#: lib/aoff_web/controllers/sessions_controller.ex:29
 msgid "Invalid email/password combination"
 msgstr "Ugyldig email/password kombination"
 
@@ -1008,9 +1008,8 @@ msgstr "Opret åbningsdag"
 
 #, elixir-format
 #: lib/aoff_web/controllers/content/news_controller.ex:11
-#: lib/aoff_web/templates/content/news/show.html.slime:1 lib/aoff_web/templates/layout/navbar.html.slime:1
-#: lib/aoff_web/templates/page/index.html.slime:6 lib/aoff_web/templates/volunteer/news/index.html.slime:1
-#: lib/aoff_web/templates/volunteer/news/show.html.slime:1
+#: lib/aoff_web/templates/content/news/show.html.slime:1 lib/aoff_web/templates/page/index.html.slime:6
+#: lib/aoff_web/templates/volunteer/news/index.html.slime:1 lib/aoff_web/templates/volunteer/news/show.html.slime:1
 msgid "News"
 msgstr "Nyheder"
 
@@ -1377,7 +1376,8 @@ msgstr "Fjern"
 
 #, elixir-format
 #: lib/aoff_web/controllers/emails/email_controller.ex:21
-#: lib/aoff_web/templates/email/reset_password.html.eex:328 lib/aoff_web/templates/email/reset_password.html.eex:353
+#: lib/aoff_web/templates/email/confirm_account.html.eex:328 lib/aoff_web/templates/email/reset_password.html.eex:328
+#: lib/aoff_web/templates/email/reset_password.html.eex:353
 msgid "Reset password"
 msgstr "Gendan password"
 
@@ -1721,13 +1721,13 @@ msgstr "Kommende opsamlinger"
 
 #, elixir-format
 #: lib/aoff_web/controllers/admin/user_controller.ex:53
-#: lib/aoff_web/controllers/users/user_controller.ex:152 lib/aoff_web/controllers/volunteers/user_controller.ex:151
+#: lib/aoff_web/controllers/users/user_controller.ex:166 lib/aoff_web/controllers/volunteers/user_controller.ex:151
 msgid "User deleted successfully."
 msgstr "Kontoen er slettet"
 
 #, elixir-format
 #: lib/aoff_web/controllers/admin/user_controller.ex:40
-#: lib/aoff_web/controllers/users/user_controller.ex:132 lib/aoff_web/controllers/volunteers/user_controller.ex:131
+#: lib/aoff_web/controllers/users/user_controller.ex:146 lib/aoff_web/controllers/volunteers/user_controller.ex:131
 msgid "User updated successfully."
 msgstr "Kontoen er blevet opdateret"
 
@@ -1890,25 +1890,47 @@ msgstr "%{date} - kl. %{time}"
 
 #, elixir-format
 #: lib/aoff_web/templates/user/form.html.slime:2
-msgid "Lande kode"
-msgstr ""
+msgid "Country code"
+msgstr "Landekode"
 
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/user/index.html.slime:3
 msgid "Download as csv"
-msgstr ""
+msgstr "Download som csv"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:10
 msgid "Send SMS"
 msgstr "Send"
 
-#, elixir-format, fuzzy
-#: lib/aoff_web/templates/users/welcome/show.html.slime:1
-msgid "Welcome %{username}"
-msgstr "Velkommen tilbage! %{username}"
-
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:10
 msgid "call: %{mobile}"
 msgstr "Telefon: %{mobile}"
+
+#, elixir-format
+#: lib/aoff_web/templates/users/confirm_account/index.html.slime:1
+#: lib/aoff_web/templates/users/confirm_account/show.html.slime:1
+msgid "Account confirmed"
+msgstr "Kontoen er bekræftet"
+
+#, elixir-format, fuzzy
+#: lib/aoff_web/templates/layout/navbar.html.slime:1
+msgid "Calendar"
+msgstr "Kalender"
+
+#, elixir-format
+#: lib/aoff_web/controllers/emails/email_controller.ex:51
+#: lib/aoff_web/templates/email/confirm_account.html.eex:353
+msgid "Confirm account"
+msgstr "Bekræft konto"
+
+#, elixir-format
+#: lib/aoff_web/templates/email/confirm_account.text.eex:2
+msgid "Go to the link below"
+msgstr "Følg linket nedenfor"
+
+#, elixir-format
+#: lib/aoff_web/templates/users/confirm_account/confirmation_missing.html.slime:1
+msgid "Resend confirmation email"
+msgstr "Gensend email"

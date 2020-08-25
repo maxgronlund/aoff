@@ -1,0 +1,13 @@
+h2 = @message.title
+.row
+  .column
+    .tile
+      = raw @message.text
+      = if @text_editor do
+        | &nbsp;
+        = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message, %{"request_url" => @conn.request_path})
+      br
+      .float-right
+        = link(gettext("OK"), to: "/", class: "button")
+      br
+      |&nbsp;

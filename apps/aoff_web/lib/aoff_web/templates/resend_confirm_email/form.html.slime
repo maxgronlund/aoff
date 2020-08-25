@@ -1,0 +1,15 @@
+= form_for @changeset, @action, fn f ->
+  = if @changeset.action do
+    .alert.alert-danger
+      p = gettext("Oops, something went wrong! Please check the errors below.")
+
+  .form-group
+    = label f, :email, class: "control-label"
+    = email_input f, :email, class: "form-control full-width"
+    = error_tag f, :email
+
+
+  .form-group
+    .float-right
+      = submit gettext("Send"), class: "button"
+    |&nbsp;

@@ -20,6 +20,7 @@ defmodule AOFFWeb.SessionController do
 
       {:error, :confirmation_missing, conn} ->
         user = AOFF.Users.get_user_by_email(email)
+
         conn
         |> redirect(to: Routes.confirm_account_path(conn, :show, user))
 

@@ -43,6 +43,7 @@ defmodule AOFFWeb.Router do
     get "/", PageController, :index
     get "/terms", TermsController, :index
     get "/payment_terms", PaymentTermsController, :show
+    resources "/calendar", Content.CalendarController, only: [:index, :show]
 
     resources "/users", UserController, except: [:index] do
       resources "/order_items", Users.OrderItemController, only: [:create, :delete]
@@ -51,11 +52,14 @@ defmodule AOFFWeb.Router do
       resources "/membership", Users.MembershipController, only: [:new, :create]
       resources "/welcome", Users.WelcomeController, only: [:index]
       resources "/confirm_account", Users.ConfirmAccountController, only: [:index]
-      resources "/send_confirmation_email", Users.ConfirmationEmailController, only: [:new, :create, :show]
+
+
     end
 
-    resources "/confirm_account", Users.ConfirmAccountController, only: [:show]
+    resources "/resend_confirm_email", ResendConfirmEmailController,
+        only: [:new, :create, :index]
 
+    resources "/confirm_account", Users.ConfirmAccountController, only: [:show]
 
     resources "/reset_password", ResetPasswordController,
       only: [:new, :create, :edit, :update, :index]

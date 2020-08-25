@@ -27,13 +27,13 @@ defmodule AOFFWeb.Users.ConfirmAccountController do
 
   def show(conn, %{"id" => id}) do
     if user = Users.get_user(id) do
-
       {:ok, message} =
-          System.find_or_create_message(
-            "Confirmation missing",
-            "Confirmation missing",
-            Gettext.get_locale()
-          )
+        System.find_or_create_message(
+          "Confirmation missing",
+          "Confirmation missing",
+          Gettext.get_locale()
+        )
+
       render(conn, "confirmation_missing.html", user: user, message: message)
     else
       conn

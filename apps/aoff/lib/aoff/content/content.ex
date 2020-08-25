@@ -236,6 +236,35 @@ defmodule AOFF.Content do
     Repo.one(query)
   end
 
+  @doc """
+  Find or create a single category.
+
+  ## Examples
+      iex> get_category!("birds")
+      {:ok, %Category{}}
+
+  """
+  def find_or_create_category(category) do
+    query =
+      from c in Category,
+        where: c.identifier == ^category and c.locale == ^Gettext.get_locale(),
+        select: c,
+        preload: [pages: ^from(p in Page, order_by: [desc: p.date])]
+
+    case Repo.one(query) do
+      nil ->
+        create_category(%{
+          "title" => category,
+          "description" => category,
+          "identifier" => category,
+          "locale" => Gettext.get_locale()
+        })
+
+      %Category{} = category ->
+        {:ok, category}
+    end
+  end
+
   def featured_pages() do
     query =
       from p in Page,

@@ -7,42 +7,41 @@
         li.is-active
           | &nbsp;
           = gettext("Messages")
-= if @instructions.show do
-  .alert.alert-info
-    h2 = @instructions.title
-    = raw @instructions.text
-
-table.table
-  thead
-    tr
-      th = gettext("Title")
-      th = gettext("Locale")
-      = if @admin do
-        th = gettext("Identifier")
-      th
-      th
-  tbody
-    = for message <- @messages do
+h2 = @instructions.title
+.tile
+  = raw @instructions.text
+.tile
+  table.table
+    thead
       tr
-        td= message.title
-        td = message.locale
+        th = gettext("Title")
+        th = gettext("Locale")
         = if @admin do
-          td = message.identifier
-        td
-          = if message.identifier == "System warning" do
-            b.red = gettext("Emergency message")
+          th = gettext("Identifier")
+        th
+        th
+    tbody
+      = for message <- @messages do
+        tr
+          td= message.title
+          td = message.locale
+          = if @admin do
+            td = message.identifier
+          td
+            = if message.identifier == "System warning" do
+              b.red = gettext("Emergency message")
 
-        td
-          .float-right
-            = link gettext("Show"), to: Routes.volunteer_message_path(@conn, :show, message), class: "button button-small"
-            | &nbsp;
-            = link gettext("Edit"), to: Routes.volunteer_message_path(@conn, :edit, message, %{"request_url" => @conn.request_path}), class: "button button-outline button-small"
-            = if @admin do
+          td
+            .float-right
+              = link gettext("Show"), to: Routes.volunteer_message_path(@conn, :show, message), class: "button button-small"
               | &nbsp;
-              = link gettext("Delete"),\
-                to: Routes.volunteer_message_path(@conn, :delete, message),\
-                method: :delete, \
-                data: [confirm: gettext("Are you sure?")], \
-                class: "button button-red button-small"
+              = link gettext("Edit"), to: Routes.volunteer_message_path(@conn, :edit, message, %{"request_url" => @conn.request_path}), class: "button button-outline button-small"
+              = if @admin do
+                | &nbsp;
+                = link gettext("Delete"),\
+                  to: Routes.volunteer_message_path(@conn, :delete, message),\
+                  method: :delete, \
+                  data: [confirm: gettext("Are you sure?")], \
+                  class: "button button-red button-small"
 
 /= link gettext("New text"), to: Routes.volunteer_message_path(@conn, :new), class: "button"

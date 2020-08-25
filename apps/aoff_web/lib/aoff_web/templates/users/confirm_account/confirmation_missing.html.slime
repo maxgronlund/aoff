@@ -2,8 +2,17 @@ h2 = @message.title
 .row
   .column
     .tile
-      = @message.text
+      .auto-columns
+        = raw @message.text
+        = if @text_editor do
+          | &nbsp;
+          = link gettext("Edit text"), to: Routes.volunteer_message_path(@conn, :edit, @message, %{"request_url" => @conn.request_path})
       br
-      = link(gettext("Resend confirmation email"),\
-        to: Routes.user_confirmation_email_path(@conn, :new, @user),\
-        class: "button")
+
+      .float-right
+        = link(gettext("Resend confirmation email"),\
+          to: Routes.resend_confirm_email_path(@conn, :new),\
+          class: "button")
+        |&nbsp;
+      br
+      |&nbsp;
