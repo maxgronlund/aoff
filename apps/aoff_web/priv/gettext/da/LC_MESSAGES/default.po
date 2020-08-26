@@ -1944,7 +1944,7 @@ msgstr "Opret begivenhed"
 #, elixir-format, fuzzy
 #: lib/aoff_web/templates/volunteer/calendar/edit.html.slime:1
 msgid "Edit event"
-msgstr "Rediger møde"
+msgstr "Rediger begivenhed"
 
 #, elixir-format, fuzzy
 #: lib/aoff_web/controllers/volunteers/calendar_controller.ex:101
@@ -1954,7 +1954,7 @@ msgstr "Begivenheden er slettet"
 #, elixir-format, fuzzy
 #: lib/aoff_web/controllers/volunteers/calendar_controller.ex:79
 msgid "Event updated successfully."
-msgstr "Vagtplanen er opdateret"
+msgstr "Begivenheden er opdateret"
 
 #, elixir-format, fuzzy
 #: lib/aoff_web/templates/volunteer/calendar/new.html.slime:1

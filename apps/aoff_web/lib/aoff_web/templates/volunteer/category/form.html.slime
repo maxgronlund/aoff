@@ -42,6 +42,12 @@ javascript:
       = error_tag f, :position
     .row
       .column
+        .form-group
+          = label f, :publish do
+            = checkbox f, :publish, class: "form-control"
+            = label f, :publish, gettext("Publish"), class: "control-label label-inline"
+    .row
+      .column
         .form-group.mt-1
           .float-right
             = submit gettext("Save"), class: "button"

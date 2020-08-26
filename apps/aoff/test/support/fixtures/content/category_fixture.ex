@@ -4,13 +4,15 @@ defmodule AOFF.Content.CategoryFixture do
   @create_attrs %{
     "title" => "some title",
     "description" => "some description",
-    "identifier" => "some identifier"
+    "identifier" => "some identifier",
+    "publish" => true
   }
 
   @update_attrs %{
     "title" => "some updated title",
     "description" => "some updated description",
-    "identifier" => "some updated identifier"
+    "identifier" => "some updated identifier",
+    "publish" => false
   }
 
   @invalid_attrs %{

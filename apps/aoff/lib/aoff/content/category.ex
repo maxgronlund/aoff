@@ -17,6 +17,7 @@ defmodule AOFF.Content.Category do
     field :identifier, :string
     field :locale, :string, default: "da"
     field :position, :integer, default: 0
+    field :publish, :boolean, default: true
     has_many :pages, Page
     timestamps()
   end
@@ -24,7 +25,7 @@ defmodule AOFF.Content.Category do
   @doc false
   def changeset(category, attrs) do
     category
-    |> cast(attrs, [:title, :description, :identifier, :locale, :position])
+    |> cast(attrs, [:title, :description, :identifier, :locale, :position, :publish])
     |> cast_attachments(attrs, [:image])
     |> validate_required([:title, :description, :identifier, :locale])
     |> unique_constraint(:identifier, name: :categories_identifier_locale_index)

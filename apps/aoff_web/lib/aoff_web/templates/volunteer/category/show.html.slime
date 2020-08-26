@@ -18,8 +18,9 @@
 
 .row
   .column
-    .auto-columns
-      = raw @category.description
+    .tile
+      .auto-columns
+        = raw @category.description
 
 
 
