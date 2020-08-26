@@ -12,7 +12,14 @@
 
   = if @text_editor || @admin do
     .column
-      = link gettext("Edit"), to: Routes.volunteer_calendar_path(@conn, :edit, @page), class: "button float-right"
+      .float-right
+        = link gettext("Edit"), to: Routes.volunteer_calendar_path(@conn, :edit, @page), class: "button"
+        | &nbsp;
+        = link gettext("Delete"),\
+          to: Routes.volunteer_calendar_path(@conn, :delete, @page.id),\
+          method: :delete,\
+          data: [confirm: "Are you sure?"],\
+          class: "button button-red"
 
 .tile
   .row

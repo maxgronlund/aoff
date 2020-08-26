@@ -5,7 +5,6 @@ defmodule AOFFWeb.ResendConfirmEmailController do
   alias AOFF.Users
 
   def new(conn, params) do
-
     {:ok, message} =
       System.find_or_create_message(
         "Resend confirmation email",
@@ -21,7 +20,8 @@ defmodule AOFFWeb.ResendConfirmEmailController do
     if user = Users.get_user_by_email(email) do
       resend_confirm_email(conn, user)
     end
-    redirect(conn, to: Routes.resend_confirm_email_path(conn, :index) )
+
+    redirect(conn, to: Routes.resend_confirm_email_path(conn, :index))
   end
 
   def index(conn, params) do
@@ -31,6 +31,7 @@ defmodule AOFFWeb.ResendConfirmEmailController do
         "Confirmation email was resend",
         Gettext.get_locale()
       )
+
     render(conn, :index, message: message)
   end
 

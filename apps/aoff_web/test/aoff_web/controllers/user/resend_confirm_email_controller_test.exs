@@ -4,7 +4,6 @@ defmodule AOFFWeb.ResendConfirmEmailControllerTest do
   alias AOFF.System
   alias AOFF.Users
 
-
   describe "resend email confirmation email" do
     test "render new", %{conn: conn} do
       {:ok, message} =
@@ -13,6 +12,7 @@ defmodule AOFFWeb.ResendConfirmEmailControllerTest do
           "Resend confirmation email",
           Gettext.get_locale()
         )
+
       conn = get(conn, Routes.resend_confirm_email_path(conn, :new))
       assert html_response(conn, 200) =~ message.title
     end
@@ -26,14 +26,14 @@ defmodule AOFFWeb.ResendConfirmEmailControllerTest do
 
     test "index", %{conn: conn} do
       {:ok, message} =
-      System.find_or_create_message(
-        "Confirmation email was resend",
-        "Confirmation email was resend",
-        Gettext.get_locale()
-      )
+        System.find_or_create_message(
+          "Confirmation email was resend",
+          "Confirmation email was resend",
+          Gettext.get_locale()
+        )
+
       conn = get(conn, Routes.resend_confirm_email_path(conn, :index, %{}))
       assert html_response(conn, 200) =~ message.title
     end
   end
-
 end

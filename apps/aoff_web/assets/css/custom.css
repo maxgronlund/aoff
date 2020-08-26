@@ -5,8 +5,8 @@ body {
   background: #f0f3f5;
 }
 
-p {
-  margin-bottom: 0px !important;
+.auto-columns p {
+  margin-bottom: 0px;
 }
 
 .content {

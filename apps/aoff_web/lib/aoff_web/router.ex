@@ -52,12 +52,9 @@ defmodule AOFFWeb.Router do
       resources "/membership", Users.MembershipController, only: [:new, :create]
       resources "/welcome", Users.WelcomeController, only: [:index]
       resources "/confirm_email", Users.ConfirmEmailController, only: [:index]
-
-
     end
 
-    resources "/resend_confirm_email", ResendConfirmEmailController,
-        only: [:new, :create, :index]
+    resources "/resend_confirm_email", ResendConfirmEmailController, only: [:new, :create, :index]
 
     resources "/confirm_email", Users.ConfirmEmailController, only: [:show]
 

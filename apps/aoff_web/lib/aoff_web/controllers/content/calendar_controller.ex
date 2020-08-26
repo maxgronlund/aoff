@@ -4,7 +4,6 @@ defmodule AOFFWeb.Content.CalendarController do
   alias AOFF.Content
 
   def index(conn, params) do
-
     {:ok, calendar} = Content.find_or_create_category("Calendar")
 
     conn
@@ -26,5 +25,4 @@ defmodule AOFFWeb.Content.CalendarController do
         |> render("show.html", category: page.category, page: page)
     end
   end
-
 end

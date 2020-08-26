@@ -24,8 +24,6 @@ defmodule AOFFWeb.Volunteer.CalendarController do
   end
 
   def create(conn, %{"page" => page_attrs}) do
-
-
     {:ok, category} = Content.find_or_create_category("Calendar")
     page_attrs = Map.put(page_attrs, "category_id", category.id)
 
@@ -50,6 +48,7 @@ defmodule AOFFWeb.Volunteer.CalendarController do
 
   def edit(conn, %{"id" => id}) do
     {:ok, category} = Content.find_or_create_category("Calendar")
+
     if page = Content.get_page!(category.title, id) do
       changeset = Content.change_page(page)
 
@@ -94,8 +93,13 @@ defmodule AOFFWeb.Volunteer.CalendarController do
     end
   end
 
-  def delete(conn, attrs) do
+  def delete(conn, %{"id" => id}) do
+    page = Content.get_page(id)
+    {:ok, _page} = Content.delete_page(page)
 
+    conn
+    |> put_flash(:info, gettext("Event deleted successfully."))
+    |> redirect(to: Routes.calendar_path(conn, :index))
   end
 
   defp image_format() do
