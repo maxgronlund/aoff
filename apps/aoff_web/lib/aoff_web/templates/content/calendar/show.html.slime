@@ -25,8 +25,8 @@
   .row
     .column
       b = @page.title
-
-      h4 = text_to_html @page.teaser
+      - if @page.teaser do
+        h4 = text_to_html @page.teaser
     .column
       = img_tag AOFF.Uploader.Image.url({@page.image, @page}, :original)
       .image-caption

@@ -130,7 +130,7 @@ defmodule AOFFWeb.Volunteer.CalendarController do
   end
 
   defp navbar(conn, _opts) do
-    assign(conn, :selected_menu_item, :volunteer)
+    assign(conn, :selected_menu_item, :calendar)
   end
 
   defp image_format() do

@@ -38,9 +38,7 @@ defmodule AOFF.Committees.Meeting do
       :committee_id,
       :name,
       :date,
-      :time,
-      :agenda,
-      :location
+      :time
     ])
   end
 end
