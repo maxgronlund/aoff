@@ -66,17 +66,6 @@
         .card-footer-item.is-button
           = gettext("Go to")
 
-  .card.is-shady
-    = link to: Routes.volunteer_category_path(@conn, :index) do
-      .card-header
-        .card-header-title.is-centered
-          = @categories.title
-      .card-content
-        p = raw @categories.text
-      .card-footer.is-button
-        .card-footer-item.is-button
-          = gettext("Go to")
-
   = if @volunteer do
     .card.is-shady
       = link to: Routes.volunteer_date_path(@conn, :index) do

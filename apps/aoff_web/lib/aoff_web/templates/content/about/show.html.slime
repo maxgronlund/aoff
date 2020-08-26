@@ -10,22 +10,35 @@
 .row
   .column
     h2 = @category.title
-  = if @text_editor do
+  = if @admin do
+    .column
+      .float-right
+        = link gettext("Delete category"),\
+          to: Routes.volunteer_category_path(@conn, :delete, @category),\
+          method: :delete,\
+          data: [confirm: gettext("Are you sure? All articles in this categotry will be gone.")],\
+          class: "button button-red"
+      |&nbsp;
+      br
+      |&nbsp;
+.tile
+  .row
+    .column
+      .auto-columns
+        = raw @category.description
+
+= if @text_editor do
+  .row
     .column
       .float-right
         = link gettext("New article"),\
           to: Routes.volunteer_category_page_path(@conn, :new, @category),\
           class: "button button-outline"
         | &nbsp;
-        = link gettext("Edit"),\
+        = link gettext("Edit category"),\
           to: Routes.volunteer_category_path(@conn, :edit, @category),\
           class: "button button"
 
-.tile
-  .row
-    .column
-      .auto-columns
-        = raw @category.description
 
 .tiles.button-tiles
   = for page <- @category.pages do
