@@ -120,7 +120,7 @@ defmodule AOFFWeb.Volunteer.PageController do
           author: page.author,
           date: page.date,
           image_format: image_format(),
-          page: true
+          page: page
         )
     end
   end

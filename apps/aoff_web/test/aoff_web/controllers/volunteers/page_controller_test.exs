@@ -60,7 +60,7 @@ defmodule AOFFWeb.Volunteer.PageControllerTest do
     test "edit page renders form for editing chosen page", %{conn: conn, category: category} do
       page = page_fixture(category.id)
       conn = get(conn, Routes.volunteer_category_page_path(conn, :edit, category, page))
-      assert html_response(conn, 200) =~ gettext("Edit Article")
+      assert html_response(conn, 200) =~ gettext("Edit %{title}", title: page.title)
     end
 
     test "update page redirects when data is valid", %{conn: conn, category: category} do
