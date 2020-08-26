@@ -32,7 +32,13 @@ defmodule AOFFWeb.Volunteer.MeetingController do
         |> redirect(to: Routes.committee_committee_meeting_path(conn, :show, committee, meeting))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset, committee: committee)
+        render(
+          conn,
+          "new.html",
+          changeset: changeset,
+          committee: committee,
+          users: list_volunteers()
+        )
     end
   end
 
