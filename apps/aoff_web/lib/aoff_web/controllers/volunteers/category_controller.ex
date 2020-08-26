@@ -10,7 +10,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
   plug :authorize_volunteer when action in [:index]
   plug :authorize_admin when action in [:new, :delete]
 
-  plug :navbar when action in [:index, :new, :show, :edit]
+  plug :navbar when action in [:index, :new, :edit]
 
   def index(conn, _params) do
     {:ok, help_text} =
@@ -41,15 +41,15 @@ defmodule AOFFWeb.Volunteer.CategoryController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    if category = Content.get_category!(:all, id) do
-      render(conn, "show.html", category: category)
-    else
-      conn
-      |> put_flash(:error, gettext("The category for the selected language does not exist."))
-      |> redirect(to: Routes.volunteer_category_path(conn, :index))
-    end
-  end
+  # def show(conn, %{"id" => id}) do
+  #   if category = Content.get_category!(:all, id) do
+  #     render(conn, "show.html", category: category)
+  #   else
+  #     conn
+  #     |> put_flash(:error, gettext("The category for the selected language does not exist."))
+  #     |> redirect(to: Routes.volunteer_category_path(conn, :index))
+  #   end
+  # end
 
   def edit(conn, %{"id" => id}) do
     if category = Content.get_category!(id) do
@@ -65,7 +65,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
     else
       conn
       |> put_flash(:error, gettext("The category for the selected language does not exist."))
-      |> redirect(to: Routes.volunteer_category_path(conn, :index))
+      |> redirect(to: Routes.about_path(conn, :index))
     end
   end
 
@@ -76,7 +76,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
       {:ok, _category} ->
         conn
         |> put_flash(:info, gettext("Category updated successfully."))
-        |> redirect(to: Routes.volunteer_category_path(conn, :index))
+        |> redirect(to: Routes.about_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(
@@ -95,7 +95,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
 
     conn
     |> put_flash(:info, "Category deleted successfully.")
-    |> redirect(to: Routes.volunteer_category_path(conn, :index))
+    |> redirect(to: Routes.about_path(conn, :index))
   end
 
   defp authorize_volunteer(conn, _opts) do
@@ -124,8 +124,8 @@ defmodule AOFFWeb.Volunteer.CategoryController do
 
   defp navbar(conn, _opts) do
     conn
-    |> assign(:selected_menu_item, :volunteer)
-    |> assign(:title, gettext("Volunteer"))
+    |> assign(:selected_menu_item, :about_aoff)
+    |> assign(:title, gettext("About AOFF"))
   end
 
   defp image_format() do

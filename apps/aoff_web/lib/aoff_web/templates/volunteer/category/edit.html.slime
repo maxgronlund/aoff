@@ -1,14 +1,10 @@
 .breadcrumb aria-label="breadcrumbs"
   ul
     li
-      = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
-    li
-      = link gettext("Categories"), to: Routes.volunteer_category_path(@conn, :index)
-/    li
-/      = link @blog.title, to: Routes.volunteer_blog_path(@conn, :show, @blog)
-/    li.is-active
-/      |&nbsp;&nbsp;
-/      = gettext("Edit")
+      = link gettext("About AOFF"), to: Routes.about_path(@conn, :index)
+    li.is-active
+      | &nbsp;
+      = @category.title
 
 h2 = gettext("Edit %{category}", category: @category.title)
 

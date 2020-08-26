@@ -8,7 +8,7 @@
 /      | &nbsp;
 /      = gettext("Edit Article")
 
-h2= gettext("Edit Article")
+h2= gettext("Edit %{title}", title: @page.title)
 
 = render "form.html", Map.put(assigns, :action, Routes.volunteer_category_page_path(@conn, :update, @category, @page))
 

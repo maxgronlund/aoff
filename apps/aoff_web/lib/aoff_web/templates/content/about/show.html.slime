@@ -10,17 +10,7 @@
 .row
   .column
     h2 = @category.title
-  = if @admin do
-    .column
-      .float-right
-        = link gettext("Delete category"),\
-          to: Routes.volunteer_category_path(@conn, :delete, @category),\
-          method: :delete,\
-          data: [confirm: gettext("Are you sure? All articles in this categotry will be gone.")],\
-          class: "button button-red"
-      |&nbsp;
-      br
-      |&nbsp;
+
 .tile
   .row
     .column

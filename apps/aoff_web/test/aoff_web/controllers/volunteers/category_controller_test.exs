@@ -29,10 +29,10 @@ defmodule AOFFWeb.Volunteers.CategoryControllerTest do
       {:ok, conn: conn}
     end
 
-    test "lists all categories", %{conn: conn} do
-      conn = get(conn, Routes.volunteer_category_path(conn, :index))
-      assert html_response(conn, 200) =~ gettext("Categories")
-    end
+    # test "lists all categories", %{conn: conn} do
+    #   conn = get(conn, Routes.volunteer_category_path(conn, :index))
+    #   assert html_response(conn, 200) =~ gettext("Categories")
+    # end
   end
 
   describe "admin" do
@@ -55,10 +55,10 @@ defmodule AOFFWeb.Volunteers.CategoryControllerTest do
       {:ok, conn: conn}
     end
 
-    test "lists all categories", %{conn: conn} do
-      conn = get(conn, Routes.volunteer_category_path(conn, :index))
-      assert html_response(conn, 200) =~ gettext("Categories")
-    end
+    # test "lists all categories", %{conn: conn} do
+    #   conn = get(conn, Routes.volunteer_category_path(conn, :index))
+    #   assert html_response(conn, 200) =~ gettext("Categories")
+    # end
 
     test "new category renders form", %{conn: conn} do
       conn = get(conn, Routes.volunteer_category_path(conn, :new))
@@ -87,14 +87,14 @@ defmodule AOFFWeb.Volunteers.CategoryControllerTest do
     test "edit category renders form for editing chosen category", %{conn: conn} do
       category = category_fixture()
       conn = get(conn, Routes.volunteer_category_path(conn, :edit, category))
-      assert html_response(conn, 200) =~ gettext("Edit Category")
+      assert html_response(conn, 200) =~ gettext("Edit %{category}", category: category.title)
     end
 
     test "update category redirects when data is valid", %{conn: conn} do
       category = category_fixture()
       attrs = update_category_attrs()
       conn = put(conn, Routes.volunteer_category_path(conn, :update, category), category: attrs)
-      assert redirected_to(conn) == Routes.volunteer_category_path(conn, :index)
+      assert redirected_to(conn) == Routes.about_path(conn, :index)
 
       # conn = get(conn, Routes.volunteer_category_path(conn, :show, category))
       # assert html_response(conn, 200) =~ attrs["description"]
@@ -104,13 +104,13 @@ defmodule AOFFWeb.Volunteers.CategoryControllerTest do
       category = category_fixture()
       attrs = invalid_category_attrs()
       conn = put(conn, Routes.volunteer_category_path(conn, :update, category), category: attrs)
-      assert html_response(conn, 200) =~ gettext("Edit Category")
+      assert html_response(conn, 200) =~ gettext("Edit %{category}", category: category.title)
     end
 
     test "deletes chosen category", %{conn: conn} do
       category = category_fixture()
       conn = delete(conn, Routes.volunteer_category_path(conn, :delete, category))
-      assert redirected_to(conn) == Routes.volunteer_category_path(conn, :index)
+      assert redirected_to(conn) == Routes.about_path(conn, :index)
     end
   end
 end
