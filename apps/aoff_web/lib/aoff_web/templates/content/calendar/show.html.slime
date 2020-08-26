@@ -10,7 +10,7 @@
   .column
     h2 = date(@page.date)
 
-  = if @text_editor || @admin do
+  = if @text_editor do
     .column
       .float-right
         = link gettext("Edit"), to: Routes.volunteer_calendar_path(@conn, :edit, @page), class: "button"
@@ -25,8 +25,7 @@
   .row
     .column
       b = @page.title
-      - if @page.teaser do
-        h4 = text_to_html @page.teaser
+      h4 = text_to_html @page.teaser
     .column
       = img_tag AOFF.Uploader.Image.url({@page.image, @page}, :original)
       .image-caption

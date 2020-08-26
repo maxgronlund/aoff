@@ -179,7 +179,7 @@ defmodule AOFF.Content do
   def list_categories() do
     query =
       from c in Category,
-        where: c.locale == ^Gettext.get_locale() and not (c.identifier == "Calendar"),
+        where: c.locale == ^Gettext.get_locale() and not (c.publish == false),
         order_by: [desc: c.position]
 
     query

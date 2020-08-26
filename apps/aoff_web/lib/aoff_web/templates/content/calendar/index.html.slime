@@ -1,9 +1,20 @@
-.row
-  .column
-    h2 = gettext("Calendar")
-  = if @text_editor || @admin do
+h2 = @message.title
+.tile
+  .auto-columns
+    = raw @message.text
+  = if @text_editor && @volunteer do
+    .mt-2
+      = link gettext("Edit text"),\
+        to: Routes.volunteer_message_path(@conn, :edit,\
+          @message, %{"request_url" => @conn.request_path})
+
+= if @text_editor do
+  .row
     .column
       = link gettext("Create event"), to: Routes.volunteer_calendar_path(@conn, :new), class: "button float-right"
+      |&nbsp;
+      br
+      |&nbsp;
 
 .tiles.button-tiles
   = for page <- @calendar.pages do

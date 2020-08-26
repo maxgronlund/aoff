@@ -2,13 +2,21 @@ defmodule AOFFWeb.Content.CalendarController do
   use AOFFWeb, :controller
 
   alias AOFF.Content
+  alias AOFF.System
 
   def index(conn, params) do
     {:ok, calendar} = Content.find_or_create_category("Calendar")
 
+    {:ok, message} =
+      System.find_or_create_message(
+        "Calendar",
+        "Calendar",
+        Gettext.get_locale()
+      )
+
     conn
     |> assign(:selected_menu_item, :calendar)
-    |> render("index.html", calendar: calendar)
+    |> render("index.html", calendar: calendar, message: message)
   end
 
   def show(conn, %{"id" => id}) do

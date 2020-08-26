@@ -80,13 +80,12 @@ javascript:
           = textarea f, :text, class: "form-control full-width", style: "height: 175px;"
           = error_tag f, :text
 
-
     .row.mt-1
       .column
         .form-group
           .float-right
-            /= link gettext("Cancel"),\
-            /  to: Routes.volunteer_blog_path(@conn, :show, @blog),\
-            /  class: "button button-outline"
-            /| &nbsp;
+            = link gettext("Cancel"),\
+              to: Routes.calendar_path(@conn, :show, @page),\
+              class: "button button-outline"
+            | &nbsp;
             = submit gettext("Save"), class: "btn btn-primary"
