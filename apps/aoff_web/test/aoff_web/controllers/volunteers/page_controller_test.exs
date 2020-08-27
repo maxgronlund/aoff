@@ -80,7 +80,7 @@ defmodule AOFFWeb.Volunteer.PageControllerTest do
       conn =
         put(conn, Routes.volunteer_category_page_path(conn, :update, category, page), page: attrs)
 
-      assert html_response(conn, 200) =~ gettext("Edit Article")
+      assert html_response(conn, 200) =~ gettext("Edit %{title}", title: page.title)
     end
 
     test "deletes chosen page", %{conn: conn, category: category} do

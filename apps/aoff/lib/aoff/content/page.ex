@@ -54,6 +54,7 @@ defmodule AOFF.Content.Page do
       :show_on_landing_page,
       :position
     ])
+    |> validate_length(:title, min: 2, max: 253)
     |> unique_constraint(:title, name: :pages_category_id_title_index)
   end
 

@@ -23,5 +23,6 @@ defmodule AOFF.Committees.Committee do
     committee
     |> cast(attrs, [:name, :description, :identifier])
     |> validate_required([:name, :description])
+    |> validate_length(:name, min: 2, max: 253)
   end
 end

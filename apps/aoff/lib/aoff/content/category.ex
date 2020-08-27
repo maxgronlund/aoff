@@ -28,6 +28,7 @@ defmodule AOFF.Content.Category do
     |> cast(attrs, [:title, :description, :identifier, :locale, :position, :publish])
     |> cast_attachments(attrs, [:image])
     |> validate_required([:title, :description, :identifier, :locale])
+    |> validate_length(:title, min: 2, max: 253)
     |> unique_constraint(:identifier, name: :categories_identifier_locale_index)
     |> unique_constraint(:title, name: :categories_title_locale_index)
   end

@@ -18,6 +18,8 @@ defmodule AOFF.System.Message do
   def changeset(message, attrs) do
     message
     |> cast(attrs, [:title, :identifier, :text, :show, :locale])
+    |> validate_length(:title, min: 2, max: 253)
+    |> validate_length(:identifier, min: 1, max: 253)
     |> validate_required([:title, :identifier, :show, :locale])
     |> unique_constraint(:identifier, name: :messages_identifier_locale_index)
   end

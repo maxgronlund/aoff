@@ -34,6 +34,7 @@ defmodule AOFF.Committees.Meeting do
       :summary,
       :location
     ])
+    |> validate_length(:name, min: 2, max: 253)
     |> validate_required([
       :committee_id,
       :name,

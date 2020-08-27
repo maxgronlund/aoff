@@ -48,6 +48,8 @@ defmodule AOFF.Shop.Product do
       :position,
       :collection
     ])
+    |> validate_length(:name_da, min: 2, max: 253)
+    |> validate_length(:name_en, min: 2, max: 253)
     |> cast_attachments(attrs, [:image])
     |> validate_required([
       :name_da,
