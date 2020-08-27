@@ -466,7 +466,7 @@ defmodule AOFF.Shop do
       from(
         p in PickUp,
         where: p.date_id == ^date_id,
-        order_by: [desc: p.picked_up],
+        order_by: [asc: p.picked_up],
         order_by: p.username,
         join: oi in assoc(p, :order_items),
         join: o in assoc(oi, :order),
