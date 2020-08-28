@@ -34,7 +34,7 @@ defmodule AOFFWeb.Volunteer.OrderControllerTest do
 
     test "list orders", %{conn: conn} do
       conn = get(conn, Routes.volunteer_order_path(conn, :index))
-      assert html_response(conn, 200) =~ gettext("Orders")
+      assert html_response(conn, 200) =~ gettext("Invoices")
     end
 
     test "show order", %{conn: conn, user: user} do

@@ -124,7 +124,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
 
   defp navbar(conn, _opts) do
     conn
-    |> assign(:selected_menu_item, :about_aoff)
+    |> assign(:selected_menu_item, :volunteer)
     |> assign(:title, gettext("About AOFF"))
   end
 

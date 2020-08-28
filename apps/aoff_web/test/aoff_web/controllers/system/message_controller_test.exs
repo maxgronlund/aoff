@@ -37,7 +37,7 @@ defmodule AOFFWeb.MessageControllerTest do
 
     test "index lists all messages", %{conn: conn} do
       conn = get(conn, Routes.volunteer_message_path(conn, :index))
-      assert html_response(conn, 200) =~ gettext("Messages")
+      assert html_response(conn, 200) =~ gettext("Help texts")
     end
 
     test "edit message renders form for editing chosen message", %{conn: conn} do
