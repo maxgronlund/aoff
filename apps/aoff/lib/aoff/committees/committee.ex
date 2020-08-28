@@ -11,6 +11,9 @@ defmodule AOFF.Committees.Committee do
     field :description, :string
     field :name, :string
     field :identifier
+    field :public_access, :boolean
+    field :volunteer_access, :boolean
+    field :member_access, :boolean
 
     has_many :members, Member
     has_many :meetings, Meeting
@@ -21,7 +24,17 @@ defmodule AOFF.Committees.Committee do
   @doc false
   def changeset(committee, attrs) do
     committee
-    |> cast(attrs, [:name, :description, :identifier])
+    |> cast(
+      attrs,
+      [
+        :name,
+        :description,
+        :identifier,
+        :public_access,
+        :volunteer_access,
+        :member_access
+      ]
+    )
     |> validate_required([:name, :description])
     |> validate_length(:name, min: 2, max: 253)
   end

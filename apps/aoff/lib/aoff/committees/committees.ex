@@ -24,6 +24,76 @@ defmodule AOFF.Committees do
   end
 
   @doc """
+  Returns the list of public committees.
+
+  ## Examples
+
+      iex> list_committees(:public)
+      [%Committee{}, ...]
+
+  """
+  def list_committees(:public) do
+    query =
+      from c in Committee,
+        where: c.public_access == ^true
+
+    Repo.all(query)
+  end
+
+  @doc """
+  Returns the list of committees with volunteer acces.
+
+  ## Examples
+
+      iex> list_committees(:public)
+      [%Committee{}, ...]
+
+  """
+  def list_committees(:volunteer) do
+    query =
+      from c in Committee,
+        where: c.volunteer_access == ^true
+
+    Repo.all(query)
+  end
+
+  @doc """
+  Returns the list of member with volunteer acces.
+
+  ## Examples
+
+      iex> list_committees(:public)
+      [%Committee{}, ...]
+
+  """
+  def list_committees(:member) do
+    query =
+      from c in Committee,
+        where: c.member_access == ^true
+
+    Repo.all(query)
+  end
+
+  @doc """
+  Returns the list of committees limited to commitees where the user is a member
+
+  ## Examples
+
+      iex> list_committees(USER_ID)
+      [%Committee{}, ...]
+
+  """
+
+  def list_committees(user_id) do
+    query =
+      from c in Committee,
+        join: mb in assoc(c, :members),
+        where: mb.user_id == ^user_id
+
+    Repo.all(query)
+  end
+
+  @doc """
   Gets a single committee.
 
   Raises `Ecto.NoResultsError` if the Committee does not exist.

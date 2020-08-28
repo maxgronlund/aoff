@@ -4,13 +4,19 @@ defmodule AOFF.Committees.CommitteeFixture do
   @valid_attrs %{
     "name" => "some committee name",
     "description" => "some committee description",
-    "identifier" => "some committe identifier"
+    "identifier" => "some committe identifier",
+    "public_access" => true,
+    "volunteer_access" => true,
+    "member_access" => true
   }
 
   @update_attrs %{
     "name" => "some updated committee name",
     "description" => "some updated committee description",
-    "identifire" => "some updated committee identifire"
+    "identifire" => "some updated committee identifire",
+    "public_access" => false,
+    "volunteer_access" => false,
+    "member_access" => false
   }
 
   @invalid_attrs %{

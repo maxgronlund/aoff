@@ -16,6 +16,67 @@ defmodule AOFF.CommitteesTest do
       assert Committees.list_committees() == [committee]
     end
 
+    test "list_committees/1 returns committees with public access" do
+      public_committee = committee_fixture(%{"name" => "public committee"})
+
+      committee_fixture(%{
+        "name" => "volunteer committee",
+        "public_access" => false
+      })
+
+      assert Committees.list_committees(:public) == [public_committee]
+    end
+
+    test "list_committees/1 returns committees with volunteer access" do
+      _hidden_committee =
+        committee_fixture(%{
+          "name" => "hidden committee",
+          "volunteer_access" => false
+        })
+
+      vollunteer_committee =
+        committee_fixture(%{
+          "name" => "volunteer committee",
+          "volunteer_access" => true
+        })
+
+      assert Committees.list_committees(:volunteer) == [vollunteer_committee]
+    end
+
+    test "list_committees/1 returns committees with member access" do
+      _hidden_committee =
+        committee_fixture(%{
+          "name" => "public committee",
+          "member_access" => false
+        })
+
+      member =
+        committee_fixture(%{
+          "name" => "volunteer committee",
+          "member_access" => true
+        })
+
+      assert Committees.list_committees(:member) == [member]
+    end
+
+    test "list_committees/1 returns committees with member_access" do
+      committee_fixture(%{
+        "name" => "public committee",
+        "volunteer_access" => false
+      })
+
+      member_committee =
+        committee_fixture(%{
+          "name" => "volunteer committee",
+          "volunteer_access" => true
+        })
+
+      user = user_fixture(%{"volunteer" => true})
+      _member = member_fixture(%{"user_id" => user.id, "committee_id" => member_committee.id})
+
+      assert Committees.list_committees(user.id) == [member_committee]
+    end
+
     test "get_committee!/1 returns the committee with given id" do
       committee = committee_fixture()
       assert Committees.get_committee!(committee.id).id == committee.id

@@ -17,11 +17,21 @@
 
 
 = for committee <- @committees do
-  .alert.alert-box
-    b = committee.name
-    br/
-    .auto-columns
-      = raw committee.description
+  .tile
+    .row
+      .column
+        b = committee.name
+        br/
+        .auto-columns
+          = raw committee.description
+    .row.mt-1
+      - if committee.public_access do
+        br/
+        = gettext("Public access")
+      - if committee.volunteer_access do
+        br/
+        = gettext("Volunteer access")
+      end
     .row.mt-1
       .column
         .float-right

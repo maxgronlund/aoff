@@ -40,8 +40,7 @@ defmodule AOFFWeb.ResendConfirmEmailController do
 
     confirm_email_url =
       AOFFWeb.Router.Helpers.url(conn) <>
-        conn.request_path <>
-        "/" <>
+        "/users/" <>
         user.password_reset_token <>
         "/confirm_email"
 

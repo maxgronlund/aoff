@@ -10,8 +10,43 @@ defmodule AOFFWeb.Committees.CommitteeController do
 
   def index(conn, _params) do
     conn = assign(conn, :selected_menu_item, :about_aoff)
-    committees = Committees.list_committees()
+    user = conn.assigns.current_user
+
+    committees =
+      public_committees()
+      |> member_committees(user)
+      |> volunteer_committees(user)
+      |> committee_member_committees(user)
+
     render(conn, "index.html", committees: committees)
+  end
+
+  defp public_committees() do
+    Committees.list_committees(:public)
+  end
+
+  defp member_committees(committees, user) do
+    if user do
+      Enum.uniq(committees ++ Committees.list_committees(:member))
+    else
+      committees
+    end
+  end
+
+  defp volunteer_committees(committees, user) do
+    if user && user.volunteer do
+      Enum.uniq(committees ++ Committees.list_committees(:volunteer))
+    else
+      committees
+    end
+  end
+
+  defp committee_member_committees(committees, user) do
+    if user do
+      Enum.uniq(committees ++ Committees.list_committees(user.id))
+    else
+      committees
+    end
   end
 
   def show(conn, %{"id" => id}) do

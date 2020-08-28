@@ -25,6 +25,18 @@ javascript:
           = error_tag f, :description
     .row
       .column
+        .form-group
+          = label f, :public_access do
+            = checkbox f, :public_access, class: "form-control"
+            = label f, :public_access, gettext("Public access"), class: "control-label label-inline"
+          = label f, :volunteer_access do
+            = checkbox f, :volunteer_access, class: "form-control"
+            = label f, :volunteer_access, gettext("Volunteer access"), class: "control-label label-inline"
+          = label f, :member_access do
+            = checkbox f, :member_access, class: "form-control"
+            = label f, :member_access, gettext("Member access"), class: "control-label label-inline"
+    .row
+      .column
         .form-group.mt-1
           .float-right
             = submit gettext("Save"), class: "btn btn-primary"
