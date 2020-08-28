@@ -6,7 +6,10 @@
       | &nbsp;
       = @category.title
 
-h2 = gettext("Edit %{category}", category: @category.title)
+.row
+  .column
+    h2 = gettext("Edit %{category}", category: @category.title)
+
 
 = render "form.html", Map.put(assigns, :action, Routes.volunteer_category_path(@conn, :update, @category))
 
