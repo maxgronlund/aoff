@@ -1707,6 +1707,35 @@ hr.double {
   font-style: italic;
 }
 
+#pointer {
+  width: 90%;
+  height: 80px;
+  position: relative;
+  background: #006912;
+  color: white;
+  padding:  15px;
+  margin-bottom: 10px;
+}
+
+#pointer:hover {
+  background: #003409;
+}
+
+#pointer:before {
+  content: "";
+  position: absolute;
+  right: -40px;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-left: 40px solid #006912;
+  border-top: 40px solid transparent;
+  border-bottom: 40px solid transparent;
+}
+
+#pointer:hover::before {
+  border-left: 40px solid #003409;
+}
 .card {
   background-color: white;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);

@@ -2,13 +2,16 @@
   .column
     .breadcrumb aria-label="breadcrumbs"
       ul
+        li
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
         li.is-active
           | &nbsp;
-          = gettext("Shop duties")
+          = gettext("Opening dates")
+
 .row
   .column
     .tilex
-      h2= gettext("Shop duties")
+      h2= gettext("Opening dates")
       p= gettext("Please select an opening date")
 
 .row

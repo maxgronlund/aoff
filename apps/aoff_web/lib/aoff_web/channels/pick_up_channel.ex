@@ -43,7 +43,7 @@ defmodule AOFFWeb.PickUpChannel do
 
     params = %{
       "mobile" => mobile,
-      "text" => "Hej #{user.username}. Husk at hente dine varer i dag inden kl 18:00"
+      "text" => pickup_message
     }
 
     AOFF.SMSApi.send_sms_message(params)

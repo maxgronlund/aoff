@@ -3,7 +3,7 @@
     li
       = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
     li
-      = link gettext("Orders"), to: Routes.volunteer_order_path(@conn, :index)
+      = link gettext("Invoices"), to: Routes.volunteer_order_path(@conn, :index)
     li.is-active
       | &nbsp;
       = @order.order_nr

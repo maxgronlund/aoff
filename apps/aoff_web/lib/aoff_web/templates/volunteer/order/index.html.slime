@@ -4,10 +4,10 @@
       = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
     li.is-active
       | &nbsp;
-      = gettext("Orders")
+      = gettext("Invoices")
 .row
   .column
-    h2 = gettext("Orders")
+    h2 = gettext("Invoices")
 .tile
   = form_for @conn, Routes.volunteer_order_path(@conn, :index), [method: :get], fn f ->
     .row
