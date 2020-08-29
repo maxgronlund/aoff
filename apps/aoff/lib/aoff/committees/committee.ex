@@ -14,6 +14,7 @@ defmodule AOFF.Committees.Committee do
     field :public_access, :boolean
     field :volunteer_access, :boolean
     field :member_access, :boolean
+    field :enable_meetings, :boolean
 
     has_many :members, Member
     has_many :meetings, Meeting
@@ -32,7 +33,8 @@ defmodule AOFF.Committees.Committee do
         :identifier,
         :public_access,
         :volunteer_access,
-        :member_access
+        :member_access,
+        :enable_meetings
       ]
     )
     |> validate_required([:name, :description])

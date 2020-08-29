@@ -23,7 +23,7 @@ javascript:
           = label f, :description, class: "control-label"
           = textarea f, :description, class: "form-control full-width"
           = error_tag f, :description
-    .row
+    .row.mt-1
       .column
         .form-group
           = label f, :public_access do
@@ -32,9 +32,14 @@ javascript:
           = label f, :volunteer_access do
             = checkbox f, :volunteer_access, class: "form-control"
             = label f, :volunteer_access, gettext("Volunteer access"), class: "control-label label-inline"
+      .column
+        .from-group
           = label f, :member_access do
             = checkbox f, :member_access, class: "form-control"
             = label f, :member_access, gettext("Member access"), class: "control-label label-inline"
+          = label f, :enable_meetings do
+            = checkbox f, :enable_meetings, class: "form-control"
+            = label f, :enable_meetings, gettext("Enable meetings"), class: "control-label label-inline"
     .row
       .column
         .form-group.mt-1

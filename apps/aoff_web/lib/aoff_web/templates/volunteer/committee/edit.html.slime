@@ -5,14 +5,12 @@
         li
           = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
         li
-          = link gettext("Committees"), to: Routes.volunteer_message_path(@conn, :index)
-        li
-          = link @committee.name, to: Routes.volunteer_message_path(@conn, :show, @committee)
+          = link gettext("Committees"), to: Routes.volunteer_committee_path(@conn, :index)
         li.is-active
           | &nbsp;
-          = gettext("Edit")
+          = gettext("Edit %{title}", title: @committee.name)
 
-h2 = gettext("Edit Committee")
+h2 = gettext("Edit %{title}", title: @committee.name)
 
 = render "form.html", Map.put(assigns, :action, Routes.volunteer_committee_path(@conn, :update, @committee))
 

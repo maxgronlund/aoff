@@ -7,7 +7,8 @@ defmodule AOFF.Committees.CommitteeFixture do
     "identifier" => "some committe identifier",
     "public_access" => true,
     "volunteer_access" => true,
-    "member_access" => true
+    "member_access" => true,
+    "enable_meetings" => true
   }
 
   @update_attrs %{
@@ -16,7 +17,8 @@ defmodule AOFF.Committees.CommitteeFixture do
     "identifire" => "some updated committee identifire",
     "public_access" => false,
     "volunteer_access" => false,
-    "member_access" => false
+    "member_access" => false,
+    "enable_meetings" => false
   }
 
   @invalid_attrs %{

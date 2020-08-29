@@ -20,32 +20,33 @@
 .tile
   .auto-columns
     = raw @committee.description
-.row
-  .column
-    h3 = gettext("Meetings")
-  = if committee_member(@committee, @current_user) || @admin do
+= if @committee.enable_meetings do
+  .row
     .column
-      = link gettext("New Meeting"),\
-        to: Routes.volunteer_committee_meeting_path(@conn, :new, @committee),\
-        class: "button float-right"
+      h3 = gettext("Meetings")
+    = if committee_member(@committee, @current_user) || @admin do
+      .column
+        = link gettext("New Meeting"),\
+          to: Routes.volunteer_committee_meeting_path(@conn, :new, @committee),\
+          class: "button float-right"
 
-= unless @committee.meetings == [] do
-  .tiles.button-tiles
-    = for meeting <- @committee.meetings do
-      .card.is-shady
-        .card-header-title.is-centered
-          = date_time(meeting)
-        .card-content
-          b = meeting.name
-          hr
-          = gettext("Address")
-          br/
-          = text_to_html meeting.location
-        .card-footer.is-button
-          = link gettext("Show"),\
-            to: Routes.committee_committee_meeting_path(@conn, :show, @committee, meeting),\
-            class: "card-footer-item is-button"
-br/
+  = unless @committee.meetings == [] do
+    .tiles.button-tiles
+      = for meeting <- @committee.meetings do
+        .card.is-shady
+          .card-header-title.is-centered
+            = date_time(meeting)
+          .card-content
+            b = meeting.name
+            hr
+            = gettext("Address")
+            br/
+            = text_to_html meeting.location
+          .card-footer.is-button
+            = link gettext("Show"),\
+              to: Routes.committee_committee_meeting_path(@conn, :show, @committee, meeting),\
+              class: "card-footer-item is-button"
+  br/
 .row.mt-1
   .column
     h3 = gettext("Committee members")
