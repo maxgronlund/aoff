@@ -66,8 +66,6 @@ defmodule AOFFWeb.Router do
     resources "/about", Content.AboutController, only: [:index, :show] do
       resources "/page", Content.PageController, only: [:show]
     end
-
-    resources "/news", Content.NewsController, only: [:index, :show]
   end
 
   scope "/admin", as: :admin do
@@ -144,7 +142,6 @@ defmodule AOFFWeb.Router do
     resources "/memberships", AOFFWeb.Volunteer.MembershipController,
       only: [:index, :edit, :update]
 
-    resources "/news", AOFFWeb.Volunteer.NewsController
     resources "/calendar", AOFFWeb.Volunteer.CalendarController
 
     resources "/orders", AOFFWeb.Volunteer.OrderController,
