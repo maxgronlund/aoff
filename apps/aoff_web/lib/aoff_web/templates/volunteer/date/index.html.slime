@@ -15,11 +15,13 @@
   .column
     = if @purchaser do
       = link gettext("New opening date"), to: Routes.volunteer_date_path(@conn, :new), class: "button"
+      |&nbsp;
+      = link gettext("Arhcive"), to: Routes.shop_assistant_date_path(@conn, :index),
+        class: "button"
     .float-right
       | &nbsp;
       = render "pagination.html", assigns
-/ = if @admin do
-/   = link "Seed dates", to: Routes.shop_date_path(@conn, :index), class: "button"
+
 
 
 .tiles.tiles-button

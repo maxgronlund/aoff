@@ -1,10 +1,11 @@
-
 .row
   .column
     .breadcrumb aria-label="breadcrumbs"
       ul
         li
-          = link gettext("Shop duties"), to: Routes.shop_assistant_date_path(@conn, :index)
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+        li
+          = link gettext("Schedules"), to: Routes.volunteer_date_path(@conn, :index)
         li.is-active
           | &nbsp;
           = raw date(@date.date)
@@ -28,11 +29,12 @@
         class: "button button-outline",\
         disabled: "disable"
   .column
-    = link gettext("Hosts"), to: "#hosts", class: "button-outline button"
-    | &nbsp;
-    = link gettext("Order list"),\
-      to: Routes.shop_assistant_order_list_path(@conn, :show, @date),\
-      class: "button button-outline"
+    .pull-right
+      = link gettext("Hosts"), to: "#hosts", class: "button-outline button"
+      | &nbsp;
+      = link gettext("Order list"),\
+        to: Routes.shop_assistant_order_list_path(@conn, :show, @date),\
+        class: "button button-outline"
 hr/
 .row
   .column
@@ -124,8 +126,6 @@ h3 = gettext("Hosts")
 .row
   .column
     .float-right
-      = link gettext("Edit"), to: Routes.shop_assistant_date_path(@conn, :edit, @date), class: "button"
-      | &nbsp;
       = link gettext("Back to top"), to: "#top", class: "button button-outline"
 
 

@@ -157,8 +157,6 @@ defmodule AOFFWeb.Router do
       resources "/members", AOFFWeb.Volunteer.MemberController, except: [:index, :show]
       resources "/meetings", AOFFWeb.Volunteer.MeetingController, except: [:index, :show]
     end
-
-    resources "/news", AOFFWeb.Volunteer.NewsController, except: [:index, :show]
   end
 
   # Other scopes may use custom stacks.

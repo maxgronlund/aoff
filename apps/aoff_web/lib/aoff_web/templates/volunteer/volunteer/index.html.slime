@@ -11,9 +11,6 @@
 
 .row
   .column
-    / = link to: Routes.shop_assistant_date_path(@conn, :index) do
-    /   #pointer
-    /     h1 = gettext("Pickup lists")
     = link to: Routes.volunteer_user_path(@conn, :index) do
       #pointer
         h2 = gettext("Users")
@@ -43,6 +40,8 @@
       = link to: Routes.volunteer_committee_path(@conn, :index) do
         #pointer
           h2 = gettext("Committees")
+
+
 
 
 
@@ -135,17 +134,6 @@
 /             = @messages.title
 /         .card-content
 /           p = raw @messages.text
-/         .card-footer.is-button
-/           .card-footer-item.is-button
-/             = gettext("Go to")
-
-/     .card.is-shady
-/       = link to: Routes.volunteer_news_path(@conn, :index) do
-/         .card-header
-/           .card-header-title.is-centered
-/             = @news.title
-/         .card-content
-/           p = raw @news.text
 /         .card-footer.is-button
 /           .card-footer-item.is-button
 /             = gettext("Go to")

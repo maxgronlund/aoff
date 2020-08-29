@@ -9,7 +9,7 @@ defmodule AOFFWeb.ShopAssistant.DateController do
   plug :authenticate when action in [:index, :show, :edit, :update]
   plug :navbar when action in [:index]
 
-  @dates_pr_page 4
+  @dates_pr_page 12
 
   def index(conn, params) do
     page =
@@ -39,6 +39,7 @@ defmodule AOFFWeb.ShopAssistant.DateController do
       conn
       |> put_session(:shop_assistant_date_id, date.id)
       |> assign(:title, gettext("Shop duty"))
+      |> assign(:selected_menu_item, :shop)
 
     pick_ups =
       if query do

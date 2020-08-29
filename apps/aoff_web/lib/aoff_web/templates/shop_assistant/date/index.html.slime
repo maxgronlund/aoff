@@ -4,14 +4,16 @@
       ul
         li
           = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+        li
+          = link gettext("Schedules"), to: Routes.volunteer_date_path(@conn, :index)
         li.is-active
           | &nbsp;
-          = gettext("Opening dates")
+          = gettext("Arhcive")
 
 .row
   .column
     .tilex
-      h2= gettext("Opening dates")
+      h2= gettext("Arhcive")
       p= gettext("Please select an opening date")
 
 .row
