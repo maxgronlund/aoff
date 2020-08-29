@@ -30,7 +30,8 @@
         = search_input f,\
           :query,\
           placeholder: gettext("Username / Member Nr. / email"),\
-          class: "full-width"
+          class: "full-width",\
+          autofocus: true
         = hidden_input f, :page, value: "1"
         br
 

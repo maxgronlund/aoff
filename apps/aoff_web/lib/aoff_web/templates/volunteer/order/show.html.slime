@@ -8,7 +8,7 @@
       | &nbsp;
       = @order.order_nr
 
-.tile.is-header
+.tile
   .row
     .column
       h2 = gettext("Invoice id# %{order_nr}", order_nr: @order.order_nr)

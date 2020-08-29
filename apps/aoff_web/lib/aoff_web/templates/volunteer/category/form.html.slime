@@ -29,7 +29,7 @@ javascript:
               to: Routes.volunteer_message_path(@conn, :edit, @image_format, %{"request_url" => @conn.request_path})
     .form-group
       = label f, :title, gettext("Title"), class: "control-label"
-      = text_input f, :title, class: "form-control full-width"
+      = text_input f, :title, autofocus: true, class: "form-control full-width"
       = error_tag f, :title
     .form-group
       = label f, :description, gettext("Description"), class: "control-label"
@@ -50,6 +50,8 @@ javascript:
       .column
         .form-group.mt-1
           .float-right
+            = link gettext("Cancel"), to: Routes.about_path(@conn, :index), class: "button button-outline"
+            |&nbsp;
             = submit gettext("Save"), class: "button"
           | &nbsp;
           br/

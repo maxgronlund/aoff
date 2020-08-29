@@ -23,14 +23,24 @@
   .tile
     .row
       .column
-        h3 = category.title
+        = if category.publish do
+          h3 = category.title
+        - else
+          .red
+            h3
+              = category.title
+              |&nbsp;
+              = gettext("(%{state})", state: "Hidden")
     .row
       .column
         .float-right
+          = link gettext("Show"),\
+              to: Routes.about_path(@conn, :show, category),\
+              class: "button"
           = if @admin do
             | &nbsp;
             = link gettext("Delete"),\
-              to: Routes.volunteer_category_path(@conn, :edit, category),\
+              to: Routes.volunteer_category_path(@conn, :delete, category),\
               method: :delete,\
               data: [confirm: gettext("Are you sure? All articles in this categotry will be gone.")],\
               class: "button button-red"

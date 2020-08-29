@@ -6,7 +6,7 @@ h2 = gettext("Login")
     .row
       .column
         = label f, :email, gettext("Email"), class: "label"
-        = email_input f, :email, placeholder: gettext("Email"), class: "input full-width"
+        = email_input f, :email, placeholder: gettext("Email"), class: "input full-width", autofocus: true
         .pt-1
         = label f, :password, gettext("Password"), class: "label"
         = password_input f, :password, placeholder: gettext("Password"), class: "input full-width"

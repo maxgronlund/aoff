@@ -6,169 +6,11 @@ defmodule AOFF.Content do
   import Ecto.Query, warn: false
   alias AOFF.Repo
 
-  alias AOFF.Content.News
-
-  @doc """
-  Returns the list of published news for the selected language ordered by date.
-
-  ## Examples
-
-      iex> list_news()
-      [%News{}, ...]
-
-      iex> latest_news()
-      []
-
-  """
-  def list_news do
-    query =
-      from n in News,
-        where: n.locale == ^Gettext.get_locale() and n.publish == ^true,
-        order_by: [desc: n.date]
-
-    Repo.all(query)
-  end
-
-  @doc """
-  Returns a list of all news for the selected language ordered by date.
-
-  ## Examples
-
-      iex> list_news()
-      [%News{}, ...]
-
-      iex> latest_news()
-      []
-
-  """
-  def list_news(:all) do
-    query =
-      from n in News,
-        where: n.locale == ^Gettext.get_locale(),
-        order_by: [desc: n.date]
-
-    Repo.all(query)
-  end
-
-  @doc """
-  Gets the latest news for the selected language ordered by date.
-
-  Return [] if no News exist.
-
-  ## Examples
-
-      iex> latest_news()
-      [%News{}]
-
-      iex> latest_news()
-      []
-
-  """
-  def latest_news() do
-    query =
-      from n in News,
-        where: n.locale == ^Gettext.get_locale() and n.publish == ^true,
-        order_by: [desc: n.date],
-        limit: 3
-
-    Repo.all(query)
-  end
-
-  @doc """
-  Gets a single news.
-
-  Raises `Ecto.NoResultsError` if the News does not exist.
-
-  ## Examples
-
-      iex> get_news!(123)
-      %News{}
-
-      iex> get_news!(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def get_news!(id) do
-    query =
-      from n in News,
-        where: n.id == ^id and n.locale == ^Gettext.get_locale(),
-        limit: 1
-
-    Repo.one(query)
-  end
-
-  @doc """
-  Creates a news.
-
-  ## Examples
-
-      iex> create_news(%{field: value})
-      {:ok, %News{}}
-
-      iex> create_news(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def create_news(attrs \\ %{}) do
-    attrs = Map.put(attrs, "locale", Gettext.get_locale())
-
-    %News{}
-    |> News.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  @doc """
-  Updates a news.
-
-  ## Examples
-
-      iex> update_news(news, %{field: new_value})
-      {:ok, %News{}}
-
-      iex> update_news(news, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_news(%News{} = news, attrs) do
-    news
-    |> News.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Deletes a news.
-
-  ## Examples
-
-      iex> delete_news(news)
-      {:ok, %News{}}
-
-      iex> delete_news(news)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_news(%News{} = news) do
-    Repo.delete(news)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking news changes.
-
-  ## Examples
-
-      iex> change_news(news)
-      %Ecto.Changeset{source: %News{}}
-
-  """
-  def change_news(%News{} = news) do
-    News.changeset(news, %{})
-  end
-
   alias AOFF.Content.Category
   alias AOFF.Content.Page
 
   @doc """
-  Returns the list of categorys.
+  Returns the list of published categorys.
 
   ## Examples
 
@@ -179,7 +21,26 @@ defmodule AOFF.Content do
   def list_categories() do
     query =
       from c in Category,
-        where: c.locale == ^Gettext.get_locale() and not (c.publish == false),
+        where: c.locale == ^Gettext.get_locale() and (c.publish == true),
+        order_by: [desc: c.position]
+
+    query
+    |> Repo.all()
+  end
+
+  @doc """
+  Returns the list of all categorys.
+
+  ## Examples
+
+      iex> list_categorys()
+      [%Category{}, ...]
+
+  """
+  def list_categories(:all) do
+    query =
+      from c in Category,
+        where: c.locale == ^Gettext.get_locale(),
         order_by: [desc: c.position]
 
     query

@@ -51,7 +51,7 @@ javascript:
       .column
         .form-group
           = label f, :title, gettext("Title"), class: "control-label"
-          = text_input f, :title, class: "form-control full-width"
+          = text_input f, :title, autofocus: true, class: "form-control full-width"
           = error_tag f, :title
       .column
         .form-group

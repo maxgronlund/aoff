@@ -1,3 +1,0 @@
-h2 = gettext("Edit News")
-
-= render "form.html", Map.put(assigns, :action, Routes.volunteer_news_path(@conn, :update, @news))

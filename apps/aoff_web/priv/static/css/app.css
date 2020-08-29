@@ -993,6 +993,14 @@ input[type='submit'].button-outline:hover {
   border-color: red;
 }
 
+.button-red:hover,
+input[type='button'].button-red:hover,
+input[type='reset'].button-red:hover,
+input[type='submit'].button-red:hover {
+  background-color: #af0000;
+  border-color: #af0000;
+}
+
 .button-red.button-clear,
 .button-red.button-outline {
   background-color: transparent;

@@ -13,6 +13,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
   plug :navbar when action in [:index, :new, :edit]
 
   def index(conn, _params) do
+    conn = assign(conn, :selected_menu_item, :volunteer)
     {:ok, help_text} =
       System.find_or_create_message(
         "/volunteer/categories",
@@ -20,7 +21,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
         Gettext.get_locale()
       )
 
-    categories = Content.list_categories()
+    categories = Content.list_categories(:all)
     render(conn, "index.html", categories: categories, help_text: help_text)
   end
 
@@ -124,7 +125,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
 
   defp navbar(conn, _opts) do
     conn
-    |> assign(:selected_menu_item, :volunteer)
+    |> assign(:selected_menu_item, :about_aoff)
     |> assign(:title, gettext("About AOFF"))
   end
 
