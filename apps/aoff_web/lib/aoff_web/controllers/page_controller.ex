@@ -22,7 +22,6 @@ defmodule AOFFWeb.PageController do
 
     date = Shop.get_next_date(AOFF.Time.today())
     products = Shop.get_products_for_landing_page()
-    latest_news = Content.latest_news()
     conn = assign(conn, :backdrop, :show)
     conn = assign(conn, :selected_menu_item, :home)
 
@@ -30,7 +29,6 @@ defmodule AOFFWeb.PageController do
       products: products,
       date: date,
       message: message,
-      latest_news: latest_news,
       this_weeks_bag: this_weeks_bag,
       products_ordered: Shop.products_ordered(),
       featured_pages: Content.featured_pages()
