@@ -15,7 +15,7 @@ defmodule AOFFWeb.ShopAssistant.DateControllerTest do
              )
     setup do
       user = user_fixture(%{"shop_assistant" => true})
-      _date = date_fixture()
+      date = date_fixture()
 
       conn =
         build_conn()
@@ -24,12 +24,17 @@ defmodule AOFFWeb.ShopAssistant.DateControllerTest do
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
 
-      {:ok, conn: conn, user: user}
+      {:ok, conn: conn, user: user, date: date}
     end
 
     test "lists all dates", %{conn: conn} do
       conn = get(conn, Routes.shop_assistant_date_path(conn, :index))
-      assert html_response(conn, 200) =~ gettext("Shop duties")
+      assert html_response(conn, 200) =~ gettext("Arhcive")
+    end
+
+    test "show date", %{conn: conn, date: date} do
+      conn = get(conn, Routes.shop_assistant_date_path(conn, :show, date))
+      assert = html_response(conn, 200) =~ gettext("Schedules")
     end
 
     # test "renders new product form", %{conn: conn} do
