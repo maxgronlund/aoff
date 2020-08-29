@@ -49,16 +49,13 @@ defmodule AOFF.Content do
 
   @doc """
   Gets a single category.
-
-  Raises `Ecto.NoResultsError` if the News does not exist.
-
   ## Examples
 
       iex> get_category!(123)
       %Page{}
 
       iex> get_category!(456)
-      ** (Ecto.NoResultsError)
+      ** nil
 
   """
   def get_category!(title) do
@@ -76,15 +73,13 @@ defmodule AOFF.Content do
   @doc """
   Gets a single category.
 
-  Raises `Ecto.NoResultsError` if the News does not exist.
-
   ## Examples
 
       iex> get_category!(123)
       %Page{}
 
       iex> get_category!(456)
-      ** (Ecto.NoResultsError)
+      ** nil
 
   """
   def get_category!(:all, title) do
