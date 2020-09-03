@@ -60,7 +60,7 @@
 = if @meeting.agenda do
   .row
     .column
-      h3 = gettext("Meeting agenda")
+      h3#agenda = gettext("Meeting agenda")
   .row
     .column
       .tile
@@ -69,7 +69,7 @@
 = if @meeting.summary do
   .row
     .column
-      h3 = gettext("Meeting summary")
+      h3#minutes = gettext("Meeting summary")
   .row
     .column
       .tile
