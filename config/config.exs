@@ -110,3 +110,6 @@ config :aoff_web,
   navbar: [
     link: "Calendar"
   ]
+
+config :aoff_web,
+  association: "AOFF"

@@ -1,0 +1,21 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("Admin"), to: Routes.admin_admin_path(@conn, :index)
+    li
+      = link gettext("Associations"), to: Routes.admin_association_path(@conn, :index)
+    li.is-active
+      = @association.name
+
+
+
+h2 = @association.name
+
+ul
+  li
+    strong Name:&nbsp;
+    = @association.name
+
+= link "Edit", to: Routes.admin_association_path(@conn, :edit, @association)
+| &nbsp;
+= link "Back", to: Routes.admin_association_path(@conn, :index)

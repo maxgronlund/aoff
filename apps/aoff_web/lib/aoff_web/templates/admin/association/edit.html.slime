@@ -1,0 +1,17 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("Admin"), to: Routes.admin_admin_path(@conn, :index)
+    li
+      = link gettext("Associations"), to: Routes.admin_association_path(@conn, :index)
+    li
+      = link @association.name, to: Routes.admin_association_path(@conn, :show, @association)
+    li.is-active
+      | &nbsp;
+      = gettext("Edit")
+
+h2 = gettext("Edit Association")
+
+= render "form.html", Map.put(assigns, :action, Routes.admin_association_path(@conn, :update, @association))
+
+/= link "Back", to: Routes.admin_association_path(@conn, :index)

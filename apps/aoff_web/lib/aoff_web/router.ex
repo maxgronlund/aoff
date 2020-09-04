@@ -73,6 +73,7 @@ defmodule AOFFWeb.Router do
     get "/", AOFFWeb.Admin.AdminController, :index
     resources "/users", AOFFWeb.Admin.UserController
     live_dashboard "/dashboard", metrics: AOFF.Web.Telemetry
+    resources "/associations", AOFFWeb.Admin.AssociationController
   end
 
   scope "/committee", as: :committee do

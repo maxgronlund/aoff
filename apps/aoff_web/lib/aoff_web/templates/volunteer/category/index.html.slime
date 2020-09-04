@@ -30,7 +30,7 @@
             h3
               = category.title
               |&nbsp;
-              = gettext("(%{state})", state: "Hidden")
+              = gettext("Hidden")
     .row
       .column
         .float-right

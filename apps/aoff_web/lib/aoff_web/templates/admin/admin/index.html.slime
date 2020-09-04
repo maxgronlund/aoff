@@ -12,4 +12,7 @@ h2 = gettext("Admin")
     = link to: Routes.volunteer_membership_path(@conn, :index) do
       #pointer
         h2 = gettext("Memberships")
+    = link to: Routes.admin_association_path(@conn, :index) do
+      #pointer
+        h2 = gettext("Associations")
 
