@@ -58,7 +58,7 @@ defmodule AOFFWeb.Volunteer.CommitteeControllerTest do
     } do
       committee = committee_fixture()
       conn = get(conn, Routes.volunteer_committee_path(conn, :edit, committee))
-      assert html_response(conn, 200) =~ gettext("Edit Committee")
+      assert html_response(conn, 200) =~ gettext("Edit %{title}", title: committee.name)
     end
 
     test "update committee redirects when data is valid", %{conn: conn} do
@@ -83,7 +83,7 @@ defmodule AOFFWeb.Volunteer.CommitteeControllerTest do
       conn =
         put(conn, Routes.volunteer_committee_path(conn, :update, committee), committee: attrs)
 
-      assert html_response(conn, 200) =~ gettext("Edit Committee")
+      assert html_response(conn, 200) =~ gettext("Edit %{title}", title: committee.name)
     end
 
     test "delete committee deletes chosen committee", %{conn: conn} do

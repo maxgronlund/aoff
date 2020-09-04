@@ -26,7 +26,7 @@ defmodule AOFFWeb.Admin.AssociationControllerTest do
       conn =
         using_basic_auth(conn, @username, @password)
         |> get(Routes.admin_association_path(conn, :new))
-      assert html_response(conn, 200) =~ "New Association"
+      assert html_response(conn, 200) =~  gettext("New Association")
     end
   end
 
@@ -50,18 +50,20 @@ defmodule AOFFWeb.Admin.AssociationControllerTest do
         using_basic_auth(conn, @username, @password)
         |> post(Routes.admin_association_path(conn, :create), association: attrs)
 
-      assert html_response(conn, 200) =~ "New Association"
+      assert html_response(conn, 200) =~ gettext("New Association")
     end
   end
 
-  # describe "edit association" do
-  #   setup [:create_association]
+  describe "edit association" do
+    test "renders form for editing chosen association", %{conn: conn} do
+      association = association_fixture()
 
-  #   test "renders form for editing chosen association", %{conn: conn, association: association} do
-  #     conn = get(conn, Routes.admin_association_path(conn, :edit, association))
-  #     assert html_response(conn, 200) =~ "Edit Association"
-  #   end
-  # end
+      conn =
+        using_basic_auth(conn, @username, @password)
+        |> get(Routes.admin_association_path(conn, :edit, association))
+      assert html_response(conn, 200) =~ gettext("Edit Association")
+    end
+  end
 
   # describe "update association" do
   #   setup [:create_association]
