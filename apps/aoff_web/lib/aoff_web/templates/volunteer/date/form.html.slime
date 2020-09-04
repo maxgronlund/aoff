@@ -18,6 +18,17 @@
           = label f, :open do
             = checkbox f, :open, class: "form-control"
             = label f, :open, gettext("Open"),class: "control-label label-inline"
+      .column
+        .alert.alert-box
+          .row
+            .column
+              .form-group
+                = label f, :open_from, gettext("Open from"), class: "control-label"
+                = time_select f, :open_from, class: "form-control"
+            .column
+              .form-group
+                = label f, :close_at, gettext("Close at"), class: "control-label"
+                = time_select f, :close_at, class: "form-control"
     .row
       .column
         .alert.alert-box

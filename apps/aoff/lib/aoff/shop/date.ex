@@ -5,6 +5,7 @@ defmodule AOFF.Shop.Date do
 
   alias AOFF.Shop.PickUp
   alias AOFF.Uploader.Image
+  alias AOFF.User
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -19,9 +20,14 @@ defmodule AOFF.Shop.Date do
     field :late_shift_to, :time, default: ~T[18:00:00]
     field :shop_assistant_a, :binary
     field :shop_assistant_b, :binary
+    # field :early_apprentice, :binary
     field :shop_assistant_c, :binary
     field :shop_assistant_d, :binary
+    # field :late_apprentice, :binary
+    field :open_from, :time, default: ~T[16:00:00]
+    field :close_at, :time, default: ~T[18:00:00]
     has_many :pick_ups, PickUp
+    # belongs_to :shop_assistant_a, User
 
     timestamps()
   end
@@ -39,8 +45,12 @@ defmodule AOFF.Shop.Date do
       :late_shift_to,
       :shop_assistant_a,
       :shop_assistant_b,
+      # :early_apprentice,
       :shop_assistant_c,
-      :shop_assistant_d
+      :shop_assistant_d,
+      # :late_apprentice,
+      :open_from,
+      :close_at
     ])
     |> validate_required([
       :date,

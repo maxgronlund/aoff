@@ -1792,6 +1792,13 @@ hr.double {
   padding: 1.5rem;
 }
 
+.card-content.is-centered {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: -10px;
+}
+
 .card-content a {
   color: #606c76;
 }

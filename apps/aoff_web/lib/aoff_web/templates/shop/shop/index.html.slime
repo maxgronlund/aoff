@@ -5,9 +5,12 @@ h2= gettext("Please select a pickup date")
   = for date <- @dates do
     .card.is-shady
       = link to: Routes.shop_date_path(@conn, :show, date) do
+
         = if date.open do
           .card-header-title.is-centered
             = date(date.date)
+          .card-content.is-centered
+            = gettext("Open from %{from} to %{to}", from: date.open_from, to: date.close_at)
         - else
           .card-header-title.is-centered.is-red
             = gettext("%{date} - closed", date: date(date.date))
