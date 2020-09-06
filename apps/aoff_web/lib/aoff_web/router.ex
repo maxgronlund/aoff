@@ -84,6 +84,10 @@ defmodule AOFFWeb.Router do
     end
   end
 
+  scope "/events", as: :events do
+    resources "/participant", AOFFWeb.Events.ParticipantController, only: [:create, :delete]
+  end
+
   scope "/purchaser", as: :purchaser do
     pipe_through :browser
     get "/", AOFFWeb.Purchaser.PurchaserController, :index

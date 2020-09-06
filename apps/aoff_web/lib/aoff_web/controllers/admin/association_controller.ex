@@ -8,6 +8,7 @@ defmodule AOFFWeb.Admin.AssociationController do
   def index(conn, _params) do
     aoff = Admin.find_or_create_association("AOFF")
     associations = Admin.list_associations()
+
     render(
       conn,
       "index.html",
@@ -17,6 +18,7 @@ defmodule AOFFWeb.Admin.AssociationController do
 
   def new(conn, _params) do
     changeset = Admin.change_association(%Association{})
+
     render(
       conn,
       "new.html",
@@ -50,6 +52,7 @@ defmodule AOFFWeb.Admin.AssociationController do
   def edit(conn, %{"id" => id}) do
     association = Admin.get_association!(id)
     changeset = Admin.change_association(association)
+
     render(
       conn,
       "edit.html",

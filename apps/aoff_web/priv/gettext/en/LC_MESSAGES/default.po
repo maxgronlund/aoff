@@ -52,7 +52,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/controllers/content/about_controller.ex:50
-#: lib/aoff_web/controllers/volunteers/category_controller.ex:129 lib/aoff_web/templates/committees/committee/index.html.slime:1
+#: lib/aoff_web/controllers/volunteers/category_controller.ex:130 lib/aoff_web/templates/committees/committee/index.html.slime:1
 #: lib/aoff_web/templates/committees/committee/show.html.slime:1 lib/aoff_web/templates/committees/meeting/show.html.slime:1
 #: lib/aoff_web/templates/content/about/show.html.slime:1 lib/aoff_web/templates/content/page/show.html.slime:1
 #: lib/aoff_web/templates/layout/navbar.html.slime:1 lib/aoff_web/templates/volunteer/category/edit.html.slime:1
@@ -225,7 +225,7 @@ msgid "Categories"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/controllers/volunteers/category_controller.ex:79
+#: lib/aoff_web/controllers/volunteers/category_controller.ex:80
 msgid "Category updated successfully."
 msgstr ""
 
@@ -683,7 +683,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/controllers/content/about_controller.ex:37
-#: lib/aoff_web/controllers/content/calendar_controller.ex:26 lib/aoff_web/controllers/content/page_controller.ex:10
+#: lib/aoff_web/controllers/content/calendar_controller.ex:29 lib/aoff_web/controllers/content/page_controller.ex:10
 #: lib/aoff_web/controllers/volunteers/message_controller.ex:37
 msgid "Language updated"
 msgstr ""
@@ -1181,7 +1181,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/controllers/volunteers/calendar_controller.ex:33
-#: lib/aoff_web/controllers/volunteers/category_controller.ex:37 lib/aoff_web/controllers/volunteers/page_controller.ex:67
+#: lib/aoff_web/controllers/volunteers/category_controller.ex:38 lib/aoff_web/controllers/volunteers/page_controller.ex:67
 msgid "Please update the default image."
 msgstr ""
 
@@ -1262,8 +1262,8 @@ msgid "Products"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/volunteer/category/form.html.slime:9
-#: lib/aoff_web/templates/volunteer/page/form.html.slime:12
+#: lib/aoff_web/templates/volunteer/calendar/form.html.slime:12
+#: lib/aoff_web/templates/volunteer/category/form.html.slime:9 lib/aoff_web/templates/volunteer/page/form.html.slime:12
 msgid "Publish"
 msgstr ""
 
@@ -1551,7 +1551,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/controllers/volunteers/calendar_controller.ex:67
-#: lib/aoff_web/controllers/volunteers/category_controller.ex:68 lib/aoff_web/controllers/volunteers/page_controller.ex:99
+#: lib/aoff_web/controllers/volunteers/category_controller.ex:69 lib/aoff_web/controllers/volunteers/page_controller.ex:99
 msgid "The category for the selected language does not exist."
 msgstr ""
 
@@ -1954,17 +1954,37 @@ msgstr ""
 msgid "select volunteer"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/volunteer/date/form.html.slime:1
 msgid "Close at"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/volunteer/date/form.html.slime:1
 msgid "Open from"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/shop/shop/index.html.slime:1
 msgid "Open from %{from} to %{to}"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/volunteer/calendar/form.html.slime:12
+msgid "Event with signup"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/content/calendar/show.html.slime:5
+msgid "I cant come"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/content/calendar/show.html.slime:5
+msgid "Registration"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/content/calendar/participat_form.html.slime:1
+msgid "Sign up to event"
 msgstr ""

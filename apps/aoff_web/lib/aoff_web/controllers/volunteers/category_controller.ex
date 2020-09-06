@@ -14,6 +14,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
 
   def index(conn, _params) do
     conn = assign(conn, :selected_menu_item, :volunteer)
+
     {:ok, help_text} =
       System.find_or_create_message(
         "/volunteer/categories",

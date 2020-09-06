@@ -21,7 +21,7 @@ defmodule AOFF.Content do
   def list_categories() do
     query =
       from c in Category,
-        where: c.locale == ^Gettext.get_locale() and (c.publish == true),
+        where: c.locale == ^Gettext.get_locale() and c.publish == true,
         order_by: [desc: c.position]
 
     query

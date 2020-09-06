@@ -35,3 +35,32 @@
     .column
       .auto-columns
         = raw(@page.text)
+= if @page.signup_to_event do
+  h3 = gettext("Registration")
+  = if @changeset && !@participant do
+    = render "participat_form.html", Map.put(assigns, :action, Routes.events_participant_path(@conn, :create))
+
+  = if @participant do
+    = link gettext("I cant come"), \
+      to: Routes.events_participant_path(@conn, :delete, @participant),\
+      method: :delete,
+      class: "button button-outline button-xlarge button-full-width"
+
+  .tiles
+    = for participant <- @participants do
+      - user = participant.user
+      .card.is-shady
+        .card-header
+          .card-header-title.is-centered
+            = user.username
+        .card-image
+          = img_tag AOFF.Uploader.Image.url({user.avatar, user}, :thumb)
+        = if @volunteer do
+          .card-content
+            = user.email
+
+
+
+
+
+

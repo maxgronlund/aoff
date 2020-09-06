@@ -1,5 +1,6 @@
 defmodule AOFF.Admin.AssociationFixture do
   alias AOFF.Admin
+
   @valid_attrs %{
     "name" => "some name",
     "contact_person_1" => "some contact person 1",
@@ -33,6 +34,7 @@ defmodule AOFF.Admin.AssociationFixture do
       attrs
       |> Enum.into(@valid_attrs)
       |> Admin.create_association()
+
     association
   end
 end

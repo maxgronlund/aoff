@@ -6,6 +6,7 @@ defmodule AOFF.Users.User do
   alias AOFF.Users.Order
   alias AOFF.Shop.PickUp
   alias AOFF.Uploader.Image
+  alias AOFF.Events.Participant
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -34,6 +35,8 @@ defmodule AOFF.Users.User do
 
     has_many :orders, Order
     has_many :pick_ups, PickUp
+    has_many :participants, Participant
+
     # has_many :meetings, AOFF.Committees.Meeting
 
     timestamps()

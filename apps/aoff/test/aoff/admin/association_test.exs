@@ -8,7 +8,6 @@ defmodule AOFF.Admin.AssociationTest do
   describe "associations" do
     alias AOFF.Admin.Association
 
-
     test "list_associations/0 returns all associations" do
       association = association_fixture()
       assert List.first(Admin.list_associations()).id == association.id

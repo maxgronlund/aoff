@@ -37,7 +37,6 @@ defmodule AOFF.Admin do
   """
   def get_association!(id), do: Repo.get!(Association, id)
 
-
   @doc """
   Gets a association by name.
   ## Examples
@@ -50,12 +49,13 @@ defmodule AOFF.Admin do
   def find_or_create_association(name) do
     query =
       from a in Association,
-      where: a.name==^name,
-      limit: 1
+        where: a.name == ^name,
+        limit: 1
 
     case Repo.one(query) do
       nil ->
         create_association(%{"name" => name})
+
       %Association{} = association ->
         {:ok, association}
     end

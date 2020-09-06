@@ -91,8 +91,4 @@ javascript:
       .column
         .form-group
           .float-right
-            /= link gettext("Cancel"),\
-            /  to: Routes.volunteer_category_path(@conn, :show, @category),\
-            /  class: "button button-outline"
-            /| &nbsp;
             = submit gettext("Save"), class: "btn btn-primary"

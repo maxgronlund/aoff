@@ -4,7 +4,7 @@
     .alert.alert-danger
       p = gettext("Oops, something went wrong! Please check the errors below.")
 
-  = if @volunteer && @user do
+  = if @user do
 
     .tile
       .row

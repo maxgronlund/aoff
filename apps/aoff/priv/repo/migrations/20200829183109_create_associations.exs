@@ -13,8 +13,6 @@ defmodule AOFF.Repo.Migrations.CreateAssociations do
       timestamps()
     end
 
-
     create unique_index(:associations, [:name])
-
   end
 end

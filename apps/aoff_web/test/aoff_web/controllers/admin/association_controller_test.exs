@@ -11,12 +11,12 @@ defmodule AOFFWeb.Admin.AssociationControllerTest do
     conn |> put_req_header("authorization", header_content)
   end
 
-
   describe "index" do
     test "lists all associations", %{conn: conn} do
       conn =
         using_basic_auth(conn, @username, @password)
         |> get(Routes.admin_association_path(conn, :index))
+
       assert html_response(conn, 200) =~ gettext("Associations")
     end
   end
@@ -26,13 +26,15 @@ defmodule AOFFWeb.Admin.AssociationControllerTest do
       conn =
         using_basic_auth(conn, @username, @password)
         |> get(Routes.admin_association_path(conn, :new))
-      assert html_response(conn, 200) =~  gettext("New Association")
+
+      assert html_response(conn, 200) =~ gettext("New Association")
     end
   end
 
   describe "create association" do
     test "redirects to show when data is valid", %{conn: conn} do
       attrs = association_attrs()
+
       conn =
         using_basic_auth(conn, @username, @password)
         |> post(Routes.admin_association_path(conn, :create), association: attrs)
@@ -46,6 +48,7 @@ defmodule AOFFWeb.Admin.AssociationControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn} do
       attrs = invalid_association_attrs()
+
       conn =
         using_basic_auth(conn, @username, @password)
         |> post(Routes.admin_association_path(conn, :create), association: attrs)
@@ -61,6 +64,7 @@ defmodule AOFFWeb.Admin.AssociationControllerTest do
       conn =
         using_basic_auth(conn, @username, @password)
         |> get(Routes.admin_association_path(conn, :edit, association))
+
       assert html_response(conn, 200) =~ gettext("Edit Association")
     end
   end
@@ -93,5 +97,4 @@ defmodule AOFFWeb.Admin.AssociationControllerTest do
   #     end
   #   end
   # end
-
 end

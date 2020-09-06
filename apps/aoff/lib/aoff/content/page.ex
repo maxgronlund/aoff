@@ -5,6 +5,7 @@ defmodule AOFF.Content.Page do
 
   alias AOFF.Uploader.Image
   alias AOFF.Content.Category
+  alias AOFF.Events.Participant
   @derive {Phoenix.Param, key: :title}
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -22,7 +23,11 @@ defmodule AOFF.Content.Page do
     field :locale, :string, default: "da"
     field :position, :integer, default: 0
     field :publish, :boolean, default: true
+    field :signup_to_event, :boolean, default: false
     belongs_to :category, Category
+
+    has_many :participants, Participant
+    # has_many :participants_users, through: [:participants, :user]
     timestamps()
   end
 
@@ -41,7 +46,8 @@ defmodule AOFF.Content.Page do
       :show_on_landing_page,
       :locale,
       :position,
-      :publish
+      :publish,
+      :signup_to_event
     ])
     |> cast_attachments(attrs, [:image])
     |> validate_required([

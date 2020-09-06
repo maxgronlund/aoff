@@ -10,7 +10,8 @@ defmodule AOFF.Content.PageFixture do
     "teaser" => "some teaser",
     "tag" => "some tag",
     "text" => "some text",
-    "position" => 1
+    "position" => 1,
+    "signup_to_event" => false
   }
 
   @update_attrs %{
@@ -22,7 +23,8 @@ defmodule AOFF.Content.PageFixture do
     "teaser" => "some updated teaser",
     "tag" => "some updated tag",
     "text" => "some updated text",
-    "position" => 2
+    "position" => 2,
+    "signup_to_event" => true
   }
 
   @invalid_attrs %{
