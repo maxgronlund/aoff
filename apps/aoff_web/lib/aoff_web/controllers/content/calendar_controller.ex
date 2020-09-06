@@ -53,7 +53,8 @@ defmodule AOFFWeb.Content.CalendarController do
             page: page,
             changeset: changeset,
             participants: participants,
-            participant: participant
+            participant: participant,
+            message: message(page)
           )
     end
   end
@@ -62,6 +63,20 @@ defmodule AOFFWeb.Content.CalendarController do
     case conn.assigns.current_user do
       nil -> false
       _ -> Events.get_participant(page.id, conn.assigns.current_user.id)
+    end
+  end
+
+  defp message(page) do
+    case page.signup_to_event do
+      true ->
+        {:ok, message} =
+          System.find_or_create_message(
+            "Signup to event",
+            "Signup to event",
+            Gettext.get_locale()
+          )
+          message
+      _ -> ""
     end
   end
 end
