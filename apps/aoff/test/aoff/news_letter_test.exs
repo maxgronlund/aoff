@@ -6,9 +6,33 @@ defmodule AOFF.NewsletterTest do
   describe "newsletters" do
     alias AOFF.Volunteer.NewsLetter
 
-    @valid_attrs %{author: "some author", caption: "some caption", date: ~D[2010-04-17], image: "some image", send: true, text: "some text", title: "some title"}
-    @update_attrs %{author: "some updated author", caption: "some updated caption", date: ~D[2011-05-18], image: "some updated image", send: false, text: "some updated text", title: "some updated title"}
-    @invalid_attrs %{author: nil, caption: nil, date: nil, image: nil, send: nil, text: nil, title: nil}
+    @valid_attrs %{
+      author: "some author",
+      caption: "some caption",
+      date: ~D[2010-04-17],
+      image: "some image",
+      send: true,
+      text: "some text",
+      title: "some title"
+    }
+    @update_attrs %{
+      author: "some updated author",
+      caption: "some updated caption",
+      date: ~D[2011-05-18],
+      image: "some updated image",
+      send: false,
+      text: "some updated text",
+      title: "some updated title"
+    }
+    @invalid_attrs %{
+      author: nil,
+      caption: nil,
+      date: nil,
+      image: nil,
+      send: nil,
+      text: nil,
+      title: nil
+    }
 
     def newsletter_fixture(attrs \\ %{}) do
       {:ok, newsletter} =
@@ -46,7 +70,10 @@ defmodule AOFF.NewsletterTest do
 
     test "update_newsletter/2 with valid data updates the newsletter" do
       newsletter = newsletter_fixture()
-      assert {:ok, %NewsLetter{} = newsletter} = Volunteer.update_newsletter(newsletter, @update_attrs)
+
+      assert {:ok, %NewsLetter{} = newsletter} =
+               Volunteer.update_newsletter(newsletter, @update_attrs)
+
       assert newsletter.author == "some updated author"
       assert newsletter.caption == "some updated caption"
       assert newsletter.date == ~D[2011-05-18]

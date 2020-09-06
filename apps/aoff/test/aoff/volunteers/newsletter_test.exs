@@ -1,24 +1,11 @@
 defmodule AOFF.Volunteer.NewsletterTest do
   use AOFF.DataCase
+  import AOFF.Volunteer.NewsletterFixture
 
   alias AOFF.Volunteers
+  alias AOFF.Volunteer.Newsletter
 
   describe "newsletters" do
-    alias AOFF.Volunteer.Newsletter
-
-    @valid_attrs %{author: "some author", caption: "some caption", date: ~D[2010-04-17], image: "some image", send: true, text: "some text", title: "some title"}
-    @update_attrs %{author: "some updated author", caption: "some updated caption", date: ~D[2011-05-18], image: "some updated image", send: false, text: "some updated text", title: "some updated title"}
-    @invalid_attrs %{author: nil, caption: nil, date: nil, image: nil, send: nil, text: nil, title: nil}
-
-    def newsletter_fixture(attrs \\ %{}) do
-      {:ok, newsletter} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Volunteers.create_newsletter()
-
-      newsletter
-    end
-
     test "list_newsletters/0 returns all newsletters" do
       newsletter = newsletter_fixture()
       assert Volunteers.list_newsletters() == [newsletter]
@@ -30,35 +17,37 @@ defmodule AOFF.Volunteer.NewsletterTest do
     end
 
     test "create_newsletter/1 with valid data creates a newsletter" do
-      assert {:ok, %Newsletter{} = newsletter} = Volunteers.create_newsletter(@valid_attrs)
-      assert newsletter.author == "some author"
-      assert newsletter.caption == "some caption"
-      assert newsletter.date == ~D[2010-04-17]
-      assert newsletter.image == "some image"
-      assert newsletter.send == true
-      assert newsletter.text == "some text"
-      assert newsletter.title == "some title"
+      attrs = valid_newsletter_attrs()
+      assert {:ok, %Newsletter{} = newsletter} = Volunteers.create_newsletter(attrs)
+      assert newsletter.author == attrs["author"]
+      assert newsletter.caption == attrs["caption"]
+      assert newsletter.date == attrs["date"]
+      assert newsletter.send == attrs["send"]
+      assert newsletter.text == attrs["text"]
+      assert newsletter.title == attrs["title"]
     end
 
     test "create_newsletter/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Volunteers.create_newsletter(@invalid_attrs)
+      invalid_attrs = invalid_newsletter_attrs()
+      assert {:error, %Ecto.Changeset{}} = Volunteers.create_newsletter(invalid_attrs)
     end
 
     test "update_newsletter/2 with valid data updates the newsletter" do
+      attrs = update_newsletter_attrs()
       newsletter = newsletter_fixture()
-      assert {:ok, %Newsletter{} = newsletter} = Volunteers.update_newsletter(newsletter, @update_attrs)
-      assert newsletter.author == "some updated author"
-      assert newsletter.caption == "some updated caption"
-      assert newsletter.date == ~D[2011-05-18]
-      assert newsletter.image == "some updated image"
-      assert newsletter.send == false
-      assert newsletter.text == "some updated text"
-      assert newsletter.title == "some updated title"
+      assert {:ok, %Newsletter{} = newsletter} = Volunteers.update_newsletter(newsletter, attrs)
+      assert newsletter.author == attrs["author"]
+      assert newsletter.caption == attrs["caption"]
+      assert newsletter.date == attrs["date"]
+      assert newsletter.send == attrs["send"]
+      assert newsletter.text == attrs["text"]
+      assert newsletter.title == attrs["title"]
     end
 
     test "update_newsletter/2 with invalid data returns error changeset" do
       newsletter = newsletter_fixture()
-      assert {:error, %Ecto.Changeset{}} = Volunteers.update_newsletter(newsletter, @invalid_attrs)
+      invalid_attrs = invalid_newsletter_attrs()
+      assert {:error, %Ecto.Changeset{}} = Volunteers.update_newsletter(newsletter, invalid_attrs)
       assert newsletter == Volunteers.get_newsletter!(newsletter.id)
     end
 

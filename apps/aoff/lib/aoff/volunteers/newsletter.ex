@@ -1,9 +1,14 @@
 defmodule AOFF.Volunteer.Newsletter do
   use Ecto.Schema
+  use Arc.Ecto.Schema
   import Ecto.Changeset
+  alias AOFF.Uploader.Image
 
   @primary_key {
-      :id, :binary_id, autogenerate: true}
+    :id,
+    :binary_id,
+    autogenerate: true
+  }
   @foreign_key_type :binary_id
   schema "newsletters" do
     field :author, :string
@@ -20,27 +25,25 @@ defmodule AOFF.Volunteer.Newsletter do
   @doc false
   def changeset(newsletter, attrs) do
     newsletter
-    |> cast(attrs,
+    |> cast(
+      attrs,
       [
         :date,
         :title,
-        :image,
         :caption,
         :text,
         :author,
         :send
       ]
     )
-    |> validate_required(
-      [
-        :date,
-        :title,
-        :image,
-        :caption,
-        :text,
-        :author,
-        :send
-      ]
-    )
+    |> validate_required([
+      :date,
+      :title,
+      :caption,
+      :text,
+      :author,
+      :send
+    ])
+    |> cast_attachments(attrs, [:image])
   end
 end

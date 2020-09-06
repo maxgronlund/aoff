@@ -10,8 +10,6 @@ defmodule AOFF.Events do
   alias AOFF.Content.Page
   alias AOFF.Events.Participant
 
-
-
   @doc """
   Returns a list of all participants for the given page.
 
@@ -49,8 +47,9 @@ defmodule AOFF.Events do
   def get_participant(page_id, user_id) do
     query =
       from p in Participant,
-      where: p.user_id==^user_id and p.page_id==^page_id,
-      limit: 1
+        where: p.user_id == ^user_id and p.page_id == ^page_id,
+        limit: 1
+
     query
     |> Repo.one()
   end
@@ -74,7 +73,6 @@ defmodule AOFF.Events do
   def delete_participant(%Participant{} = participant) do
     Repo.delete(participant)
   end
-
 
   # def cancel_participation(participant) do
   #   participant

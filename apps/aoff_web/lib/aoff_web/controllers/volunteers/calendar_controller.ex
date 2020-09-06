@@ -132,15 +132,4 @@ defmodule AOFFWeb.Volunteer.CalendarController do
   defp navbar(conn, _opts) do
     assign(conn, :selected_menu_item, :calendar)
   end
-
-  defp image_format() do
-    {:ok, message} =
-      AOFF.System.find_or_create_message(
-        "/volunteer/category/:id/edit",
-        "Image format",
-        Gettext.get_locale()
-      )
-
-    message
-  end
 end

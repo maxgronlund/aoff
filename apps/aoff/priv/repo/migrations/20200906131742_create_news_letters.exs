@@ -14,6 +14,5 @@ defmodule AOFF.Repo.Migrations.CreateNewsletters do
 
       timestamps()
     end
-
   end
 end

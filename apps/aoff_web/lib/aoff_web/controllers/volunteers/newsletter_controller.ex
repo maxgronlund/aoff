@@ -3,6 +3,10 @@ defmodule AOFFWeb.Volunteer.NewsletterController do
 
   alias AOFF.Volunteers
   alias AOFF.Volunteer.Newsletter
+  alias AOFF.Users
+  alias AOFFWeb.Users.Auth
+  plug Auth
+  plug :authenticate when action in [:index, :edit, :new, :update, :create, :delete]
 
   def index(conn, _params) do
     newsletters = Volunteers.list_newsletters()
@@ -58,5 +62,17 @@ defmodule AOFFWeb.Volunteer.NewsletterController do
     conn
     |> put_flash(:info, "News letter deleted successfully.")
     |> redirect(to: Routes.volunteer_newsletter_path(conn, :index))
+  end
+
+  defp authenticate(conn, _opts) do
+    if conn.assigns.volunteer do
+      assign(conn, :selected_menu_item, :volunteer)
+    else
+      conn
+      |> put_status(401)
+      |> put_view(AOFFWeb.ErrorView)
+      |> render(:"401")
+      |> halt()
+    end
   end
 end

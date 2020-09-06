@@ -3,32 +3,51 @@ defmodule AOFFWeb.Volunteer.NewsletterControllerTest do
 
   alias AOFF.Volunteers
 
-  @create_attrs %{author: "some author", caption: "some caption", date: ~D[2010-04-17], image: "some image", send: true, text: "some text", title: "some title"}
-  @update_attrs %{author: "some updated author", caption: "some updated caption", date: ~D[2011-05-18], image: "some updated image", send: false, text: "some updated text", title: "some updated title"}
-  @invalid_attrs %{author: nil, caption: nil, date: nil, image: nil, send: nil, text: nil, title: nil}
+  import AOFF.Users.UserFixture
+  import AOFF.Volunteer.NewsletterFixture
+  alias Plug.Conn
 
-  def fixture(:newsletter) do
-    {:ok, newsletter} = Volunteers.create_newsletter(@create_attrs)
-    newsletter
+  describe "unauthorized" do
+    test "index renders 401", %{conn: conn} do
+      conn = get(conn, Routes.volunteer_newsletter_path(conn, :index))
+      assert html_response(conn, 401) =~ "401"
+    end
   end
 
-  describe "index" do
+  describe "text editor handles newsletter" do
+    @session Plug.Session.init(
+               store: :cookie,
+               key: "_app",
+               encryption_salt: "yadayada",
+               signing_salt: "yadayada"
+             )
+    setup do
+      user = user_fixture(%{"volunteer" => true, "text_editor" => true})
+      # AOFF.Users.set_bounce_to_url(user, "/")
+
+      conn =
+        build_conn()
+        |> Plug.Session.call(@session)
+        |> Conn.fetch_session()
+        |> put_session(:user_id, user.id)
+        |> configure_session(renew: true)
+
+      {:ok, conn: conn, user: user}
+    end
+
     test "lists all newsletters", %{conn: conn} do
       conn = get(conn, Routes.volunteer_newsletter_path(conn, :index))
       assert html_response(conn, 200) =~ "Listing Newsletters"
     end
-  end
 
-  describe "new newsletter" do
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.volunteer_newsletter_path(conn, :new))
       assert html_response(conn, 200) =~ "New Newsletter"
     end
-  end
 
-  describe "create newsletter" do
     test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.volunteer_newsletter_path(conn, :create), newsletter: @create_attrs)
+      attrs = valid_newsletter_attrs()
+      conn = post(conn, Routes.volunteer_newsletter_path(conn, :create), newsletter: attrs)
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.volunteer_newsletter_path(conn, :show, id)
@@ -37,52 +56,49 @@ defmodule AOFFWeb.Volunteer.NewsletterControllerTest do
       assert html_response(conn, 200) =~ "Show Newsletter"
     end
 
-    test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.volunteer_newsletter_path(conn, :create), newsletter: @invalid_attrs)
+    test "create  renders errors when data is invalid", %{conn: conn} do
+      attrs = invalid_newsletter_attrs()
+      conn = post(conn, Routes.volunteer_newsletter_path(conn, :create), newsletter: attrs)
       assert html_response(conn, 200) =~ "New Newsletter"
     end
-  end
 
-  describe "edit newsletter" do
-    setup [:create_newsletter]
-
-    test "renders form for editing chosen newsletter", %{conn: conn, newsletter: newsletter} do
+    test "renders form for editing chosen newsletter", %{conn: conn} do
+      newsletter = newsletter_fixture()
       conn = get(conn, Routes.volunteer_newsletter_path(conn, :edit, newsletter))
       assert html_response(conn, 200) =~ "Edit Newsletter"
     end
-  end
 
-  describe "update newsletter" do
-    setup [:create_newsletter]
+    test "redirects when data is valid", %{conn: conn} do
+      newsletter = newsletter_fixture()
+      attrs = update_newsletter_attrs()
 
-    test "redirects when data is valid", %{conn: conn, newsletter: newsletter} do
-      conn = put(conn, Routes.volunteer_newsletter_path(conn, :update, newsletter), newsletter: @update_attrs)
+      conn =
+        put(conn, Routes.volunteer_newsletter_path(conn, :update, newsletter), newsletter: attrs)
+
       assert redirected_to(conn) == Routes.volunteer_newsletter_path(conn, :show, newsletter)
 
       conn = get(conn, Routes.volunteer_newsletter_path(conn, :show, newsletter))
-      assert html_response(conn, 200) =~ "some updated author"
+      assert html_response(conn, 200) =~ attrs["author"]
     end
 
-    test "renders errors when data is invalid", %{conn: conn, newsletter: newsletter} do
-      conn = put(conn, Routes.volunteer_newsletter_path(conn, :update, newsletter), newsletter: @invalid_attrs)
+    test "edit renders errors when data is invalid", %{conn: conn} do
+      newsletter = newsletter_fixture()
+      attrs = invalid_newsletter_attrs()
+
+      conn =
+        put(conn, Routes.volunteer_newsletter_path(conn, :update, newsletter), newsletter: attrs)
+
       assert html_response(conn, 200) =~ "Edit Newsletter"
     end
-  end
 
-  describe "delete newsletter" do
-    setup [:create_newsletter]
-
-    test "deletes chosen newsletter", %{conn: conn, newsletter: newsletter} do
+    test "deletes chosen newsletter", %{conn: conn} do
+      newsletter = newsletter_fixture()
       conn = delete(conn, Routes.volunteer_newsletter_path(conn, :delete, newsletter))
       assert redirected_to(conn) == Routes.volunteer_newsletter_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.volunteer_newsletter_path(conn, :show, newsletter))
       end
     end
-  end
-
-  defp create_newsletter(_) do
-    newsletter = fixture(:newsletter)
-    %{newsletter: newsletter}
   end
 end
