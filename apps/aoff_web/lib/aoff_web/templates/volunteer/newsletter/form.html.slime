@@ -1,34 +1,57 @@
-= form_for @changeset, @action, fn f ->
+javascript:
+  tinymce.init({
+    selector: '#newsletter_text',
+    menubar: false,
+    toolbar: "alignleft aligncenter alignright | formatselect bold italic | indent outdent | bullist numlist | code",
+    height : 300,
+    content_css: "#{Routes.static_path(@conn, "/css/app.css")}",
+    plugins: "code lists"
+  });
+
+= form_for @changeset, @action, [multipart: true], fn f ->
   = if @changeset.action do
     .alert.alert-danger
       p Oops, something went wrong! Please check the errors below.
-  .form-group
-    = label f, :date, class: "control-label"
-    = date_select f, :date, class: "form-control"
-    = error_tag f, :date
-  .form-group
-    = label f, :title, class: "control-label"
-    = text_input f, :title, class: "form-control"
-    = error_tag f, :title
-  .form-group
-    = label f, :image, class: "control-label"
-    = text_input f, :image, class: "form-control"
-    = error_tag f, :image
-  .form-group
-    = label f, :caption, class: "control-label"
-    = text_input f, :caption, class: "form-control"
-    = error_tag f, :caption
-  .form-group
-    = label f, :text, class: "control-label"
-    = textarea f, :text, class: "form-control"
-    = error_tag f, :text
-  .form-group
-    = label f, :author, class: "control-label"
-    = text_input f, :author, class: "form-control"
-    = error_tag f, :author
-  .form-group
-    = label f, :send, class: "control-label"
-    = checkbox f, :send, class: "form-control"
-    = error_tag f, :send
-  .form-group
-    = submit "Submit", class: "btn btn-primary"
+
+  = if @newsletter do
+    .tile
+      .row
+        .column.column-33
+          img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.  url({@newsletter.image, @newsletter}, :stamp)}"
+
+        .column
+          .form-group
+            = label f, :image, gettext("Image"), class: "control-label"
+            = file_input f, :image, class: "form-control full-width"
+            = error_tag f, :image
+          .form-group
+            = label f, :caption, gettext("Image caption"), class: "control-label"
+            = text_input f, :caption, class: "form-control full-width", placeholder: gettext("About the image")
+            = error_tag f, :caption
+  .tile
+    .row
+      .column
+        .form-group
+          = label f, :title, class: "control-label"
+          = text_input f, :title, class: "form-control full-width"
+          = error_tag f, :title
+
+        .form-group
+          = label f, :author, class: "control-label"
+          = text_input f, :author, class: "form-control full-width"
+          = error_tag f, :author
+      .column
+        .form-group
+          = label f, :date, class: "control-label"
+          = date_select f, :date, class: "form-control"
+          = error_tag f, :date
+    .row
+      .column
+        .form-group
+          = label f, :text, class: "control-label"
+          = textarea f, :text, class: "form-control"
+          = error_tag f, :text
+    .row.mt-1
+      .column
+        .float-right
+          = submit gettext("Save"), class: "btn btn-primary"

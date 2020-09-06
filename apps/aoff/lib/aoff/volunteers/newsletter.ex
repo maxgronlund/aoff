@@ -14,7 +14,7 @@ defmodule AOFF.Volunteer.Newsletter do
     field :author, :string
     field :caption, :string
     field :date, :date
-    field :image, :string
+    field :image, Image.Type
     field :send, :boolean, default: false
     field :text, :string
     field :title, :string
@@ -39,7 +39,6 @@ defmodule AOFF.Volunteer.Newsletter do
     |> validate_required([
       :date,
       :title,
-      :caption,
       :text,
       :author,
       :send

@@ -1,4 +1,17 @@
-h2 Edit Newsletter
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+    li
+      = link gettext("Newsletters"), to: Routes.volunteer_newsletter_path(@conn, :index)
+    li
+      = link @newsletter.title, to: Routes.volunteer_newsletter_path(@conn, :show, @newsletter)
+    li.is-active
+      |&nbsp;&nbsp;
+      = gettext("Edit")
+
+
+h2 = gettext("Edit Newsletter")
 
 = render "form.html", Map.put(assigns, :action, Routes.volunteer_newsletter_path(@conn, :update, @newsletter))
 

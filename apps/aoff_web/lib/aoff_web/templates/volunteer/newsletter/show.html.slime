@@ -1,28 +1,44 @@
-h2 Show Newsletter
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+    li
+      = link gettext("Newsletters"), to: Routes.volunteer_newsletter_path(@conn, :index)
+    li.is-active
+      |&nbsp;&nbsp;
+      = @newsletter.title
 
-ul
-  li
-    strong Date:&nbsp;
-    = @newsletter.date
-  li
-    strong Title:&nbsp;
-    = @newsletter.title
-  li
-    strong Image:&nbsp;
-    = @newsletter.image
-  li
-    strong Caption:&nbsp;
-    = @newsletter.caption
-  li
-    strong Text:&nbsp;
-    = @newsletter.text
-  li
-    strong Author:&nbsp;
-    = @newsletter.author
-  li
-    strong Send:&nbsp;
-    = @newsletter.send
+.row
+  .column
+    h2 = @newsletter.title
+  .column
+    .float-right
+      = link "Delete", to: Routes.volunteer_newsletter_path(@conn, :delete, @newsletter), method: :delete, data: [confirm: "Are you sure?"], class: "button button-red"
+      |&nbsp;
+      = link "Edit", to: Routes.volunteer_newsletter_path(@conn, :edit, @newsletter), class: "button"
 
-= link "Edit", to: Routes.volunteer_newsletter_path(@conn, :edit, @newsletter)
-| &nbsp;
-= link "Back", to: Routes.volunteer_newsletter_path(@conn, :index)
+.tile
+  ul
+    li
+      strong Date:&nbsp;
+      = @newsletter.date
+    li
+      strong Title:&nbsp;
+      = @newsletter.title
+    li
+      strong Image:&nbsp;
+      = @newsletter.image
+    li
+      strong Caption:&nbsp;
+      = @newsletter.caption
+    li
+      strong Text:&nbsp;
+      = @newsletter.text
+    li
+      strong Author:&nbsp;
+      = @newsletter.author
+    li
+      strong Send:&nbsp;
+      = @newsletter.send
+
+

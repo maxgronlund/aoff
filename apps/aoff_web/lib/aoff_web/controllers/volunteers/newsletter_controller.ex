@@ -3,7 +3,7 @@ defmodule AOFFWeb.Volunteer.NewsletterController do
 
   alias AOFF.Volunteers
   alias AOFF.Volunteer.Newsletter
-  alias AOFF.Users
+  # alias AOFF.Users
   alias AOFFWeb.Users.Auth
   plug Auth
   plug :authenticate when action in [:index, :edit, :new, :update, :create, :delete]
@@ -15,7 +15,7 @@ defmodule AOFFWeb.Volunteer.NewsletterController do
 
   def new(conn, _params) do
     changeset = Volunteers.change_newsletter(%Newsletter{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, newsletter: false)
   end
 
   def create(conn, %{"newsletter" => newsletter_params}) do
@@ -26,7 +26,7 @@ defmodule AOFFWeb.Volunteer.NewsletterController do
         |> redirect(to: Routes.volunteer_newsletter_path(conn, :show, newsletter))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, newsletter: false)
     end
   end
 

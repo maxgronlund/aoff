@@ -10,7 +10,7 @@
 
 .row
   .column
-    h2 = gettext("Edit %{category}", category: @category.title)
+    h2 = gettext("Edit Newsletter")
 
 
 = render "form.html", Map.put(assigns, :action, Routes.volunteer_category_path(@conn, :update, @category))

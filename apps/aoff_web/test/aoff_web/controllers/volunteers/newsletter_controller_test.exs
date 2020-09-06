@@ -38,7 +38,7 @@ defmodule AOFFWeb.Volunteer.NewsletterControllerTest do
 
     test "lists all newsletters", %{conn: conn} do
       conn = get(conn, Routes.volunteer_newsletter_path(conn, :index))
-      assert html_response(conn, 200) =~ gettext("Listing Newsletters")
+      assert html_response(conn, 200) =~ gettext("Newsletters")
     end
 
     test "renders form", %{conn: conn} do
@@ -54,19 +54,19 @@ defmodule AOFFWeb.Volunteer.NewsletterControllerTest do
       assert redirected_to(conn) == Routes.volunteer_newsletter_path(conn, :show, id)
 
       conn = get(conn, Routes.volunteer_newsletter_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show Newsletter"
+      assert html_response(conn, 200) =~ attrs["title"]
     end
 
     test "create  renders errors when data is invalid", %{conn: conn} do
       attrs = invalid_newsletter_attrs()
       conn = post(conn, Routes.volunteer_newsletter_path(conn, :create), newsletter: attrs)
-      assert html_response(conn, 200) =~ "New Newsletter"
+      assert html_response(conn, 200) =~ gettext("New Newsletter")
     end
 
     test "renders form for editing chosen newsletter", %{conn: conn} do
       newsletter = newsletter_fixture()
       conn = get(conn, Routes.volunteer_newsletter_path(conn, :edit, newsletter))
-      assert html_response(conn, 200) =~ "Edit Newsletter"
+      assert html_response(conn, 200) =~ gettext("Edit Newsletter")
     end
 
     test "redirects when data is valid", %{conn: conn} do
@@ -89,7 +89,7 @@ defmodule AOFFWeb.Volunteer.NewsletterControllerTest do
       conn =
         put(conn, Routes.volunteer_newsletter_path(conn, :update, newsletter), newsletter: attrs)
 
-      assert html_response(conn, 200) =~ "Edit Newsletter"
+      assert html_response(conn, 200) =~ gettext("Edit Newsletter")
     end
 
     test "deletes chosen newsletter", %{conn: conn} do

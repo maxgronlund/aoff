@@ -123,6 +123,7 @@ defmodule AOFF.Users.User do
       :manage_membership
     ])
     |> validate(attrs)
+    |> cast_attachments(attrs, [:avatar])
   end
 
   @doc false
