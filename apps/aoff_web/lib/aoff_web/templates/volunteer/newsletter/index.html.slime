@@ -1,31 +1,29 @@
-h2 Listing Newsletters
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+    li.is-active
+      |&nbsp;&nbsp;
+      = gettext("Newsletters")
 
-table.table
-  thead
-    tr
-      th Date
-      th Title
-      th Image
-      th Caption
-      th Text
-      th Author
-      th Send
-      th
-  tbody
-    = for newsletter <- @newsletters do
-      tr
-        td= newsletter.date
-        td= newsletter.title
-        td= newsletter.image
-        td= newsletter.caption
-        td= newsletter.text
-        td= newsletter.author
-        td= newsletter.send
-        td class="text-right"
+.row
+  .column
+    h2 = gettext("Newsletters")
+  .column
+    .float-right
+      = link "New News letter", to: Routes.volunteer_newsletter_path(@conn, :new), class: "button"
+
+.row
+  .column
+    .tiles
+      = for newsletter <- @newsletters do
+        .tile
+          = newsletter.send
+          br
           = link "Show", to: Routes.volunteer_newsletter_path(@conn, :show, newsletter), class: "btn btn-default btn-xs"
           | &nbsp;
           = link "Edit", to: Routes.volunteer_newsletter_path(@conn, :edit, newsletter), class: "btn btn-default btn-xs"
           | &nbsp;
           = link "Delete", to: Routes.volunteer_newsletter_path(@conn, :delete, newsletter), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
 
-= link "New News letter", to: Routes.volunteer_newsletter_path(@conn, :new)
+

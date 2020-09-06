@@ -5,6 +5,7 @@ defmodule AOFFWeb.Volunteer.NewsletterControllerTest do
 
   import AOFF.Users.UserFixture
   import AOFF.Volunteer.NewsletterFixture
+  import AOFFWeb.Gettext
   alias Plug.Conn
 
   describe "unauthorized" do
@@ -37,12 +38,12 @@ defmodule AOFFWeb.Volunteer.NewsletterControllerTest do
 
     test "lists all newsletters", %{conn: conn} do
       conn = get(conn, Routes.volunteer_newsletter_path(conn, :index))
-      assert html_response(conn, 200) =~ "Listing Newsletters"
+      assert html_response(conn, 200) =~ gettext("Listing Newsletters")
     end
 
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.volunteer_newsletter_path(conn, :new))
-      assert html_response(conn, 200) =~ "New Newsletter"
+      assert html_response(conn, 200) =~ gettext("New Newsletter")
     end
 
     test "redirects to show when data is valid", %{conn: conn} do
