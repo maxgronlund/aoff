@@ -6,6 +6,7 @@
   position: relative;
   margin-bottom: 20px;
   border-radius: 4px;
+  max-width: 572px;
 }
 
 .card-header {
