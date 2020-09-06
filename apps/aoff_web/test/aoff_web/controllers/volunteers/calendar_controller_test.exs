@@ -33,14 +33,14 @@ defmodule AOFFWeb.Content.CalendarControllerTest do
     end
 
     test "create a new event with valid attributes", %{conn: conn} do
-      category = category_fixture(%{"identifier" => "Calendar", "title" => "Calendar"})
+      category_fixture(%{"identifier" => "Calendar", "title" => "Calendar"})
       attrs = create_page_attrs()
       conn = post(conn, Routes.volunteer_calendar_path(conn, :create), page: attrs)
       assert redirected_to(conn) == Routes.volunteer_calendar_path(conn, :edit, attrs["title"])
     end
 
     test "create a new event with invalid attributes", %{conn: conn} do
-      category = category_fixture(%{"identifier" => "Calendar", "title" => "Calendar"})
+      category_fixture(%{"identifier" => "Calendar", "title" => "Calendar"})
       attrs = invalid_page_attrs()
       conn = post(conn, Routes.volunteer_calendar_path(conn, :create), page: attrs)
       assert html_response(conn, 200) =~ gettext("New event")
