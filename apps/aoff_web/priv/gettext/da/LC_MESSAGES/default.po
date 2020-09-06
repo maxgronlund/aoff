@@ -1824,7 +1824,7 @@ msgstr "Download som csv"
 #, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:10
 msgid "Send SMS"
-msgstr "Send"
+msgstr "Send SMS"
 
 #, elixir-format
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:10

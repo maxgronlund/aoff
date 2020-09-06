@@ -57,7 +57,16 @@
           = img_tag AOFF.Uploader.Image.url({user.avatar, user}, :thumb)
         = if @volunteer do
           .card-content
-            = user.email
+            a href="mailto:#{user.email}"
+              = gettext("Email: %{email}", email: user.email)
+            br/
+            - IO.inspect user.mobile
+            = unless is_nil(user.mobile) do
+              a href="tel:+#{user.mobile_country_code}#{user.mobile}"
+                = gettext("call: %{mobile}", mobile: user.mobile)
+              |&nbsp;|&nbsp;
+              a href="sms:+#{user.mobile_country_code}#{user.mobile}"
+                = gettext("Send SMS")
 
 
 
