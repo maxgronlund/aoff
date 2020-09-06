@@ -1,0 +1,5 @@
+h2 Edit Newsletter
+
+= render "form.html", Map.put(assigns, :action, Routes.volunteer_newsletter_path(@conn, :update, @newsletter))
+
+= link "Back", to: Routes.volunteer_newsletter_path(@conn, :index)

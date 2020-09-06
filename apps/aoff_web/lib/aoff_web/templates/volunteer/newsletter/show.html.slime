@@ -1,0 +1,28 @@
+h2 Show Newsletter
+
+ul
+  li
+    strong Date:&nbsp;
+    = @newsletter.date
+  li
+    strong Title:&nbsp;
+    = @newsletter.title
+  li
+    strong Image:&nbsp;
+    = @newsletter.image
+  li
+    strong Caption:&nbsp;
+    = @newsletter.caption
+  li
+    strong Text:&nbsp;
+    = @newsletter.text
+  li
+    strong Author:&nbsp;
+    = @newsletter.author
+  li
+    strong Send:&nbsp;
+    = @newsletter.send
+
+= link "Edit", to: Routes.volunteer_newsletter_path(@conn, :edit, @newsletter)
+| &nbsp;
+= link "Back", to: Routes.volunteer_newsletter_path(@conn, :index)

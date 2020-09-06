@@ -135,7 +135,7 @@ defmodule AOFFWeb.Volunteer.CalendarController do
 
   defp image_format() do
     {:ok, message} =
-      System.find_or_create_message(
+      AOFF.System.find_or_create_message(
         "/volunteer/category/:id/edit",
         "Image format",
         Gettext.get_locale()
