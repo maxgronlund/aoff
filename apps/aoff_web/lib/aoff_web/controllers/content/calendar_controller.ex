@@ -33,8 +33,8 @@ defmodule AOFFWeb.Content.CalendarController do
         participants = Events.list_participants(:all, page.id)
 
         user_ids = Enum.map(participants, fn participant -> participant.user_id end)
-        #participating = Enum.member?(user_ids, conn.assigns.current_user.id)
-        participant = Events.get_participant(page.id, conn.assigns.current_user.id)
+
+        participant = participant(conn)
 
         changeset =
           case conn.assigns.current_user do
@@ -55,6 +55,13 @@ defmodule AOFFWeb.Content.CalendarController do
             participants: participants,
             participant: participant
           )
+    end
+  end
+
+  defp participant(conn) do
+    case conn.assigns.current_user do
+      nil -> false
+      _ -> Events.get_participant(page.id, conn.assigns.current_user.id)
     end
   end
 end
