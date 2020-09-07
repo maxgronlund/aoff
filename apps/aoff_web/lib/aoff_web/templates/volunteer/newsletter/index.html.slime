@@ -1,0 +1,41 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+    li.is-active
+      |&nbsp;&nbsp;
+      = gettext("Newsletters")
+
+.row
+  .column
+    h2 = gettext("Newsletters")
+  .column
+    .float-right
+      = link "New News letter", to: Routes.volunteer_newsletter_path(@conn, :new), class: "button"
+
+.tiles.button-tiles
+  = for newsletter <- @newsletters do
+    .card.is-shady
+      = link to: Routes.volunteer_newsletter_path(@conn, :show, newsletter) do
+        .card-header
+          .card-header-title.is-centered
+            = newsletter.title
+
+        .card-image
+          img.modal-button alt=("#{newsletter.title}") src="#{ AOFF.Uploader.Image.url({newsletter.image, newsletter}, :original)}"
+
+
+
+        .card-footer.is-button
+          .card-footer-item.is-button
+            = gettext("Read More")
+
+/
+  br
+  = link "Show", to: Routes.volunteer_newsletter_path(@conn, :show, newsletter), class: "btn btn-default btn-xs"
+  | &nbsp;
+  = link "Edit", to: Routes.volunteer_newsletter_path(@conn, :edit, newsletter), class: "btn btn-default btn-xs"
+  | &nbsp;
+  = link "Delete", to: Routes.volunteer_newsletter_path(@conn, :delete, newsletter), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
+
+

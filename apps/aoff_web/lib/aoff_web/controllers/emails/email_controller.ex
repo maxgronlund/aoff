@@ -1,11 +1,12 @@
-# some/path/within/your/app/email.ex
-defmodule AOFFWeb.Email do
+defmodule AOFFWeb.EmailController do
   use Bamboo.Phoenix, view: AOFFWeb.EmailView
   alias AOFF.System
   alias AOFF.Users
+  # alias AOFF.Volunteers
   import AOFFWeb.Gettext
 
   @email_from Application.get_env(:aoff_web, AOFFWeb.Mailer)[:email_from]
+
 
   def reset_password_email(username_and_email, reset_password_url) do
     {:ok, message} =
@@ -52,5 +53,17 @@ defmodule AOFFWeb.Email do
     |> put_header("Reply-To", @email_from)
     |> put_layout({AOFFWeb.EmailView, :confirm_email})
     |> render(:confirm_email, confirm_email_url: confirm_email_url, message: message)
+  end
+
+  def send_newsletter(%AOFF.Volunteer.Newsletter{} = newsletter, username_and_email) do
+    result =
+      new_email()
+      |> to(username_and_email)
+      |> from(@email_from)
+      |> subject(gettext("AOFF Newsletter"))
+      |> put_header("Reply-To", @email_from)
+      |> put_layout({AOFFWeb.EmailView, :newsletter})
+      |> render(:newsletter)
+    IO.inspect result
   end
 end

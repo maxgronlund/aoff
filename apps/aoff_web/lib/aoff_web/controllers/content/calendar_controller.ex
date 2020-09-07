@@ -22,7 +22,6 @@ defmodule AOFFWeb.Content.CalendarController do
   end
 
   def show(conn, %{"id" => id}) do
-
     case Content.get_page!("Calendar", id) do
       nil ->
         conn
@@ -40,22 +39,23 @@ defmodule AOFFWeb.Content.CalendarController do
           case conn.assigns.current_user do
             %AOFF.Users.User{} = user ->
               Events.change_participant(%Participant{})
-            _ -> nil
-          end
 
+            _ ->
+              nil
+          end
 
         conn
         |> assign(:selected_menu_item, :calendar)
         |> assign(:title, page.title)
         |> render(
           "show.html",
-            category: page.category,
-            page: page,
-            changeset: changeset,
-            participants: participants,
-            participant: participant,
-            message: message(page)
-          )
+          category: page.category,
+          page: page,
+          changeset: changeset,
+          participants: participants,
+          participant: participant,
+          message: message(page)
+        )
     end
   end
 
@@ -75,8 +75,11 @@ defmodule AOFFWeb.Content.CalendarController do
             "Signup to event",
             Gettext.get_locale()
           )
-          message
-      _ -> ""
+
+        message
+
+      _ ->
+        ""
     end
   end
 end

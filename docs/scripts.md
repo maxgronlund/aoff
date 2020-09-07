@@ -22,7 +22,8 @@ user_id:references:user \
 order_item_id:references:order_item \
 picked_up:boolean
 
-
+============ NOTE ===============
+be inside the aoff_veb folder
 
 
 mix phx.gen.html.slime Blogs Blog blogs title:string description:text
@@ -31,6 +32,8 @@ mix phx.gen.html.slime Blogs Blog blogs title:string description:text
 mix phx.gen.html.slime Blog BlogPost posts date:date title:string image:string caption:string text:text author:string
 
 mix phx.gen.html.slime Volunteer News news date:date title:string image:string caption:string text:text author:string
+
+mix phx.gen.html.slime Volunteer NewsLetter news_letters date:date title:string image:string caption:string text:text author:string send:boolean
 
 mix phx.gen.html.slime Shop Order orders user_id:binary state:string
 

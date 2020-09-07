@@ -56,9 +56,16 @@
           = password_input f, :password, class: "form-control full-width"
           = error_tag f, :password
 
-
         .form-group
-          = unless @current_user do
+          = label f, :subscribe_to_news do
+            = checkbox f, :subscribe_to_news, class: "form-control"
+            = label f, :subscribe_to_news,\
+              gettext("Subscribe to newsletter"),\
+              class: "control-label label-inline"
+
+
+        = unless @current_user do
+          .form-group
             = label f, :terms_accepted do
               = checkbox f, :terms_accepted, class: "form-control"
               = label f, :terms_accepted,\
