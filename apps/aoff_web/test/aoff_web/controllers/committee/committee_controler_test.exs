@@ -98,7 +98,7 @@ defmodule AOFFWeb.Committees.CommitteeControllerTest do
       assert conn.assigns.committees == [committee]
     end
 
-    test "hide committess where the user isn't a member", %{conn: conn, user: user} do
+    test "hide committess where the user isn't a member", %{conn: conn} do
       _committee =
         committee_fixture(%{
           "volunteer_access" => false,

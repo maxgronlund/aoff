@@ -45,7 +45,7 @@ defmodule AOFFWeb.ResendConfirmEmailController do
         "/confirm_email"
 
     # Create your email
-    AOFFWeb.Email.confirm_email_email(username_and_email, confirm_email_url)
+    AOFFWeb.EmailController.confirm_email_email(username_and_email, confirm_email_url)
     |> AOFFWeb.Mailer.deliver_now()
   end
 end

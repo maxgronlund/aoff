@@ -53,7 +53,7 @@ defmodule AOFFWeb.Shop.PaymentCallbackController do
   end
 
   defp send_invoice(order, card_nr, paymenttype) do
-    AOFFWeb.Email.invoice_email(order, card_nr, paymenttype)
+    AOFFWeb.EmailController.invoice_email(order, card_nr, paymenttype)
     |> AOFFWeb.Mailer.deliver_now()
   end
 

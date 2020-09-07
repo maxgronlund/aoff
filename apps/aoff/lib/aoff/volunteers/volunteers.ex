@@ -224,6 +224,24 @@ defmodule AOFF.Volunteers do
       {:error, %Ecto.Changeset{}}
 
   """
+  def newsletter_send(%Newsletter{} = newsletter) do
+    newsletter
+    |> Newsletter.send_changeset(%{"send" => true})
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a newsletter.
+
+  ## Examples
+
+      iex> delete_newsletter(newsletter)
+      {:ok, %Newsletter{}}
+
+      iex> delete_newsletter(newsletter)
+      {:error, %Ecto.Changeset{}}
+
+  """
   def delete_newsletter(%Newsletter{} = newsletter) do
     Repo.delete(newsletter)
   end

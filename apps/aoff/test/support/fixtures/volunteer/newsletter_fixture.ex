@@ -14,7 +14,7 @@ defmodule AOFF.Volunteer.NewsletterFixture do
     "author" => "some updated author",
     "caption" => "some updated caption",
     "date" => Date.add(Date.utc_today(), 5),
-    "send" => false,
+    "send" => true,
     "text" => "some updated text",
     "title" => "some updated title"
   }

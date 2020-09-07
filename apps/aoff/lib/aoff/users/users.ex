@@ -11,6 +11,23 @@ defmodule AOFF.Users do
   @users_pr_page 40
 
   @doc """
+  Returns the list of users subscribing to the newsletter .
+
+  ## Examples
+
+      iex> list_users()
+      [%User{}, ...]
+
+  """
+  def list_users(:newsletter) do
+    query =
+      from u in User,
+        where: u.subscribe_to_news == ^true
+
+    Repo.all(query)
+  end
+
+  @doc """
   Returns the list of users.
 
   ## Examples

@@ -142,6 +142,8 @@ defmodule AOFFWeb.Router do
     resources "/users", AOFFWeb.Volunteer.UserController
     resources "/newsletters", AOFFWeb.Volunteer.NewsletterController
 
+    put "/send_newsletter/:id", AOFFWeb.Volunteer.SendNewsletterController, :update
+
     resources "/users_csv", AOFFWeb.Volunteer.UsersCSVController, only: [:index]
     resources "/messages", AOFFWeb.Volunteer.MessageController, except: [:new, :create]
 

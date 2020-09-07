@@ -45,4 +45,10 @@ defmodule AOFF.Volunteer.Newsletter do
     ])
     |> cast_attachments(attrs, [:image])
   end
+
+  @doc false
+  def send_changeset(newsletter, attrs) do
+    newsletter
+    |> cast(attrs, [:send])
+  end
 end

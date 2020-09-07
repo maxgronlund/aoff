@@ -55,7 +55,7 @@ defmodule AOFFWeb.ResetPasswordController do
         username_and_email = {user.username, user.email}
 
         # Create your email
-        AOFFWeb.Email.reset_password_email(username_and_email, reset_password_url)
+        AOFFWeb.EmailController.reset_password_email(username_and_email, reset_password_url)
         |> AOFFWeb.Mailer.deliver_now()
 
       _ ->

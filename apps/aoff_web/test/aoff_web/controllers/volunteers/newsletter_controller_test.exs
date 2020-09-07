@@ -36,17 +36,17 @@ defmodule AOFFWeb.Volunteer.NewsletterControllerTest do
       {:ok, conn: conn, user: user}
     end
 
-    test "lists all newsletters", %{conn: conn} do
+    test "index lists all newsletters", %{conn: conn} do
       conn = get(conn, Routes.volunteer_newsletter_path(conn, :index))
       assert html_response(conn, 200) =~ gettext("Newsletters")
     end
 
-    test "renders form", %{conn: conn} do
+    test "new renders form", %{conn: conn} do
       conn = get(conn, Routes.volunteer_newsletter_path(conn, :new))
       assert html_response(conn, 200) =~ gettext("New Newsletter")
     end
 
-    test "redirects to show when data is valid", %{conn: conn} do
+    test "update redirects to show when data is valid", %{conn: conn} do
       attrs = valid_newsletter_attrs()
       conn = post(conn, Routes.volunteer_newsletter_path(conn, :create), newsletter: attrs)
 

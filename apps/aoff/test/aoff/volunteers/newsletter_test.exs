@@ -57,6 +57,11 @@ defmodule AOFF.Volunteer.NewsletterTest do
       assert_raise Ecto.NoResultsError, fn -> Volunteers.get_newsletter!(newsletter.id) end
     end
 
+    test "newsletter_send/1 update the send field" do
+      newsletter = newsletter_fixture()
+      assert {:ok, %Newsletter{send: true}} = Volunteers.newsletter_send(newsletter)
+    end
+
     test "change_newsletter/1 returns a newsletter changeset" do
       newsletter = newsletter_fixture()
       assert %Ecto.Changeset{} = Volunteers.change_newsletter(newsletter)

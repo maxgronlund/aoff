@@ -66,7 +66,7 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
   end
 
   defp send_invoice(order, cardno, paymenttype) do
-    AOFFWeb.Email.invoice_email(order, cardno, paymenttype)
+    AOFFWeb.EmailController.invoice_email(order, cardno, paymenttype)
     |> AOFFWeb.Mailer.deliver_now()
   end
 

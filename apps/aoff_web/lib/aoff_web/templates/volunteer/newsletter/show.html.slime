@@ -13,11 +13,17 @@
     h2 = @newsletter.title
   .column
     .float-right
-      = link "Delete", to: Routes.volunteer_newsletter_path(@conn, :delete, @newsletter), method: :delete, data: [confirm: "Are you sure?"], class: "button button-red"
+      = link gettext("Send"),\
+        to: Routes.volunteer_send_newsletter_path(@conn, :update, @newsletter),\
+        method: :put,\
+        class: "button"
       |&nbsp;
-      = link "Edit", to: Routes.volunteer_newsletter_path(@conn, :edit, @newsletter), class: "button"
+      = link gettext("Delete"), to: Routes.volunteer_newsletter_path(@conn, :delete, @newsletter), method: :delete, data: [confirm: "Are you sure?"], class: "button button-red"
+      |&nbsp;
+      = link gettext("Edit"), to: Routes.volunteer_newsletter_path(@conn, :edit, @newsletter), class: "button"
 
 .tile
+  img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({@newsletter.image, @newsletter}, :original)}"
   ul
     li
       strong Date:&nbsp;
@@ -25,15 +31,13 @@
     li
       strong Title:&nbsp;
       = @newsletter.title
-    li
-      strong Image:&nbsp;
-      = @newsletter.image
+
     li
       strong Caption:&nbsp;
       = @newsletter.caption
     li
       strong Text:&nbsp;
-      = @newsletter.text
+      = raw @newsletter.text
     li
       strong Author:&nbsp;
       = @newsletter.author

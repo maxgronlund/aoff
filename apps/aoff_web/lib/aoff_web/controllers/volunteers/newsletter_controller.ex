@@ -6,7 +6,7 @@ defmodule AOFFWeb.Volunteer.NewsletterController do
   # alias AOFF.Users
   alias AOFFWeb.Users.Auth
   plug Auth
-  plug :authenticate when action in [:index, :edit, :new, :update, :create, :delete]
+  plug :authenticate when action in [:index, :show, :edit, :new, :update, :create, :delete]
 
   def index(conn, _params) do
     newsletters = Volunteers.list_newsletters()
@@ -22,7 +22,7 @@ defmodule AOFFWeb.Volunteer.NewsletterController do
     case Volunteers.create_newsletter(newsletter_params) do
       {:ok, newsletter} ->
         conn
-        |> put_flash(:info, "News letter created successfully.")
+        |> put_flash(:info, gettext("News letter created successfully."))
         |> redirect(to: Routes.volunteer_newsletter_path(conn, :show, newsletter))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -47,7 +47,7 @@ defmodule AOFFWeb.Volunteer.NewsletterController do
     case Volunteers.update_newsletter(newsletter, newsletter_params) do
       {:ok, newsletter} ->
         conn
-        |> put_flash(:info, "News letter updated successfully.")
+        |> put_flash(:info, gettext("News letter updated successfully."))
         |> redirect(to: Routes.volunteer_newsletter_path(conn, :show, newsletter))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -60,7 +60,7 @@ defmodule AOFFWeb.Volunteer.NewsletterController do
     {:ok, _newsletter} = Volunteers.delete_newsletter(newsletter)
 
     conn
-    |> put_flash(:info, "News letter deleted successfully.")
+    |> put_flash(:info, gettext("News letter deleted successfully."))
     |> redirect(to: Routes.volunteer_newsletter_path(conn, :index))
   end
 
