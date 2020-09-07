@@ -32,6 +32,7 @@ defmodule AOFF.Users.User do
     field :manage_membership, :boolean, default: false
     field :bounce_to_url, :string, default: "/"
     field :confirmed_at, :date
+    field :subscribe_to_news, :boolean, default: false
 
     has_many :orders, Order
     has_many :pick_ups, PickUp
@@ -123,6 +124,7 @@ defmodule AOFF.Users.User do
       :manage_membership
     ])
     |> validate(attrs)
+    |> cast_attachments(attrs, [:avatar])
   end
 
   @doc false
@@ -142,7 +144,8 @@ defmodule AOFF.Users.User do
       :purchasing_manager,
       :shop_assistant,
       :text_editor,
-      :manage_membership
+      :manage_membership,
+      :subscribe_to_news
     ])
     |> validate_required([
       :username,
@@ -207,7 +210,8 @@ defmodule AOFF.Users.User do
       :purchasing_manager,
       :shop_assistant,
       :text_editor,
-      :manage_membership
+      :manage_membership,
+      :subscribe_to_news
     ])
     |> validate_required([
       :username,
@@ -261,7 +265,8 @@ defmodule AOFF.Users.User do
       :username,
       :password,
       :password_reset_token,
-      :password_reset_expires
+      :password_reset_expires,
+      :subscribe_to_news
     ])
     |> validate_required([
       :username,
@@ -303,7 +308,8 @@ defmodule AOFF.Users.User do
       :terms_accepted,
       :registration_date,
       :password_reset_token,
-      :password_reset_expires
+      :password_reset_expires,
+      :subscribe_to_news
     ])
     |> validate_required([
       :username,
@@ -348,7 +354,8 @@ defmodule AOFF.Users.User do
       :email,
       :mobile,
       :mobile_country_code,
-      :username
+      :username,
+      :subscribe_to_news
     ])
     |> validate_required([
       :id,

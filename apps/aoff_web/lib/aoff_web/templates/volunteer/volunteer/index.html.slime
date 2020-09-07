@@ -23,6 +23,9 @@
       = link to: Routes.volunteer_message_path(@conn, :index) do
         #pointer
           h2 = gettext("Help texts")
+      = link to: Routes.volunteer_newsletter_path(@conn, :index) do
+        #pointer
+          h2 = gettext("Newsletters")
     = if @admin do
       = link to: Routes.volunteer_category_path(@conn, :index) do
         #pointer

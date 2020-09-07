@@ -1,0 +1,48 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+    li
+      = link gettext("Newsletters"), to: Routes.volunteer_newsletter_path(@conn, :index)
+    li.is-active
+      |&nbsp;&nbsp;
+      = @newsletter.title
+
+.row
+  .column
+    h2 = @newsletter.title
+  .column
+    .float-right
+      = link gettext("Send"),\
+        to: Routes.volunteer_send_newsletter_path(@conn, :update, @newsletter),\
+        method: :put,\
+        class: "button"
+      |&nbsp;
+      = link gettext("Delete"), to: Routes.volunteer_newsletter_path(@conn, :delete, @newsletter), method: :delete, data: [confirm: "Are you sure?"], class: "button button-red"
+      |&nbsp;
+      = link gettext("Edit"), to: Routes.volunteer_newsletter_path(@conn, :edit, @newsletter), class: "button"
+
+.tile
+  img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({@newsletter.image, @newsletter}, :original)}"
+  ul
+    li
+      strong Date:&nbsp;
+      = @newsletter.date
+    li
+      strong Title:&nbsp;
+      = @newsletter.title
+
+    li
+      strong Caption:&nbsp;
+      = @newsletter.caption
+    li
+      strong Text:&nbsp;
+      = raw @newsletter.text
+    li
+      strong Author:&nbsp;
+      = @newsletter.author
+    li
+      strong Send:&nbsp;
+      = @newsletter.send
+
+

@@ -54,6 +54,7 @@ defmodule AOFF.Uploader.Image do
     case scope do
       %AOFF.Users.User{} ->
         random_animal(version)
+
       _ ->
         random_image(version)
     end
@@ -63,8 +64,10 @@ defmodule AOFF.Uploader.Image do
     case :rand.uniform(3) do
       1 ->
         "https://aoff.s3-eu-west-1.amazonaws.com/default/image/#{version}.jpg"
+
       2 ->
         "https://aoff.s3-eu-west-1.amazonaws.com/default/image/#{version}.jpg"
+
       3 ->
         "https://aoff.s3-eu-west-1.amazonaws.com/default/image/#{version}.jpg"
     end
@@ -74,24 +77,34 @@ defmodule AOFF.Uploader.Image do
     case :rand.uniform(11) do
       1 ->
         "https://aoff.s3-eu-west-1.amazonaws.com/default/image/animals/bee/#{version}.jpg"
+
       2 ->
         "https://aoff.s3-eu-west-1.amazonaws.com/default/image/animals/bird/#{version}.jpg"
+
       3 ->
         "https://aoff.s3-eu-west-1.amazonaws.com/default/image/animals/butterfly/#{version}.jpg"
+
       4 ->
         "https://aoff.s3-eu-west-1.amazonaws.com/default/image/animals/cane-toad/#{version}.jpg"
+
       5 ->
         "https://aoff.s3-eu-west-1.amazonaws.com/default/image/animals/cat/#{version}.jpg"
+
       6 ->
         "https://aoff.s3-eu-west-1.amazonaws.com/default/image/animals/doe/#{version}.jpg"
+
       7 ->
         "https://aoff.s3-eu-west-1.amazonaws.com/default/image/animals/fox/#{version}.jpg"
+
       8 ->
         "https://aoff.s3-eu-west-1.amazonaws.com/default/image/animals/goat/#{version}.jpg"
+
       9 ->
         "https://aoff.s3-eu-west-1.amazonaws.com/default/image/animals/hedgehog/#{version}.jpg"
+
       10 ->
         "https://aoff.s3-eu-west-1.amazonaws.com/default/image/animals/sparrow/#{version}.jpg"
+
       11 ->
         "https://aoff.s3-eu-west-1.amazonaws.com/default/image/animals/squirrel/#{version}.jpg"
     end

@@ -36,16 +36,24 @@ defmodule AOFFWeb.Events.ParticipantControllerTest do
           Routes.events_participant_path(conn, :create),
           participant: %{"user_id" => user.id, "page_id" => page.id}
         )
+
       assert redirected_to(conn) == Routes.calendar_path(conn, :show, page.title)
     end
 
-    test "delete/1 deletes participation", %{conn: conn, user: user, page: page, category: category} do
+    test "delete/1 deletes participation", %{
+      conn: conn,
+      user: user,
+      page: page,
+      category: category
+    } do
       {:ok, participant} = participant_fixture(%{"user_id" => user.id, "page_id" => page.id})
+
       conn =
         delete(
           conn,
           Routes.events_participant_path(conn, :delete, participant)
         )
+
       assert redirected_to(conn) == Routes.calendar_path(conn, :show, page.title)
     end
   end

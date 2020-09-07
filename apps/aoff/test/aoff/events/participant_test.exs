@@ -25,7 +25,7 @@ defmodule AOFF.Events.ParticipantTest do
     end
 
     test "get_participant/1 returns one participant", %{user: user, page: page} do
-      {:ok, participant }  = participant_fixture(%{"user_id" => user.id, "page_id" => page.id})
+      {:ok, participant} = participant_fixture(%{"user_id" => user.id, "page_id" => page.id})
       assert Events.get_participant(participant.id).id == participant.id
     end
 
@@ -40,6 +40,7 @@ defmodule AOFF.Events.ParticipantTest do
       {:ok, participant} = participant_fixture(%{"user_id" => user.id, "page_id" => page.id})
       assert assert {:ok, %Participant{}} = Events.delete_participant(participant)
     end
+
     # test "cancel_participation/1 update state to cancelled", %{user: user, page: page} do
     #   {:ok, participant} = participant_fixture(%{"user_id" => user.id, "page_id" => page.id})
 
