@@ -16,7 +16,8 @@
     b = date_time(@meeting)
     br
     b = gettext("Address")
-    = text_to_html @meeting.location
+    = if @meeting.location do
+      = text_to_html @meeting.location
 = if committee_member(@meeting.committee, @current_user) || @admin do
   .row
     .column
