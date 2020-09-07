@@ -56,14 +56,12 @@ defmodule AOFFWeb.EmailController do
   end
 
   def send_newsletter(%AOFF.Volunteer.Newsletter{} = newsletter, username_and_email) do
-    result =
-      new_email()
-      |> to(username_and_email)
-      |> from(@email_from)
-      |> subject(gettext("AOFF Newsletter"))
-      |> put_header("Reply-To", @email_from)
-      |> put_layout({AOFFWeb.EmailView, :newsletter})
-      |> render(:newsletter)
-    IO.inspect result
+    new_email()
+    |> to(username_and_email)
+    |> from(@email_from)
+    |> subject(gettext("AOFF Newsletter"))
+    |> put_header("Reply-To", @email_from)
+    |> put_layout({AOFFWeb.EmailView, :newsletter})
+    |> render(:newsletter, newsletter: newsletter)
   end
 end

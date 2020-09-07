@@ -1,4 +1,4 @@
-h2 gettext("New Newsletter")
+h2 = gettext("New Newsletter")
 
 = render "form.html", Map.put(assigns, :action, Routes.volunteer_newsletter_path(@conn, :create))
 

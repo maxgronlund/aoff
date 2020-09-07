@@ -10,7 +10,12 @@
 
 .row
   .column
-    h2 = @newsletter.title
+    = date(@newsletter.date)
+    |&nbsp;
+    = gettext("Author: %{author}", author: @newsletter.author)
+    = if @newsletter.send do
+      .red = gettext("This letter is send")
+
   .column
     .float-right
       = link gettext("Send"),\
@@ -21,28 +26,12 @@
       = link gettext("Delete"), to: Routes.volunteer_newsletter_path(@conn, :delete, @newsletter), method: :delete, data: [confirm: "Are you sure?"], class: "button button-red"
       |&nbsp;
       = link gettext("Edit"), to: Routes.volunteer_newsletter_path(@conn, :edit, @newsletter), class: "button"
-
-.tile
-  img.modal-button alt=("Placeholder image") src="#{AOFF.Uploader.Image.url({@newsletter.image, @newsletter}, :original)}"
-  ul
-    li
-      strong Date:&nbsp;
-      = @newsletter.date
-    li
-      strong Title:&nbsp;
-      = @newsletter.title
-
-    li
-      strong Caption:&nbsp;
+.row
+  .column
+    .tile
+      h2 = @newsletter.title
+      img src="#{AOFF.Uploader.Image.url({@newsletter.image, @newsletter}, :original)}"
       = @newsletter.caption
-    li
-      strong Text:&nbsp;
       = raw @newsletter.text
-    li
-      strong Author:&nbsp;
-      = @newsletter.author
-    li
-      strong Send:&nbsp;
-      = @newsletter.send
 
 

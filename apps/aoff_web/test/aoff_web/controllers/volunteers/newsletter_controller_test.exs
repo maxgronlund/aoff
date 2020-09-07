@@ -13,6 +13,23 @@ defmodule AOFFWeb.Volunteer.NewsletterControllerTest do
       conn = get(conn, Routes.volunteer_newsletter_path(conn, :index))
       assert html_response(conn, 401) =~ "401"
     end
+
+    test "new renders 401", %{conn: conn} do
+      conn = get(conn, Routes.volunteer_newsletter_path(conn, :new))
+      assert html_response(conn, 401) =~ "401"
+    end
+
+    test "edit renders 401", %{conn: conn} do
+      newsletter = newsletter_fixture()
+      conn = get(conn, Routes.volunteer_newsletter_path(conn, :edit, newsletter))
+      assert html_response(conn, 401) =~ "401"
+    end
+
+    test "show renders 401", %{conn: conn} do
+      newsletter = newsletter_fixture()
+      conn = get(conn, Routes.volunteer_newsletter_path(conn, :show, newsletter))
+      assert html_response(conn, 401) =~ "401"
+    end
   end
 
   describe "text editor handles newsletter" do
