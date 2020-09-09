@@ -55,12 +55,12 @@
     = if @shop_assistant || @purchaser do
           .pull-right
             = if @shop_assistant do
-              = link gettext("Shop assistant"),\
+              = link gettext("Pickup list"),\
                 to: Routes.shop_assistant_date_path(@conn, :show, @date),\
                 class: "button button-outline"
             = if @purchaser do
               | &nbsp;
-              = link gettext("Purchaser"),\
+              = link gettext("Order list"),\
                 to: Routes.purchaser_date_path(@conn, :show, @date),\
                 class: "button button-outline"
 
