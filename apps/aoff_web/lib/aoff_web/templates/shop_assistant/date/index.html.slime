@@ -19,11 +19,10 @@
     = link to: Routes.shop_assistant_date_path(@conn, :show, date) do
       .tile
         = raw formatted_date(date.date)
-	= if date.shop_assistant_a == nil || date.shop_assistant_b == nil || date.shop_assistant_c == nil || date.shop_assistant_d == nil do
+	= if number_of_shop_assistants(date) < full_shift() do
 	  p.red
 	    b= gettext("Host missing")
-	    = List.fold([shop_assistant_a, shop_assistant_b, shop_assistant_c, shop_assistant_d], 0, fun x, acc -> if x == nil, do: acc, else: acc+1 end)
-
+	    = full_shift() - number_of_shop_assistants(date)
 
 hr
 

@@ -58,4 +58,14 @@ defmodule AOFFWeb.ShopAssistant.DateView do
       _ -> product.name_en
     end
   end
+
+  def number_of_shop_assistants(date) do
+    n = fn nil -> 0; _ -> 1 end
+    n.(date.shop_assistant_a) + n.(date.shop_assistant_b) +
+      n.(date.shop_assistant_c) + n.(date.shop_assistant_d)
+  end
+
+  def full_shift() do
+    4
+  end
 end
