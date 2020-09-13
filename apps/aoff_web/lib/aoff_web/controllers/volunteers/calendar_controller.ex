@@ -8,7 +8,7 @@ defmodule AOFFWeb.Volunteer.CalendarController do
 
   plug :navbar when action in [:index, :new, :show, :edit]
 
-  def new(conn, params) do
+  def new(conn, _params) do
     category = Content.find_or_create_category("Calendar")
     changeset = Content.change_page(%Page{})
 

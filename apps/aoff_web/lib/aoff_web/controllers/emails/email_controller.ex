@@ -55,13 +55,17 @@ defmodule AOFFWeb.EmailController do
     |> render(:confirm_email, confirm_email_url: confirm_email_url, message: message)
   end
 
-  def send_newsletter(%AOFF.Volunteer.Newsletter{} = newsletter, username_and_email) do
+  def send_newsletter(%AOFF.Volunteer.Newsletter{} = newsletter, username_and_email, unsubscribe_to_news_url) do
     new_email()
     |> to(username_and_email)
     |> from(@email_from)
     |> subject(gettext("AOFF Newsletter"))
     |> put_header("Reply-To", @email_from)
     |> put_layout({AOFFWeb.EmailView, :newsletter})
-    |> render(:newsletter, newsletter: newsletter)
+    |> render(
+      :newsletter,
+      newsletter: newsletter,
+      unsubscribe_to_news_url: unsubscribe_to_news_url
+    )
   end
 end

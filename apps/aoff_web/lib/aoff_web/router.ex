@@ -43,6 +43,7 @@ defmodule AOFFWeb.Router do
     get "/", PageController, :index
     get "/terms", TermsController, :index
     get "/payment_terms", PaymentTermsController, :show
+    get "/unsubscribe_to_news/:id", Users.UnsubscribeToNewsController, :show
     resources "/calendar", Content.CalendarController, only: [:index, :show]
 
     resources "/users", UserController, except: [:index] do

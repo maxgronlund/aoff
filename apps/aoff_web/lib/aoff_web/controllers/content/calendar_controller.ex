@@ -6,7 +6,7 @@ defmodule AOFFWeb.Content.CalendarController do
   alias AOFF.Events
   alias AOFF.Events.Participant
 
-  def index(conn, params) do
+  def index(conn, _params) do
     {:ok, calendar} = Content.find_or_create_category("Calendar")
 
     {:ok, message} =
@@ -30,16 +30,12 @@ defmodule AOFFWeb.Content.CalendarController do
 
       page ->
         participants = Events.list_participants(:all, page.id)
-
-        user_ids = Enum.map(participants, fn participant -> participant.user_id end)
-
         participant = participant(conn, page)
 
         changeset =
           case conn.assigns.current_user do
-            %AOFF.Users.User{} = user ->
+            %AOFF.Users.User{} = _user ->
               Events.change_participant(%Participant{})
-
             _ ->
               nil
           end

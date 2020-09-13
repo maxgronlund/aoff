@@ -134,6 +134,20 @@ defmodule AOFF.UsersTest do
       assert user.id == Users.get_user!(user.id).id
     end
 
+    test "update_user/2 sets the set the unsubscribe_to_news_token" do
+      user = user_fixture()
+      attrs = update_attrs(user.id, %{"subscribe_to_news" => "true"})
+      assert {:ok, %User{} = user} = Users.update_user(user, attrs)
+      refute is_nil(user.unsubscribe_to_news_token)
+    end
+
+    test "update_user/2 sets the removes the unsubscribe_to_news_token" do
+      user = user_fixture()
+      attrs = update_attrs(user.id, %{"subscribe_to_news" => "false"})
+      assert {:ok, %User{} = user} = Users.update_user(user, attrs)
+      assert is_nil(user.unsubscribe_to_news_token)
+    end
+
     test "delete_user/1 deletes the user" do
       user = user_fixture()
       assert {:ok, %User{}} = Users.delete_user(user)
@@ -243,5 +257,37 @@ defmodule AOFF.UsersTest do
     #   user = user_fixture(%{"member_nr" => 2})
     #   assert Users.last_member_nr() == user.member_nr
     # end
+  end
+
+  describe "news mail" do
+    alias AOFF.Users.User
+
+    setup do
+      {:ok, user: user_fixture()}
+    end
+
+    test "set_unsubscribe_to_news_token/1 sets the token", %{user: user} do
+      assert {:ok, %AOFF.Users.User{unsubscribe_to_news_token: token}} = Users.set_unsubscribe_to_news_token(user)
+      refute token == ""
+    end
+
+    test "get_user_by_unsubscribe_to_news_token/1 returns a user when the token is valid", %{user: user} do
+      Users.set_unsubscribe_to_news_token(user)
+      {:ok, %AOFF.Users.User{unsubscribe_to_news_token: token}} = Users.set_unsubscribe_to_news_token(user)
+      assert user.id == Users.get_user_by_unsubscribe_to_news_token(token).id
+
+    end
+
+    test "get_user_by_unsubscribe_to_news_token/1 returns nil when the token is invalid" do
+      assert is_nil(Users.get_user_by_unsubscribe_to_news_token("invalid_token"))
+    end
+
+    test "unsubscribe_to_news/1 unsubscribe the user from emails", %{user: user} do
+      {:ok, user} = Users.update_user(user, %{"subscribe_to_news" => "true", "unsubscribe_to_news_token" => Ecto.UUID.generate()})
+
+      assert {:ok, %AOFF.Users.User{} = user} = Users.unsubscribe_to_news(user)
+      assert is_nil(user.unsubscribe_to_news_token)
+      refute user.subscribe_to_news
+    end
   end
 end

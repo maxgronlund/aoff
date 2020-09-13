@@ -61,8 +61,10 @@ defmodule AOFF.Users.UserFixture do
 
   def valid_attrs(), do: @valid_attrs
 
-  def update_attrs(id) do
-    Map.put(@update_attrs, "id", id)
+  def update_attrs(id, attrs \\ %{}) do
+    attrs
+    |> Enum.into(@update_attrs)
+    |> Map.put("id", id)
   end
 
   def attrs_without_pass(id, attrs \\ %{}) do

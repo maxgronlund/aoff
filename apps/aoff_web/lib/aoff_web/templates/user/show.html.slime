@@ -118,7 +118,8 @@ h2 = @user.username
           hr
           = gettext("Address")
           br/
-          = text_to_html meeting.location
+          = unless is_nil(meeting.location) do
+            = text_to_html meeting.location
         .card-footer.is-button
           = link gettext("Show"),\
             to: Routes.committee_committee_meeting_path(@conn, :show, meeting.committee, meeting),\

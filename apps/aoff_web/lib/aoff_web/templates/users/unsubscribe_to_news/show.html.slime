@@ -1,0 +1,2 @@
+h1= gettext("Hi %{username}! ", username: @user.username)
+= gettext("You are now removed from our newsletter")

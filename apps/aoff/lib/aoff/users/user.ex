@@ -33,6 +33,7 @@ defmodule AOFF.Users.User do
     field :bounce_to_url, :string, default: "/"
     field :confirmed_at, :date
     field :subscribe_to_news, :boolean, default: false
+    field :unsubscribe_to_news_token, :string
 
     has_many :orders, Order
     has_many :pick_ups, PickUp
@@ -121,7 +122,8 @@ defmodule AOFF.Users.User do
       :purchasing_manager,
       :shop_assistant,
       :text_editor,
-      :manage_membership
+      :manage_membership,
+      :unsubscribe_to_news_token
     ])
     |> validate(attrs)
     |> cast_attachments(attrs, [:avatar])
@@ -145,7 +147,8 @@ defmodule AOFF.Users.User do
       :shop_assistant,
       :text_editor,
       :manage_membership,
-      :subscribe_to_news
+      :subscribe_to_news,
+      :unsubscribe_to_news_token
     ])
     |> validate_required([
       :username,
@@ -211,7 +214,8 @@ defmodule AOFF.Users.User do
       :shop_assistant,
       :text_editor,
       :manage_membership,
-      :subscribe_to_news
+      :subscribe_to_news,
+      :unsubscribe_to_news_token
     ])
     |> validate_required([
       :username,
@@ -266,7 +270,8 @@ defmodule AOFF.Users.User do
       :password,
       :password_reset_token,
       :password_reset_expires,
-      :subscribe_to_news
+      :subscribe_to_news,
+      :unsubscribe_to_news_token
     ])
     |> validate_required([
       :username,
@@ -309,7 +314,8 @@ defmodule AOFF.Users.User do
       :registration_date,
       :password_reset_token,
       :password_reset_expires,
-      :subscribe_to_news
+      :subscribe_to_news,
+      :unsubscribe_to_news_token
     ])
     |> validate_required([
       :username,
@@ -330,6 +336,16 @@ defmodule AOFF.Users.User do
     |> unique_constraint(:email)
     |> put_pass_hash()
     |> cast_attachments(attrs, [:avatar])
+  end
+
+  def unsubscribe_to_news_change(user, attrs) do
+    user
+    |> cast(attrs,
+      [
+        :unsubscribe_to_news_token,
+        :subscribe_to_news
+      ]
+    )
   end
 
   def last_member_nr(attrs) do
@@ -355,7 +371,8 @@ defmodule AOFF.Users.User do
       :mobile,
       :mobile_country_code,
       :username,
-      :subscribe_to_news
+      :subscribe_to_news,
+      :unsubscribe_to_news_token
     ])
     |> validate_required([
       :id,

@@ -183,13 +183,25 @@ defmodule AOFF.Users do
       nil
 
   """
-
   def get_user(id) do
     Repo.get(User, id)
   rescue
     Ecto.Query.CastError -> nil
   end
 
+  @doc """
+  Gets a single user by password_reset_token.
+
+  Return nil if the User does not exist.
+
+  ## Examples
+
+      iex> get_user!(123)
+      %User{}
+
+      iex> get_user!(456)
+      nil
+  """
   def get_user_by_reset_password_token(token) do
     cond do
       token == "" -> nil
@@ -197,6 +209,68 @@ defmodule AOFF.Users do
       true -> Repo.get_by(User, password_reset_token: token)
     end
   end
+
+  defp set_subsribe_to_news_token(attrs) do
+    case attrs["subscribe_to_news"] do
+      "true" ->
+        Map.put(attrs, "unsubscribe_to_news_token", Ecto.UUID.generate())
+      _->
+        Map.put(attrs, "unsubscribe_to_news_token", "")
+    end
+  end
+  @doc """
+  Gets a single user by password_reset_token.
+
+  Return nil if the User does not exist.
+
+  ## Examples
+
+      iex> get_user!(123)
+      %User{}
+
+      iex> get_user!(456)
+      nil
+  """
+  def get_user_by_unsubscribe_to_news_token(token) do
+    cond do
+      token == "" -> nil
+      token == nil -> nil
+      true -> Repo.get_by(User, unsubscribe_to_news_token: token)
+    end
+  end
+
+  def set_unsubscribe_to_news_token(user) do
+    user
+    |> User.unsubscribe_to_news_change(
+      %{
+        unsubscribe_to_news_token: Ecto.UUID.generate()
+      }
+    )
+    |> Repo.update()
+  end
+
+  def unsubscribe_to_news(user) do
+    user
+    |> User.unsubscribe_to_news_change(
+      %{
+        subscribe_to_news: false,
+        unsubscribe_to_news_token: nil
+      }
+    )
+    |> Repo.update()
+  end
+
+  def subscribe_to_news(user) do
+    user
+    |> User.unsubscribe_to_news_change(
+      %{
+        subscribe_to_news: true,
+        unsubscribe_to_news_token: Ecto.UUID.generate()
+      }
+    )
+    |> Repo.update()
+  end
+
 
   @doc """
   Register a user.
@@ -242,6 +316,7 @@ defmodule AOFF.Users do
 
   """
   def update_user(%User{} = user, attrs) do
+    attrs = set_subsribe_to_news_token(attrs)
     user
     |> User.update_changeset(attrs)
     |> Repo.update()
