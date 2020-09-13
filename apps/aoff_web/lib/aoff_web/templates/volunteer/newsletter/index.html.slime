@@ -11,7 +11,7 @@
     h2 = gettext("Newsletters")
   .column
     .float-right
-      = link "New News letter", to: Routes.volunteer_newsletter_path(@conn, :new), class: "button"
+      = link gettext("New News letter"), to: Routes.volunteer_newsletter_path(@conn, :new), class: "button"
 
 .tiles.button-tiles
   = for newsletter <- @newsletters do

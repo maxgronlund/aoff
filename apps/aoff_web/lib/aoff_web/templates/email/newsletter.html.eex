@@ -374,7 +374,7 @@
                 <tr>
                   <td class="content-block">
                     <span class="apple-link">AOFF</span>
-                    <br>"<%=gettext("Don't like these emails?")%>"<a href="<%=@unsubscribe_to_news_url%>">"<%=gettext("Unsubscribe")%>"</a>.
+                    <br><%=gettext("Don't like these emails?")%><a href="<%=@unsubscribe_to_news_url%>"><%=gettext("Unsubscribe")%></a>.
                   </td>
                 </tr>
               </table>

@@ -1362,7 +1362,7 @@ msgstr "Afhentet"
 msgid "Pickup date"
 msgstr "Afhentes"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/shop/date/show.html.slime:4
 msgid "Pickup list"
 msgstr "Afhentes"
@@ -1783,7 +1783,7 @@ msgstr "Gem"
 #: lib/aoff_web/templates/user/form.html.slime:3
 #: lib/aoff_web/templates/volunteer/user/form.html.slime:3
 msgid "Subscribe to newsletter"
-msgstr "Abonnomer på nyhedsbrev"
+msgstr "Abonner på nyhedsbrev"
 
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/calendar/form.html.slime:9
@@ -2092,3 +2092,8 @@ msgstr "Vælg frivillig"
 #: lib/aoff_web/templates/user/form.html.slime:6
 msgid "terms and condition"
 msgstr "Regler og vilkår"
+
+#, elixir-format, fuzzy
+#: lib/aoff_web/templates/volunteer/newsletter/index.html.slime:1
+msgid "New News letter"
+msgstr "Opret nyhedsbrev"

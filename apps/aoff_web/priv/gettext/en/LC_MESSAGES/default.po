@@ -2079,3 +2079,8 @@ msgstr ""
 #: lib/aoff_web/templates/user/form.html.slime:6
 msgid "terms and condition"
 msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/aoff_web/templates/volunteer/newsletter/index.html.slime:1
+msgid "New News letter"
+msgstr ""
