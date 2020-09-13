@@ -27,7 +27,8 @@ defmodule AOFFWeb.Volunteer.UserController do
       users: users,
       pages: Users.user_pages(),
       members: Users.member_count(:all),
-      valid_members: Users.member_count(:valid)
+      valid_members: Users.member_count(:valid),
+      subscribers: Users.member_count(:subscribers)
     )
   end
 

@@ -45,6 +45,8 @@
         = gettext("Total members: %{count}", count: @members)
         br
         = gettext("Valid members: %{count}", count: @valid_members)
+        br
+        = gettext("Newsletter subscribers: %{count}", count: @subscribers)
 .tiles.button-tiles
   = for user <- @users do
     .card.is-shady

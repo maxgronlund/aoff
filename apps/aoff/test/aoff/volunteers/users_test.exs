@@ -5,6 +5,8 @@ defmodule AOFF.Volunteer.UsersTest do
 
   import AOFF.Users.UserFixture
 
+  alias AOFF.Users
+
   describe "users" do
     alias AOFF.Users.User
 
@@ -47,6 +49,21 @@ defmodule AOFF.Volunteer.UsersTest do
       user = user_fixture()
       assert {:ok, %User{}} = Volunteers.delete_user(user)
       assert_raise Ecto.NoResultsError, fn -> Volunteers.get_user!(user.id) end
+    end
+
+    test "member_count/1 return how many members there are" do
+      user = user_fixture()
+      assert Users.member_count(:all) == 1
+    end
+
+    test "member_count/1 return how many valid members there are" do
+      user = user_fixture()
+      assert Users.member_count(:valid) == 1
+    end
+
+    test "member_count/1 return how many newsletter subscribers there are" do
+      user = user_fixture(%{"subscribe_to_news" => false})
+      assert Users.member_count(:subscribers) == 0
     end
   end
 end

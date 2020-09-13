@@ -88,7 +88,7 @@ defmodule AOFF.Users do
   Returns the count of all users with a valid membership
 
   ## Examples
-    iex> member_count(:all)
+    iex> member_count(:valid)
     1234
   """
   def member_count(:valid) do
@@ -99,6 +99,24 @@ defmodule AOFF.Users do
 
     Repo.one(query)
   end
+
+  @doc """
+  Returns the count of all users who subscribe to the newsletter
+
+  ## Examples
+    iex> member_count(:all)
+    1234
+  """
+  def member_count(:subscribers) do
+    query =
+      from u in User,
+        where: u.subscribe_to_news >= ^true,
+        select: count(u.id)
+
+    Repo.one(query)
+  end
+
+
 
   def user_pages(per_page \\ @users_pr_page) do
     users = Repo.one(from u in User, select: count(u.id))
