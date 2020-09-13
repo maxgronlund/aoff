@@ -93,6 +93,7 @@ defmodule AOFF.Volunteers do
 
   """
   def register_user(attrs \\ %{}) do
+    attrs = set_subsribe_to_news_token(attrs)
     %User{expiration_date: Date.add(AOFF.Time.today(), -1)}
     |> User.volunteer_changeset(attrs)
     |> Repo.insert()
@@ -111,9 +112,19 @@ defmodule AOFF.Volunteers do
 
   """
   def update_user(%User{} = user, attrs) do
+    attrs = set_subsribe_to_news_token(attrs)
     user
     |> User.volunteer_update_changeset(attrs)
     |> Repo.update()
+  end
+
+  defp set_subsribe_to_news_token(attrs) do
+    case attrs["subscribe_to_news"] do
+      "true" ->
+        Map.put(attrs, "unsubscribe_to_news_token", Ecto.UUID.generate())
+      _->
+        Map.put(attrs, "unsubscribe_to_news_token", "")
+    end
   end
 
   @doc """

@@ -284,6 +284,7 @@ defmodule AOFF.Users do
 
   """
   def create_user(attrs \\ %{}) do
+    attrs = set_subsribe_to_news_token(attrs)
     %User{expiration_date: Date.add(AOFF.Time.today(), -1)}
     |> User.registration_changeset(attrs)
     |> Repo.insert()
