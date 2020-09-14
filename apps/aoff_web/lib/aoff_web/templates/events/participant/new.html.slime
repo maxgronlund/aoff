@@ -6,7 +6,7 @@
       = link @page.title, to: Routes.calendar_path(@conn, :show, @page)
     li.is-active
       | &nbsp;
-      = gettext("Sign me up")
+      = gettext("Sign up to event")
 
 h2 = gettext("Sign me up to %{title}", title: @page.title)
 

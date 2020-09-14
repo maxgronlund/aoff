@@ -42,15 +42,6 @@
       = link gettext("Sign me up"),\
         to: Routes.events_calendar_participant_path(@conn, :new, @page.id),\
         class: "button button-xlarge button-full-width"
-    /
-      = if @changeset && !@participant do
-        = render "participat_form.html", Map.put(assigns, :action, Routes.events_calendar_participant_path(@conn, :create))
-
-      = if @participant do
-        = link gettext("I cant come"), \
-          to: Routes.events_participant_path(@conn, :delete, @participant),\
-          method: :delete,
-          class: "button button-outline button-xlarge button-full-width"
 
     .tiles.button-tiles
       = for participant <- @participants do
@@ -62,7 +53,7 @@
                 = user.username
                 br
             .card-content
-              = gettext("participants %{participants}", participants: participant.participants )
+              = gettext("Participants %{participants}", participants: participant.participants )
             .card-image
               = img_tag AOFF.Uploader.Image.url({user.avatar, user}, :thumb)
 

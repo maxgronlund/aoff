@@ -5,7 +5,7 @@ h2 = @participant.page.title
 .tile
   .row
     .column
-      h4 = gettext("participants %{participants}", participants: @participant.participants )
+      h4 = gettext("Participants %{participants}", participants: @participant.participants )
   .row
     .column
       = img_tag AOFF.Uploader.Image.url({user.avatar, user}, :thumb)
@@ -41,6 +41,3 @@ h2 = @participant.page.title
             class: "button button-red"
 
 
-      / = link "Edit", to: Routes.participant_path(@conn, :edit, @participant)
-      / | &nbsp;
-      / = link "Back", to: Routes.participant_path(@conn, :index)

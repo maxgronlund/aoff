@@ -76,18 +76,26 @@ defmodule AOFFWeb.Events.ParticipantController do
 
   def update(conn, %{"id" => id, "participant" => participant_params
   }) do
-
+    attrs = Map.drop(participant_params, ["user_id", "page_id"])
     participant = Events.get_participant(id)
-
-    case Events.update_participant(participant, participant_params) do
+    page = Content.get_page(participant.page_id)
+    case Events.update_participant(participant, attrs) do
       {:ok, participant} ->
-        page = Content.get_page(participant.page_id)
         conn
         |> put_flash(:info, "Participant updated successfully.")
         |> redirect(to: Routes.calendar_path(conn, :show, page))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", participant: participant, changeset: changeset)
+        IO.inspect changeset
+        render(
+        conn,
+        "edit.html",
+        changeset: changeset,
+        page: page,
+        page_id: page.id,
+        user_id: participant_params["user_id"],
+        participant: participant
+      )
     end
   end
 
