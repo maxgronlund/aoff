@@ -2104,7 +2104,7 @@ msgstr "Afmeld deltagelse"
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/user/index.html.slime:9
 msgid "Newsletter subscribers: %{count}"
-msgstr "Abonnementer på nyhedsbrev"
+msgstr "Abonnenter på nyhedsbrev: %{count}"
 
 #, elixir-format
 #: lib/aoff_web/controllers/events/participant_controller.ex:99
