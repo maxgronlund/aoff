@@ -36,7 +36,7 @@ defmodule AOFFWeb.Shop.PaymentCallbackController do
     end
   end
 
-  defp card_nr(cardno \\ "") do
+  defp card_nr(cardno) do
     String.slice(cardno, 12..15)
   end
 

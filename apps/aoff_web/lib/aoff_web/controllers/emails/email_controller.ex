@@ -7,7 +7,6 @@ defmodule AOFFWeb.EmailController do
 
   @email_from Application.get_env(:aoff_web, AOFFWeb.Mailer)[:email_from]
 
-
   def reset_password_email(username_and_email, reset_password_url) do
     {:ok, message} =
       System.find_or_create_message(
@@ -55,7 +54,11 @@ defmodule AOFFWeb.EmailController do
     |> render(:confirm_email, confirm_email_url: confirm_email_url, message: message)
   end
 
-  def send_newsletter(%AOFF.Volunteer.Newsletter{} = newsletter, username_and_email, unsubscribe_to_news_url) do
+  def send_newsletter(
+        %AOFF.Volunteer.Newsletter{} = newsletter,
+        username_and_email,
+        unsubscribe_to_news_url
+      ) do
     new_email()
     |> to(username_and_email)
     |> from(@email_from)

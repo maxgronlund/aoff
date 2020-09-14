@@ -1,0 +1,46 @@
+h2 = @participant.page.title
+
+- user = @participant.user
+- permitted = @volunteer || user.id == @current_user
+.tile
+  .row
+    .column
+      h4 = gettext("participants %{participants}", participants: @participant.participants )
+  .row
+    .column
+      = img_tag AOFF.Uploader.Image.url({user.avatar, user}, :thumb)
+    .column
+      = user.username
+
+      = if  permitted do
+        br
+        a href="mailto:#{user.email}"
+          = gettext("Email: %{email}", email: user.email)
+
+        = unless is_nil(user.mobile) do
+          br
+          a href="tel:+#{user.mobile_country_code}#{user.mobile}"
+            = gettext("call: %{mobile}", mobile: user.mobile)
+          br
+          a href="sms:+#{user.mobile_country_code}#{user.mobile}"
+              = gettext("Send SMS")
+        br
+  = if permitted do
+    .row
+      .column
+        .float-right
+          = link gettext("Edit"),\
+            to: Routes.events_calendar_participant_path(@conn, :edit, @participant.page_id, @participant),\
+            class: "button"
+          |&nbsp;
+
+          = link gettext("Cancel participation"),\
+            to: Routes.events_calendar_participant_path(@conn, :delete, @participant.page_id, @participant),\
+            method: :delete,\
+            data: [confirm: gettext("Are you sure?")],\
+            class: "button button-red"
+
+
+      / = link "Edit", to: Routes.participant_path(@conn, :edit, @participant)
+      / | &nbsp;
+      / = link "Back", to: Routes.participant_path(@conn, :index)

@@ -1,0 +1,4 @@
+h2 Edit Participant
+
+/= render "form.html", Map.put(assigns, :action, Routes.participant_path(@conn, :update, @participant))
+= render "form.html", Map.put(assigns, :action, Routes.events_calendar_participant_path(@conn, :update, @page.id, @participant))

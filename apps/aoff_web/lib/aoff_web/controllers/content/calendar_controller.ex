@@ -36,6 +36,7 @@ defmodule AOFFWeb.Content.CalendarController do
           case conn.assigns.current_user do
             %AOFF.Users.User{} = _user ->
               Events.change_participant(%Participant{})
+
             _ ->
               nil
           end

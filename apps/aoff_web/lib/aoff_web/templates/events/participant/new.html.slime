@@ -1,0 +1,16 @@
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("Calendar"), to: Routes.calendar_path(@conn, :index)
+    li
+      = link @page.title, to: Routes.calendar_path(@conn, :show, @page)
+    li.is-active
+      | &nbsp;
+      = gettext("Sign me up")
+
+h2 = gettext("Sign me up to %{title}", title: @page.title)
+
+
+= render "form.html", Map.put(assigns, :action, Routes.events_calendar_participant_path(@conn, :create, @page.id))
+
+/= link "Back", to: Routes.participant_path(@conn, :index)

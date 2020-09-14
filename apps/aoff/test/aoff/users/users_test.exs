@@ -267,15 +267,21 @@ defmodule AOFF.UsersTest do
     end
 
     test "set_unsubscribe_to_news_token/1 sets the token", %{user: user} do
-      assert {:ok, %AOFF.Users.User{unsubscribe_to_news_token: token}} = Users.set_unsubscribe_to_news_token(user)
+      assert {:ok, %AOFF.Users.User{unsubscribe_to_news_token: token}} =
+               Users.set_unsubscribe_to_news_token(user)
+
       refute token == ""
     end
 
-    test "get_user_by_unsubscribe_to_news_token/1 returns a user when the token is valid", %{user: user} do
+    test "get_user_by_unsubscribe_to_news_token/1 returns a user when the token is valid", %{
+      user: user
+    } do
       Users.set_unsubscribe_to_news_token(user)
-      {:ok, %AOFF.Users.User{unsubscribe_to_news_token: token}} = Users.set_unsubscribe_to_news_token(user)
-      assert user.id == Users.get_user_by_unsubscribe_to_news_token(token).id
 
+      {:ok, %AOFF.Users.User{unsubscribe_to_news_token: token}} =
+        Users.set_unsubscribe_to_news_token(user)
+
+      assert user.id == Users.get_user_by_unsubscribe_to_news_token(token).id
     end
 
     test "get_user_by_unsubscribe_to_news_token/1 returns nil when the token is invalid" do
@@ -283,7 +289,11 @@ defmodule AOFF.UsersTest do
     end
 
     test "unsubscribe_to_news/1 unsubscribe the user from emails", %{user: user} do
-      {:ok, user} = Users.update_user(user, %{"subscribe_to_news" => "true", "unsubscribe_to_news_token" => Ecto.UUID.generate()})
+      {:ok, user} =
+        Users.update_user(user, %{
+          "subscribe_to_news" => "true",
+          "unsubscribe_to_news_token" => Ecto.UUID.generate()
+        })
 
       assert {:ok, %AOFF.Users.User{} = user} = Users.unsubscribe_to_news(user)
       assert is_nil(user.unsubscribe_to_news_token)

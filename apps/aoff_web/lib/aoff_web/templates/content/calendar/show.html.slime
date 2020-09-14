@@ -39,35 +39,36 @@
   = if @valid_member do
     h3 = gettext("Registration")
     = if @changeset && !@participant do
-      = render "participat_form.html", Map.put(assigns, :action, Routes.events_participant_path(@conn, :create))
+      = link gettext("Sign me up"),\
+        to: Routes.events_calendar_participant_path(@conn, :new, @page.id),\
+        class: "button button-xlarge button-full-width"
+    /
+      = if @changeset && !@participant do
+        = render "participat_form.html", Map.put(assigns, :action, Routes.events_calendar_participant_path(@conn, :create))
 
-    = if @participant do
-      = link gettext("I cant come"), \
-        to: Routes.events_participant_path(@conn, :delete, @participant),\
-        method: :delete,
-        class: "button button-outline button-xlarge button-full-width"
+      = if @participant do
+        = link gettext("I cant come"), \
+          to: Routes.events_participant_path(@conn, :delete, @participant),\
+          method: :delete,
+          class: "button button-outline button-xlarge button-full-width"
 
-    .tiles
+    .tiles.button-tiles
       = for participant <- @participants do
         - user = participant.user
-        .card.is-shady
-          .card-header
-            .card-header-title.is-centered
-              = user.username
-          .card-image
-            = img_tag AOFF.Uploader.Image.url({user.avatar, user}, :thumb)
-          = if @volunteer do
+        = link to: Routes.events_calendar_participant_path(@conn, :show, @page.id, participant) do
+          .card.is-shady
+            .card-header
+              .card-header-title.is-centered
+                = user.username
+                br
             .card-content
-              a href="mailto:#{user.email}"
-                = gettext("Email: %{email}", email: user.email)
-              br/
-              - IO.inspect user.mobile
-              = unless is_nil(user.mobile) do
-                a href="tel:+#{user.mobile_country_code}#{user.mobile}"
-                  = gettext("call: %{mobile}", mobile: user.mobile)
-                |&nbsp;|&nbsp;
-                a href="sms:+#{user.mobile_country_code}#{user.mobile}"
-                  = gettext("Send SMS")
+              = gettext("participants %{participants}", participants: participant.participants )
+            .card-image
+              = img_tag AOFF.Uploader.Image.url({user.avatar, user}, :thumb)
+
+              .card-footer.is-button
+                .card-footer-item.is-button
+                  = gettext("Show")
   - else
     .alert.alert-info
       h4 = @message.title

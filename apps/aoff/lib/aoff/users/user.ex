@@ -340,7 +340,8 @@ defmodule AOFF.Users.User do
 
   def unsubscribe_to_news_change(user, attrs) do
     user
-    |> cast(attrs,
+    |> cast(
+      attrs,
       [
         :unsubscribe_to_news_token,
         :subscribe_to_news

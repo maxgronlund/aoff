@@ -42,6 +42,7 @@ defmodule AOFF.Events do
     Participant
     |> Repo.get(id)
     |> Repo.preload(:page)
+    |> Repo.preload(:user)
   end
 
   def get_participant(page_id, user_id) do
@@ -55,6 +56,7 @@ defmodule AOFF.Events do
   end
 
   def create_participant(attrs \\ %{}) do
+    IO.inspect %Participant{} |> Participant.changeset(attrs)
     %Participant{} |> Participant.changeset(attrs) |> Repo.insert()
   end
 
@@ -74,11 +76,22 @@ defmodule AOFF.Events do
     Repo.delete(participant)
   end
 
-  # def cancel_participation(participant) do
-  #   participant
-  #   |> Participant.changeset(%{"state" => "cancelled"})
-  #   |> Repo.update()
-  # end
+  @doc """
+  Updates a participant.
+
+  ## Examples
+
+    iex> update_participant(participant, attrs)
+    {ok, %Participant}
+
+    iex> update_participant(participant, attrs)
+    {error, %Ecto.Changeser{}}
+  """
+  def update_participant(participant, attrs) do
+    participant
+    |> Participant.changeset(attrs)
+    |> Repo.update()
+  end
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking participant changes.

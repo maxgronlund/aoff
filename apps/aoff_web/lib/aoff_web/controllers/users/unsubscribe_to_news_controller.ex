@@ -7,7 +7,9 @@ defmodule AOFFWeb.Users.UnsubscribeToNewsController do
       %AOFF.Users.User{} = user ->
         {:ok, %AOFF.Users.User{} = user} = Users.unsubscribe_to_news(user)
         render(conn, "show.html", user: user)
-      _-> forbidden(conn)
+
+      _ ->
+        forbidden(conn)
     end
   end
 

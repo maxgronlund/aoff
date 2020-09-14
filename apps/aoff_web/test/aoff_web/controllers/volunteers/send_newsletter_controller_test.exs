@@ -8,7 +8,6 @@ defmodule AOFF.Volunteer.SendNewsletterControllerTest do
   import AOFF.Volunteer.NewsletterFixture
   # import AOFFWeb.Gettext
 
-
   describe "as a volunteer" do
     @session Plug.Session.init(
                store: :cookie,
@@ -17,13 +16,12 @@ defmodule AOFF.Volunteer.SendNewsletterControllerTest do
                signing_salt: "yadayada"
              )
     setup do
-      user = user_fixture(
-          %{
-            "volunteer" => true,
-            "text_editor" => true,
-            "subscribe_to_news" => true
-          }
-        )
+      user =
+        user_fixture(%{
+          "volunteer" => true,
+          "text_editor" => true,
+          "subscribe_to_news" => true
+        })
 
       conn =
         build_conn()
@@ -41,5 +39,4 @@ defmodule AOFF.Volunteer.SendNewsletterControllerTest do
       assert redirected_to(conn) == Routes.volunteer_newsletter_path(conn, :show, newsletter)
     end
   end
-
 end

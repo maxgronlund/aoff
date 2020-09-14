@@ -58,7 +58,14 @@ defmodule AOFFWeb.EmailControllerTest do
     newsletter = newsletter_fixture()
     user = user_fixture(%{"subscribe_to_news" => true})
     username_and_email = {user.username, user.email}
-    response = EmailController.send_newsletter(newsletter, username_and_email, "http://example.com/unsubscribe")
+
+    response =
+      EmailController.send_newsletter(
+        newsletter,
+        username_and_email,
+        "http://example.com/unsubscribe"
+      )
+
     assert %Bamboo.Email{} = response
   end
 end

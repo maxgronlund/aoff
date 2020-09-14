@@ -9,6 +9,7 @@ defmodule AOFF.Events.Participant do
   @foreign_key_type :binary_id
   schema "participants" do
     field :state, :string, default: "participating"
+    field :participants, :integer, default: 1
     belongs_to :user, User
     belongs_to :page, Page
 
@@ -17,7 +18,8 @@ defmodule AOFF.Events.Participant do
 
   def changeset(participant, attrs) do
     participant
-    |> cast(attrs, [:state, :user_id, :page_id])
-    |> validate_required([:state, :user_id, :page_id])
+    |> cast(attrs, [:state, :user_id, :page_id, :participants])
+    |> validate_required([:state, :user_id, :page_id, :participants])
+    |> unique_constraint(:id, name: :participants_page_id_user_id_index)
   end
 end

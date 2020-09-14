@@ -2,15 +2,18 @@ defmodule AOFF.Events.ParticipantFixture do
   alias AOFF.Events
 
   @valid_attrs %{
-    "state" => "participating"
+    "state" => "no",
+    "participants" => 1
   }
 
   @update_attrs %{
-    "state" => "cancelled"
+    "state" => "participating",
+    "participants" => 5
   }
 
   @invalid_attrs %{
-    "state" => nil
+    "state" => nil,
+    "participants" => nil
   }
 
   def valid_participant_attrs(attrs \\ %{}) do
