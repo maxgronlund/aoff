@@ -9,5 +9,5 @@ import Ecto.Query
 users = AOFF.Repo.all(User)
 
 for user <- users do
-  Users.unsubscribe_to_news(user)
+  Users.subscribe_to_news(user)
 end
