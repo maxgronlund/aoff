@@ -56,7 +56,7 @@ defmodule AOFF.Events do
   end
 
   def create_participant(attrs \\ %{}) do
-    IO.inspect %Participant{} |> Participant.changeset(attrs)
+    %Participant{} |> Participant.changeset(attrs)
     %Participant{} |> Participant.changeset(attrs) |> Repo.insert()
   end
 

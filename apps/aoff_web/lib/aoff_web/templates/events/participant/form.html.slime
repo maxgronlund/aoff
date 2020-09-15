@@ -6,7 +6,7 @@
           .alert.alert-danger
             p = gettext("Oops, something went wrong! Please check the errors below.")
         .form-group
-          = label f, :participants, class: "control-label"
+          = label f, :participants, gettext("Participants"), class: "control-label"
           = number_input f, :participants, class: "form-control"
           = error_tag f, :participants
         = hidden_input f, :user_id, value: @user_id

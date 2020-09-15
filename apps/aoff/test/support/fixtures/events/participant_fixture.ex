@@ -2,12 +2,12 @@ defmodule AOFF.Events.ParticipantFixture do
   alias AOFF.Events
 
   @valid_attrs %{
-    "state" => "no",
+    "state" => "participating",
     "participants" => 1
   }
 
   @update_attrs %{
-    "state" => "participating",
+    "state" => "no",
     "participants" => 5
   }
 

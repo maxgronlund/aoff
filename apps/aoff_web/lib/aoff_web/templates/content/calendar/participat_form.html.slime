@@ -1,5 +1,0 @@
-= form_for @changeset, @action, fn f ->
-
-  = hidden_input f, :user_id, value: @current_user.id
-  = hidden_input f, :page_id, value: @page.id
-  = submit gettext("Sign up to event"), class: "button button-xlarge button-full-width"
