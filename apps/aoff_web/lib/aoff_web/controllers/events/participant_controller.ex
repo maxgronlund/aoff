@@ -34,7 +34,7 @@ defmodule AOFFWeb.Events.ParticipantController do
     page = Content.get_page(participant_params["page_id"])
 
     case Events.create_participant(participant_params) do
-      {:ok, participant} ->
+      {:ok, _participant} ->
         conn
         |> put_flash(:info, "Participant created successfully.")
         |> redirect(to: Routes.calendar_path(conn, :show, page))
@@ -80,14 +80,12 @@ defmodule AOFFWeb.Events.ParticipantController do
     page = Content.get_page(participant.page_id)
 
     case Events.update_participant(participant, attrs) do
-      {:ok, participant} ->
+      {:ok, _participant} ->
         conn
         |> put_flash(:info, "Participant updated successfully.")
         |> redirect(to: Routes.calendar_path(conn, :show, page))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        IO.inspect(changeset)
-
         render(
           conn,
           "edit.html",

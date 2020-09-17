@@ -52,7 +52,7 @@ msgid "< Select another date"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/controllers/volunteers/user_controller.ex:84
+#: lib/aoff_web/controllers/volunteers/user_controller.ex:86
 msgid "A membership for %{username} is created"
 msgstr ""
 
@@ -222,7 +222,8 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/templates/content/calendar/show.html.slime:1
-#: lib/aoff_web/templates/events/participant/new.html.slime:1 lib/aoff_web/templates/layout/navbar.html.slime:1
+#: lib/aoff_web/templates/events/participant/edit.html.slime:1 lib/aoff_web/templates/events/participant/new.html.slime:1
+#: lib/aoff_web/templates/layout/navbar.html.slime:1
 msgid "Calendar"
 msgstr ""
 
@@ -233,7 +234,7 @@ msgstr ""
 #: lib/aoff_web/templates/shop_assistant/user/index.html.slime:1 lib/aoff_web/templates/user/form.html.slime:6
 #: lib/aoff_web/templates/volunteer/calendar/form.html.slime:12 lib/aoff_web/templates/volunteer/category/form.html.slime:9
 #: lib/aoff_web/templates/volunteer/meeting/form.html.slime:21 lib/aoff_web/templates/volunteer/message/form.html.slime:8
-#: lib/aoff_web/templates/volunteer/user/form.html.slime:4
+#: lib/aoff_web/templates/volunteer/user/form.html.slime:6
 msgid "Cancel"
 msgstr ""
 
@@ -452,14 +453,15 @@ msgstr ""
 #: lib/aoff_web/templates/admin/association/index.html.slime:1 lib/aoff_web/templates/admin/user/index.html.slime:1
 #: lib/aoff_web/templates/committees/committee/show.html.slime:9 lib/aoff_web/templates/committees/meeting/show.html.slime:1
 #: lib/aoff_web/templates/content/calendar/show.html.slime:1 lib/aoff_web/templates/content/page/show.html.slime:1
-#: lib/aoff_web/templates/events/participant/show.html.slime:1 lib/aoff_web/templates/page/index.html.slime:1
-#: lib/aoff_web/templates/payment_terms/show.html.slime:1 lib/aoff_web/templates/purchaser/date/show.html.slime:3
-#: lib/aoff_web/templates/purchaser/product/index.html.slime:1 lib/aoff_web/templates/terms/index.html.slime:1
-#: lib/aoff_web/templates/volunteer/committee/index.html.slime:5 lib/aoff_web/templates/volunteer/date/index.html.slime:2
-#: lib/aoff_web/templates/volunteer/meeting/edit.html.slime:1 lib/aoff_web/templates/volunteer/membership/index.html.slime:4
-#: lib/aoff_web/templates/volunteer/message/index.html.slime:1 lib/aoff_web/templates/volunteer/message/show.html.slime:1
-#: lib/aoff_web/templates/volunteer/newsletter/edit.html.slime:1 lib/aoff_web/templates/volunteer/newsletter/show.html.slime:4
-#: lib/aoff_web/templates/volunteer/order/show.html.slime:1 lib/aoff_web/templates/volunteer/page/show.html.slime:1
+#: lib/aoff_web/templates/events/participant/edit.html.slime:1 lib/aoff_web/templates/events/participant/show.html.slime:1
+#: lib/aoff_web/templates/page/index.html.slime:1 lib/aoff_web/templates/payment_terms/show.html.slime:1
+#: lib/aoff_web/templates/purchaser/date/show.html.slime:3 lib/aoff_web/templates/purchaser/product/index.html.slime:1
+#: lib/aoff_web/templates/terms/index.html.slime:1 lib/aoff_web/templates/volunteer/committee/index.html.slime:5
+#: lib/aoff_web/templates/volunteer/date/index.html.slime:2 lib/aoff_web/templates/volunteer/meeting/edit.html.slime:1
+#: lib/aoff_web/templates/volunteer/membership/index.html.slime:4 lib/aoff_web/templates/volunteer/message/index.html.slime:1
+#: lib/aoff_web/templates/volunteer/message/show.html.slime:1 lib/aoff_web/templates/volunteer/newsletter/edit.html.slime:1
+#: lib/aoff_web/templates/volunteer/newsletter/show.html.slime:4 lib/aoff_web/templates/volunteer/order/show.html.slime:1
+#: lib/aoff_web/templates/volunteer/page/show.html.slime:1
 msgid "Edit"
 msgstr ""
 
@@ -696,7 +698,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/templates/admin/user/form.html.slime:1
-#: lib/aoff_web/templates/volunteer/user/form.html.slime:4
+#: lib/aoff_web/templates/volunteer/user/form.html.slime:6
 msgid "Host"
 msgstr ""
 
@@ -1272,7 +1274,7 @@ msgid "Page updated successfully."
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/volunteer/user/form.html.slime:4
+#: lib/aoff_web/templates/volunteer/user/form.html.slime:6
 msgid "Paid"
 msgstr ""
 
@@ -1485,7 +1487,7 @@ msgstr ""
 #, elixir-format
 #: lib/aoff_web/templates/admin/user/form.html.slime:1
 #: lib/aoff_web/templates/admin/user/index.html.slime:1 lib/aoff_web/templates/layout/user_tabs.html.slime:1
-#: lib/aoff_web/templates/purchaser/purchaser/index.html.slime:1 lib/aoff_web/templates/volunteer/user/form.html.slime:4
+#: lib/aoff_web/templates/purchaser/purchaser/index.html.slime:1 lib/aoff_web/templates/volunteer/user/form.html.slime:6
 #: lib/aoff_web/templates/volunteer/user/index.html.slime:9
 msgid "Purchaser"
 msgstr ""
@@ -1527,7 +1529,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/templates/admin/user/form.html.slime:1
-#: lib/aoff_web/templates/volunteer/user/form.html.slime:4 lib/aoff_web/templates/volunteer/user/show.html.slime:1
+#: lib/aoff_web/templates/volunteer/user/form.html.slime:6 lib/aoff_web/templates/volunteer/user/show.html.slime:1
 msgid "Roles"
 msgstr ""
 
@@ -1539,7 +1541,7 @@ msgstr ""
 #: lib/aoff_web/templates/volunteer/category/form.html.slime:9 lib/aoff_web/templates/volunteer/committee/form.html.slime:8
 #: lib/aoff_web/templates/volunteer/date/form.html.slime:13 lib/aoff_web/templates/volunteer/meeting/form.html.slime:22
 #: lib/aoff_web/templates/volunteer/message/form.html.slime:9 lib/aoff_web/templates/volunteer/newsletter/form.html.slime:8
-#: lib/aoff_web/templates/volunteer/page/form.html.slime:12 lib/aoff_web/templates/volunteer/user/form.html.slime:4
+#: lib/aoff_web/templates/volunteer/page/form.html.slime:12 lib/aoff_web/templates/volunteer/user/form.html.slime:6
 msgid "Save"
 msgstr ""
 
@@ -1738,7 +1740,6 @@ msgid "Show on page: Yes"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/templates/content/calendar/participat_form.html.slime:1
 #: lib/aoff_web/templates/events/participant/new.html.slime:1
 msgid "Sign up to event"
 msgstr ""
@@ -1784,7 +1785,7 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/templates/admin/user/form.html.slime:1
-#: lib/aoff_web/templates/volunteer/user/form.html.slime:4
+#: lib/aoff_web/templates/volunteer/user/form.html.slime:6
 msgid "Text editor"
 msgstr ""
 
@@ -1888,13 +1889,13 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/controllers/admin/user_controller.ex:53
-#: lib/aoff_web/controllers/users/user_controller.ex:159 lib/aoff_web/controllers/volunteers/user_controller.ex:152
+#: lib/aoff_web/controllers/users/user_controller.ex:159 lib/aoff_web/controllers/volunteers/user_controller.ex:154
 msgid "User deleted successfully."
 msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/controllers/admin/user_controller.ex:40
-#: lib/aoff_web/controllers/users/user_controller.ex:139 lib/aoff_web/controllers/volunteers/user_controller.ex:132
+#: lib/aoff_web/controllers/users/user_controller.ex:139 lib/aoff_web/controllers/volunteers/user_controller.ex:134
 msgid "User updated successfully."
 msgstr ""
 
@@ -1973,7 +1974,7 @@ msgstr ""
 #: lib/aoff_web/templates/volunteer/newsletter/edit.html.slime:1 lib/aoff_web/templates/volunteer/newsletter/index.html.slime:1
 #: lib/aoff_web/templates/volunteer/newsletter/show.html.slime:1 lib/aoff_web/templates/volunteer/order/edit.html.slime:1
 #: lib/aoff_web/templates/volunteer/order/index.html.slime:1 lib/aoff_web/templates/volunteer/order/show.html.slime:1
-#: lib/aoff_web/templates/volunteer/user/edit.html.slime:1 lib/aoff_web/templates/volunteer/user/form.html.slime:4
+#: lib/aoff_web/templates/volunteer/user/edit.html.slime:1 lib/aoff_web/templates/volunteer/user/form.html.slime:6
 #: lib/aoff_web/templates/volunteer/user/index.html.slime:1 lib/aoff_web/templates/volunteer/user/index.html.slime:9
 #: lib/aoff_web/templates/volunteer/user/new.html.slime:1 lib/aoff_web/templates/volunteer/user/show.html.slime:1
 msgid "Volunteer"
@@ -2094,7 +2095,7 @@ msgid "Newsletter subscribers: %{count}"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/controllers/events/participant_controller.ex:99
+#: lib/aoff_web/controllers/events/participant_controller.ex:106
 msgid "Participant deleted successfully."
 msgstr ""
 
@@ -2112,4 +2113,19 @@ msgstr ""
 #: lib/aoff_web/templates/content/calendar/show.html.slime:7
 #: lib/aoff_web/templates/events/participant/show.html.slime:1
 msgid "Participants %{participants}"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/volunteer/user/form.html.slime:5
+msgid "Confirm account"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/events/participant/edit.html.slime:1
+msgid "Edit participant"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/events/participant/form.html.slime:1
+msgid "Participants"
 msgstr ""

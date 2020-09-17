@@ -1,7 +1,6 @@
 defmodule AOFF.Events.ParticipantTest do
   use AOFF.DataCase
 
-  alias AOFF.Users.User
   alias AOFF.Events.Participant
   alias AOFF.Events
 

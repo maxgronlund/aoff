@@ -78,7 +78,13 @@ defmodule AOFF.Users.UserFixture do
   def user_fixture(attrs \\ %{}) do
     attrs = attrs |> Enum.into(@valid_attrs)
     {:ok, user} = AOFF.Volunteers.register_user(attrs)
-    # {:ok, user} = AOFF.Admin.Admins.update_user(user, attrs)
+    {:ok, user} = AOFF.Admin.Admins.update_user(user, attrs)
+    user
+  end
+
+  def admin_fixture(attrs \\ %{}) do
+    user = user_fixture(attrs)
+    {:ok, user} = AOFF.Admin.Admins.update_user(user, attrs)
     user
   end
 end

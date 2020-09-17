@@ -404,10 +404,10 @@ defmodule AOFF.Users.User do
   end
 
   defp put_confirmed_at(changeset) do
-
     case fetch_field(changeset, :confirm_account) do
       {:data, nil} ->
         changeset
+
       _ ->
         put_change(changeset, :confirmed_at, AOFF.Time.today())
     end

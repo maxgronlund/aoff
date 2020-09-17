@@ -43,7 +43,7 @@ defmodule AOFFWeb.Volunteers.CategoryControllerTest do
                signing_salt: "yadayada"
              )
     setup do
-      user = user_fixture(%{"admin" => true})
+      user = admin_fixture(%{"admin" => true, "volunteer" => true})
 
       conn =
         build_conn()

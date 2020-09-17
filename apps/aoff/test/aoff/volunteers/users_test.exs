@@ -69,17 +69,17 @@ defmodule AOFF.Volunteer.UsersTest do
     end
 
     test "member_count/1 return how many members there are" do
-      user = user_fixture()
+      _user = user_fixture()
       assert Users.member_count(:all) == 1
     end
 
     test "member_count/1 return how many valid members there are" do
-      user = user_fixture()
+      _user = user_fixture()
       assert Users.member_count(:valid) == 1
     end
 
     test "member_count/1 return how many newsletter subscribers there are" do
-      user = user_fixture(%{"subscribe_to_news" => false})
+      _user = user_fixture(%{"subscribe_to_news" => false})
       assert Users.member_count(:subscribers) == 0
     end
   end
