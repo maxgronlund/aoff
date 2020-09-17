@@ -55,38 +55,48 @@ defmodule AOFFWeb.Events.ParticipantControllerTest do
 
     test "show/2 shows a participant", %{conn: conn, user: user, page: page} do
       {:ok, participant} = participant_fixture(%{"user_id" => user.id, "page_id" => page.id})
+
       conn =
         get(
           conn,
           Routes.events_calendar_participant_path(conn, :show, page.id, participant)
         )
+
       assert html_response(conn, 200) =~ page.title
     end
 
     test "edit/2 shows the edit form", %{conn: conn, user: user, page: page} do
       {:ok, participant} = participant_fixture(%{"user_id" => user.id, "page_id" => page.id})
+
       conn =
         get(
           conn,
           Routes.events_calendar_participant_path(conn, :edit, page.id, participant)
         )
+
       assert html_response(conn, 200) =~ gettext("Edit participant")
     end
 
     test "update/2 updates the participant", %{conn: conn, user: user, page: page} do
       {:ok, participant} = participant_fixture(%{"user_id" => user.id, "page_id" => page.id})
       attrs = update_participant_attrs()
+
       conn =
         put(
           conn,
-          Routes.events_calendar_participant_path(conn, :update, participant, participant, %{"participant" => attrs})
+          Routes.events_calendar_participant_path(conn, :update, participant, participant, %{
+            "participant" => attrs
+          })
         )
+
       assert redirected_to(conn) == Routes.calendar_path(conn, :show, page)
     end
 
     test "delete/2 deletes the participant", %{conn: conn, user: user, page: page} do
       {:ok, participant} = participant_fixture(%{"user_id" => user.id, "page_id" => page.id})
-      conn = delete(
+
+      conn =
+        delete(
           conn,
           Routes.events_calendar_participant_path(conn, :delete, page.id, participant)
         )

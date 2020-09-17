@@ -38,13 +38,20 @@ defmodule AOFFWeb.ResendConfirmEmailController do
   defp resend_confirm_email(conn, user) do
     username_and_email = {user.username, user.email}
 
+    token = Ecto.UUID.generate()
+
+    Users.set_password_reset_token(
+      user,
+      %{"password_reset_token" => token}
+    )
+
     confirm_email_url =
       AOFFWeb.Router.Helpers.url(conn) <>
-        "/users/" <>
-        user.password_reset_token <>
+        conn.request_path <>
+        "/" <>
+        token <>
         "/confirm_email"
 
-    # Create your email
     AOFFWeb.EmailController.confirm_email_email(username_and_email, confirm_email_url)
     |> AOFFWeb.Mailer.deliver_now()
   end

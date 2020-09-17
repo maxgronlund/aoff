@@ -17,8 +17,14 @@ defmodule AOFFWeb.Users.ConfirmEmailControllerTest do
 
     test "render show when account not confirmed", %{conn: conn} do
       user = user_fixture()
+      {:ok, message} =
+        System.find_or_create_message(
+          "Confirmation missing",
+          "Confirmation missing",
+          Gettext.get_locale()
+        )
       conn = get(conn, Routes.confirm_email_path(conn, :show, user))
-      assert html_response(conn, 200) =~ "fo"
+      assert html_response(conn, 200) =~ message.text
     end
   end
 end

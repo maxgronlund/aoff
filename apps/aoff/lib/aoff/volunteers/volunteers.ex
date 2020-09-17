@@ -93,7 +93,9 @@ defmodule AOFF.Volunteers do
 
   """
   def register_user(attrs \\ %{}) do
-    attrs = set_subsribe_to_news_token(attrs)
+    attrs =
+      attrs
+      |> set_subsribe_to_news_token()
 
     %User{expiration_date: Date.add(AOFF.Time.today(), -1)}
     |> User.volunteer_changeset(attrs)
@@ -114,6 +116,9 @@ defmodule AOFF.Volunteers do
   """
   def update_user(%User{} = user, attrs) do
     attrs = set_subsribe_to_news_token(attrs)
+
+    IO.inspect attrs
+    IO.inspect(User.volunteer_update_changeset(user, attrs))
 
     user
     |> User.volunteer_update_changeset(attrs)

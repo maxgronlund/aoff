@@ -33,7 +33,7 @@ defmodule AOFFWeb.Volunteer.UserController do
   end
 
   def edit(conn, %{"id" => id}) do
-    user = Volunteers.get_user!(id)
+    IO.inspect(user = Volunteers.get_user!(id))
     changeset = Volunteers.change_user(user)
 
     conn
@@ -74,7 +74,9 @@ defmodule AOFFWeb.Volunteer.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    user_params = Map.put(user_params, "terms_accepted", true)
+    user_params =
+      user_params
+      |> Map.put("terms_accepted", true)
 
     case Volunteers.register_user(user_params) do
       {:ok, user} ->

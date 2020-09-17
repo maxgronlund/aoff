@@ -63,6 +63,13 @@
             = label f, :subscribe_to_news,\
               gettext("Subscribe to newsletter"),\
               class: "control-label label-inline"
+      .column
+        .form-group
+          = label f, :confirm_account do
+            = checkbox f, :confirm_account, class: "form-control"
+            = label f, :confirm_account,\
+              gettext("Confirm account"),\
+              class: "control-label label-inline"
     label = gettext("Roles")
     .row
       .column

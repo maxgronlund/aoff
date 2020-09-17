@@ -31,6 +31,7 @@ defmodule AOFF.Users.User do
     field :registration_date, :date
     field :manage_membership, :boolean, default: false
     field :bounce_to_url, :string, default: "/"
+    field :confirm_account, :boolean, virtual: true
     field :confirmed_at, :date
     field :subscribe_to_news, :boolean, default: false
     field :unsubscribe_to_news_token, :string
@@ -123,9 +124,11 @@ defmodule AOFF.Users.User do
       :shop_assistant,
       :text_editor,
       :manage_membership,
-      :unsubscribe_to_news_token
+      :unsubscribe_to_news_token,
+      :confirm_account
     ])
     |> validate(attrs)
+    |> put_confirmed_at()
     |> cast_attachments(attrs, [:avatar])
   end
 
@@ -148,7 +151,8 @@ defmodule AOFF.Users.User do
       :text_editor,
       :manage_membership,
       :subscribe_to_news,
-      :unsubscribe_to_news_token
+      :unsubscribe_to_news_token,
+      :confirm_account
     ])
     |> validate_required([
       :username,
@@ -171,6 +175,7 @@ defmodule AOFF.Users.User do
     |> validate_length(:mobile_country_code, min: 2, max: 3)
     |> unique_constraint(:email)
     |> put_pass_hash()
+    |> put_confirmed_at()
     |> cast_attachments(attrs, [:avatar])
   end
 
@@ -215,7 +220,8 @@ defmodule AOFF.Users.User do
       :text_editor,
       :manage_membership,
       :subscribe_to_news,
-      :unsubscribe_to_news_token
+      :unsubscribe_to_news_token,
+      :confirm_account
     ])
     |> validate_required([
       :username,
@@ -235,6 +241,7 @@ defmodule AOFF.Users.User do
     |> validate_length(:email, min: 2, max: 253)
     |> validate_length(:mobile, min: 8, max: 15)
     |> validate_length(:mobile_country_code, min: 2, max: 3)
+    |> put_confirmed_at()
     |> cast_attachments(attrs, [:avatar])
   end
 
@@ -373,7 +380,8 @@ defmodule AOFF.Users.User do
       :mobile_country_code,
       :username,
       :subscribe_to_news,
-      :unsubscribe_to_news_token
+      :unsubscribe_to_news_token,
+      :confirm_account
     ])
     |> validate_required([
       :id,
@@ -392,6 +400,16 @@ defmodule AOFF.Users.User do
 
       _ ->
         changeset
+    end
+  end
+
+  defp put_confirmed_at(changeset) do
+
+    case fetch_field(changeset, :confirm_account) do
+      {:data, nil} ->
+        changeset
+      _ ->
+        put_change(changeset, :confirmed_at, AOFF.Time.today())
     end
   end
 

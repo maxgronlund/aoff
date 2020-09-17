@@ -40,6 +40,23 @@ defmodule AOFF.Volunteer.UsersTest do
       assert user.id == Volunteers.get_user!(user.id).id
     end
 
+    test "update_user/2 set confirmed at" do
+      user = user_fixture()
+      attrs = Map.put(valid_attrs(), "confirm_account", true)
+
+      {:ok, %AOFF.Users.User{} = user} = Volunteers.update_user(user, attrs)
+
+      refute is_nil(user.confirmed_at)
+    end
+
+    test "update_user/2 dont set confirmed at" do
+      user = user_fixture()
+      attrs = valid_attrs()
+      {:ok, %AOFF.Users.User{} = user} = Volunteers.update_user(user, attrs)
+
+      assert is_nil(user.confirmed_at)
+    end
+
     test "change_user/1 returns a user changeset" do
       user = user_fixture()
       assert %Ecto.Changeset{} = Volunteers.change_user(user)
