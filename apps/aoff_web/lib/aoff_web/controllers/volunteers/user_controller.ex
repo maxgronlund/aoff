@@ -33,7 +33,7 @@ defmodule AOFFWeb.Volunteer.UserController do
   end
 
   def edit(conn, %{"id" => id}) do
-    IO.inspect(user = Volunteers.get_user!(id))
+    user = Volunteers.get_user!(id)
     changeset = Volunteers.change_user(user)
 
     conn
