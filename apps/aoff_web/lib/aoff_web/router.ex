@@ -82,6 +82,7 @@ defmodule AOFFWeb.Router do
 
     resources "/", AOFFWeb.Committees.CommitteeController do
       resources "/meetings", AOFFWeb.Committees.MeetingController, only: [:show]
+      resources "/messages", AOFFWeb.Committees.MessageController
     end
   end
 

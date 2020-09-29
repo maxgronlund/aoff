@@ -1,0 +1,19 @@
+h2 Show Message
+
+ul
+  li
+    strong Title:&nbsp;
+    = @message.title
+  li
+    strong Body:&nbsp;
+    = @message.body
+  li
+    strong From:&nbsp;
+    = @message.from
+  li
+    strong Posted at:&nbsp;
+    = @message.posted_at
+
+= link "Edit", to: Routes.message_path(@conn, :edit, @message)
+| &nbsp;
+= link "Back", to: Routes.message_path(@conn, :index)
