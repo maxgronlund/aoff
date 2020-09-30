@@ -1,9 +1,8 @@
 defmodule AOFF.Committees.MessageFixture do
-
   @valid_attrs %{
     "body" => "some body",
     "title" => "some title",
-    "username" => "some username"
+    "from" => "from someone"
   }
 
   # @update_attrs %{
@@ -14,7 +13,7 @@ defmodule AOFF.Committees.MessageFixture do
   @invalid_attrs %{
     "body" => nil,
     "title" => nil,
-    "username" => nil
+    "from" => nil
   }
 
   def valid_message_attrs(attrs \\ %{}) do

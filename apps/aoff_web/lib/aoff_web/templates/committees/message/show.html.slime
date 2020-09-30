@@ -14,6 +14,6 @@ ul
     strong Posted at:&nbsp;
     = @message.posted_at
 
-= link "Edit", to: Routes.message_path(@conn, :edit, @message)
+/= link "Edit", to: Routes.message_path(@conn, :edit, @message)
 | &nbsp;
-= link "Back", to: Routes.message_path(@conn, :index)
+/= link "Back", to: Routes.message_path(@conn, :index)

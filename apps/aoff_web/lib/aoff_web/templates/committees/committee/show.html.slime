@@ -13,9 +13,14 @@
     h2 = @committee.name
   = if committee_member(@committee, @current_user) || @admin do
     .column
-      = link gettext("Add committee member"),\
-        to: Routes.volunteer_committee_member_path(@conn, :new, @committee),\
-        class: "button float-right"
+      .float-right
+        = link gettext("Messages"), \
+          to: Routes.committee_committee_message_path(@conn, :index, @committee), \
+          class: "button"
+        | &nbsp;
+        = link gettext("Add committee member"),\
+          to: Routes.volunteer_committee_member_path(@conn, :new, @committee),\
+          class: "button"
 
 .tile
   .auto-columns
