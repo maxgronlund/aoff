@@ -1259,12 +1259,12 @@ msgstr "Varen er fjernet fra kurven"
 #: lib/aoff_web/templates/shop/date/show.html.slime:6 lib/aoff_web/templates/shop_assistant/date/show.html.slime:8
 #: lib/aoff_web/templates/shop_assistant/order_list/show.html.slime:1
 msgid "Order list"
-msgstr "Bestillings liste"
+msgstr "Bestillingsliste"
 
 #, elixir-format
 #: lib/aoff_web/templates/shop_assistant/order_list/show.html.slime:1
 msgid "Order list for: %{date}"
-msgstr "Bestillings liste for: %{date}"
+msgstr "Bestillingsliste for: %{date}"
 
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/order/edit.html.slime:1
@@ -2135,19 +2135,19 @@ msgstr "Personer"
 #, elixir-format, fuzzy
 #: lib/aoff_web/templates/purchaser/date/index.html.slime:1
 msgid "Order lists"
-msgstr "Bestillings liste"
+msgstr "Bestillingsliste"
 
 #, elixir-format, fuzzy
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:1
 msgid "Pickup list: %{date}"
-msgstr "Afhentnings liste: %{date}"
+msgstr "Afhentningsliste: %{date}"
 
 #, elixir-format, fuzzy
 #: lib/aoff_web/templates/shop_assistant/date/show.html.slime:1
 #: lib/aoff_web/templates/shop_assistant/pick_up/index.html.slime:1 lib/aoff_web/templates/shop_assistant/pick_up/index.html.slime:1
 #: lib/aoff_web/templates/volunteer/shop/index.html.slime:1
 msgid "Pickup lists"
-msgstr "Afhentnings lister"
+msgstr "Afhentningslister"
 
 #, elixir-format
 #: lib/aoff_web/templates/purchaser/date/index.html.slime:1
