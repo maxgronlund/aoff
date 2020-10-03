@@ -97,7 +97,7 @@
             = error_tag f, :shop_assistant_d
     .float-right
       .form-group
-        = link "Cancel", to: Routes.volunteer_date_path(@conn, :index), class: "  button button-outline"
+        = link gettext("Cancel"), to: Routes.volunteer_date_path(@conn, :index), class: "  button button-outline"
         | &nbsp;
         = submit gettext("Save"), class: "button"
     br

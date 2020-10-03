@@ -1,0 +1,47 @@
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+        li.is-active
+          | &nbsp;
+          = gettext("Shop admin")
+/
+  .row
+  .column
+    h2= @volunteer.title
+    .tile
+      .auto-columns
+        = raw @volunteer.text
+      = if @text_editor do
+        = link gettext("Edit text"),\
+          to: Routes.volunteer_message_path(@conn, :edit, @volunteer, %{"request_url" => @conn.request_path})
+.mt-1
+
+.row
+  .column
+
+    = link to: Routes.volunteer_date_path(@conn, :index) do
+      #pointer
+        h2 = gettext("Opening dates")
+
+    = link to: Routes.shop_assistant_pick_up_path(@conn, :index) do
+      #pointer
+        h2 = gettext("Pickup lists")
+
+  .column
+    = if @purchaser do
+      = link to: Routes.purchaser_product_path(@conn, :index) do
+        #pointer
+          h2 = gettext("Products")
+      = link to: Routes.purchaser_date_path(@conn, :index) do
+        #pointer
+          h2 = gettext("Shopping lists")
+
+    = link to: Routes.volunteer_order_path(@conn, :index) do
+      #pointer
+        h2 = gettext("Invoices")
+
+
+

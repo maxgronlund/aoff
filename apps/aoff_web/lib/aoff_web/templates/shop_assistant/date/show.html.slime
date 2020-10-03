@@ -5,13 +5,15 @@
         li
           = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
         li
-          = link gettext("Schedules"), to: Routes.volunteer_date_path(@conn, :index)
+          = link gettext("Shop admin"), to: Routes.volunteer_shop_path(@conn, :index)
+        li
+          = link gettext("Pickup lists"), to: Routes.shop_assistant_pick_up_path(@conn, :index)
         li.is-active
           | &nbsp;
           = raw date(@date.date)
 .row
   .column
-    h2 = raw gettext("Shop duty: %{date}", date: date(@date.date))
+    h2 = raw gettext("Pickup list: %{date}", date: date(@date.date))
 .row
   .column
     = link gettext("Create order"),\
@@ -35,11 +37,6 @@
       = link gettext("Order list"),\
         to: Routes.shop_assistant_order_list_path(@conn, :show, @date),\
         class: "button button-outline"
-hr/
-.row
-  .column
-    h3 = gettext("Collection List")
-
 
 .tile
   = form_for @conn, Routes.shop_assistant_date_path(@conn, :show, @date), [method: :get], fn f ->

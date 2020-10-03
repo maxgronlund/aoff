@@ -5,6 +5,8 @@
         li
           = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
         li
+          = link gettext("Shop admin"), to: Routes.volunteer_shop_path(@conn, :index)
+        li
           = link gettext("Schedules"), to: Routes.volunteer_date_path(@conn, :index)
         li.is-active
           | &nbsp;

@@ -124,7 +124,7 @@ defmodule AOFFWeb.Router do
     resources "/dates", AOFFWeb.ShopAssistant.DateController,
       only: [:show, :index, :edit, :update]
 
-    resources "/pick_ups", AOFFWeb.ShopAssistant.PickUpController, only: [:show]
+    resources "/pick_ups", AOFFWeb.ShopAssistant.PickUpController, only: [:show, :index]
     resources "/order_list", AOFFWeb.ShopAssistant.OrderListController, only: [:show]
     get "/", AOFFWeb.ShopAssistant.ShopAssistantController, :index
 
@@ -149,6 +149,7 @@ defmodule AOFFWeb.Router do
     resources "/dates", AOFFWeb.Volunteer.DateController, except: [:show]
     resources "/users", AOFFWeb.Volunteer.UserController
     resources "/newsletters", AOFFWeb.Volunteer.NewsletterController
+    get "/shop", AOFF.Volunteer.ShopController, :index
 
     put "/send_newsletter/:id", AOFFWeb.Volunteer.SendNewsletterController, :update
 

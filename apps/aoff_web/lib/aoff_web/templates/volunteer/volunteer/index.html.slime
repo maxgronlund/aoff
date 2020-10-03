@@ -16,9 +16,12 @@
         h2 = gettext("Users")
 
     = if @shop_assistant do
-      = link to: Routes.volunteer_date_path(@conn, :index) do
+      /= link to: Routes.volunteer_date_path(@conn, :index) do
         #pointer
           h2 = gettext("Opening dates")
+      = link to: Routes.volunteer_shop_path(@conn, :index) do
+        #pointer
+          h2 = gettext("Shop admin")
     = if @text_editor do
       = link to: Routes.volunteer_message_path(@conn, :index) do
         #pointer
@@ -31,11 +34,11 @@
         #pointer
           h2 = gettext("Categories")
   .column
-    = if @purchaser do
+    /= if @purchaser do
       = link to: Routes.purchaser_product_path(@conn, :index) do
         #pointer
           h2 = gettext("Products")
-    = if @shop_assistant do
+    /= if @shop_assistant do
       = link to: Routes.volunteer_order_path(@conn, :index) do
         #pointer
           h2 = gettext("Invoices")

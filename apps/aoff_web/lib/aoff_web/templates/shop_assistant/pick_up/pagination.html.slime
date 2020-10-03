@@ -1,0 +1,10 @@
+= if @page && @page > 0 do
+  = link gettext("< Prev"),\
+    to: Routes.shop_assistant_pick_up_path(@conn, :index, page: Integer.to_string(@page - 1)),\
+    class: "button button-outline"
+  | &nbsp;
+
+= if @page && @page < @pages do
+  = link gettext("Next >"),\
+    to: Routes.shop_assistant_pick_up_path(@conn, :index, page: Integer.to_string(@page + 1)),\
+    class: "button button-outline float-right"

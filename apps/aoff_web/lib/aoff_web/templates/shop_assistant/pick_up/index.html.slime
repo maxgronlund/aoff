@@ -8,21 +8,24 @@
           = link gettext("Shop admin"), to: Routes.volunteer_shop_path(@conn, :index)
         li.is-active
           | &nbsp;
-          = gettext("Order lists")
-.row
+          = gettext("Pickup lists")
+
+/.row
   .column
-    .tile
-      h2= gettext("Shopping lists")
-      p= gettext("Please select a date")
+    .tilex
+      h2= gettext("Arhcive")
+      p= gettext("Please select an opening date")
+
+h2 = gettext("Pickup lists")
 
 .row
   .column
     = render "pagination.html", assigns
 .tiles
   = for date <- @dates do
-    = link to: Routes.purchaser_date_path(@conn, :show, date) do
+    = link to: Routes.shop_assistant_date_path(@conn, :show, date) do
       .tile
-        = raw date(date.date)
+        = raw formatted_date(date.date)
 hr
 
 = render "pagination.html", assigns

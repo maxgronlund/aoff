@@ -5,7 +5,9 @@ defmodule AOFFWeb.ShopAssistant.PickUpController do
 
   alias AOFFWeb.Users.Auth
   plug Auth
-  plug :authenticate when action in [:show]
+  plug :authenticate when action in [:show, :index]
+
+  @dates_pr_page 12
 
   def show(conn, %{"id" => id}) do
     pick_up = Shop.get_pick_up!(id)
@@ -19,6 +21,26 @@ defmodule AOFFWeb.ShopAssistant.PickUpController do
       |> put_flash(:info, gettext("PickUp updated successfully."))
       |> redirect(to: Routes.shop_assistant_date_path(conn, :show, pick_up.date))
     end
+  end
+
+  def index(conn, params) do
+    page =
+      case params["page"] do
+        nil -> Shop.todays_page(@dates_pr_page)
+        page -> String.to_integer(page)
+      end
+
+    dates = Shop.list_all_dates(AOFF.Time.today(), page, @dates_pr_page)
+    date = Shop.get_next_date(AOFF.Time.today())
+
+    render(
+      conn,
+      "index.html",
+      dates: dates,
+      date: date,
+      pages: Shop.date_pages(),
+      page: page
+    )
   end
 
   defp authenticate(conn, _opts) do
