@@ -1,5 +1,22 @@
-h2 New Message
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("About AOFF"), to: Routes.about_path(@conn, :index)
+    li
+      = link gettext("Listing Committees"), to: Routes.committee_committee_path(@conn, :index)
+    li
+      = link @committee.name, to: Routes.committee_committee_path(@conn, :show, @committee)
+    li
+      = link gettext("Messages"), to: Routes.committee_committee_message_path(@conn, :index, @committee)
+    li.is-active
+      | &nbsp;
+      = gettext("New Message")
+
+
+
+
+
 
 = render "form.html", Map.put(assigns, :action, Routes.committee_committee_message_path(@conn, :create, @committee))
 
-/= link "Back", to: Routes.message_path(@conn, :index)
+/= link "Back", to: Routes.committee_committee_message_path(@conn, :index, @committee)

@@ -57,7 +57,7 @@ defmodule AOFFWeb.Committees.MessageControllerTest do
 
     test "new message renders form", %{conn: conn, committee: committee} do
       conn = get(conn, Routes.committee_committee_message_path(conn, :new, committee))
-      assert html_response(conn, 200) =~ "New Message"
+      assert html_response(conn, 200) =~ gettext("New Message")
     end
 
     test "create message redirects to show when data is valid", %{

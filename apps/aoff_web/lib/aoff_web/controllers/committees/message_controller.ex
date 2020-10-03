@@ -4,6 +4,7 @@ defmodule AOFFWeb.Committees.MessageController do
   alias AOFFWeb.Users.Auth
   plug Auth
   plug :authorize_volunteer when action in [:index, :new, :create]
+  plug :navbar when action in [:index, :new, :show]
 
   alias AOFF.Committees
   alias AOFF.Committees.Message
@@ -114,6 +115,6 @@ defmodule AOFFWeb.Committees.MessageController do
   end
 
   defp navbar(conn, _opts) do
-    assign(conn, :selected_menu_item, :calendar)
+    assign(conn, :selected_menu_item, :about_aoff)
   end
 end
