@@ -54,7 +54,6 @@ defmodule AOFFWeb.UserController do
             user.password_reset_token <>
             "/confirm_email"
 
-        # Create your email
         AOFFWeb.EmailController.confirm_email_email(username_and_email, confirm_email_url)
         |> AOFFWeb.Mailer.deliver_now()
 

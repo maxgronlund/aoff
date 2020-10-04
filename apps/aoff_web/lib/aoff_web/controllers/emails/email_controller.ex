@@ -71,4 +71,18 @@ defmodule AOFFWeb.EmailController do
       unsubscribe_to_news_url: unsubscribe_to_news_url
     )
   end
+
+  def message_notification(username_and_email, message_url) do
+    new_email()
+    |> to(username_and_email)
+    |> from(@email_from)
+    |> subject(gettext("Message from AOFF"))
+    |> put_header("Reply-To", @email_from)
+    |> put_layout({AOFFWeb.EmailView, :message_notification})
+    |> render(
+      :message_notification,
+      message_url: message_url
+    )
+
+  end
 end

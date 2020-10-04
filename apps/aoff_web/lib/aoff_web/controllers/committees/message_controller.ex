@@ -45,7 +45,7 @@ defmodule AOFFWeb.Committees.MessageController do
   defp create_message(conn, committee, message_params) do
     case Committees.create_message(message_params) do
       {:ok, message} ->
-        send_notification(committee, message)
+        send_notification(conn, committee, message)
 
         conn
         |> put_flash(:info, "Message created successfully.")
@@ -66,9 +66,25 @@ defmodule AOFFWeb.Committees.MessageController do
     end
   end
 
-  defp send_notification(committee, message) do
-    IO.inspect(committee)
-    IO.inspect(message)
+  defp send_notification(conn, committee, message) do
+    message_url =
+      AOFFWeb.Router.Helpers.url(conn) <>
+        conn.request_path <>
+        "/" <>
+        message.id
+
+    for member <- committee.members do
+      send_email(committee, message_url, member.user)
+    end
+  end
+
+  defp  send_email(committee, message_url, user) do
+    username_and_email = {user.username, user.email}
+
+
+    AOFFWeb.EmailController.message_notification(username_and_email, message_url)
+    |> AOFFWeb.Mailer.deliver_now()
+
   end
 
   # def edit(conn, %{"id" => id}) do
