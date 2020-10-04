@@ -6,7 +6,7 @@ defmodule AOFFWeb.Admin.AssociationController do
   alias AOFF.Users
 
   def index(conn, _params) do
-    aoff = Admin.find_or_create_association("AOFF")
+    _aoff = Admin.find_or_create_association("AOFF")
     associations = Admin.list_associations()
 
     render(

@@ -1,11 +1,10 @@
-defmodule AOFFWeb.Content.CalendarControllerTest do
+defmodule AOFFWeb.Volunteers.CalendarControllerTest do
   use AOFFWeb.ConnCase
   import AOFF.Content.PageFixture
   import AOFF.Users.UserFixture
   import AOFF.Content.CategoryFixture
   import AOFFWeb.Gettext
   alias Plug.Conn
-  alias AOFF.Content.Page
 
   describe "handle the calendar as a text_editor" do
     @session Plug.Session.init(

@@ -1,12 +1,9 @@
 defmodule AOFF.Volunteer.SendNewsletterControllerTest do
   use AOFFWeb.ConnCase
-
-  alias AOFF.Volunteers
   alias Plug.Conn
 
   import AOFF.Users.UserFixture
   import AOFF.Volunteer.NewsletterFixture
-  # import AOFFWeb.Gettext
 
   describe "as a volunteer" do
     @session Plug.Session.init(

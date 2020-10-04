@@ -37,7 +37,7 @@ defmodule AOFF.Admin.AssociationTest do
 
     test "update_association/2 with valid data updates the association" do
       association = association_fixture()
-      attrs = update_association_attrs
+      attrs = update_association_attrs()
       assert {:ok, %Association{} = association} = Admin.update_association(association, attrs)
       assert association.name == attrs["name"]
     end

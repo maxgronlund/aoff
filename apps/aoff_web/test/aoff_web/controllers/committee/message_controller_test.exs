@@ -50,7 +50,7 @@ defmodule AOFFWeb.Committees.MessageControllerTest do
     end
 
     test "index lists all messages", %{conn: conn, committee: committee} do
-      message = message_fixture(%{"committee_id" => committee.id})
+      _message = message_fixture(%{"committee_id" => committee.id})
       conn = get(conn, Routes.committee_committee_message_path(conn, :index, committee))
       assert html_response(conn, 200) =~ "Listing Messages"
     end
@@ -71,22 +71,24 @@ defmodule AOFFWeb.Committees.MessageControllerTest do
           message: attrs
         )
 
-      assert %{id: id} = redirected_params(conn)
+      assert %{committee_id: committee_id} = redirected_params(conn)
 
       assert redirected_to(conn) ==
-               Routes.committee_committee_message_path(conn, :show, committee, id)
+               Routes.committee_committee_message_path(conn, :index, committee)
 
-      conn = get(conn, Routes.committee_committee_message_path(conn, :show, committee, id))
-      assert html_response(conn, 200) =~ "Show Message"
+      messages = Committees.list_messages(committee_id)
+      message = List.first(messages)
+
+      conn = get(conn, Routes.committee_committee_message_path(conn, :show, committee, message))
+      assert html_response(conn, 200) =~ message.title
     end
 
-    test "show message show the body", %{conn: conn, committee: committee} do
+    test "show message renders show", %{conn: conn, committee: committee} do
       message = message_fixture(%{"committee_id" => committee.id})
       conn = get(conn, Routes.committee_committee_message_path(conn, :show, committee, message))
       assert html_response(conn, 200) =~ message.body
     end
   end
-
 
   describe "as a volunteer" do
     @session Plug.Session.init(
@@ -116,7 +118,7 @@ defmodule AOFFWeb.Committees.MessageControllerTest do
     end
 
     test "index lists all messages returns 401", %{conn: conn, committee: committee} do
-      message = message_fixture(%{"committee_id" => committee.id})
+      _message = message_fixture(%{"committee_id" => committee.id})
       conn = get(conn, Routes.committee_committee_message_path(conn, :index, committee))
       assert html_response(conn, 401) =~ gettext("Access denied")
     end
@@ -142,9 +144,7 @@ defmodule AOFFWeb.Committees.MessageControllerTest do
   end
 
   describe "as a guest" do
-
     setup do
-
       committee =
         committee_fixture(%{
           "volunteer_access" => false,
@@ -183,32 +183,28 @@ defmodule AOFFWeb.Committees.MessageControllerTest do
     end
   end
 
+  # test "create message renders errors when data is invalid", %{conn: conn} do
+  #   conn = post(conn, Routes.committee_committee_message_path(conn, :create), message: @invalid_attrs)
+  #   assert html_response(conn, 200) =~ "New Message"
+  # end
 
+  # test "edit message renders form for editing chosen message", %{conn: conn, message: message} do
+  #   conn = get(conn, Routes.committee_committee_message_path(conn, :edit, message))
+  #   assert html_response(conn, 200) =~ "Edit Message"
+  # end
 
+  # test "update message redirects when data is valid", %{conn: conn, message: message} do
+  #   conn = put(conn, Routes.committee_committee_message_path(conn, :update, message), message: @update_attrs)
+  #   assert redirected_to(conn) == Routes.committee_committee_message_path(conn, :show, message)
 
-    # test "create message renders errors when data is invalid", %{conn: conn} do
-    #   conn = post(conn, Routes.committee_committee_message_path(conn, :create), message: @invalid_attrs)
-    #   assert html_response(conn, 200) =~ "New Message"
-    # end
+  #   conn = get(conn, Routes.committee_committee_message_path(conn, :show, message))
+  #   assert html_response(conn, 200) =~ "some updated body"
+  # end
 
-    # test "edit message renders form for editing chosen message", %{conn: conn, message: message} do
-    #   conn = get(conn, Routes.committee_committee_message_path(conn, :edit, message))
-    #   assert html_response(conn, 200) =~ "Edit Message"
-    # end
-
-    # test "update message redirects when data is valid", %{conn: conn, message: message} do
-    #   conn = put(conn, Routes.committee_committee_message_path(conn, :update, message), message: @update_attrs)
-    #   assert redirected_to(conn) == Routes.committee_committee_message_path(conn, :show, message)
-
-    #   conn = get(conn, Routes.committee_committee_message_path(conn, :show, message))
-    #   assert html_response(conn, 200) =~ "some updated body"
-    # end
-
-    # test "update message renders errors when data is invalid", %{conn: conn, message: message} do
-    #   conn = put(conn, Routes.committee_committee_message_path(conn, :update, message), message: @invalid_attrs)
-    #   assert html_response(conn, 200) =~ "Edit Message"
-    # end
-
+  # test "update message renders errors when data is invalid", %{conn: conn, message: message} do
+  #   conn = put(conn, Routes.committee_committee_message_path(conn, :update, message), message: @invalid_attrs)
+  #   assert html_response(conn, 200) =~ "Edit Message"
+  # end
 
   # describe "delete message" do
   #   setup [:create_message]

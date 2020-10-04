@@ -1,19 +1,47 @@
-h2 Show Message
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("About AOFF"), to: Routes.about_path(@conn, :index)
+    li
+      = link gettext("Listing Committees"), to: Routes.committee_committee_path(@conn, :index)
+    li
+      = link @committee.name,\
+        to: Routes.committee_committee_path(@conn, :show, @committee)
+    li
+      = link gettext("Listing Messages"), to: Routes.committee_committee_message_path(@conn, :index, @committee)
+    li.is-active
+      | &nbsp;
+      = @message.title
 
-ul
-  li
-    strong Title:&nbsp;
-    = @message.title
-  li
-    strong Body:&nbsp;
-    = @message.body
-  li
-    strong From:&nbsp;
-    = @message.from
-  li
-    strong Posted at:&nbsp;
-    = @message.posted_at
 
-/= link "Edit", to: Routes.message_path(@conn, :edit, @message)
+.tile
+  .row
+    .column
+      h2 = @message.title
+      b = @message.from
+      .float-right
+        i.small
+          = date(@message.posted_at)
+          |&nbsp;/&nbsp;
+          = time(@message.posted_at)
+  .row
+    .column
+      = @message.body
+/
+  ul
+    li
+      strong Title:&nbsp;
+      = @message.title
+    li
+      strong Body:&nbsp;
+      = @message.body
+    li
+      strong From:&nbsp;
+      = @message.from
+    li
+      strong Posted at:&nbsp;
+      = @message.posted_at
+
+  /= link "Edit", to: Routes.message_path(@conn, :edit, @message)
 | &nbsp;
 /= link "Back", to: Routes.message_path(@conn, :index)

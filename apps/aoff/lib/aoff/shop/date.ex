@@ -5,7 +5,6 @@ defmodule AOFF.Shop.Date do
 
   alias AOFF.Shop.PickUp
   alias AOFF.Uploader.Image
-  alias AOFF.User
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id

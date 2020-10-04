@@ -1,21 +1,45 @@
-h2 Listing Messages
+.breadcrumb aria-label="breadcrumbs"
+  ul
+    li
+      = link gettext("About AOFF"), to: Routes.about_path(@conn, :index)
+    li
+      = link gettext("Listing Committees"), to: Routes.committee_committee_path(@conn, :index)
+    li
+      = link @committee.name, to: Routes.committee_committee_path(@conn, :show, @committee)
+    li.is-active
+      | &nbsp;
+      = gettext("Listing Messages")
 
-table.table
-  thead
-    tr
-      th Title
-      th From
-      th Posted at
-      th
-  tbody
+.row
+  .column
+    h2 = gettext("Listing Messages")
+  .column
+    .float-right
+      = link "New Message",\
+        to: Routes.committee_committee_message_path(@conn, :new, @committee),\
+        class: "button"
+
+
+.row
+  .column
     = for message <- @messages do
-      tr
-        td= message.title
-        td= message.from
-        td= message.posted_at
-        td class="text-right"
-          = link "Show", to: Routes.committee_committee_message_path(@conn, :show, @committee, message), class: "btn btn-default btn-xs"
+      .tile.is-link
+        = link to: Routes.committee_committee_message_path(@conn, :show, @committee, message) do
+          .row
+            .column
+              b  = message.title
+              .float-right
+                i.small
+                  = date(message.posted_at)
+                  |&nbsp;/&nbsp;
+                  = time(message.posted_at)
+          .row
+            .column
+              = message.from
+          /
+            td class="text-right"
+              = link "Show", to: Routes.committee_committee_message_path(@conn, :show, @committee, message), class: "btn btn-default btn-xs"
 
-          /= link "Delete", to: Routes.committee_committee_message_path(@conn, :delete, message), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
+              = link "Delete", to: Routes.committee_committee_message_path(@conn, :delete, message), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
 
-= link "New Message", to: Routes.committee_committee_message_path(@conn, :new, @committee)
+

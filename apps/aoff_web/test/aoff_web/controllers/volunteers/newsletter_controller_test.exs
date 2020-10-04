@@ -1,8 +1,5 @@
 defmodule AOFFWeb.Volunteer.NewsletterControllerTest do
   use AOFFWeb.ConnCase
-
-  alias AOFF.Volunteers
-
   import AOFF.Users.UserFixture
   import AOFF.Volunteer.NewsletterFixture
   import AOFFWeb.Gettext

@@ -5,9 +5,6 @@ defmodule AOFF.Events do
 
   import Ecto.Query, warn: false
   alias AOFF.Repo
-
-  alias AOFF.Users.User
-  alias AOFF.Content.Page
   alias AOFF.Events.Participant
 
   @doc """

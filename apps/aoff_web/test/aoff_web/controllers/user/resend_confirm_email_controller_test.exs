@@ -2,7 +2,6 @@ defmodule AOFFWeb.ResendConfirmEmailControllerTest do
   use AOFFWeb.ConnCase
   import AOFF.Users.UserFixture
   alias AOFF.System
-  alias AOFF.Users
 
   describe "resend email confirmation email" do
     test "render new", %{conn: conn} do

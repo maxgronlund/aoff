@@ -1,6 +1,15 @@
 defmodule AOFF.Time do
   use Timex
 
+  def now() do
+    {:ok, date_time} = DateTime.now("Europe/Copenhagen")
+    date_time
+  end
+
+  def today() do
+    now() |> DateTime.to_date()
+  end
+
   def now_as_string() do
     {:ok, time_now} =
       now()
@@ -15,15 +24,6 @@ defmodule AOFF.Time do
       |> AOFFWeb.Cldr.Date.to_string(locale: Gettext.get_locale())
 
     today
-  end
-
-  def now() do
-    {:ok, date_time} = DateTime.now("Europe/Copenhagen")
-    date_time
-  end
-
-  def today() do
-    now() |> DateTime.to_date()
   end
 
   def date_as_string(date) do

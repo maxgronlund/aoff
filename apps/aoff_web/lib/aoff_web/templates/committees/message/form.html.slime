@@ -8,8 +8,6 @@ javascript:
     plugins: "code lists"
   });
 
-
-
 = form_for @changeset, @action, fn f ->
   = if @changeset.action do
     .alert.alert-danger
@@ -29,18 +27,13 @@ javascript:
           = text_input f, :from, class: "form-control full-width", value: @current_user.username
           = error_tag f, :from
 
-      .column
-        /
-          .form-group
-            = label f, :posted_at, class: "control-label"
-            = text_input f, :posted_at, class: "form-control full-width"
-            = error_tag f, :posted_at
     .row
       .column
         .form-group
           = label f, :body, class: "control-label"
           = textarea f, :body, class: "form-control full-width"
           = error_tag f, :body
+
     .row.mt-1
       .column
         .form-group

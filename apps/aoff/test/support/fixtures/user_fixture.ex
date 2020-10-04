@@ -15,7 +15,7 @@ defmodule AOFF.Users.UserFixture do
     "mobile" => "12121212",
     "terms_accepted" => true,
     "registration_date" => Date.add(Date.utc_today(), -365),
-    "subscribe_to_news" => true
+    "subscribe_to_news" => "true"
   }
 
   @update_attrs %{
@@ -30,7 +30,7 @@ defmodule AOFF.Users.UserFixture do
     "purchasing_manager" => true,
     "shop_assistant" => true,
     "mobile" => "23232323",
-    "subscribe_to_news" => false
+    "subscribe_to_news" => "false"
   }
 
   @attrs_without_pass %{

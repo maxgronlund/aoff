@@ -3,12 +3,10 @@ defmodule AOFFWeb.Events.ParticipantControllerTest do
 
   import AOFF.Content.CategoryFixture
   import AOFF.Content.PageFixture
-  import AOFF.Users.UserFixture
   import AOFF.Events.ParticipantFixture
+  import AOFF.Users.UserFixture
   import AOFFWeb.Gettext
   alias Plug.Conn
-  alias AOFF.Content
-  alias AOFF.Events
 
   describe "events as a member" do
     @session Plug.Session.init(
@@ -32,7 +30,7 @@ defmodule AOFFWeb.Events.ParticipantControllerTest do
       {:ok, conn: conn, user: user, page: page, category: category}
     end
 
-    test "new/2 renders new participant form", %{conn: conn, user: user, page: page} do
+    test "new/2 renders new participant form", %{conn: conn, page: page} do
       conn =
         get(
           conn,

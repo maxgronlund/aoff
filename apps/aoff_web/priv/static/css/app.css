@@ -875,6 +875,10 @@ select {
    line-height: 1.4;
  }
 
+ .small {
+   font-size: 1.2rem;
+ }
+
  img {
    max-width: 100%;
  }
@@ -1464,6 +1468,14 @@ label.panel-block:hover {
   padding: 1.5rem;
 }
 
+.tile.is-link:hover {
+  background-color: #e8e8e8;
+}
+
+.tile.is-link a {
+  color: #000;
+}
+
 .button-tiles {
   grid-row-gap: 30px;
 }
@@ -1714,6 +1726,7 @@ hr.double {
   margin-top: -1.6em;
   font-style: italic;
 }
+
 
 #pointer {
   width: 90%;

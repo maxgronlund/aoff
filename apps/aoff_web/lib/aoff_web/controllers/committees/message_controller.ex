@@ -22,6 +22,7 @@ defmodule AOFFWeb.Committees.MessageController do
 
   def new(conn, %{"committee_id" => committee_id}) do
     committee = Committees.get_committee!(committee_id)
+
     if member_of_committee(conn, committee) do
       changeset = Committees.change_message(%Message{})
       render(conn, "new.html", changeset: changeset, committee: committee)
@@ -44,9 +45,11 @@ defmodule AOFFWeb.Committees.MessageController do
   defp create_message(conn, committee, message_params) do
     case Committees.create_message(message_params) do
       {:ok, message} ->
+        send_notification(committee, message)
+
         conn
         |> put_flash(:info, "Message created successfully.")
-        |> redirect(to: Routes.committee_committee_message_path(conn, :show, committee, message))
+        |> redirect(to: Routes.committee_committee_message_path(conn, :index, committee))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -61,6 +64,11 @@ defmodule AOFFWeb.Committees.MessageController do
     else
       forbidden(conn)
     end
+  end
+
+  defp send_notification(committee, message) do
+    IO.inspect(committee)
+    IO.inspect(message)
   end
 
   # def edit(conn, %{"id" => id}) do
