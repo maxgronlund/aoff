@@ -524,7 +524,7 @@ msgid "Edit User"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/controllers/users/user_controller.ex:119
+#: lib/aoff_web/controllers/users/user_controller.ex:118
 #: lib/aoff_web/templates/user/show.html.slime:4 lib/aoff_web/templates/volunteer/user/show.html.slime:1
 msgid "Edit account"
 msgstr ""
@@ -1522,8 +1522,9 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/controllers/emails/email_controller.ex:21
-#: lib/aoff_web/templates/email/confirm_email.html.eex:328 lib/aoff_web/templates/email/newsletter.html.eex:344
-#: lib/aoff_web/templates/email/reset_password.html.eex:328 lib/aoff_web/templates/email/reset_password.html.eex:353
+#: lib/aoff_web/templates/email/confirm_email.html.eex:328 lib/aoff_web/templates/email/message_notification.html.eex:328
+#: lib/aoff_web/templates/email/newsletter.html.eex:344 lib/aoff_web/templates/email/reset_password.html.eex:328
+#: lib/aoff_web/templates/email/reset_password.html.eex:353
 msgid "Reset password"
 msgstr ""
 
@@ -1883,13 +1884,13 @@ msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/controllers/admin/user_controller.ex:53
-#: lib/aoff_web/controllers/users/user_controller.ex:159 lib/aoff_web/controllers/volunteers/user_controller.ex:154
+#: lib/aoff_web/controllers/users/user_controller.ex:158 lib/aoff_web/controllers/volunteers/user_controller.ex:154
 msgid "User deleted successfully."
 msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/controllers/admin/user_controller.ex:40
-#: lib/aoff_web/controllers/users/user_controller.ex:139 lib/aoff_web/controllers/volunteers/user_controller.ex:134
+#: lib/aoff_web/controllers/users/user_controller.ex:138 lib/aoff_web/controllers/volunteers/user_controller.ex:134
 msgid "User updated successfully."
 msgstr ""
 
@@ -1951,7 +1952,7 @@ msgid "Visible"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/controllers/volunteers/volunteer_controller.ex:116
+#: lib/aoff_web/controllers/volunteers/volunteer_controller.ex:49
 #: lib/aoff_web/templates/admin/user/form.html.slime:1 lib/aoff_web/templates/admin/user/index.html.slime:1
 #: lib/aoff_web/templates/layout/navbar.html.slime:1 lib/aoff_web/templates/layout/user_tabs.html.slime:1
 #: lib/aoff_web/templates/purchaser/date/index.html.slime:1 lib/aoff_web/templates/purchaser/date/show.html.slime:1
@@ -2165,6 +2166,32 @@ msgid "Listing Messages"
 msgstr ""
 
 #, elixir-format
+#: lib/aoff_web/templates/committees/message/index.html.slime:1
 #: lib/aoff_web/templates/committees/message/new.html.slime:1
 msgid "New Message"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/committees/message/show.html.slime:2
+msgid "<< Back"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/controllers/emails/email_controller.ex:79
+msgid "Message from AOFF"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/email/message_notification.html.eex:344
+msgid "New message from AOFF"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/aoff_web/templates/email/message_notification.html.eex:355
+msgid "Read Message"
+msgstr ""
+
+#, elixir-format
+#: lib/aoff_web/templates/email/message_notification.html.eex:345
+msgid "You receive this message because you are a member of a committee"
 msgstr ""

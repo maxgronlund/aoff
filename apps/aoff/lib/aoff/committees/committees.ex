@@ -428,7 +428,8 @@ defmodule AOFF.Committees do
   def list_messages(committee_id) do
     query =
       from m in Message,
-        where: m.committee_id == ^committee_id
+        where: m.committee_id == ^committee_id, order_by: [desc: m.posted_at]
+
 
     query
     |> Repo.all()

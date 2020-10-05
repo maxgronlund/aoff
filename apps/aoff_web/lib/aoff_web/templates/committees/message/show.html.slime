@@ -13,7 +13,12 @@
       | &nbsp;
       = @message.title
 
-
+.row
+  .column
+    .float-right
+      = link gettext("<< Back"),\
+        to: Routes.committee_committee_message_path(@conn, :index, @committee),\
+        class: "button button-outline"
 .tile
   .row
     .column
@@ -26,7 +31,7 @@
           = time(@message.posted_at)
   .row
     .column
-      = @message.body
+      = raw @message.body
 /
   ul
     li

@@ -35,7 +35,14 @@ defmodule AOFFWeb.Committees.MessageController do
     committee = Committees.get_committee!(committee_id)
 
     if member_of_committee(conn, committee) do
-      message_params = Map.put(message_params, "committee_id", committee_id)
+      message_params =
+        Map.merge(
+          message_params,
+          %{
+            "committee_id" => committee_id,
+            "from" => conn.assigns.current_user.username
+          }
+        )
       create_message(conn, committee, message_params)
     else
       forbidden(conn)
@@ -80,7 +87,6 @@ defmodule AOFFWeb.Committees.MessageController do
 
   defp  send_email(committee, message_url, user) do
     username_and_email = {user.username, user.email}
-
 
     AOFFWeb.EmailController.message_notification(username_and_email, message_url)
     |> AOFFWeb.Mailer.deliver_now()

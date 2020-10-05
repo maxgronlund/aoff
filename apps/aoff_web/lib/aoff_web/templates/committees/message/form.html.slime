@@ -20,12 +20,13 @@ javascript:
           = text_input f, :title, class: "form-control full-width"
           = error_tag f, :title
 
-    .row
-      .column
-        .form-group
-          = label f, :from, class: "control-label"
-          = text_input f, :from, class: "form-control full-width", value: @current_user.username
-          = error_tag f, :from
+    /
+      .row
+        .column
+          .form-group
+            = label f, :from, class: "control-label"
+            = text_input f, :from, class: "form-control full-width", value: @current_user.username
+            = error_tag f, :from
 
     .row
       .column

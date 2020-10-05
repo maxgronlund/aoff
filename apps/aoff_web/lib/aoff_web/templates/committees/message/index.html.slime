@@ -15,7 +15,7 @@
     h2 = gettext("Listing Messages")
   .column
     .float-right
-      = link "New Message",\
+      = link gettext("New Message"),\
         to: Routes.committee_committee_message_path(@conn, :new, @committee),\
         class: "button"
 
