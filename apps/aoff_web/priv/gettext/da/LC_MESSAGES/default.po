@@ -95,7 +95,7 @@ msgstr "Om billedet"
 #, elixir-format
 #: lib/aoff_web/templates/error/401_page.html.slime:1
 msgid "Access denied"
-msgstr "Adgang nægtet"
+msgstr "LOG IND FOR ADGANG!"
 
 #, elixir-format
 #: lib/aoff_web/templates/committees/committee/show.html.slime:3

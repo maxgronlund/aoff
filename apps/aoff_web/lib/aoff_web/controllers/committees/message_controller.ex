@@ -3,7 +3,7 @@ defmodule AOFFWeb.Committees.MessageController do
 
   alias AOFFWeb.Users.Auth
   plug Auth
-  plug :authorize_volunteer when action in [:index, :new, :create]
+  plug :authorize_volunteer when action in [:show, :index, :new, :create]
   plug :navbar when action in [:index, :new, :show]
 
   alias AOFF.Committees
