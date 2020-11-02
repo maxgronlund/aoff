@@ -52,7 +52,7 @@ defmodule AOFFWeb.Committees.MessageControllerTest do
     test "index lists all messages", %{conn: conn, committee: committee} do
       _message = message_fixture(%{"committee_id" => committee.id})
       conn = get(conn, Routes.committee_committee_message_path(conn, :index, committee))
-      assert html_response(conn, 200) =~ "Listing Messages"
+      assert html_response(conn, 200) =~ gettext("Messages")
     end
 
     test "new message renders form", %{conn: conn, committee: committee} do

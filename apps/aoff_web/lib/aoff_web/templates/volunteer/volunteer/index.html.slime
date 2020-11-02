@@ -16,9 +16,6 @@
         h2 = gettext("Users")
 
     = if @shop_assistant do
-      /= link to: Routes.volunteer_date_path(@conn, :index) do
-        #pointer
-          h2 = gettext("Opening dates")
       = link to: Routes.volunteer_shop_path(@conn, :index) do
         #pointer
           h2 = gettext("Shop admin")
