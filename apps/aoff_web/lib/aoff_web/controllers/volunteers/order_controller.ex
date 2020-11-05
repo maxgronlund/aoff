@@ -11,9 +11,9 @@ defmodule AOFFWeb.Volunteer.OrderController do
   @orders_pr_page 8
 
   def index(conn, params) do
-    page = page(params)
-    pages_count = pages_count(params)
     prefix = conn.assigns.prefix
+    page = page(params)
+    pages_count = pages_count(params, prefix)
 
     orders =
       if query = params["query"] do
@@ -38,10 +38,10 @@ defmodule AOFFWeb.Volunteer.OrderController do
     end
   end
 
-  defp pages_count(params) do
+  defp pages_count(params, prefix) do
     cond do
       params["query"] -> false
-      true -> Users.order_pages_count(@orders_pr_page)
+      true -> Users.order_pages_count(prefix, @orders_pr_page)
     end
   end
 
@@ -96,10 +96,15 @@ defmodule AOFFWeb.Volunteer.OrderController do
     Users.delete_order(order)
 
     date_id = get_session(conn, :shop_assistant_date_id)
-
-    conn
-    |> put_flash(:info, gettext("Order is cancled"))
-    |> redirect(to: Routes.shop_assistant_date_path(conn, :show, date_id))
+    if date_id do
+      conn
+      |> put_flash(:info, gettext("Order is deleted"))
+      |> redirect(to: Routes.shop_assistant_date_path(conn, :show, date_id))
+    else
+      conn
+      |> put_flash(:info, gettext("Order is cancled"))
+      |> redirect(to: Routes.volunteer_order_path(conn, :index))
+    end
   end
 
   # def delete(conn, %{"id" => id}) do

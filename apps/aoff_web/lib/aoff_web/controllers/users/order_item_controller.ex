@@ -52,7 +52,7 @@ defmodule AOFFWeb.Users.OrderItemController do
   end
 
   def delete(conn, %{"id" => id}) do
-    order_item = Users.get_order_item!(id)
+    order_item = Users.get_order_item!(id, conn.assigns.prefix)
     order = order_item.order
     {:ok, _order_item} = Users.delete_order_item(order_item, conn.assigns.prefix)
 

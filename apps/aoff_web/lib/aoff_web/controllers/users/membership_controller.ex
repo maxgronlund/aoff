@@ -57,7 +57,7 @@ defmodule AOFFWeb.Users.MembershipController do
       "price" => product.price
     }
 
-    Users.add_membership_to_basket(pick_up_params, order_item_params, prefix)
+    Users.add_order_item_to_basket(pick_up_params, order_item_params, prefix)
 
     conn
     |> redirect(to: Routes.shop_checkout_path(conn, :edit, order))

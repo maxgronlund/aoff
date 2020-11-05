@@ -29,6 +29,11 @@
     = link to: Routes.shop_assistant_pick_up_path(@conn, :index) do
       #pointer
         h2 = gettext("Pickup lists")
+    = if @manage_membership do
+      = link to: Routes.volunteer_membership_path(@conn, :index) do
+        #pointer
+          h2 = gettext("Memberships")
+
 
   .column
     = if @purchaser do

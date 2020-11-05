@@ -9,6 +9,7 @@ defmodule AOFFWeb.Content.CalendarController do
   def index(conn, _params) do
     prefix = conn.assigns.prefix
     {:ok, calendar} = Content.find_or_create_category("Calendar", prefix)
+    IO.inspect calendar
 
     {:ok, message} =
       System.find_or_create_message(

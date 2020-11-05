@@ -26,11 +26,12 @@ defmodule AOFFWeb.Purchaser.ProductController do
   end
 
   def create(conn, %{"product" => product_params}) do
+    prefix = conn.assigns.prefix
     {price, _} = product_params["price"] |> Float.parse()
     price = Money.new(trunc(price * 100), :DKK)
     product_params = Map.put(product_params, "price", price)
 
-    case Shop.create_product(product_params) do
+    case Shop.create_product(product_params, prefix) do
       {:ok, product} ->
         conn
         |> put_flash(:info, gettext("Please attach image."))

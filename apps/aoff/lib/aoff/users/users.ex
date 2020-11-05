@@ -599,9 +599,6 @@ defmodule AOFF.Users do
   def list_orders(:all, prefix, page \\ 0, per_page \\ @orders_pr_page) do
     query =
       from o in Order,
-        where:
-          o.state != ^"open" and
-            o.state != ^"cancled",
         limit: ^per_page,
         offset: ^(page * per_page),
         order_by: [desc: o.order_nr]
@@ -611,7 +608,7 @@ defmodule AOFF.Users do
     |> Repo.preload(:user)
   end
 
-  def order_pages_count(per_page \\ @orders_pr_page, prefix) do
+  def order_pages_count(prefix, per_page \\ @orders_pr_page) do
     query =
       from o in Order,
         where: o.state != ^"open",
@@ -806,9 +803,9 @@ defmodule AOFF.Users do
       ** (Ecto.NoResultsError)
 
   """
-  def get_order_item!(id) do
+  def get_order_item!(id, prefix) do
     OrderItem
-    |> Repo.get!(id)
+    |> Repo.get!(id, prefix: prefix)
     |> Repo.preload(order: [:user])
   rescue
     Ecto.Query.CastError -> nil
@@ -834,7 +831,7 @@ defmodule AOFF.Users do
 
     with {:ok, order_item} <- result do
       order = get_order!(order_item.order_id, prefix)
-      total = order_total(order.id)
+      total = order_total(order.id, prefix)
       update_order(order, %{"total" => total})
     end
 
@@ -843,14 +840,7 @@ defmodule AOFF.Users do
 
   alias AOFF.Shop
 
-  def add_membership_to_basket(pick_up_params, order_item_params, prefix) do
-    add_order_item_to_basket(pick_up_params, order_item_params, prefix)
-  end
-
   def add_order_item_to_basket(pick_up_params, order_item_params, prefix) do
-    IO.inspect pick_up_params
-    IO.inspect order_item_params
-    IO.inspect prefix
     result =
       Repo.transaction(fn ->
         {:ok, pick_up} = Shop.find_or_create_pick_up(pick_up_params, prefix)
@@ -866,13 +856,13 @@ defmodule AOFF.Users do
     end
   end
 
-  defp order_total(order_id) do
+  defp order_total(order_id, prefix) do
     q =
       from i in OrderItem,
         where: i.order_id == ^order_id,
         select: type(sum(i.price), i.price)
 
-    Repo.one(q)
+    Repo.one(q, prefix: prefix)
   end
 
   @doc """
@@ -892,7 +882,7 @@ defmodule AOFF.Users do
 
     with {:ok, order_item} <- result do
       order = get_order!(order_item.order_id, prefix)
-      total = order_total(order.id)
+      total = order_total(order.id, prefix)
       update_order(order, %{"total" => total})
     end
 

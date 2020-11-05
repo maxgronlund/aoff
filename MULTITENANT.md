@@ -1,3 +1,5 @@
+DELETE THIS FILE IS AL HANDLED
+
 psql -d my_app_dev -c "CREATE SCHEMA connection_prefix"
 
 
