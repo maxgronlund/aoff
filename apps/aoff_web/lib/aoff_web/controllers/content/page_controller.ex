@@ -4,7 +4,7 @@ defmodule AOFFWeb.Content.PageController do
   alias AOFF.Content
 
   def show(conn, %{"about_id" => category_id, "id" => id}) do
-    case Content.get_page!(category_id, id) do
+    case Content.get_page!(category_id, id, conn.assigns.prefix) do
       nil ->
         conn
         |> put_flash(:info, gettext("Language updated"))

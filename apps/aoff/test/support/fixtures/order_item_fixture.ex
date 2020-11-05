@@ -32,7 +32,7 @@ defmodule AOFF.Users.OrderItemFixture do
     {:ok, order_item} =
       attrs
       |> Enum.into(@valid_attrs)
-      |> Users.create_order_item()
+      |> Users.create_order_item("public")
 
     order_item
   end

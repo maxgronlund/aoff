@@ -40,7 +40,7 @@ defmodule AOFF.System.MessageFixture do
     {:ok, message} =
       attrs
       |> Enum.into(@valid_attrs)
-      |> AOFF.System.create_message()
+      |> AOFF.System.create_message("public")
 
     message
   end

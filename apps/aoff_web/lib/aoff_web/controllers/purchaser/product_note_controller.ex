@@ -11,22 +11,25 @@ defmodule AOFFWeb.Purchaser.ProductNoteController do
         "date_id" => date_id,
         "id" => id
       }) do
-    product = Shop.get_product!(id)
+    prefix = conn.assigns.prefix
+    product = Shop.get_product!(id, prefix)
     changeset = Shop.change_product(product)
-    date = Shop.get_date!(date_id)
+    date = Shop.get_date!(date_id, prefix)
 
     {:ok, this_weeks_content_message} =
       System.find_or_create_message(
         "/purchaser/dates/:id/products_notes/:id - week",
         "This weeks content",
-        Gettext.get_locale()
+        Gettext.get_locale(),
+        prefix
       )
 
     {:ok, notes_for_the_hosts} =
       System.find_or_create_message(
         "/purchaser/dates/:id/products_notes/:id - hosts",
         "Notes fot the hosts",
-        Gettext.get_locale()
+        Gettext.get_locale(),
+        prefix
       )
 
     render(conn, "edit.html",
@@ -39,7 +42,8 @@ defmodule AOFFWeb.Purchaser.ProductNoteController do
   end
 
   def update(conn, %{"id" => id, "date_id" => date_id, "product" => product_params}) do
-    product = Shop.get_product!(id)
+    prefix = conn.assigns.prefix
+    product = Shop.get_product!(id, prefix)
     Shop.update_product(product, product_params)
 
     conn

@@ -35,7 +35,7 @@ defmodule AOFF.Committees.MessageFixture do
     {:ok, message} =
       attrs
       |> Enum.into(@valid_attrs)
-      |> AOFF.Committees.create_message()
+      |> AOFF.Committees.create_message("public")
 
     message
   end

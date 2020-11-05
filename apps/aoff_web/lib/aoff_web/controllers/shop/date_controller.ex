@@ -7,22 +7,26 @@ defmodule AOFFWeb.Shop.DateController do
   plug :navbar when action in [:show]
 
   def show(conn, %{"id" => id}) do
-    date = Shop.get_date!(id)
-    products = Shop.list_products(:for_sale)
+    prefix = conn.assigns.prefix
+    date = Shop.get_date!(id, prefix)
+    products = Shop.list_products(:for_sale, prefix)
 
     unless conn.assigns.valid_member do
+      prefix = conn.assigns.prefix
       {:ok, expired_message} =
         System.find_or_create_message(
           "/shop/ - expired",
           "Membership inactive",
-          Gettext.get_locale()
+          Gettext.get_locale(),
+          prefix
         )
 
       {:ok, login_message} =
         System.find_or_create_message(
           "/shop/ - login",
           "Login to buy products",
-          Gettext.get_locale()
+          Gettext.get_locale(),
+          prefix
         )
 
       render(

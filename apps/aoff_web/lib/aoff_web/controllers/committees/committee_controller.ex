@@ -50,14 +50,16 @@ defmodule AOFFWeb.Committees.CommitteeController do
   end
 
   def show(conn, %{"id" => id}) do
-    if committee = Committees.get_committee!(id) do
+    prefix = conn.assigns.prefix
+    if committee = Committees.get_committee!(id, prefix) do
       conn = assign(conn, :selected_menu_item, :about_aoff)
 
       {:ok, committees_text} =
         System.find_or_create_message(
           "/info - committees",
           "Committees",
-          Gettext.get_locale()
+          Gettext.get_locale(),
+          prefix
         )
 
       render(conn, "show.html",

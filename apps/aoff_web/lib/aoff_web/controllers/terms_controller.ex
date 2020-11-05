@@ -7,7 +7,8 @@ defmodule AOFFWeb.TermsController do
       System.find_or_create_message(
         "/terms",
         "Terms and condition",
-        Gettext.get_locale()
+        Gettext.get_locale(),
+        conn.assigns.prefix
       )
 
     render(conn, :index, message: message)

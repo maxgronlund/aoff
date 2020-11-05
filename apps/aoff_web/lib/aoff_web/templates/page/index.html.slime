@@ -46,12 +46,12 @@
                 = product.price
               .card-content.is-black
                 = text_to_html(description(product))
-
-.row
-  .column
-    = link gettext("Go to the shop"),\
-      to: Routes.shop_date_path(@conn, :show, @date),\
-      class: "button button-xlarge button-full-width"
+- if @date do
+  .row
+    .column
+      = link gettext("Go to the shop"),\
+        to: Routes.shop_date_path(@conn, :show, @date),\
+        class: "button button-xlarge button-full-width"
 
 = if @current_user == nil do
   .row

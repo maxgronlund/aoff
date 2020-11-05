@@ -29,7 +29,7 @@ defmodule AOFF.Committees.MemberFixture do
     {:ok, meeting} =
       attrs
       |> Enum.into(@valid_attrs)
-      |> Committees.create_member()
+      |> Committees.create_member("public")
 
     meeting
   end

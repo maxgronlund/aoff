@@ -5,13 +5,15 @@ defmodule AOFFWeb.Shop.PaymentDeclinedController do
   alias AOFF.System
 
   def index(conn, %{"id" => id}) do
-    if order = Users.get_order_by_token!(id) do
+    prefix = conn.assigns.prefix
+    if order = Users.get_order_by_token!(id, prefix) do
       # Users.payment_declined(order)
       {:ok, message} =
         System.find_or_create_message(
           "shop/payment_declined",
           "Payment declined",
-          Gettext.get_locale()
+          Gettext.get_locale(),
+          prefix
         )
 
       conn

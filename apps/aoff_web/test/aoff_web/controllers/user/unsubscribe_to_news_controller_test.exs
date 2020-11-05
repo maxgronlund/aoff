@@ -13,7 +13,9 @@ defmodule AOFFWeb.Users.UnsubscribeToNewsControllerTest do
         user_fixture()
         |> Users.set_unsubscribe_to_news_token()
 
-      conn = build_conn()
+      conn =
+        build_conn()
+        |> assign(prefix: "public")
       {:ok, conn: conn, user: user}
     end
 

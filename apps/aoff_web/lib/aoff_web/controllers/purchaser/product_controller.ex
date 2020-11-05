@@ -8,7 +8,7 @@ defmodule AOFFWeb.Purchaser.ProductController do
   plug :authenticate when action in [:index, :show, :edit, :new, :update, :create, :delete]
 
   def index(conn, _params) do
-    products = Shop.list_products()
+    products = Shop.list_products(conn.assigns.prefix)
 
     conn
     |> assign(:selected_menu_item, :volunteer)
@@ -48,13 +48,13 @@ defmodule AOFFWeb.Purchaser.ProductController do
   end
 
   def show(conn, %{"id" => id}) do
-    product = Shop.get_product!(id)
+    product = Shop.get_product!(id, conn.assigns.prefix)
 
     render(conn, "show.html", product: product)
   end
 
   def edit(conn, %{"id" => id}) do
-    product = Shop.get_product!(id)
+    product = Shop.get_product!(id, conn.assigns.prefix)
     changeset = Shop.change_product(product)
 
     conn
@@ -68,7 +68,7 @@ defmodule AOFFWeb.Purchaser.ProductController do
     price = Money.new(trunc(price * 100), :DKK)
     product_params = Map.put(product_params, "price", price)
 
-    product = Shop.get_product!(id)
+    product = Shop.get_product!(id, conn.assigns.prefix)
 
     case Shop.update_product(product, product_params) do
       {:ok, product} ->
@@ -92,7 +92,7 @@ defmodule AOFFWeb.Purchaser.ProductController do
   end
 
   def delete(conn, %{"id" => id}) do
-    product = Shop.get_product!(id)
+    product = Shop.get_product!(id, conn.assigns.prefix)
     {:ok, _product} = Shop.delete_product(product)
 
     conn

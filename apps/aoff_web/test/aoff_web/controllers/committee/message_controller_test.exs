@@ -45,6 +45,7 @@ defmodule AOFFWeb.Committees.MessageControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
+        |> assign(prefix: "public")
 
       {:ok, conn: conn, user: user, committee: committee}
     end
@@ -158,7 +159,7 @@ defmodule AOFFWeb.Committees.MessageControllerTest do
     end
 
     test "index lists all messages returns 401", %{conn: conn, committee: committee} do
-      message = message_fixture(%{"committee_id" => committee.id})
+      _message = message_fixture(%{"committee_id" => committee.id})
       conn = get(conn, Routes.committee_committee_message_path(conn, :index, committee))
       assert html_response(conn, 401) =~ gettext("Access denied")
     end

@@ -3,12 +3,13 @@ defmodule AOFFWeb.Users.PurchaserView do
 
   alias AOFF.System
 
-  def purchaser_message() do
+  def purchaser_message(prefix) do
     {:ok, message} =
       System.find_or_create_message(
         "/shop/ - purchaser",
         "Purchasers landing page",
-        Gettext.get_locale()
+        Gettext.get_locale(),
+        prefix
       )
 
     message

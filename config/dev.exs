@@ -1,12 +1,15 @@
 use Mix.Config
 
+query_args = ["SET search_path TO public", []]
+
 # Configure your database
 config :aoff, AOFF.Repo,
   username: System.get_env("POSTGRES_USER"),
   password: System.get_env("POSTGRES_PASSWORD"),
   database: "aoff_dev",
   hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
+  pool: Ecto.Adapters.SQL.Sandbox,
+  after_connect: {Postgrex, :query!, query_args}
 
 # For development, we disable any cache and enable
 # debugging and code reloading.

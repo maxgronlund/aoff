@@ -6,8 +6,9 @@ defmodule AOFFWeb.Users.Auth do
   def init(opts), do: opts
 
   def call(conn, _opts) do
+    prefix = conn.assigns.prefix
     user_id = get_session(conn, :user_id)
-    user = user_id && Users.get_user(user_id)
+    user = user_id && Users.get_user(user_id, prefix)
 
     conn
     |> assign(:current_user, user)
@@ -18,14 +19,14 @@ defmodule AOFFWeb.Users.Auth do
     |> assign(:shop_assistant, user && user.shop_assistant)
     |> assign(:text_editor, user && user.text_editor)
     |> assign(:manage_membership, user && user.manage_membership)
-    |> assign(:current_order, user && Users.current_order(user_id))
-    |> assign(:order_items_count, user && Users.order_items_count(user_id))
+    |> assign(:current_order, user && Users.current_order(user_id, prefix))
+    |> assign(:order_items_count, user && Users.order_items_count(user_id, prefix))
   end
 
   def login(conn, user) do
-    if Users.current_order(user.id) == nil do
-      Users.create_order(%{"user_id" => user.id})
-    end
+    # if Users.current_order(user.id, ) == nil do
+    #   Users.create_order(%{"user_id" => user.id})
+    # end
 
     conn
     |> assign(:current_user, user)
@@ -33,8 +34,8 @@ defmodule AOFFWeb.Users.Auth do
     |> configure_session(renew: true)
   end
 
-  def login_by_email_and_pass(conn, email, given_pass) do
-    case Users.authenticate_by_email_and_pass(email, given_pass) do
+  def login_by_email_and_pass(conn, email, given_pass, prefix) do
+    case Users.authenticate_by_email_and_pass(email, given_pass, prefix) do
       {:ok, user} -> validate_confirmation(user, conn)
       {:error, :unauthorized} -> {:error, :unauthorized, conn}
       {:error, :not_found} -> {:error, :not_found, conn}

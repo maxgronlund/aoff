@@ -108,18 +108,18 @@ h3 = gettext("Hosts")
         = gettext("Early shift")
         = shift_time(@date.early_shift_from, @date.early_shift_to)
     .card-content
-      = raw shop_assistant(@date.shop_assistant_a)
+      = raw shop_assistant(@date.shop_assistant_a, @conn.assigns.prefix)
       br/
-      = raw shop_assistant(@date.shop_assistant_b)
+      = raw shop_assistant(@date.shop_assistant_b, @conn.assigns.prefix)
 
   .card
     .card-header-title.is-centered
         = gettext("Late shift")
         = shift_time(@date.late_shift_from, @date.late_shift_to)
     .card-content
-      = raw shop_assistant(@date.shop_assistant_c)
+      = raw shop_assistant(@date.shop_assistant_c, @conn.assigns.prefix)
       br/
-      = raw shop_assistant(@date.shop_assistant_d)
+      = raw shop_assistant(@date.shop_assistant_d, @conn.assigns.prefix)
 .row
   .column
     .float-right

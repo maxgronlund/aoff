@@ -9,7 +9,7 @@ defmodule AOFFWeb.Volunteer.NewsletterController do
   plug :authenticate when action in [:index, :show, :edit, :new, :update, :create, :delete]
 
   def index(conn, _params) do
-    newsletters = Volunteers.list_newsletters()
+    newsletters = Volunteers.list_newsletters("public")
     render(conn, "index.html", newsletters: newsletters)
   end
 
@@ -19,7 +19,7 @@ defmodule AOFFWeb.Volunteer.NewsletterController do
   end
 
   def create(conn, %{"newsletter" => newsletter_params}) do
-    case Volunteers.create_newsletter(newsletter_params) do
+    case Volunteers.create_newsletter(newsletter_params, conn.assigns.prefix) do
       {:ok, newsletter} ->
         conn
         |> put_flash(:info, gettext("News letter created successfully."))
@@ -31,18 +31,18 @@ defmodule AOFFWeb.Volunteer.NewsletterController do
   end
 
   def show(conn, %{"id" => id}) do
-    newsletter = Volunteers.get_newsletter!(id)
+    newsletter = Volunteers.get_newsletter!(id, conn.assigns.prefix)
     render(conn, "show.html", newsletter: newsletter)
   end
 
   def edit(conn, %{"id" => id}) do
-    newsletter = Volunteers.get_newsletter!(id)
+    newsletter = Volunteers.get_newsletter!(id, conn.assigns.prefix)
     changeset = Volunteers.change_newsletter(newsletter)
     render(conn, "edit.html", newsletter: newsletter, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "newsletter" => newsletter_params}) do
-    newsletter = Volunteers.get_newsletter!(id)
+    newsletter = Volunteers.get_newsletter!(id, conn.assigns.prefix)
 
     case Volunteers.update_newsletter(newsletter, newsletter_params) do
       {:ok, newsletter} ->
@@ -56,7 +56,7 @@ defmodule AOFFWeb.Volunteer.NewsletterController do
   end
 
   def delete(conn, %{"id" => id}) do
-    newsletter = Volunteers.get_newsletter!(id)
+    newsletter = Volunteers.get_newsletter!(id, conn.assigns.prefix)
     {:ok, _newsletter} = Volunteers.delete_newsletter(newsletter)
 
     conn

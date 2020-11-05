@@ -26,23 +26,23 @@ defmodule AOFF.Users.OrderTest do
     end
 
     test "current_order/1 returns a order when there is no orders", %{user: user} do
-      assert %Order{} = Users.current_order(user.id)
+      assert %Order{} = Users.current_order(user.id, "public")
     end
 
     test "list_orders/0 returns all orders", %{user: user} do
       order = order_fixture(user.id)
       Users.payment_accepted(order)
-      assert List.last(Users.list_orders(user.id)).id == order.id
+      assert List.last(Users.list_orders(user.id, "public")).id == order.id
     end
 
     test "get_order!/1 returns the order with given id", %{user: user} do
       order = order_fixture(user.id)
-      assert Users.get_order!(order.id).id == order.id
+      assert Users.get_order!(order.id, "public").id == order.id
     end
 
     test "create_order/1 with valid data creates a order", %{user: user} do
       attrs = create_order_attrs(%{"user_id" => user.id})
-      assert {:ok, %Order{} = order} = Users.create_order(attrs)
+      assert {:ok, %Order{} = order} = Users.create_order(attrs, "public")
       assert order.state == attrs["state"]
     end
 
@@ -57,7 +57,7 @@ defmodule AOFF.Users.OrderTest do
       order = order_fixture(user.id)
       attrs = invalid_order_attrs(%{"user_id" => user.id})
       assert {:error, %Ecto.Changeset{}} = Users.update_order(order, attrs)
-      assert order.id == Users.get_order!(order.id).id
+      assert order.id == Users.get_order!(order.id, "public").id
     end
 
     test "change_order/1 returns a order changeset", %{user: user} do

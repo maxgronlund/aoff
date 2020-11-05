@@ -26,6 +26,7 @@ defmodule AOFFWeb.UserControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
+        |> assign(prefix: "public")
 
       {:ok, conn: conn, user: user}
     end
@@ -66,7 +67,8 @@ defmodule AOFFWeb.UserControllerTest do
         System.find_or_create_message(
           "/users/new",
           "Create account",
-          Gettext.get_locale()
+          Gettext.get_locale(),
+          "public"
         )
 
       conn = get(conn, Routes.user_path(conn, :new))
@@ -88,7 +90,8 @@ defmodule AOFFWeb.UserControllerTest do
         System.find_or_create_message(
           "/users/new",
           "Create account",
-          Gettext.get_locale()
+          Gettext.get_locale(),
+          "public"
         )
 
       assert html_response(conn, 200) =~ message.title

@@ -10,12 +10,6 @@ defmodule AOFFWeb.UserController do
   plug :authenticate when action in [:index, :show, :edit, :update, :delete]
   plug :navbar when action in [:new, :edit]
 
-  # def index(conn, _params) do
-  #   authorize(conn, conn.assigns.current_user)
-  #   users = Users.list_users()
-  #   render(conn, "index.html", users: users)
-  # end
-
   def new(conn, _params) do
     last_member_nr = Users.last_member_nr() || 0
 
@@ -29,7 +23,8 @@ defmodule AOFFWeb.UserController do
       System.find_or_create_message(
         "/users/new",
         "Create account",
-        Gettext.get_locale()
+        Gettext.get_locale(),
+        conn.assigns.prefix
       )
 
     render(
@@ -43,7 +38,9 @@ defmodule AOFFWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    case Users.create_user(user_params) do
+    prefix = conn.assigns.prefix
+
+    case Users.create_user(user_params, prefix) do
       {:ok, user} ->
         username_and_email = {user.username, user.email}
 
@@ -54,7 +51,7 @@ defmodule AOFFWeb.UserController do
             user.password_reset_token <>
             "/confirm_email"
 
-        AOFFWeb.EmailController.confirm_email_email(username_and_email, confirm_email_url)
+        AOFFWeb.EmailController.confirm_email_email(username_and_email, confirm_email_url, conn.assigns.prefix)
         |> AOFFWeb.Mailer.deliver_now()
 
         redirect(conn, to: Routes.user_welcome_path(conn, :index, user))
@@ -79,10 +76,11 @@ defmodule AOFFWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
+    prefix = conn.assigns.prefix
     today = AOFF.Time.today()
     user = get_user!(conn, id)
-    upcomming_pick_ups = Shop.list_upcomming_pick_ups(user.id, today)
-    upcomming_meetings = AOFF.Committees.list_user_meetings(user.id, today)
+    upcomming_pick_ups = Shop.list_upcomming_pick_ups(user.id, today, prefix)
+    upcomming_meetings = AOFF.Committees.list_user_meetings(user.id, today, prefix)
 
     conn =
       conn
@@ -95,7 +93,8 @@ defmodule AOFFWeb.UserController do
       System.find_or_create_message(
         "Pay for membership",
         "Pay for membership",
-        Gettext.get_locale()
+        Gettext.get_locale(),
+        prefix
       )
 
     render(
@@ -125,7 +124,7 @@ defmodule AOFFWeb.UserController do
       user: user,
       changeset: changeset,
       email: user.email,
-      avatar_format: avatar_format()
+      avatar_format: avatar_format(conn.assigns.prefix)
     )
   end
 
@@ -145,13 +144,14 @@ defmodule AOFFWeb.UserController do
           user: user,
           changeset: changeset,
           email: user.email,
-          avatar_format: avatar_format()
+          avatar_format: avatar_format(conn.assigns.prefix)
         )
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    user = Users.get_user!(id)
+    prefix = conn.assigns.prefix
+    user = Users.get_user!(id, prefix)
     {:ok, _user} = Users.delete_user(user)
 
     conn
@@ -160,7 +160,8 @@ defmodule AOFFWeb.UserController do
   end
 
   defp get_user!(conn, id) do
-    if user = Users.get_user(id) do
+    prefix = conn.assigns.prefix
+    if user = Users.get_user(id, prefix) do
       authorize(conn, user)
     else
       conn
@@ -204,12 +205,13 @@ defmodule AOFFWeb.UserController do
     |> assign(:selected_menu_item, :user)
   end
 
-  defp avatar_format() do
+  defp avatar_format(prefix) do
     {:ok, avatar_format} =
       System.find_or_create_message(
         "/user/:id/edit",
         "Avatar format",
-        Gettext.get_locale()
+        Gettext.get_locale(),
+        prefix
       )
 
     avatar_format

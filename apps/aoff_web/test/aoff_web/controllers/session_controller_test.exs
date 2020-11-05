@@ -10,7 +10,7 @@ defmodule AOFFWeb.SessionControllerTest do
       attrs = valid_attrs()
       user = user_fixture()
       Users.confirm_user(user)
-
+      conn = assign(conn, prefix: "public")
       conn =
         post(
           conn,
@@ -29,7 +29,7 @@ defmodule AOFFWeb.SessionControllerTest do
     test "render new when credentials are invalid", %{conn: conn} do
       user = user_fixture()
       Users.confirm_user(user)
-
+      conn = assign(conn, prefix: "public")
       conn =
         post(
           conn,
@@ -54,7 +54,7 @@ defmodule AOFFWeb.SessionControllerTest do
     test "redirect to confirm_email when credentials are valid", %{conn: conn} do
       attrs = valid_attrs()
       _user = user_fixture()
-
+      conn = assign(conn, prefix: "public")
       conn =
         post(
           conn,
@@ -70,7 +70,7 @@ defmodule AOFFWeb.SessionControllerTest do
           )
         )
 
-      user = Users.get_user_by_email(attrs["email"])
+      user = Users.get_user_by_email(attrs["email"], "public")
 
       assert redirected_to(conn) ==
                Routes.confirm_email_path(conn, :show, user)
@@ -93,12 +93,14 @@ defmodule AOFFWeb.SessionControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
+        |> assign(prefix: "public")
 
       {:ok, conn: conn, user: user}
     end
 
     test "logout", %{conn: conn, user: user} do
       conn = delete(conn, Routes.session_path(conn, :delete, user))
+      conn = assign(conn, prefix: "public")
       assert redirected_to(conn) == Routes.page_path(conn, :index)
     end
   end

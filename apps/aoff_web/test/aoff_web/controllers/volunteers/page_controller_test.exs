@@ -24,6 +24,7 @@ defmodule AOFFWeb.Volunteer.PageControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
+        |> assign(prefix: "public")
 
       category = category_fixture()
       {:ok, conn: conn, category: category}

@@ -13,29 +13,30 @@ defmodule AOFF.System do
       [%Message{}, ...]
 
   """
-  def list_messages(locale \\ "da") do
+  def list_messages(locale \\ "da", prefix) do
     query =
       from m in Message,
         where: m.locale == ^locale
 
     query
-    |> Repo.all()
+    |> Repo.all(prefix: prefix)
   end
 
-  def find_or_create_message(identifier, title, locale \\ "da") do
+  def find_or_create_message(identifier, title, locale \\ "da", prefix) do
+
     query =
       from m in Message,
         where: m.identifier == ^identifier and m.locale == ^locale,
         limit: 1
 
-    case Repo.one(query) do
+    case Repo.one(query, prefix: prefix) do
       nil ->
         create_message(%{
           "title" => title,
           "text" => "-",
           "identifier" => identifier,
           "locale" => locale
-        })
+        }, prefix)
 
       %Message{} = message ->
         {:ok, message}
@@ -56,7 +57,7 @@ defmodule AOFF.System do
       ** (Ecto.NoResultsError)
 
   """
-  def get_message!(id), do: Repo.get!(Message, id)
+  def get_message!(id, prefix), do: Repo.get!(Message, id, prefix: prefix)
 
   @doc """
   Creates a message.
@@ -70,10 +71,10 @@ defmodule AOFF.System do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_message(attrs \\ %{}) do
+  def create_message(attrs \\ %{}, prefix) do
     %Message{}
     |> Message.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: prefix)
   end
 
   @doc """
@@ -134,8 +135,8 @@ defmodule AOFF.System do
       [%SMSMessage{}, ...]
 
   """
-  def list_sms_messages do
-    Repo.all(SMSMessage)
+  def list_sms_messages(prefix) do
+    Repo.all(SMSMessage, prefix: prefix)
   end
 
   @doc """
@@ -152,7 +153,7 @@ defmodule AOFF.System do
       ** (Ecto.NoResultsError)
 
   """
-  def get_sms_message!(id), do: Repo.get!(SMSMessage, id)
+  def get_sms_message!(id, prefix), do: Repo.get!(SMSMessage, id, prefix: prefix)
 
   @doc """
   Creates a sms_message.
@@ -166,10 +167,10 @@ defmodule AOFF.System do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_sms_message(attrs \\ %{}) do
+  def create_sms_message(attrs \\ %{}, prefix) do
     %SMSMessage{}
     |> SMSMessage.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: prefix)
   end
 
   @doc """

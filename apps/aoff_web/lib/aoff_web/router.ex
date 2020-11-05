@@ -9,6 +9,7 @@ defmodule AOFFWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug AOFFWeb.System.SetHost
     plug AOFFWeb.System.Title
     plug AOFFWeb.Users.Auth
     plug AOFFWeb.System.Warning

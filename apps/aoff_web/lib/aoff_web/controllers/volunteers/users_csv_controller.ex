@@ -13,7 +13,7 @@ defmodule AOFFWeb.Volunteer.UsersCSVController do
         csv_rows = NimbleCSV.RFC4180.dump_to_iodata([result])
         conn |> chunk(csv_rows)
       end
-    end)
+    end, conn.assigns.prefix)
 
     conn
   end

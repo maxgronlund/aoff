@@ -33,6 +33,7 @@ defmodule AOFFWeb.ShopAssistant.OrderControllerTest do
         |> put_session(:user_id, user.id)
         |> put_session(:shop_assistant_date_id, date.id)
         |> configure_session(renew: true)
+        |> assign(prefix: "public")
 
       {:ok, conn: conn, user: guest, date: date}
     end

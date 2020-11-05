@@ -10,7 +10,7 @@ defmodule AOFFWeb.ShopAssistant.PickUpController do
   @dates_pr_page 12
 
   def show(conn, %{"id" => id}) do
-    pick_up = Shop.get_pick_up!(id)
+    pick_up = Shop.get_pick_up!(id, conn.assigns.prefix)
 
     if pick_up.picked_up do
       render(conn, "show.html", pick_up: pick_up)
@@ -31,7 +31,7 @@ defmodule AOFFWeb.ShopAssistant.PickUpController do
       end
 
     dates = Shop.list_all_dates(AOFF.Time.today(), page, @dates_pr_page)
-    date = Shop.get_next_date(AOFF.Time.today())
+    date = Shop.get_next_date(AOFF.Time.today(), conn.assigns.prefix)
 
     render(
       conn,

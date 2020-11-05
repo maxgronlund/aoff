@@ -10,13 +10,13 @@ defmodule AOFF.PageTest do
     test "get_page!/2 returns a single page" do
       category = category_fixture()
       page = page_fixture(category.id)
-      assert Content.get_page!(category.title, page.title).id == page.id
+      assert Content.get_page!(category.title, page.title, "public").id == page.id
     end
 
     test "create_page/1 with valid data creates a page" do
       category = category_fixture()
       attrs = create_page_attrs(%{"category_id" => category.id})
-      assert {:ok, %Page{} = page} = Content.create_page(attrs)
+      assert {:ok, %Page{} = page} = Content.create_page(attrs, "public")
       assert page.title == attrs["title"]
       assert page.text == attrs["text"]
     end
@@ -40,14 +40,14 @@ defmodule AOFF.PageTest do
       page = page_fixture(category.id)
       attrs = invalid_page_attrs()
       assert {:error, %Ecto.Changeset{}} = Content.update_page(page, attrs)
-      assert page.title == Content.get_page!(category.title, page.title).title
+      assert page.title == Content.get_page!(category.title, page.title, "public").title
     end
 
     test "delete_page/1 deletes the page" do
       category = category_fixture()
       page = page_fixture(category.id)
       assert {:ok, %Page{}} = Content.delete_page(page)
-      assert Content.get_page!(category.title, page.title) == nil
+      assert Content.get_page!(category.title, page.title, "public") == nil
     end
 
     test "change_page/1 returns a page changeset" do

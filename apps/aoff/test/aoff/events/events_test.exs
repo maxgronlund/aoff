@@ -38,7 +38,7 @@ defmodule AOFF.EventsTest do
           "state" => "participating"
         })
 
-      participants = Events.list_participants(:all, page.id)
+      participants = Events.list_participants(:all, page.id, "public")
       assert List.first(participants).id == participant.id
     end
 
@@ -63,7 +63,7 @@ defmodule AOFF.EventsTest do
           "state" => "participating"
         })
 
-      assert Events.get_participant(participant.id).id == participant.id
+      assert Events.get_participant(participant.id, "public").id == participant.id
     end
 
     test "create_participant/1 with valid data creates a participant", %{user: user, page: page} do
@@ -74,7 +74,7 @@ defmodule AOFF.EventsTest do
           "state" => "participating"
         })
 
-      assert {:ok, %Participant{} = participant} = Events.create_participant(attrs)
+      assert {:ok, %Participant{} = participant} = Events.create_participant(attrs, "public")
       assert participant.state == "participating"
     end
 
@@ -117,7 +117,7 @@ defmodule AOFF.EventsTest do
     test "delete_participant/1 deletes the participant", %{user: user, page: page} do
       {:ok, participant} = participant_fixture(%{"user_id" => user.id, "page_id" => page.id})
       assert {:ok, %Participant{}} = Events.delete_participant(participant)
-      assert is_nil(Events.get_participant(participant.id))
+      assert is_nil(Events.get_participant(participant.id, "public"))
     end
 
     # test "change_participant/1 returns a participant changeset" do

@@ -9,14 +9,15 @@ defmodule AOFFWeb.Purchaser.DateController do
   @dates_pr_page 8
 
   def index(conn, params) do
+    prefix = conn.assigns.prefix
     page =
       case params["page"] do
-        nil -> Shop.todays_page(@dates_pr_page)
+        nil -> Shop.todays_page(@dates_pr_page, prefix)
         page -> String.to_integer(page)
       end
 
-    dates = Shop.list_all_dates(Date.utc_today(), page, @dates_pr_page)
-    date = Shop.get_next_date(AOFF.Time.today())
+    dates = Shop.list_all_dates(Date.utc_today(), page, @dates_pr_page, prefix)
+    date = Shop.get_next_date(AOFF.Time.today(), prefix)
 
     conn
     |> assign(:selected_menu_item, :volunteer)
@@ -31,8 +32,9 @@ defmodule AOFFWeb.Purchaser.DateController do
   end
 
   def show(conn, %{"id" => id}) do
-    date = Shop.get_date!(id)
-    products = Shop.paid_orders_list(date.id)
+    prefix = conn.assigns.prefix
+    date = Shop.get_date!(id, prefix)
+    products = Shop.paid_orders_list(date.id, prefix)
 
     conn
     |> assign(:selected_menu_item, :volunteer)

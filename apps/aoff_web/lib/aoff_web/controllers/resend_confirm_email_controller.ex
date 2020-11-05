@@ -9,7 +9,8 @@ defmodule AOFFWeb.ResendConfirmEmailController do
       System.find_or_create_message(
         "Resend confirmation email",
         "Resend confirmation email",
-        Gettext.get_locale()
+        Gettext.get_locale(),
+        conn.assigns.prefix
       )
 
     changeset = Users.change_user(%User{})
@@ -17,7 +18,7 @@ defmodule AOFFWeb.ResendConfirmEmailController do
   end
 
   def create(conn, %{"user" => %{"email" => email}}) do
-    if user = Users.get_user_by_email(email) do
+    if user = Users.get_user_by_email(email, conn.assigns.prefix) do
       resend_confirm_email(conn, user)
     end
 
@@ -29,7 +30,8 @@ defmodule AOFFWeb.ResendConfirmEmailController do
       System.find_or_create_message(
         "Confirmation email was resend",
         "Confirmation email was resend",
-        Gettext.get_locale()
+        Gettext.get_locale(),
+        conn.assigns.prefix
       )
 
     render(conn, :index, message: message)
@@ -52,7 +54,7 @@ defmodule AOFFWeb.ResendConfirmEmailController do
         token <>
         "/confirm_email"
 
-    AOFFWeb.EmailController.confirm_email_email(username_and_email, confirm_email_url)
+    AOFFWeb.EmailController.confirm_email_email(username_and_email, confirm_email_url, conn.assigns.prefix)
     |> AOFFWeb.Mailer.deliver_now()
   end
 end

@@ -17,9 +17,9 @@ defmodule AOFF.Volunteers do
       [%User{}, ...]
 
   """
-  def list_users do
+  def list_users(prefix) do
     query = from(u in User, order_by: [asc: u.member_nr])
-    Repo.all(query)
+    Repo.all(query, prefix: prefix)
   end
 
   @doc """
@@ -31,9 +31,9 @@ defmodule AOFF.Volunteers do
       [%User{}, ...]
 
   """
-  def list_shop_assistans() do
+  def list_shop_assistans(prefix) do
     query = from(u in User, order_by: [asc: u.username], where: u.shop_assistant == ^true)
-    Repo.all(query)
+    Repo.all(query, prefix: prefix)
   end
 
   @doc """
@@ -50,8 +50,8 @@ defmodule AOFF.Volunteers do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id) do
-    Repo.get!(User, id)
+  def get_user!(id, prefix) do
+    Repo.get!(User, id, prefix: prefix)
   end
 
   @doc """
@@ -68,12 +68,12 @@ defmodule AOFF.Volunteers do
       "-"
 
   """
-  def username(id) do
+  def username(id, prefix) do
     cond do
       id == nil ->
         "-"
 
-      user = Repo.get(User, id) ->
+      user = Repo.get(User, id, prefix: prefix) ->
         user.username
 
       true ->
@@ -92,14 +92,14 @@ defmodule AOFF.Volunteers do
       {:error, %Ecto.Changeset{}}
 
   """
-  def register_user(attrs \\ %{}) do
+  def register_user(attrs \\ %{}, prefix) do
     attrs =
       attrs
       |> set_unsubsribe_to_news_token()
 
     %User{expiration_date: Date.add(AOFF.Time.today(), -1)}
     |> User.volunteer_changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: prefix)
   end
 
   @doc """
@@ -170,8 +170,8 @@ defmodule AOFF.Volunteers do
       [%Newsletter{}, ...]
 
   """
-  def list_newsletters do
-    Repo.all(Newsletter)
+  def list_newsletters(prefix) do
+    Repo.all(Newsletter, prefix: prefix)
   end
 
   @doc """
@@ -188,7 +188,7 @@ defmodule AOFF.Volunteers do
       ** (Ecto.NoResultsError)
 
   """
-  def get_newsletter!(id), do: Repo.get!(Newsletter, id)
+  def get_newsletter!(id, prefix), do: Repo.get!(Newsletter, id, prefix: prefix)
 
   @doc """
   Creates a newsletter.
@@ -202,10 +202,10 @@ defmodule AOFF.Volunteers do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_newsletter(attrs \\ %{}) do
+  def create_newsletter(attrs \\ %{}, prefix) do
     %Newsletter{}
     |> Newsletter.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: prefix)
   end
 
   @doc """

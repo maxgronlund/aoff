@@ -44,7 +44,7 @@ defmodule AOFF.Volunteer.NewsletterFixture do
     {:ok, newsletter} =
       attrs
       |> Enum.into(@valid_attrs)
-      |> Volunteers.create_newsletter()
+      |> Volunteers.create_newsletter("public")
 
     newsletter
   end

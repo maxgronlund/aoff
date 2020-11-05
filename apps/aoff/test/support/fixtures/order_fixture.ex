@@ -31,7 +31,7 @@ defmodule AOFF.Users.OrderFixture do
       attrs
       |> Enum.into(@create_attrs)
       |> Map.put("user_id", user_id)
-      |> Users.create_order()
+      |> Users.create_order("public")
 
     order
   end

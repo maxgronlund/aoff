@@ -3,9 +3,9 @@ defmodule AOFFWeb.ShopAssistant.ShopAssistantView do
 
   alias AOFF.Users
 
-  def assistant_name(user_id) do
+  def assistant_name(user_id, prefix) do
     if user_id do
-      user = Users.get_user(user_id)
+      user = Users.get_user(user_id, prefix)
       gettext("%{username}: Mobile: %{mobile}", username: user.username, mobile: user.mobile)
     end
   end

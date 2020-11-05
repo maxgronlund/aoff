@@ -7,21 +7,24 @@ defmodule AOFFWeb.Shop.ShopController do
   plug :navbar when action in [:index]
 
   def index(conn, _params) do
-    dates = Shop.list_dates(AOFF.Time.today(), 0, 6)
+    prefix = conn.assigns.prefix
+    dates = Shop.list_dates(AOFF.Time.today(), prefix, 0, 6)
 
     unless conn.assigns.valid_member do
       {:ok, expired_message} =
         System.find_or_create_message(
           "/shop/ - expired",
           "Membership expired",
-          Gettext.get_locale()
+          Gettext.get_locale(),
+          prefix
         )
 
       {:ok, login_message} =
         System.find_or_create_message(
           "/shop/ - login",
           "Login to shop",
-          Gettext.get_locale()
+          Gettext.get_locale(),
+          prefix
         )
 
       render(

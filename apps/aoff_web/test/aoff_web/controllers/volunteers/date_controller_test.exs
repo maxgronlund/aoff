@@ -23,6 +23,7 @@ defmodule AOFFWeb.Volunteer.DateControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
+        |> assign(prefix: "public")
 
       date = date_fixture()
       {:ok, conn: conn, date: date}

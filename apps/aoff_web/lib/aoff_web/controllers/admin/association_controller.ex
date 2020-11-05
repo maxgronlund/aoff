@@ -23,15 +23,17 @@ defmodule AOFFWeb.Admin.AssociationController do
       conn,
       "new.html",
       changeset: changeset,
-      users: list_volunteers()
+      users: list_volunteers(conn.assigns.prefix)
     )
   end
 
   def create(conn, %{"association" => association_params}) do
     case Admin.create_association(association_params) do
       {:ok, association} ->
+        prefix = AOFF.Admin.prefix(association.name)
+
         conn
-        |> put_flash(:info, "Association created successfully.")
+        |> put_flash(:info, "IMPORTANT! run $ mix ecto.migrate --prefix \"#{prefix}\"")
         |> redirect(to: Routes.admin_association_path(conn, :show, association))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -39,7 +41,7 @@ defmodule AOFFWeb.Admin.AssociationController do
           conn,
           "new.html",
           changeset: changeset,
-          users: list_volunteers()
+          users: list_volunteers(conn.assigns.prefix)
         )
     end
   end
@@ -58,7 +60,7 @@ defmodule AOFFWeb.Admin.AssociationController do
       "edit.html",
       association: association,
       changeset: changeset,
-      users: list_volunteers()
+      users: list_volunteers(conn.assigns.prefix)
     )
   end
 
@@ -77,7 +79,16 @@ defmodule AOFFWeb.Admin.AssociationController do
           "edit.html",
           association: association,
           changeset: changeset,
-          users: list_volunteers()
+          users: list_volunteers(conn.assigns.prefix)
+        )
+
+      {:error, :rollback} ->
+        render(
+          conn,
+          "edit.html",
+          association: association,
+          changeset: Admin.change_association(association),
+          users: list_volunteers(conn.assigns.prefix)
         )
     end
   end
@@ -91,7 +102,7 @@ defmodule AOFFWeb.Admin.AssociationController do
     |> redirect(to: Routes.admin_association_path(conn, :index))
   end
 
-  defp list_volunteers() do
-    Enum.map(Users.list_volunteers(), fn u -> {u.username, u.id} end)
+  defp list_volunteers(prefix) do
+    Enum.map(Users.list_volunteers(prefix), fn u -> {u.username, u.id} end)
   end
 end

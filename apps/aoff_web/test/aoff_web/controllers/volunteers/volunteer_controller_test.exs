@@ -16,12 +16,14 @@ defmodule AOFFWeb.Volunteer.VollunteerControllerTest do
 
     setup do
       user = user_fixture(%{"volunteer" => true, "shop_assistant" => true})
+
       conn =
         build_conn()
         |> Plug.Session.call(@session)
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
+        |> assign(prefix: "public")
 
       date = date_fixture()
       {:ok, conn: conn, date: date}

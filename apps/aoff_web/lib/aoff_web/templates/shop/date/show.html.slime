@@ -40,7 +40,7 @@
 
 = if @products_ordered do
   .alert.alert-warning
-    - message = closed_for_orders_message()
+    - message = closed_for_orders_message(@conn.assigns.prefix)
     h3 = message.title
     = raw message.text
     = if @text_editor do
@@ -86,7 +86,7 @@
         = text_to_html(description(product))
 
       = if @valid_member && @date.open && !@products_ordered do
-        .card-footer.is-button.basket-button user_id="#{@current_user.id}" product_id="#{product.id}" date_id="#{@date.id}" product_name="#{name(product)}" basket_count="#{@order_items_count}"
+        .card-footer.is-button.basket-button user_id="#{@current_user.id}" product_id="#{product.id}" date_id="#{@date.id}" product_name="#{name(product)}" basket_count="#{@order_items_count}" prefix="#{@conn.assigns.prefix}"
           .card-footer-item.is-button
             = gettext("Add to basket")
 

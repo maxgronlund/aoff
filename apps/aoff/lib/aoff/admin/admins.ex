@@ -17,9 +17,9 @@ defmodule AOFF.Admin.Admins do
       [%User{}, ...]
 
   """
-  def list_users do
+  def list_users(prefix) do
     query = from(u in User, order_by: [asc: u.member_nr])
-    Repo.all(query)
+    Repo.all(query, prefix: prefix)
   end
 
   @doc """
@@ -31,9 +31,9 @@ defmodule AOFF.Admin.Admins do
       [%User{}, ...]
 
   """
-  def list_shop_assistans() do
+  def list_shop_assistans(prefix) do
     query = from(u in User, order_by: [asc: u.username], where: u.shop_assistant == ^true)
-    Repo.all(query)
+    Repo.all(query, prefix: prefix)
   end
 
   @doc """
@@ -50,16 +50,14 @@ defmodule AOFF.Admin.Admins do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id) do
-    Repo.get!(User, id)
-  rescue
-    Ecto.Query.CastError -> nil
+  def get_user!(id, prefix) do
+    Repo.get!(User, id, prefix: prefix)
   end
 
   @doc """
-  Gets a single user.
+  Get the username for a single User.
 
-  Raises `Ecto.NoResultsError` if the User does not exist.
+  returns `-` if the User does not exist.
 
   ## Examples
 
@@ -67,17 +65,15 @@ defmodule AOFF.Admin.Admins do
       %User{}
 
       iex> get_user!(456)
-      ** (Ecto.NoResultsError)
+      ** '-'
 
   """
-  def username(id) do
+  def username(id, prefix) do
     cond do
       id == nil ->
         "-"
-
-      user = Repo.get(User, id) ->
+      user = Repo.get(User, id, prefix: prefix) ->
         user.username
-
       true ->
         "-"
     end

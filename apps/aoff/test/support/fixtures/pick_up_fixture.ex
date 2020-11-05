@@ -41,7 +41,7 @@ defmodule AOFF.Shop.PickUpFixture do
     {:ok, pick_up} =
       attrs
       |> Enum.into(@valid_attrs)
-      |> Shop.create_pick_up()
+      |> Shop.create_pick_up("public")
 
     pick_up
   end

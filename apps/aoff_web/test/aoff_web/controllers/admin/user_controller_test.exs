@@ -19,6 +19,7 @@ defmodule AOFFWeb.Admin.UserControllerTest do
       conn =
         build_conn()
         |> using_basic_auth(@username, @password)
+        |> assign(:prefix, "public")
 
       {:ok, conn: conn, user: user}
     end

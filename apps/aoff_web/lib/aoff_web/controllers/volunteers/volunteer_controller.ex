@@ -8,20 +8,18 @@ defmodule AOFFWeb.Volunteer.VolunteerController do
 
   def index(conn, _params) do
 
-
     {:ok, volunteer} =
       System.find_or_create_message(
         "/volunteer - volunteer",
         "Volunteer landing page",
-        Gettext.get_locale()
+        Gettext.get_locale(),
+        conn.assigns.prefix
       )
-
-
 
     render(
       conn,
       "index.html",
-      volunteer: volunteer,
+      volunteer: volunteer
     )
 
     # render(

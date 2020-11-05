@@ -9,14 +9,15 @@ defmodule AOFFWeb.Users.InvoiceController do
   plug :navbar when action in [:index, :show]
 
   def index(conn, %{"user_id" => user_id}) do
+    prefix = conn.assigns.prefix
     conn = assign(conn, :selected_menu_item, :user)
     user = get_user!(conn, user_id)
-    orders = Users.list_orders(user.id)
+    orders = Users.list_orders(user.id, prefix)
     render(conn, "index.html", user: user, orders: orders)
   end
 
   def show(conn, %{"id" => id}) do
-    order = Users.get_order!(id)
+    order = Users.get_order!(id, conn.assigns.prefix)
 
     conn =
       case order.state do
@@ -28,7 +29,7 @@ defmodule AOFFWeb.Users.InvoiceController do
   end
 
   def delete(conn, %{"id" => id}) do
-    order = Users.get_order!(id)
+    order = Users.get_order!(id, conn.assigns.prefix)
     {:ok, _order} = Users.delete_order(order)
 
     conn
@@ -37,7 +38,7 @@ defmodule AOFFWeb.Users.InvoiceController do
   end
 
   defp get_user!(conn, id) do
-    user = Users.get_user!(id)
+    user = Users.get_user!(id, conn.assigns.prefix)
 
     if user do
       authorize(conn, user)

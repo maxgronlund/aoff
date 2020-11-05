@@ -9,7 +9,7 @@ defmodule AOFFWeb.System.SMSMessageController do
   plug :authenticate when action in [:index, :show, :create, :delete]
 
   def index(conn, _params) do
-    sms_messages = System.list_sms_messages()
+    sms_messages = System.list_sms_messages(conn.assigns.prefix)
     render(conn, "index.html", sms_messages: sms_messages)
   end
 
@@ -48,12 +48,12 @@ defmodule AOFFWeb.System.SMSMessageController do
   end
 
   def show(conn, %{"id" => id}) do
-    sms_message = System.get_sms_message!(id)
+    sms_message = System.get_sms_message!(id, conn.assigns.prefix)
     render(conn, "show.html", sms_message: sms_message)
   end
 
   def delete(conn, %{"id" => id}) do
-    sms_message = System.get_sms_message!(id)
+    sms_message = System.get_sms_message!(id, conn.assigns.prefix)
     {:ok, _sms_message} = System.delete_sms_message(sms_message)
 
     conn

@@ -10,7 +10,8 @@ defmodule AOFFWeb.System.Warning do
       System.find_or_create_message(
         "System warning",
         "System warning",
-        Gettext.get_locale()
+        Gettext.get_locale(),
+        conn.assigns.prefix
       )
 
     conn |> assign(:warning, warning)

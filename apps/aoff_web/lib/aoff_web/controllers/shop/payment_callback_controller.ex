@@ -12,7 +12,8 @@ defmodule AOFFWeb.Shop.PaymentCallbackController do
           "orderid" => order_id
         }
       ) do
-    order = Users.get_order_by_token!(id)
+    prefix = conn.assigns.prefix
+    order = Users.get_order_by_token!(id, prefix)
     card_nr = "xxxx xxxx xxxx " <> card_nr(cardno)
 
     cond do
@@ -24,7 +25,7 @@ defmodule AOFFWeb.Shop.PaymentCallbackController do
           {:ok, order} ->
             Users.extend_memberships(order)
             # Create a new order for the basket.
-            Users.create_order(%{"user_id" => order.user_id})
+            Users.create_order(%{"user_id" => order.user_id}, prefix)
             accepted(conn, order, card_nr, paymenttype)
 
           _ ->
@@ -41,7 +42,7 @@ defmodule AOFFWeb.Shop.PaymentCallbackController do
   end
 
   defp accepted(conn, order, card_nr, paymenttype) do
-    send_invoice(order, card_nr, paymenttype)
+    send_invoice(order, card_nr, paymenttype, conn.assigns.prefix)
 
     conn
     |> render("index.html")
@@ -52,8 +53,8 @@ defmodule AOFFWeb.Shop.PaymentCallbackController do
     |> render("index.html")
   end
 
-  defp send_invoice(order, card_nr, paymenttype) do
-    AOFFWeb.EmailController.invoice_email(order, card_nr, paymenttype)
+  defp send_invoice(order, card_nr, paymenttype, prefix) do
+    AOFFWeb.EmailController.invoice_email(order, card_nr, paymenttype, prefix)
     |> AOFFWeb.Mailer.deliver_now()
   end
 

@@ -45,7 +45,7 @@ defmodule AOFF.Shop.PickUpTest do
         "order_id" => order.id
       })
 
-      assert List.first(Shop.list_pick_ups(date.id)).id == pick_up.id
+      assert List.first(Shop.list_pick_ups(date.id, "public")).id == pick_up.id
     end
 
     test "list_upcomming_pick_ups/0 returns all upcomming pick_ups for a given user", %{
@@ -65,7 +65,7 @@ defmodule AOFF.Shop.PickUpTest do
         "order_id" => order.id
       })
 
-      dates = Shop.list_upcomming_pick_ups(user.id, Date.utc_today())
+      dates = Shop.list_upcomming_pick_ups(user.id, Date.utc_today(), "public")
       assert List.first(dates).id == pick_up.id
     end
 
@@ -84,7 +84,7 @@ defmodule AOFF.Shop.PickUpTest do
 
       next_date = Date.add(Date.utc_today(), 42)
 
-      pick_ups = Shop.list_upcomming_pick_ups(user.id, next_date)
+      pick_ups = Shop.list_upcomming_pick_ups(user.id, next_date, "public")
       assert pick_ups == false
     end
 
@@ -94,7 +94,7 @@ defmodule AOFF.Shop.PickUpTest do
       order: order
     } do
       pick_up = create_pick_up(date, user, order)
-      assert Shop.get_pick_up!(pick_up.id).id == pick_up.id
+      assert Shop.get_pick_up!(pick_up.id, "public").id == pick_up.id
     end
 
     test "create_pick_up/1 with valid data creates a pick_up", %{
@@ -112,7 +112,7 @@ defmodule AOFF.Shop.PickUpTest do
           "email" => user.email
         })
 
-      assert {:ok, %PickUp{} = pick_up} = Shop.create_pick_up(attrs)
+      assert {:ok, %PickUp{} = pick_up} = Shop.create_pick_up(attrs, "public")
       assert pick_up.picked_up == attrs["picked_up"]
       assert pick_up.date_id == attrs["date_id"]
       assert pick_up.user_id == attrs["user_id"]
@@ -123,7 +123,7 @@ defmodule AOFF.Shop.PickUpTest do
 
     test "create_pick_up/1 with invalid data returns error changeset" do
       attrs = invalid_pick_up_attrs()
-      assert {:error, %Ecto.Changeset{}} = Shop.create_pick_up(attrs)
+      assert {:error, %Ecto.Changeset{}} = Shop.create_pick_up(attrs, "public")
     end
 
     test "update_pick_up/2 with valid data updates the pick_up", %{
@@ -145,13 +145,13 @@ defmodule AOFF.Shop.PickUpTest do
       pick_up = create_pick_up(date, user, order)
       attrs = invalid_pick_up_attrs()
       assert {:error, %Ecto.Changeset{}} = Shop.update_pick_up(pick_up, attrs)
-      assert pick_up.id == Shop.get_pick_up!(pick_up.id).id
+      assert pick_up.id == Shop.get_pick_up!(pick_up.id, "public").id
     end
 
     test "delete_pick_up/1 deletes the pick_up", %{date: date, user: user, order: order} do
       pick_up = create_pick_up(date, user, order)
       assert {:ok, %PickUp{}} = Shop.delete_pick_up(pick_up)
-      assert_raise Ecto.NoResultsError, fn -> Shop.get_pick_up!(pick_up.id) end
+      assert_raise Ecto.NoResultsError, fn -> Shop.get_pick_up!(pick_up.id, "public") end
     end
 
     test "change_pick_up/1 returns a pick_up changeset", %{date: date, user: user, order: order} do

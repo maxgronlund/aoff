@@ -13,7 +13,7 @@ defmodule AOFFWeb.Volunteer.DateController do
     # Shop.secure_dates()
 
     page = params["page"] || "0"
-    dates = Shop.list_dates(AOFF.Time.today(), String.to_integer(page), 12)
+    dates = Shop.list_dates(AOFF.Time.today(), conn.assigns.prefix, String.to_integer(page), 12)
 
     render(
       conn,
@@ -31,13 +31,14 @@ defmodule AOFFWeb.Volunteer.DateController do
       conn,
       "new.html",
       changeset: changeset,
-      users: shop_assistans(),
+      users: shop_assistans(conn.assigns.prefix),
       date: false
     )
   end
 
   def create(conn, %{"date" => date_params}) do
-    case Shop.create_date(date_params) do
+    prefix = conn.assigns.prefix
+    case Shop.create_date(date_params, prefix) do
       {:ok, date} ->
         conn
         |> put_flash(:info, gettext("Please add an image"))
@@ -48,14 +49,14 @@ defmodule AOFFWeb.Volunteer.DateController do
           conn,
           "new.html",
           changeset: changeset,
-          users: shop_assistans(),
+          users: shop_assistans(prefix),
           date: false
         )
     end
   end
 
   def show(conn, %{"id" => id}) do
-    date = Shop.get_date!(id)
+    date = Shop.get_date!(id, conn.assigns.prefix)
 
     render(
       conn,
@@ -65,14 +66,16 @@ defmodule AOFFWeb.Volunteer.DateController do
   end
 
   def edit(conn, %{"id" => id}) do
-    date = Shop.get_date!(id)
+    prefix = conn.assigns.prefix
+    date = Shop.get_date!(id, prefix)
 
     changeset = Shop.change_date(date)
-    render(conn, "edit.html", date: date, changeset: changeset, users: shop_assistans())
+    render(conn, "edit.html", date: date, changeset: changeset, users: shop_assistans(prefix))
   end
 
   def update(conn, %{"id" => id, "date" => date_params}) do
-    date = Shop.get_date!(id)
+    prefix = conn.assigns.prefix
+    date = Shop.get_date!(id, prefix)
 
     case Shop.update_date(date, date_params) do
       {:ok, _date} ->
@@ -81,12 +84,12 @@ defmodule AOFFWeb.Volunteer.DateController do
         |> redirect(to: Routes.volunteer_date_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", date: date, changeset: changeset, users: shop_assistans())
+        render(conn, "edit.html", date: date, changeset: changeset, users: shop_assistans(prefix))
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    date = Shop.get_date!(id)
+    date = Shop.get_date!(id, conn.assigns.prefix)
     {:ok, _date} = Shop.delete_date(date)
 
     conn
@@ -94,8 +97,8 @@ defmodule AOFFWeb.Volunteer.DateController do
     |> redirect(to: Routes.volunteer_date_path(conn, :index))
   end
 
-  defp shop_assistans() do
-    Enum.map(Users.list_shop_assistans(), fn u -> {u.username, u.id} end)
+  defp shop_assistans(prefix) do
+    Enum.map(Users.list_shop_assistans(prefix), fn u -> {u.username, u.id} end)
   end
 
   defp authenticate(conn, _opts) do

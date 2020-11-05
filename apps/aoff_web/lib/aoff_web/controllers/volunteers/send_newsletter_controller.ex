@@ -4,9 +4,9 @@ defmodule AOFFWeb.Volunteer.SendNewsletterController do
   alias AOFF.Volunteers
 
   def update(conn, %{"id" => id}) do
-    newsletter = Volunteers.get_newsletter!(id)
+    newsletter = Volunteers.get_newsletter!(id, conn.assigns.prefix)
 
-    for user <- AOFF.Users.list_users(:newsletter) do
+    for user <- AOFF.Users.list_users(:newsletter, conn.assigns.prefix) do
       unsubscribe_to_news_url =
         Routes.unsubscribe_to_news_url(conn, :show, user.unsubscribe_to_news_token)
 

@@ -29,9 +29,8 @@ defmodule AOFF.Events.ParticipantFixture do
   end
 
   def participant_fixture(attrs \\ %{}) do
-    {:ok, participant} =
-      attrs
-      |> Enum.into(@valid_attrs)
-      |> Events.create_participant()
+    attrs
+    |> Enum.into(@valid_attrs)
+    |> Events.create_participant("public")
   end
 end

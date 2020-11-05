@@ -51,7 +51,7 @@ html lang="da"
       / = render @view_module, @view_template, assigns
       = @inner_content
     footer.site-footer
-      - footer = footer()
+      - footer = footer(@conn.assigns.prefix)
       = footer.title
       = raw(footer.text)
 

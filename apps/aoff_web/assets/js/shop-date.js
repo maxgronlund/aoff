@@ -17,12 +17,14 @@ let ShopDate = {
       let productId = $(this).attr('product_id')
       let dateId = $(this).attr('date_id')
       let product_name = $(this).attr('product_name')
+      let prefix = $(this).attr('prefix')
 
       let params =
         {
           "user_id": userId,
           "product_id": productId,
-          "date_id": dateId
+          "date_id": dateId,
+          "prefix": prefix
         }
 
       // Send the message to the server
