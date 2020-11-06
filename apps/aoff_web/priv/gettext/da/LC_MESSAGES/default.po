@@ -745,7 +745,7 @@ msgstr "Jeg godkender"
 #, elixir-format
 #: lib/aoff_web/templates/shop/checkout/edit.html.slime:15
 msgid "I have read and accept the"
-msgstr "Jeg har læst og akcepterer"
+msgstr "Jeg har læst og accepterer"
 
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/message/index.html.slime:1
