@@ -13,13 +13,13 @@ defmodule AOFFWeb.Volunteer.OrderController do
   def index(conn, params) do
     prefix = conn.assigns.prefix
     page = page(params)
-    pages_count = pages_count(params, prefix)
+    pages_count = pages_count(prefix, params)
 
     orders =
       if query = params["query"] do
-        Users.search_orders(query, prefix)
+        Users.search_orders(prefix, query)
       else
-        Users.list_orders(:all, prefix, page, @orders_pr_page)
+        Users.list_orders(prefix, :all, page, @orders_pr_page)
       end
 
     conn
@@ -87,7 +87,7 @@ defmodule AOFFWeb.Volunteer.OrderController do
   end
 
   defp dates(prefix) do
-    dates = Shop.list_dates(Date.add(AOFF.Time.today(), 0), prefix, 0, 5)
+    dates = Shop.list_dates(prefix, Date.add(AOFF.Time.today(), 0), 0, 5)
     Enum.map(dates, fn x -> {AOFF.Time.date_as_string(x.date), x.id} end)
   end
 
@@ -96,6 +96,7 @@ defmodule AOFFWeb.Volunteer.OrderController do
     Users.delete_order(order)
 
     date_id = get_session(conn, :shop_assistant_date_id)
+
     if date_id do
       conn
       |> put_flash(:info, gettext("Order is deleted"))

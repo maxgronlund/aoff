@@ -8,13 +8,15 @@ defmodule AOFFWeb.Volunteer.UsersCSVController do
       |> put_resp_header("content-disposition", ~s[attachment; filename="report.csv"])
       |> send_chunked(:ok)
 
-    AOFF.Users.stream_users(fn stream ->
-      for result <- stream do
-        csv_rows = NimbleCSV.RFC4180.dump_to_iodata([result])
-        conn |> chunk(csv_rows)
+    AOFF.Users.stream_users(
+      conn.assigns.prefix,
+      fn stream ->
+        for result <- stream do
+          csv_rows = NimbleCSV.RFC4180.dump_to_iodata([result])
+          conn |> chunk(csv_rows)
+        end
       end
-    end, conn.assigns.prefix)
-
+    )
     conn
   end
 end

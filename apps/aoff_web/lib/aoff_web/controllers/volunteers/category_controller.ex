@@ -17,13 +17,13 @@ defmodule AOFFWeb.Volunteer.CategoryController do
 
     {:ok, help_text} =
       System.find_or_create_message(
+        prefix,
         "/volunteer/categories",
         "Categories",
-        Gettext.get_locale(),
-        prefix
+        Gettext.get_locale()
       )
 
-    categories = Content.list_categories(:all, prefix)
+    categories = Content.list_categories(prefix, :all)
     render(conn, "index.html", categories: categories, help_text: help_text)
   end
 
@@ -56,7 +56,8 @@ defmodule AOFFWeb.Volunteer.CategoryController do
 
   def edit(conn, %{"id" => id}) do
     prefix = conn.assigns.prefix
-    if category = Content.get_category!(id, prefix) do
+
+    if category = Content.get_category!(prefix, id) do
       changeset = Content.change_category(category)
 
       render(
@@ -75,7 +76,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
 
   def update(conn, %{"id" => id, "category" => category_params}) do
     prefix = conn.assigns.prefix
-    category = Content.get_category!(id, prefix)
+    category = Content.get_category!(prefix, id)
 
     case Content.update_category(category, category_params) do
       {:ok, _category} ->
@@ -96,7 +97,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
 
   def delete(conn, %{"id" => id}) do
     prefix = conn.assigns.prefix
-    category = Content.get_category!(id, prefix)
+    category = Content.get_category!(prefix, id)
     {:ok, _category} = Content.delete_category(category)
 
     conn
@@ -137,10 +138,10 @@ defmodule AOFFWeb.Volunteer.CategoryController do
   defp image_format(prefix) do
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "/volunteer/categorys/:id/edit",
         "Image format",
-        Gettext.get_locale(),
-        prefix
+        Gettext.get_locale()
       )
 
     message

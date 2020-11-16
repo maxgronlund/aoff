@@ -19,9 +19,7 @@ defmodule AOFF.System.SMSMessageFixture do
 
   def sms_message_fixture(attrs \\ %{}) do
     {:ok, sms_message} =
-      attrs
-      |> Enum.into(@valid_sms_message_attrs)
-      |> System.create_sms_message("public")
+      System.create_sms_message("public", Enum.into(attrs, @valid_sms_message_attrs))
 
     sms_message
   end

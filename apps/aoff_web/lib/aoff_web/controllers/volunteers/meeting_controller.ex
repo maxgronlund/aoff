@@ -11,7 +11,7 @@ defmodule AOFFWeb.Volunteer.MeetingController do
 
   def new(conn, %{"committee_id" => committee_id}) do
     prefix = conn.assigns.prefix
-    committee = Committees.get_committee!(committee_id, prefix)
+    committee = Committees.get_committee!(prefix, committee_id)
     changeset = Committees.change_meeting(%Meeting{date: Date.add(Date.utc_today(), 14)})
 
     render(
@@ -25,9 +25,9 @@ defmodule AOFFWeb.Volunteer.MeetingController do
 
   def create(conn, %{"meeting" => meeting_params}) do
     prefix = conn.assigns.prefix
-    committee = Committees.get_committee!(meeting_params["committee_id"], prefix)
+    committee = Committees.get_committee!(prefix, meeting_params["committee_id"])
 
-    case Committees.create_meeting(meeting_params, prefix) do
+    case Committees.create_meeting(prefix, meeting_params) do
       {:ok, meeting} ->
         conn
         |> put_flash(:info, gettext("Meeting created successfully."))
@@ -45,7 +45,8 @@ defmodule AOFFWeb.Volunteer.MeetingController do
   end
 
   def edit(conn, %{"id" => id}) do
-    meeting = Committees.get_meeting!(id, conn.assigns.prefix)
+    prefix = conn.assigns.prefix
+    meeting = Committees.get_meeting!(prefix, id)
     changeset = Committees.change_meeting(meeting)
 
     render(
@@ -59,7 +60,8 @@ defmodule AOFFWeb.Volunteer.MeetingController do
   end
 
   def update(conn, %{"id" => id, "meeting" => meeting_params}) do
-    meeting = Committees.get_meeting!(id, conn.assigns.prefix)
+    prefix = conn.assigns.prefix
+    meeting = Committees.get_meeting!(prefix, id)
 
     case Committees.update_meeting(meeting, meeting_params) do
       {:ok, meeting} ->
@@ -75,7 +77,8 @@ defmodule AOFFWeb.Volunteer.MeetingController do
   end
 
   def delete(conn, %{"id" => id}) do
-    meeting = Committees.get_meeting!(id, conn.assigns.prefix)
+    prefix = conn.assigns.prefix
+    meeting = Committees.get_meeting!(prefix, id)
     {:ok, _meeting} = Committees.delete_meeting(meeting)
 
     conn

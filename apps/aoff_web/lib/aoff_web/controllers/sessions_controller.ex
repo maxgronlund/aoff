@@ -9,7 +9,7 @@ defmodule AOFFWeb.SessionController do
   def create(conn, %{"session" => %{"email" => email, "password" => pass}}) do
     prefix = conn.assigns.prefix
 
-    case AOFFWeb.Users.Auth.login_by_email_and_pass(conn, email, pass, prefix) do
+    case AOFFWeb.Users.Auth.login_by_email_and_pass(prefix, conn, email, pass) do
       {:ok, conn} ->
         user = conn.assigns[:current_user]
 
@@ -21,7 +21,7 @@ defmodule AOFFWeb.SessionController do
         |> redirect(to: Routes.user_path(conn, :show, user.id))
 
       {:error, :confirmation_missing, conn} ->
-        user = AOFF.Users.get_user_by_email(email, prefix)
+        user = AOFF.Users.get_user_by_email(prefix, email)
 
         conn
         |> redirect(to: Routes.confirm_email_path(conn, :show, user))

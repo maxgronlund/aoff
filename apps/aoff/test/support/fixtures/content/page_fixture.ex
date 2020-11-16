@@ -52,11 +52,11 @@ defmodule AOFF.Content.PageFixture do
   end
 
   def page_fixture(category_id, attrs \\ %{}) do
-    {:ok, page} =
+    attrs =
       attrs
       |> Enum.into(@create_attrs)
       |> Map.put("category_id", category_id)
-      |> Content.create_page("public")
+    {:ok, page} = Content.create_page("public", attrs)
 
     page
   end

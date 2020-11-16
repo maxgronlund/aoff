@@ -11,55 +11,57 @@ defmodule AOFFWeb.Committees.CommitteeController do
   def index(conn, _params) do
     conn = assign(conn, :selected_menu_item, :about_aoff)
     user = conn.assigns.current_user
+    prefix = conn.assigns.prefix
 
     committees =
-      public_committees()
-      |> member_committees(user)
-      |> volunteer_committees(user)
-      |> committee_member_committees(user)
+      public_committees(prefix)
+      |> member_committees(prefix, user)
+      |> volunteer_committees(prefix, user)
+      |> committee_member_committees(prefix, user)
 
     render(conn, "index.html", committees: committees)
   end
 
-  defp public_committees() do
-    Committees.list_committees(:public)
+  defp public_committees(prefix) do
+    Committees.list_committees(prefix, :public)
   end
 
-  defp member_committees(committees, user) do
+  defp member_committees(committees, prefix, user) do
     if user do
-      Enum.uniq(committees ++ Committees.list_committees(:member))
+      Enum.uniq(committees ++ Committees.list_committees(prefix, :member))
     else
       committees
     end
   end
 
-  defp volunteer_committees(committees, user) do
+  defp volunteer_committees(committees, prefix, user) do
     if user && user.volunteer do
-      Enum.uniq(committees ++ Committees.list_committees(:volunteer))
+      Enum.uniq(committees ++ Committees.list_committees(prefix, :volunteer))
     else
       committees
     end
   end
 
-  defp committee_member_committees(committees, user) do
+  defp committee_member_committees(committees, prefix, user) do
     if user do
-      Enum.uniq(committees ++ Committees.list_committees(user.id))
+      Enum.uniq(committees ++ Committees.list_committees(prefix, user.id))
     else
       committees
     end
   end
 
   def show(conn, %{"id" => id}) do
-    prefix = conn.assigns.prefix
-    if committee = Committees.get_committee!(id, prefix) do
+    IO.inspect prefix = conn.assigns.prefix
+
+    if committee = Committees.get_committee!(prefix, id) do
       conn = assign(conn, :selected_menu_item, :about_aoff)
 
       {:ok, committees_text} =
         System.find_or_create_message(
+          prefix,
           "/info - committees",
           "Committees",
-          Gettext.get_locale(),
-          prefix
+          Gettext.get_locale()
         )
 
       render(conn, "show.html",

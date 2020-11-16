@@ -8,25 +8,26 @@ defmodule AOFFWeb.Shop.DateController do
 
   def show(conn, %{"id" => id}) do
     prefix = conn.assigns.prefix
-    date = Shop.get_date!(id, prefix)
-    products = Shop.list_products(:for_sale, prefix)
+    date = Shop.get_date!(prefix, id)
+    products = Shop.list_products(prefix, :for_sale)
 
     unless conn.assigns.valid_member do
       prefix = conn.assigns.prefix
+
       {:ok, expired_message} =
         System.find_or_create_message(
+          prefix,
           "/shop/ - expired",
           "Membership inactive",
-          Gettext.get_locale(),
-          prefix
+          Gettext.get_locale()
         )
 
       {:ok, login_message} =
         System.find_or_create_message(
+          prefix,
           "/shop/ - login",
           "Login to buy products",
-          Gettext.get_locale(),
-          prefix
+          Gettext.get_locale()
         )
 
       render(

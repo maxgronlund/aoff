@@ -50,7 +50,7 @@ defmodule AOFF.Admin.Admins do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id, prefix) do
+  def get_user!(prefix, id) do
     Repo.get!(User, id, prefix: prefix)
   end
 
@@ -68,12 +68,14 @@ defmodule AOFF.Admin.Admins do
       ** '-'
 
   """
-  def username(id, prefix) do
+  def username(prefix, id) do
     cond do
       id == nil ->
         "-"
+
       user = Repo.get(User, id, prefix: prefix) ->
         user.username
+
       true ->
         "-"
     end

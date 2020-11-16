@@ -21,13 +21,14 @@ defmodule AOFFWeb.ShopAssistant.OrderItemController do
         }
       ) do
     prefix = conn.assigns.prefix
+
     cond do
       product_id == "" || date_id == "" ->
         error(conn, user_id)
 
       true ->
-        user = Users.get_user!(user_id, prefix)
-        product = Shop.get_product!(product_id, prefix)
+        user = Users.get_user!(prefix, user_id)
+        product = Shop.get_product!(prefix, product_id)
 
         pick_up_params = %{
           "date_id" => date_id,
@@ -46,7 +47,7 @@ defmodule AOFFWeb.ShopAssistant.OrderItemController do
           "price" => product.price
         }
 
-        case Users.add_order_item_to_basket(pick_up_params, order_item_params, prefix) do
+        case Users.add_order_item_to_basket(prefix, pick_up_params, order_item_params) do
           {:ok, %AOFF.Users.OrderItem{}} ->
             conn
             |> put_flash(:info, gettext("%{name} is added to the order", name: product.name_da))
@@ -63,7 +64,9 @@ defmodule AOFFWeb.ShopAssistant.OrderItemController do
   def delete(conn, %{"id" => id}) do
     order_item = Users.get_order_item!(id)
 
-    case Users.delete_order_item(order_item, conn.assigns.prefix) do
+    prefix = conn.assigns.prefix
+
+    case Users.delete_order_item(prefix, order_item) do
       {:ok, order_item} ->
         conn
         |> put_flash(:info, gettext("Product is removed"))

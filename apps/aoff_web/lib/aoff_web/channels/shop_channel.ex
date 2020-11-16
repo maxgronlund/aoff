@@ -19,7 +19,7 @@ defmodule AOFFWeb.ShopChannel do
   alias AOFF.Shop
 
   def handle_in("add_to_basked", payload, socket) do
-    #TODO: find host and convert to prefix
+    # TODO: find host and convert to prefix
     prefix = payload["prefix"]
 
     user = Users.get_user!(payload["user_id"], prefix)

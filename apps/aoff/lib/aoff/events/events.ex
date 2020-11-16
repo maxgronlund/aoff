@@ -16,7 +16,7 @@ defmodule AOFF.Events do
       [%Participant{}, ...]
 
   """
-  def list_participants(:all, page_id, prefix) do
+  def list_participants(prefix, :all, page_id) do
     query =
       from p in Participant,
         where: p.page_id == ^page_id
@@ -35,7 +35,7 @@ defmodule AOFF.Events do
       %Participant{}
 
   """
-  def get_participant(id, prefix) do
+  def get_participant(prefix, id) do
     Participant
     |> Repo.get(id, prefix: prefix)
     |> Repo.preload(:page)
@@ -52,7 +52,7 @@ defmodule AOFF.Events do
     |> Repo.one(prefix: prefix)
   end
 
-  def create_participant(attrs \\ %{}, prefix) do
+  def create_participant(prefix, attrs \\ %{}) do
     %Participant{} |> Participant.changeset(attrs) |> Repo.insert(prefix: prefix)
   end
 

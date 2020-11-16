@@ -7,7 +7,7 @@ defmodule AOFF.System.UserImporter do
   alias AOFF.Users.User
   alias AOFF.Users
 
-  def import(path, prefix) do
+  def import(prefix, path) do
     str = HTTPoison.get!(path).body
     rows = UserCsvParser.parse_string(str)
 

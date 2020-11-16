@@ -17,10 +17,10 @@ defmodule AOFF.UsersTest do
 
       assert {:ok, %Users.User{}} =
                Users.authenticate_by_email_and_pass(
-                attrs["email"],
-                attrs["password"],
-                "public"
-              )
+                "public",
+                 attrs["email"],
+                 attrs["password"]
+               )
     end
 
     test "authenticate_by_email_and_pass/2 when pass is invalid" do
@@ -29,10 +29,10 @@ defmodule AOFF.UsersTest do
 
       assert {:error, :unauthorized} ==
                Users.authenticate_by_email_and_pass(
-                attrs["email"],
-                "chunky-becon",
-                "public"
-              )
+                "public",
+                 attrs["email"],
+                 "chunky-becon"
+               )
     end
 
     test "authenticate_by_email_and_pass/2 when email is invalid" do
@@ -40,10 +40,10 @@ defmodule AOFF.UsersTest do
 
       assert {:error, :not_found} ==
                Users.authenticate_by_email_and_pass(
-                "no-one@example.com",
-                "chunky-becon",
-                "public"
-              )
+                "public",
+                 "no-one@example.com",
+                 "chunky-becon"
+               )
     end
   end
 
@@ -63,54 +63,54 @@ defmodule AOFF.UsersTest do
     test "get_users_by_username/1 returns the users with the given username" do
       user = user_fixture()
 
-      assert List.first(Users.get_users_by_username(user.username, "public")).id == user.id
+      assert List.first(Users.get_users_by_username("public", user.username)).id == user.id
     end
 
     test "get_user_by_member_nr/1 returns the user with the given member_nr" do
       user = user_fixture()
 
-      assert Users.get_user_by_member_nr(user.member_nr, "public").id == user.id
+      assert Users.get_user_by_member_nr("public", user.member_nr).id == user.id
     end
 
     test "get_user_by_member_nr/1 returns nil" do
-      assert is_nil(Users.get_user_by_member_nr(-1, "public"))
+      assert is_nil(Users.get_user_by_member_nr("public", -1))
     end
 
     test "get_user!/1 returns the user with given id" do
       user = user_fixture()
-      assert Users.get_user!(user.id, "public").id == user.id
+      assert Users.get_user!("public", user.id).id == user.id
     end
 
     test "get_user_by_email/1 returns the user with given email" do
       user = user_fixture()
-      assert Users.get_user_by_email(user.email, "public").id == user.id
+      assert Users.get_user_by_email("public", user.email).id == user.id
     end
 
     test "search search_users/1 with a valid member_nr" do
       user = user_fixture()
       member_nr = Integer.to_string(user.member_nr)
-      assert List.first(Users.search_users(member_nr, "public")).id == user.id
+      assert List.first(Users.search_users("public", member_nr)).id == user.id
     end
 
     test "search search_users/1 with a valid email" do
       user = user_fixture()
-      assert List.first(Users.search_users(user.email, "public")).id == user.id
+      assert List.first(Users.search_users("public", user.email)).id == user.id
     end
 
     test "search search_users/1 with a valid username" do
       user = user_fixture()
-      assert List.first(Users.search_users(user.username, "public")).id == user.id
+      assert List.first(Users.search_users("public", user.username)).id == user.id
     end
 
     test "search search_users/1 with invalid query returns an empty aray" do
       _user = user_fixture()
-      assert Users.search_users("XYZ123", "public") == []
+      assert Users.search_users("public", "XYZ123") == []
     end
 
     test "create_user/1 with valid data creates a user" do
       attrs = valid_attrs()
 
-      assert {:ok, %User{} = user} = Users.create_user(attrs, "public")
+      assert {:ok, %User{} = user} = Users.create_user("public", attrs)
       assert user.username == attrs["username"]
       assert user.email == attrs["email"]
       assert user.mobile == attrs["mobile"]
@@ -143,7 +143,7 @@ defmodule AOFF.UsersTest do
       attrs = invalid_attrs()
 
       assert {:error, %Ecto.Changeset{}} = Users.update_user(user, attrs)
-      assert user.id == Users.get_user!(user.id, "public").id
+      assert user.id == Users.get_user!("public", user.id).id
     end
 
     test "update_user/2 sets the set the unsubscribe_to_news_token" do
@@ -163,7 +163,7 @@ defmodule AOFF.UsersTest do
     test "delete_user/1 deletes the user" do
       user = user_fixture()
       assert {:ok, %User{}} = Users.delete_user(user)
-      assert_raise Ecto.NoResultsError, fn -> Users.get_user!(user.id, "public") end
+      assert_raise Ecto.NoResultsError, fn -> Users.get_user!("public", user.id) end
     end
 
     test "change_user/1 returns a user changeset" do
@@ -188,32 +188,34 @@ defmodule AOFF.UsersTest do
     test "get_order_by_token/1" do
       user = user_fixture()
       order = order_fixture(user.id)
-      assert Users.get_order_by_token!(order.token, "public").id == order.id
+      assert Users.get_order_by_token!("public", order.token).id == order.id
     end
 
     test "search order/1 with a valid order_nr" do
       user = user_fixture()
       order = order_fixture(user.id)
       {:ok, order} = Users.payment_accepted(order, "1", "0000 0000 0000 2134", "1234")
-      assert List.first(Users.search_orders(Integer.to_string(order.order_nr), "public")).id == order.id
+
+      assert List.first(Users.search_orders("public", Integer.to_string(order.order_nr))).id ==
+               order.id
     end
 
     test "search order/1 with a valid username" do
       user = user_fixture()
       order = order_fixture(user.id, %{"state" => "payment_accepted"})
-      assert List.first(Users.search_orders(user.username, "public")).id == order.id
+      assert List.first(Users.search_orders("public", user.username)).id == order.id
     end
 
     test "search order/1 with a valid email" do
       user = user_fixture()
       order = order_fixture(user.id, %{"state" => "payment_accepted"})
-      assert List.first(Users.search_orders(user.email, "public")).id == order.id
+      assert List.first(Users.search_orders("public", user.email)).id == order.id
     end
 
     test "search order/1 invalid query returns nil" do
       user = user_fixture()
       _order = order_fixture(user.id)
-      assert is_nil(List.first(Users.search_orders("XYZ123", "public")))
+      assert is_nil(List.first(Users.search_orders("public", "XYZ123")))
     end
 
     test "confirm_user/1 updates the confirmed_at field" do
@@ -254,7 +256,7 @@ defmodule AOFF.UsersTest do
           "pick_up_id" => pick_up.id
         })
 
-      order = Users.get_order!(order.id, "public")
+      order = Users.get_order!("public", order.id)
       users = Users.extend_memberships(order)
       user = List.first(users)
 
@@ -293,11 +295,11 @@ defmodule AOFF.UsersTest do
       {:ok, %AOFF.Users.User{unsubscribe_to_news_token: token}} =
         Users.set_unsubscribe_to_news_token(user)
 
-      assert user.id == Users.get_user_by_unsubscribe_to_news_token(token, "public").id
+      assert user.id == Users.get_user_by_unsubscribe_to_news_token("public", token).id
     end
 
     test "get_user_by_unsubscribe_to_news_token/1 returns nil when the token is invalid" do
-      assert is_nil(Users.get_user_by_unsubscribe_to_news_token("invalid_token", "public"))
+      assert is_nil(Users.get_user_by_unsubscribe_to_news_token("public", "invalid_token"))
     end
 
     test "unsubscribe_to_news/1 unsubscribe the user from emails", %{user: user} do

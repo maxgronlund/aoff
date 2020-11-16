@@ -50,7 +50,7 @@ defmodule AOFF.Volunteers do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id, prefix) do
+  def get_user!(prefix, id) do
     Repo.get!(User, id, prefix: prefix)
   end
 
@@ -68,7 +68,7 @@ defmodule AOFF.Volunteers do
       "-"
 
   """
-  def username(id, prefix) do
+  def username(prefix, id) do
     cond do
       id == nil ->
         "-"
@@ -92,7 +92,7 @@ defmodule AOFF.Volunteers do
       {:error, %Ecto.Changeset{}}
 
   """
-  def register_user(attrs \\ %{}, prefix) do
+  def register_user(prefix, attrs \\ %{}) do
     attrs =
       attrs
       |> set_unsubsribe_to_news_token()
@@ -188,7 +188,7 @@ defmodule AOFF.Volunteers do
       ** (Ecto.NoResultsError)
 
   """
-  def get_newsletter!(id, prefix), do: Repo.get!(Newsletter, id, prefix: prefix)
+  def get_newsletter!(prefix, id), do: Repo.get!(Newsletter, id, prefix: prefix)
 
   @doc """
   Creates a newsletter.
@@ -202,7 +202,7 @@ defmodule AOFF.Volunteers do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_newsletter(attrs \\ %{}, prefix) do
+  def create_newsletter(prefix, attrs \\ %{}) do
     %Newsletter{}
     |> Newsletter.changeset(attrs)
     |> Repo.insert(prefix: prefix)

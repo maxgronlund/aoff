@@ -16,6 +16,7 @@ defmodule AOFFWeb.Users.UnsubscribeToNewsControllerTest do
       conn =
         build_conn()
         |> assign(prefix: "public")
+
       {:ok, conn: conn, user: user}
     end
 

@@ -13,28 +13,28 @@ defmodule AOFF.CategoryTest do
 
     test "get_category!/1 returns a single category" do
       category = category_fixture()
-      assert Content.get_category!(category.title, "public").id == category.id
+      assert Content.get_category!("public", category.title).id == category.id
     end
 
     test "create_category/1 with valid data creates a category" do
       attrs = create_category_attrs()
-      assert {:ok, %Category{} = category} = Content.create_category(attrs, "public")
+      assert {:ok, %Category{} = category} = Content.create_category("public", attrs)
       assert category.description == attrs["description"]
       assert category.title == attrs["title"]
     end
 
     test "create_category/1 with invalid data returns error changeset" do
       attrs = invalid_category_attrs()
-      assert {:error, %Ecto.Changeset{}} = Content.create_category(attrs, "public")
+      assert {:error, %Ecto.Changeset{}} = Content.create_category("public", attrs)
     end
 
     test "find_or_create_category/1 creates a category" do
-      assert {:ok, %AOFF.Content.Category{}} = Content.find_or_create_category("Birds", "public")
+      assert {:ok, %AOFF.Content.Category{}} = Content.find_or_create_category("public", "Birds")
     end
 
     test "find_or_create_category/1 finds a category" do
       category = category_fixture()
-      {:ok, cat} = Content.find_or_create_category(category.identifier, "public")
+      {:ok, cat} = Content.find_or_create_category("public", category.identifier)
       assert category.id == cat.id
     end
 
@@ -50,13 +50,13 @@ defmodule AOFF.CategoryTest do
       category = category_fixture()
       attrs = invalid_category_attrs()
       assert {:error, %Ecto.Changeset{}} = Content.update_category(category, attrs)
-      assert category.title == Content.get_category!(category.title, "public").title
+      assert category.title == Content.get_category!("public", category.title).title
     end
 
     test "delete_category/1 deletes the category" do
       category = category_fixture()
       assert {:ok, %Category{}} = Content.delete_category(category)
-      assert Content.get_category!(category.title, "public") == nil
+      assert Content.get_category!("public", category.title) == nil
     end
 
     # test "change_category/1 returns a category changeset" do

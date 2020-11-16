@@ -35,9 +35,7 @@ defmodule AOFF.Content.CategoryFixture do
 
   def category_fixture(attrs \\ %{}) do
     {:ok, category} =
-      attrs
-      |> Enum.into(@create_attrs)
-      |> Content.create_category("public")
+      Content.create_category("public", Enum.into(attrs, @create_attrs))
 
     category
   end

@@ -8,7 +8,7 @@ defmodule AOFFWeb.Users.Auth do
   def call(conn, _opts) do
     prefix = conn.assigns.prefix
     user_id = get_session(conn, :user_id)
-    user = user_id && Users.get_user(user_id, prefix)
+    user = user_id && Users.get_user(prefix, user_id)
 
     conn
     |> assign(:current_user, user)
@@ -19,8 +19,8 @@ defmodule AOFFWeb.Users.Auth do
     |> assign(:shop_assistant, user && user.shop_assistant)
     |> assign(:text_editor, user && user.text_editor)
     |> assign(:manage_membership, user && user.manage_membership)
-    |> assign(:current_order, user && Users.current_order(user_id, prefix))
-    |> assign(:order_items_count, user && Users.order_items_count(user_id, prefix))
+    |> assign(:current_order, user && Users.current_order(prefix, user_id))
+    |> assign(:order_items_count, user && Users.order_items_count(prefix, user_id))
   end
 
   def login(conn, user) do
@@ -34,8 +34,8 @@ defmodule AOFFWeb.Users.Auth do
     |> configure_session(renew: true)
   end
 
-  def login_by_email_and_pass(conn, email, given_pass, prefix) do
-    case Users.authenticate_by_email_and_pass(email, given_pass, prefix) do
+  def login_by_email_and_pass(prefix, conn, email, given_pass) do
+    case Users.authenticate_by_email_and_pass(prefix, email, given_pass) do
       {:ok, user} -> validate_confirmation(user, conn)
       {:error, :unauthorized} -> {:error, :unauthorized, conn}
       {:error, :not_found} -> {:error, :not_found, conn}

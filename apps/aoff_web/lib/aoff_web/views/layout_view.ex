@@ -35,10 +35,10 @@ defmodule AOFFWeb.LayoutView do
   def footer(prefix) do
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "footer",
         "Footer",
-        Gettext.get_locale(),
-        prefix
+        Gettext.get_locale()
       )
 
     message

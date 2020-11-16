@@ -12,12 +12,12 @@ defmodule AOFFWeb.Users.OrderController do
     prefix = conn.assigns.prefix
     conn = assign(conn, :selected_menu_item, :user)
     user = get_user!(conn, user_id)
-    orders = Users.list_orders(user.id, prefix)
+    orders = Users.list_orders(prefix, user.id)
     render(conn, "index.html", user: user, orders: orders)
   end
 
   def show(conn, %{"id" => id}) do
-    order = Users.get_order!(id, conn.assigns.prefix)
+    order = Users.get_order!(conn.assigns.prefix, id)
 
     conn =
       case order.state do
@@ -29,7 +29,7 @@ defmodule AOFFWeb.Users.OrderController do
   end
 
   def delete(conn, %{"id" => id}) do
-    order = Users.get_order!(id, conn.assigns.prefix)
+    order = Users.get_order!(conn.assigns.prefix, id)
     {:ok, _order} = Users.delete_order(order)
 
     conn
@@ -38,7 +38,7 @@ defmodule AOFFWeb.Users.OrderController do
   end
 
   defp get_user!(conn, id) do
-    user = Users.get_user!(id, conn.assigns.prefix)
+    user = Users.get_user!(conn.assigns.prefix, id)
 
     if user do
       authorize(conn, user)

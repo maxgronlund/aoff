@@ -1,8 +1,6 @@
 defmodule AOFFWeb.System.SetHost do
   import Plug.Conn
 
-
-
   def init(opts), do: opts
 
   def call(conn, _options) do
@@ -11,8 +9,10 @@ defmodule AOFFWeb.System.SetHost do
         "1b6e2f270c4f.ngrok.io" ->
           "prefix_roff"
 
-        _ -> "public"
+        _ ->
+          "public"
       end
+
     conn
     |> assign(:prefix, prefix)
   end

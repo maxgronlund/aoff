@@ -31,7 +31,7 @@ defmodule AOFFWeb.Purchaser.ProductController do
     price = Money.new(trunc(price * 100), :DKK)
     product_params = Map.put(product_params, "price", price)
 
-    case Shop.create_product(product_params, prefix) do
+    case Shop.create_product(prefix, product_params) do
       {:ok, product} ->
         conn
         |> put_flash(:info, gettext("Please attach image."))
@@ -49,13 +49,15 @@ defmodule AOFFWeb.Purchaser.ProductController do
   end
 
   def show(conn, %{"id" => id}) do
-    product = Shop.get_product!(id, conn.assigns.prefix)
+    prefix = conn.assigns.prefix
+    product = Shop.get_product!(prefix, id)
 
     render(conn, "show.html", product: product)
   end
 
   def edit(conn, %{"id" => id}) do
-    product = Shop.get_product!(id, conn.assigns.prefix)
+    prefix = conn.assigns.prefix
+    product = Shop.get_product!(prefix, id)
     changeset = Shop.change_product(product)
 
     conn
@@ -68,8 +70,8 @@ defmodule AOFFWeb.Purchaser.ProductController do
     {price, _} = product_params["price"] |> Float.parse()
     price = Money.new(trunc(price * 100), :DKK)
     product_params = Map.put(product_params, "price", price)
-
-    product = Shop.get_product!(id, conn.assigns.prefix)
+    prefix = conn.assigns.prefix
+    product = Shop.get_product!(prefix, id)
 
     case Shop.update_product(product, product_params) do
       {:ok, product} ->
@@ -93,7 +95,8 @@ defmodule AOFFWeb.Purchaser.ProductController do
   end
 
   def delete(conn, %{"id" => id}) do
-    product = Shop.get_product!(id, conn.assigns.prefix)
+    prefix = conn.assigns.prefix
+    product = Shop.get_product!(prefix, id)
     {:ok, _product} = Shop.delete_product(product)
 
     conn

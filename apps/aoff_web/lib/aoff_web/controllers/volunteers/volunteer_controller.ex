@@ -7,13 +7,13 @@ defmodule AOFFWeb.Volunteer.VolunteerController do
   plug :authenticate when action in [:index]
 
   def index(conn, _params) do
-
+    prefix = conn.assigns.prefix
     {:ok, volunteer} =
       System.find_or_create_message(
+        prefix,
         "/volunteer - volunteer",
         "Volunteer landing page",
-        Gettext.get_locale(),
-        conn.assigns.prefix
+        Gettext.get_locale()
       )
 
     render(

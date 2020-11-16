@@ -10,21 +10,21 @@ defmodule AOFFWeb.PageController do
 
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "/",
         "About AOFF - landing page",
-        Gettext.get_locale(),
-        prefix
+        Gettext.get_locale()
       )
 
     {:ok, this_weeks_bag} =
       System.find_or_create_message(
+        prefix,
         "/",
         "This weeks bag - landing page",
-        Gettext.get_locale(),
-        prefix
+        Gettext.get_locale()
       )
 
-    date = Shop.get_next_date(AOFF.Time.today(), prefix)
+    date = Shop.get_next_date(prefix, AOFF.Time.today())
     products = Shop.get_products_for_landing_page(prefix)
     conn = assign(conn, :backdrop, :show)
     conn = assign(conn, :selected_menu_item, :home)

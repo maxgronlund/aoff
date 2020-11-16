@@ -11,7 +11,6 @@ use Mix.Config
 # before starting your production server.
 query_args = ["SET search_path TO public", []]
 
-
 config :aoff_web, AOFFWeb.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [scheme: "https", host: "aoff.dk", port: 443],

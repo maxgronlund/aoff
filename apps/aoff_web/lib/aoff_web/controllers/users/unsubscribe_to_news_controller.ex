@@ -3,7 +3,9 @@ defmodule AOFFWeb.Users.UnsubscribeToNewsController do
   alias AOFF.Users
 
   def show(conn, %{"id" => id}) do
-    case Users.get_user_by_unsubscribe_to_news_token(id, conn.assigns.prefix) do
+    prefix = conn.assigns.prefix
+
+    case Users.get_user_by_unsubscribe_to_news_token(prefix, id) do
       %AOFF.Users.User{} = user ->
         {:ok, %AOFF.Users.User{} = user} = Users.unsubscribe_to_news(user)
         render(conn, "show.html", user: user)

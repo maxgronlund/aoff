@@ -14,7 +14,7 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
         }
       ) do
     prefix = conn.assigns.prefix
-    order = Users.get_order_by_token!(id, prefix)
+    order = Users.get_order_by_token!(prefix, id)
     card_nr = "xxxx xxxx xxxx " <> card_nr(cardno)
 
     cond do
@@ -44,7 +44,7 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
 
   defp accepted(conn, order, cardno, paymenttype) do
     prefix = conn.assigns.prefix
-    send_invoice(order, card_nr(cardno), paymenttype, prefix)
+    send_invoice(prefix, order, card_nr(cardno), paymenttype)
 
     conn
     |> assign(:order_items_count, 0)
@@ -59,17 +59,17 @@ defmodule AOFFWeb.Shop.PaymentAcceptedController do
   defp message(prefix) do
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "shop/payment_accepted",
         "Payment accepted",
-        Gettext.get_locale(),
-        prefix
+        Gettext.get_locale()
       )
 
     message
   end
 
-  defp send_invoice(order, cardno, paymenttype, prefix) do
-    AOFFWeb.EmailController.invoice_email(order, cardno, paymenttype, prefix)
+  defp send_invoice(prefix, order, cardno, paymenttype) do
+    AOFFWeb.EmailController.invoice_email(prefix, order, cardno, paymenttype)
     |> AOFFWeb.Mailer.deliver_now()
   end
 

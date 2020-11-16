@@ -20,9 +20,8 @@ defmodule AOFFWeb.PickUpChannel do
   alias AOFF.Shop
 
   def handle_in("handled", payload, socket) do
-
-    IO.inspect payload
-    IO.inspect socket
+    IO.inspect(payload)
+    IO.inspect(socket)
 
     pick_up = Shop.get_pick_up!(payload["pick_up_id"])
     Shop.update_pick_up(pick_up, %{"picked_up" => true})

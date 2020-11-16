@@ -33,14 +33,14 @@ defmodule AOFFWeb.Volunteer.CommitteeController do
   def edit(conn, %{"id" => id}) do
     prefix = conn.assigns.prefix
 
-    committee = Committees.get_committee!(id, prefix)
+    committee = Committees.get_committee!(prefix, id)
     changeset = Committees.change_committee(committee)
     render(conn, "edit.html", committee: committee, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "committee" => committee_params}) do
     prefix = conn.assigns.prefix
-    committee = Committees.get_committee!(id, prefix)
+    committee = Committees.get_committee!(prefix, id)
 
     case Committees.update_committee(committee, committee_params) do
       {:ok, _committee} ->
@@ -55,7 +55,7 @@ defmodule AOFFWeb.Volunteer.CommitteeController do
 
   def delete(conn, %{"id" => id}) do
     prefix = conn.assigns.prefix
-    committee = Committees.get_committee!(id, prefix)
+    committee = Committees.get_committee!(prefix, id)
     {:ok, _committee} = Committees.delete_committee(committee)
 
     conn

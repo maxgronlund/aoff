@@ -12,18 +12,18 @@ defmodule AOFFWeb.Content.AboutController do
 
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "/info",
         "Info",
-        Gettext.get_locale(),
-        prefix
+        Gettext.get_locale()
       )
 
     {:ok, committees} =
       System.find_or_create_message(
+        prefix,
         "/info - committees",
         "Committees",
-        Gettext.get_locale(),
-        prefix
+        Gettext.get_locale()
       )
 
     render(conn, "index.html",
@@ -34,7 +34,7 @@ defmodule AOFFWeb.Content.AboutController do
   end
 
   def show(conn, %{"id" => id}) do
-    case Content.get_category!(id, conn.assigns.prefix) do
+    case Content.get_category!(conn.assign.prefix, id) do
       nil ->
         conn
         |> put_flash(:info, gettext("Language updated"))

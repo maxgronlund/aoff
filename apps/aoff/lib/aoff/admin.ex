@@ -78,7 +78,9 @@ defmodule AOFF.Admin do
       {:ok, association} ->
         create_schema(association)
         {:ok, association}
-      {:error, changeset} -> {:error, changeset}
+
+      {:error, changeset} ->
+        {:error, changeset}
     end
   end
 
@@ -95,18 +97,19 @@ defmodule AOFF.Admin do
 
   """
   def update_association(%Association{} = association, attrs) do
-    Repo.transaction fn ->
+    Repo.transaction(fn ->
       from_name = association.name
+
       case association |> Association.changeset(attrs) |> Repo.update() do
         {:ok, association} ->
           update_schema(association, from_name)
           association
+
         {:error, changeset} ->
           changeset |> Repo.rollback()
       end
-    end
+    end)
   end
-
 
   @doc """
   Deletes a association.
@@ -125,6 +128,7 @@ defmodule AOFF.Admin do
       {:ok, association} ->
         delete_schema(association.name)
         {:ok, association}
+
       {:error, reason} ->
         {:error, reason}
     end
@@ -144,23 +148,25 @@ defmodule AOFF.Admin do
   end
 
   defp create_schema(association) do
-    case Ecto.Adapters.SQL.query(Repo,"CREATE SCHEMA \"#{prefix(association.name)}\"") do
+    case Ecto.Adapters.SQL.query(Repo, "CREATE SCHEMA \"#{prefix(association.name)}\"") do
       {:ok, _} -> {:ok, association}
       {:error, reason} -> {:error, reason}
     end
   end
 
   defp update_schema(association, from_name) do
-
     if schema_exists?(from_name) do
-      Ecto.Adapters.SQL.query(Repo,"ALTER SCHEMA #{prefix(from_name)} RENAME TO #{prefix(association.name)}")
+      Ecto.Adapters.SQL.query(
+        Repo,
+        "ALTER SCHEMA #{prefix(from_name)} RENAME TO #{prefix(association.name)}"
+      )
     else
       create_schema(association)
     end
   end
 
   defp delete_schema(name) do
-    Ecto.Adapters.SQL.query(Repo,"DROP SCHEMA \"#{prefix(name)}\" CASCADE")
+    Ecto.Adapters.SQL.query(Repo, "DROP SCHEMA \"#{prefix(name)}\" CASCADE")
   end
 
   def prefix(name) do
@@ -174,9 +180,13 @@ defmodule AOFF.Admin do
 
   defp schema_exists?(name) do
     name = prefix(name)
-    case Ecto.Adapters.SQL.query(Repo, "SELECT TRUE FROM  information_schema.schemata WHERE schema_name = '#{name}';") do
-      {:ok, %Postgrex.Result{ columns: ["bool"], rows: []}} -> false
-      {:ok, %Postgrex.Result{ columns: ["bool"], rows: [[true]]}} -> true
+
+    case Ecto.Adapters.SQL.query(
+           Repo,
+           "SELECT TRUE FROM  information_schema.schemata WHERE schema_name = '#{name}';"
+         ) do
+      {:ok, %Postgrex.Result{columns: ["bool"], rows: []}} -> false
+      {:ok, %Postgrex.Result{columns: ["bool"], rows: [[true]]}} -> true
     end
   end
 end

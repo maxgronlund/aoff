@@ -11,7 +11,7 @@ defmodule AOFFWeb.Volunteer.MemberController do
 
   def new(conn, %{"committee_id" => committee_id}) do
     prefix = conn.assigns.prefix
-    committee = Committees.get_committee!(committee_id, prefix)
+    committee = Committees.get_committee!(prefix, committee_id)
     changeset = Committees.change_member(%Member{})
 
     render(conn, "new.html",
@@ -23,6 +23,7 @@ defmodule AOFFWeb.Volunteer.MemberController do
 
   def create(conn, %{"member" => member_params}) do
     prefix = conn.assigns.prefix
+
     case Committees.create_member(member_params) do
       {:ok, member} ->
         conn
@@ -30,7 +31,7 @@ defmodule AOFFWeb.Volunteer.MemberController do
         |> redirect(to: Routes.committee_committee_path(conn, :show, member.committee_id))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        committee = Committees.get_committee!(member_params["committee_id"], prefix)
+        committee = Committees.get_committee!(prefix, member_params["committee_id"])
 
         render(conn, "new.html",
           changeset: changeset,
@@ -42,7 +43,7 @@ defmodule AOFFWeb.Volunteer.MemberController do
 
   def edit(conn, %{"id" => id}) do
     prefix = conn.assigns.prefix
-    member = Committees.get_member!(id, prefix)
+    member = Committees.get_member!(prefix, id)
     changeset = Committees.change_member(member)
 
     render(conn, "edit.html",
@@ -55,7 +56,7 @@ defmodule AOFFWeb.Volunteer.MemberController do
 
   def update(conn, %{"id" => id, "member" => member_params}) do
     prefix = conn.assigns.prefix
-    member = Committees.get_member!(id, prefix)
+    member = Committees.get_member!(prefix, id)
 
     case Committees.update_member(member, member_params) do
       {:ok, member} ->
@@ -74,7 +75,8 @@ defmodule AOFFWeb.Volunteer.MemberController do
   end
 
   def delete(conn, %{"id" => id}) do
-    member = Committees.get_member!(id, conn.assigns.prefix)
+    prefix = conn.assigns.prefix
+    member = Committees.get_member!(prefix, id)
     {:ok, _member} = Committees.delete_member(member)
 
     conn

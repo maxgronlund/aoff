@@ -11,10 +11,10 @@ defmodule AOFFWeb.PaymentTermsController do
   def show(conn, %{"order_id" => order_id}) do
     {:ok, message} =
       System.find_or_create_message(
+        conn.assigns.prefix,
         "/payment_terms",
         "Payment terms",
-        Gettext.get_locale(),
-        conn.assigns.prefix
+        Gettext.get_locale()
       )
 
     render(conn, :show, message: message, order_id: order_id)
@@ -22,7 +22,7 @@ defmodule AOFFWeb.PaymentTermsController do
 
   def show(conn, _params) do
     prefix = conn.assigns.prefix
-    order = Users.current_order(conn.assigns.current_user.id, prefix)
+    order = Users.current_order(prefix, conn.assigns.current_user.id)
     conn |> redirect(to: Routes.payment_terms_path(conn, :show, order_id: order.id))
   end
 

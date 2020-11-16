@@ -11,6 +11,7 @@ defmodule AOFFWeb.SessionControllerTest do
       user = user_fixture()
       Users.confirm_user(user)
       conn = assign(conn, prefix: "public")
+
       conn =
         post(
           conn,
@@ -30,6 +31,7 @@ defmodule AOFFWeb.SessionControllerTest do
       user = user_fixture()
       Users.confirm_user(user)
       conn = assign(conn, prefix: "public")
+
       conn =
         post(
           conn,
@@ -55,6 +57,7 @@ defmodule AOFFWeb.SessionControllerTest do
       attrs = valid_attrs()
       _user = user_fixture()
       conn = assign(conn, prefix: "public")
+
       conn =
         post(
           conn,

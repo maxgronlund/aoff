@@ -27,7 +27,7 @@ defmodule AOFF.Shop do
   """
   @dates_pr_page 4
 
-  def list_dates(date, prefix, page \\ 0, per_page \\ @dates_pr_page) do
+  def list_dates(prefix, date, page \\ 0, per_page \\ @dates_pr_page) do
     query =
       from d in Date,
         where: d.date >= ^date,
@@ -35,11 +35,10 @@ defmodule AOFF.Shop do
         limit: ^per_page,
         offset: ^(page * per_page)
 
-
     Repo.all(query, prefix: prefix)
   end
 
-  def list_all_dates(_date, prefix, page \\ 0, per_page \\ @dates_pr_page) do
+  def list_all_dates(prefix, _date, page \\ 0, per_page \\ @dates_pr_page) do
     query =
       from d in Date,
         order_by: [asc: d.date],
@@ -54,7 +53,7 @@ defmodule AOFF.Shop do
     Integer.floor_div(dates, per_page)
   end
 
-  def todays_page(dates_pr_page \\ @dates_pr_page, prefix) do
+  def todays_page(prefix, dates_pr_page \\ @dates_pr_page) do
     query =
       from d in Date,
         where: d.date < ^AOFF.Time.today(),
@@ -100,7 +99,7 @@ defmodule AOFF.Shop do
       ** (Ecto.NoResultsError)
 
   """
-  def get_date!(id, prefix), do: Repo.get!(Date, id, prefix: prefix)
+  def get_date!(prefix, id), do: Repo.get!(Date, id, prefix: prefix)
 
   @doc """
 
@@ -117,7 +116,7 @@ defmodule AOFF.Shop do
       ** (Ecto.NoResultsError)
 
   """
-  def get_next_date(last_order_date, prefix) do
+  def get_next_date(prefix, last_order_date) do
     query =
       from d in Date,
         where: d.last_order_date >= ^last_order_date,
@@ -139,7 +138,7 @@ defmodule AOFF.Shop do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_date(attrs \\ %{}, prefix) do
+  def create_date(prefix, attrs \\ %{}) do
     %Date{}
     |> Date.changeset(attrs)
     |> Repo.insert(prefix: prefix)
@@ -221,7 +220,7 @@ defmodule AOFF.Shop do
       [%Product{}, ...]
 
   """
-  def list_products(:for_sale, prefix) do
+  def list_products(prefix, :for_sale) do
     query =
       from p in Product,
         order_by: [asc: p.position],
@@ -262,7 +261,7 @@ defmodule AOFF.Shop do
       ** (Ecto.NoResultsError)
 
   """
-  def get_product!(id, prefix), do: Repo.get!(Product, id, prefix: prefix)
+  def get_product!(prefix, id), do: Repo.get!(Product, id, prefix: prefix)
 
   @doc """
   Gets all product there is a membership
@@ -327,7 +326,7 @@ defmodule AOFF.Shop do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_product(attrs \\ %{}, prefix) do
+  def create_product(prefix, attrs \\ %{}) do
     %Product{}
     |> Product.changeset(attrs)
     |> Repo.insert(prefix: prefix)
@@ -400,14 +399,17 @@ defmodule AOFF.Shop do
     %Ecto.Changeset{source: %PickUp{}}
 
   """
-  def find_or_create_pick_up(%{
-        "date_id" => date_id,
-        "user_id" => user_id,
-        "username" => username,
-        "member_nr" => member_nr,
-        "order_id" => order_id,
-        "email" => email
-      }, prefix) do
+  def find_or_create_pick_up(
+        prefix,
+        %{
+          "date_id" => date_id,
+          "user_id" => user_id,
+          "username" => username,
+          "member_nr" => member_nr,
+          "order_id" => order_id,
+          "email" => email
+        }
+      ) do
     query =
       from p in PickUp,
         where:
@@ -417,15 +419,18 @@ defmodule AOFF.Shop do
 
     case Repo.one(query, prefix: prefix) do
       nil ->
-        create_pick_up(%{
-          "user_id" => user_id,
-          "username" => username,
-          "member_nr" => member_nr,
-          "date_id" => date_id,
-          "picked_up" => false,
-          "order_id" => order_id,
-          "email" => email
-        }, prefix)
+        create_pick_up(
+          %{
+            "user_id" => user_id,
+            "username" => username,
+            "member_nr" => member_nr,
+            "date_id" => date_id,
+            "picked_up" => false,
+            "order_id" => order_id,
+            "email" => email
+          },
+          prefix
+        )
 
       %PickUp{} = pick_up ->
         {:ok, pick_up}
@@ -441,7 +446,7 @@ defmodule AOFF.Shop do
       [%PickUp{}, ...]
 
   """
-  def list_pick_ups(date_id, prefix) do
+  def list_pick_ups(prefix, date_id) do
     query =
       from(
         p in PickUp,
@@ -472,7 +477,7 @@ defmodule AOFF.Shop do
       [%PickUp{}, ...]
 
   """
-  def list_upcomming_pick_ups(user_id, next_date, prefix) do
+  def list_upcomming_pick_ups(prefix, user_id, next_date) do
     query =
       from(
         p in PickUp,
@@ -512,7 +517,7 @@ defmodule AOFF.Shop do
       ** (Ecto.NoResultsError)
 
   """
-  def get_pick_up!(id, prefix) do
+  def get_pick_up!(prefix, id) do
     PickUp
     |> Repo.get!(id, prefix: prefix)
     |> Repo.preload(:user)
@@ -521,7 +526,7 @@ defmodule AOFF.Shop do
     |> Repo.preload(order_items: [:product])
   end
 
-  def search_pick_up(query, date_id, prefix) do
+  def search_pick_up(prefix, query, date_id) do
     query =
       if is_numeric(query) do
         from(
@@ -562,7 +567,7 @@ defmodule AOFF.Shop do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_pick_up(attrs \\ %{}, prefix) do
+  def create_pick_up(prefix, attrs \\ %{}) do
     %PickUp{}
     |> PickUp.changeset(attrs)
     |> Repo.insert(prefix: prefix)
@@ -626,7 +631,7 @@ defmodule AOFF.Shop do
       [%Product{}, ...]
 
   """
-  def paid_orders_list(date_id, prefix) do
+  def paid_orders_list(prefix, date_id) do
     query =
       from o in OrderItem,
         where: o.date_id == ^date_id,

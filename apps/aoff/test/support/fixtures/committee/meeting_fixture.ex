@@ -45,10 +45,7 @@ defmodule AOFF.Committees.MeetingFixture do
 
   def meeting_fixture(attrs \\ %{}) do
     {:ok, meeting} =
-      attrs
-      |> Enum.into(@valid_attrs)
-      |> Committees.create_meeting("public")
-
+      Committees.create_meeting("public", Enum.into(attrs, @valid_attrs))
     meeting
   end
 end

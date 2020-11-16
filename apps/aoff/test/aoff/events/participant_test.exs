@@ -19,19 +19,19 @@ defmodule AOFF.Events.ParticipantTest do
 
     test "list_participants/2 show all participating participants", %{user: user, page: page} do
       {:ok, participant} = participant_fixture(%{"user_id" => user.id, "page_id" => page.id})
-      participants = Events.list_participants(:all, page.id, "public")
+      participants = Events.list_participants("public", :all, page.id)
       assert List.first(participants).id == participant.id
     end
 
     test "get_participant/1 returns one participant", %{user: user, page: page} do
       {:ok, participant} = participant_fixture(%{"user_id" => user.id, "page_id" => page.id})
-      assert Events.get_participant(participant.id, "public").id == participant.id
+      assert Events.get_participant("public", participant.id).id == participant.id
     end
 
     test "create_participant/1 with valid data creates a participant", %{user: user, page: page} do
       attrs = valid_participant_attrs(%{"user_id" => user.id, "page_id" => page.id})
 
-      assert {:ok, %Participant{} = participant} = Events.create_participant(attrs, "public")
+      assert {:ok, %Participant{} = participant} = Events.create_participant("public", attrs)
       assert participant.state == attrs["state"]
     end
 
@@ -43,7 +43,7 @@ defmodule AOFF.Events.ParticipantTest do
     test "delete_participation/1 update state to cancelled", %{user: user, page: page} do
       {:ok, participant} = participant_fixture(%{"user_id" => user.id, "page_id" => page.id})
       assert {:ok, %Participant{} = participant} = Events.delete_participant(participant)
-      assert is_nil(Events.get_participant(participant.id, "public"))
+      assert is_nil(Events.get_participant("public", participant.id))
     end
   end
 end

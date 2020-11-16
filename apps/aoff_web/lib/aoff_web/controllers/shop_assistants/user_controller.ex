@@ -11,11 +11,11 @@ defmodule AOFFWeb.ShopAssistant.UserController do
   def index(conn, params) do
     prefix = conn.assigns.prefix
     date_id = get_session(conn, :shop_assistant_date_id)
-    date = Shop.get_date!(date_id, prefix)
+    date = Shop.get_date!(prefix, date_id)
 
     users =
       if query = params["query"] do
-        Users.search_users(query, prefix)
+        Users.search_users(prefix, query)
       else
         page = params["page"] || "0"
         Users.list_users(prefix, String.to_integer(page))

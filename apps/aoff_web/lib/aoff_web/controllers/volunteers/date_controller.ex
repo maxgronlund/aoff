@@ -13,7 +13,8 @@ defmodule AOFFWeb.Volunteer.DateController do
     # Shop.secure_dates()
 
     page = params["page"] || "0"
-    dates = Shop.list_dates(AOFF.Time.today(), conn.assigns.prefix, String.to_integer(page), 12)
+    prefix = conn.assigns.prefix
+    dates = Shop.list_dates(prefix, AOFF.Time.today(), String.to_integer(page), 12)
 
     render(
       conn,
@@ -38,7 +39,8 @@ defmodule AOFFWeb.Volunteer.DateController do
 
   def create(conn, %{"date" => date_params}) do
     prefix = conn.assigns.prefix
-    case Shop.create_date(date_params, prefix) do
+
+    case Shop.create_date(prefix, date_params) do
       {:ok, date} ->
         conn
         |> put_flash(:info, gettext("Please add an image"))
@@ -56,7 +58,8 @@ defmodule AOFFWeb.Volunteer.DateController do
   end
 
   def show(conn, %{"id" => id}) do
-    date = Shop.get_date!(id, conn.assigns.prefix)
+    prefix = conn.assigns.prefix
+    date = Shop.get_date!(prefix, id)
 
     render(
       conn,
@@ -67,7 +70,7 @@ defmodule AOFFWeb.Volunteer.DateController do
 
   def edit(conn, %{"id" => id}) do
     prefix = conn.assigns.prefix
-    date = Shop.get_date!(id, prefix)
+    date = Shop.get_date!(prefix, id)
 
     changeset = Shop.change_date(date)
     render(conn, "edit.html", date: date, changeset: changeset, users: shop_assistans(prefix))
@@ -75,7 +78,7 @@ defmodule AOFFWeb.Volunteer.DateController do
 
   def update(conn, %{"id" => id, "date" => date_params}) do
     prefix = conn.assigns.prefix
-    date = Shop.get_date!(id, prefix)
+    date = Shop.get_date!(prefix, id)
 
     case Shop.update_date(date, date_params) do
       {:ok, _date} ->

@@ -38,9 +38,7 @@ defmodule AOFF.System.MessageFixture do
 
   def message_fixture(attrs \\ %{}) do
     {:ok, message} =
-      attrs
-      |> Enum.into(@valid_attrs)
-      |> AOFF.System.create_message("public")
+      AOFF.System.create_message("public", Enum.into(attrs, @valid_attrs))
 
     message
   end

@@ -30,6 +30,7 @@ defmodule AOFFWeb.Users.ConfirmEmailController do
 
   def show(conn, %{"id" => id}) do
     prefix = conn.assigns.prefix
+
     if user = Users.get_user(id, prefix) do
       {:ok, message} =
         System.find_or_create_message(

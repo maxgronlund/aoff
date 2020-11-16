@@ -19,7 +19,7 @@ defmodule AOFF.Users do
       [%User{}, ...]
 
   """
-  def list_users(:newsletter, prefix) do
+  def list_users(prefix, :newsletter) do
     query =
       from u in User,
         where: u.subscribe_to_news == ^true
@@ -56,7 +56,7 @@ defmodule AOFF.Users do
 
   """
 
-  def stream_users(callback, prefix) do
+  def stream_users(prefix, callback) do
     query =
       from u in User,
         order_by: [asc: u.username],
@@ -76,7 +76,7 @@ defmodule AOFF.Users do
     iex> member_count(:all)
     1234
   """
-  def member_count(:all, prefix) do
+  def member_count(prefix, :all) do
     query =
       from u in User,
         select: count(u.id)
@@ -91,7 +91,7 @@ defmodule AOFF.Users do
     iex> member_count(:valid)
     1234
   """
-  def member_count(:valid, prefix) do
+  def member_count(prefix, :valid) do
     query =
       from u in User,
         where: u.expiration_date >= ^AOFF.Time.today(),
@@ -107,7 +107,7 @@ defmodule AOFF.Users do
     iex> member_count(:all)
     1234
   """
-  def member_count(:subscribers, prefix) do
+  def member_count(prefix, :subscribers) do
     query =
       from u in User,
         where: u.subscribe_to_news >= ^true,
@@ -180,7 +180,7 @@ defmodule AOFF.Users do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id, prefix) do
+  def get_user!(prefix, id) do
     Repo.get!(User, id, prefix: prefix)
   end
 
@@ -198,7 +198,7 @@ defmodule AOFF.Users do
       nil
 
   """
-  def get_user(id, prefix) do
+  def get_user(prefix, id) do
     Repo.get(User, id, prefix: prefix)
   end
 
@@ -215,7 +215,7 @@ defmodule AOFF.Users do
       iex> get_user!(456)
       nil
   """
-  def get_user_by_reset_password_token(token, prefix) do
+  def get_user_by_reset_password_token(prefix, token) do
     cond do
       token == "" -> nil
       token == nil -> nil
@@ -246,7 +246,7 @@ defmodule AOFF.Users do
       iex> get_user!(456)
       nil
   """
-  def get_user_by_unsubscribe_to_news_token(token, prefix) do
+  def get_user_by_unsubscribe_to_news_token(prefix, token) do
     cond do
       token == "" -> nil
       token == nil -> nil
@@ -291,7 +291,7 @@ defmodule AOFF.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_user(attrs \\ %{}, prefix) do
+  def create_user(prefix, attrs \\ %{}) do
     attrs = set_subsribe_to_news_token(attrs)
 
     %User{expiration_date: Date.add(AOFF.Time.today(), -1)}
@@ -393,7 +393,7 @@ defmodule AOFF.Users do
       iex> get_user_by_email("bad@example.com")
       nil
   """
-  def get_user_by_email(email, prefix) do
+  def get_user_by_email(prefix, email) do
     from(u in User, where: u.email == ^email)
     |> Repo.one(prefix: prefix)
   end
@@ -409,7 +409,7 @@ defmodule AOFF.Users do
       iex> get_user_by_member_nr(asd, prefix)
       []
   """
-  def get_users_by_email(email, prefix) do
+  def get_users_by_email(prefix, email) do
     from(u in User, where: u.email == ^email)
     |> Repo.all(prefix: prefix)
   end
@@ -425,7 +425,7 @@ defmodule AOFF.Users do
       iex> get_user_by_member_nr(asd)
       []
   """
-  def get_users_by_member_nr(member_nr, prefix) do
+  def get_users_by_member_nr(prefix, member_nr) do
     from(u in User, where: u.member_nr == ^member_nr)
     |> Repo.all(prefix: prefix)
   end
@@ -441,7 +441,7 @@ defmodule AOFF.Users do
       iex> get_user_by_member_nr(asd)
       []
   """
-  def get_user_by_member_nr(member_nr, prefix) do
+  def get_user_by_member_nr(prefix, member_nr) do
     from(u in User, where: u.member_nr == ^member_nr, limit: 1)
     |> Repo.one(prefix: prefix)
   end
@@ -457,14 +457,14 @@ defmodule AOFF.Users do
       iex> get_user_by_username("Alice")
       []
   """
-  def get_users_by_username(username, prefix) do
+  def get_users_by_username(prefix, username) do
     from(u in User, where: u.username == ^username)
     |> Repo.all(prefix: prefix)
   end
 
-  def search_users(query, prefix) do
+  def search_users(prefix, query) do
     if is_numeric(query) do
-      get_users_by_member_nr(String.to_integer(query), prefix)
+      get_users_by_member_nr(prefix, String.to_integer(query))
     else
       from(u in User, where: ilike(u.username, ^"%#{query}%") or ilike(u.email, ^"%#{query}%"))
       |> Repo.all(prefix: prefix)
@@ -500,8 +500,8 @@ defmodule AOFF.Users do
       iex> authenticate_by_email_and_pass("unknown@example.com", "dosent-matter")
       {:error, :not_found}
   """
-  def authenticate_by_email_and_pass(email, given_pass, prefix) do
-    user = get_user_by_email(email, prefix)
+  def authenticate_by_email_and_pass(prefix, email, given_pass) do
+    user = get_user_by_email(prefix, email)
     hash_mod_of_user = hash_mod_of_user(user)
 
     cond do
@@ -534,22 +534,25 @@ defmodule AOFF.Users do
 
   alias AOFF.Users.Order
 
-  def current_order(user_id, prefix) do
-
+  def current_order(prefix, user_id) do
     query =
       from o in Order,
         where: o.user_id == ^user_id and o.state == ^"open",
         limit: 1
-    case Repo.one(query, prefix: prefix) |> Repo.preload(order_items: [:product, :date]) |> Repo.preload(:user) do
+
+    case Repo.one(query, prefix: prefix)
+         |> Repo.preload(order_items: [:product, :date])
+         |> Repo.preload(:user) do
       %Order{} = order ->
         order
+
       _ ->
-        {:ok, _order} = create_order(%{"user_id" => user_id}, prefix)
-        current_order(user_id, prefix)
+        {:ok, _order} = create_order(prefix, %{"user_id" => user_id})
+        current_order(prefix, user_id)
     end
   end
 
-  def search_orders(query, prefix) do
+  def search_orders(prefix, query) do
     query =
       if is_numeric(query) do
         from o in Order,
@@ -582,7 +585,7 @@ defmodule AOFF.Users do
 
   """
 
-  def list_orders(user_id, prefix) do
+  def list_orders(prefix, user_id) do
     query =
       from o in Order,
         where:
@@ -596,7 +599,7 @@ defmodule AOFF.Users do
 
   @orders_pr_page 32
 
-  def list_orders(:all, prefix, page \\ 0, per_page \\ @orders_pr_page) do
+  def list_orders(prefix, :all, page \\ 0, per_page \\ @orders_pr_page) do
     query =
       from o in Order,
         limit: ^per_page,
@@ -632,7 +635,7 @@ defmodule AOFF.Users do
       nil
 
   """
-  def get_order(id, prefix) do
+  def get_order(prefix, id) do
     Order |> Repo.get(id, prefix: prefix)
   end
 
@@ -650,7 +653,7 @@ defmodule AOFF.Users do
       ** (Ecto.NoResultsError)
 
   """
-  def get_order!(id, prefix) do
+  def get_order!(prefix, id) do
     Order
     |> Repo.get!(id, prefix: prefix)
     |> Repo.preload(:user)
@@ -673,7 +676,7 @@ defmodule AOFF.Users do
       ** (Ecto.NoResultsError)
 
   """
-  def get_order_by_token!(token, prefix) do
+  def get_order_by_token!(prefix, token) do
     Order
     |> Repo.get_by(%{token: token}, prefix: prefix)
     |> Repo.preload(:user)
@@ -740,7 +743,7 @@ defmodule AOFF.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_order(attrs \\ %{}, prefix) do
+  def create_order(prefix, attrs \\ %{}) do
     %Order{}
     |> Order.create_changeset(attrs)
     |> Repo.insert(prefix: prefix)
@@ -779,7 +782,7 @@ defmodule AOFF.Users do
 
   alias AOFF.Users.OrderItem
 
-  def order_items_count(user_id, prefix) do
+  def order_items_count(prefix, user_id) do
     query =
       from o in OrderItem,
         join: ordr in assoc(o, :order),
@@ -796,19 +799,17 @@ defmodule AOFF.Users do
 
   ## Examples
 
-      iex> get_order_item!(123)
+      iex> get_order_item(123)
       %OrderItem{}
 
-      iex> get_order_item!(456)
+      iex> get_order_item(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_order_item!(id, prefix) do
+  def get_order_item(prefix, id) do
     OrderItem
     |> Repo.get!(id, prefix: prefix)
     |> Repo.preload(order: [:user])
-  rescue
-    Ecto.Query.CastError -> nil
   end
 
   @doc """
@@ -823,15 +824,15 @@ defmodule AOFF.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_order_item(attrs \\ %{}, prefix) do
+  def create_order_item(prefix, attrs \\ %{}) do
     result =
       %OrderItem{}
       |> OrderItem.changeset(attrs)
       |> Repo.insert(prefix: prefix)
 
     with {:ok, order_item} <- result do
-      order = get_order!(order_item.order_id, prefix)
-      total = order_total(order.id, prefix)
+      order = get_order!(prefix, order_item.order_id)
+      total = order_total(prefix, order.id)
       update_order(order, %{"total" => total})
     end
 
@@ -840,10 +841,10 @@ defmodule AOFF.Users do
 
   alias AOFF.Shop
 
-  def add_order_item_to_basket(pick_up_params, order_item_params, prefix) do
+  def add_order_item_to_basket(prefix, pick_up_params, order_item_params) do
     result =
       Repo.transaction(fn ->
-        {:ok, pick_up} = Shop.find_or_create_pick_up(pick_up_params, prefix)
+        {:ok, pick_up} = Shop.find_or_create_pick_up(prefix, pick_up_params)
 
         order_item_params
         |> Map.merge(%{"pick_up_id" => pick_up.id})
@@ -856,7 +857,7 @@ defmodule AOFF.Users do
     end
   end
 
-  defp order_total(order_id, prefix) do
+  defp order_total(prefix, order_id) do
     q =
       from i in OrderItem,
         where: i.order_id == ^order_id,
@@ -877,12 +878,12 @@ defmodule AOFF.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_order_item(%OrderItem{} = order_item, prefix) do
+  def delete_order_item(prefix, %OrderItem{} = order_item) do
     result = Repo.delete(order_item)
 
     with {:ok, order_item} <- result do
-      order = get_order!(order_item.order_id, prefix)
-      total = order_total(order.id, prefix)
+      order = get_order!(prefix, order_item.order_id)
+      total = order_total(prefix, order.id)
       update_order(order, %{"total" => total})
     end
 

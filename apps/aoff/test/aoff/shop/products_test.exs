@@ -15,12 +15,12 @@ defmodule AOFF.Shop.ProductsTest do
 
     test "get_product!/1 returns the product with given id" do
       product = product_fixture()
-      assert Shop.get_product!(product.id, "public").id == product.id
+      assert Shop.get_product!("public", product.id).id == product.id
     end
 
     test "create_product/1 with valid data creates a product" do
       attrs = create_product_attrs()
-      assert {:ok, %Product{} = product} = Shop.create_product(attrs, "public")
+      assert {:ok, %Product{} = product} = Shop.create_product("public", attrs)
       assert product.description_da == attrs["description_da"]
       assert product.name_da == attrs["name_da"]
       assert product.price == attrs["price"]
@@ -28,7 +28,7 @@ defmodule AOFF.Shop.ProductsTest do
 
     test "create_product/1 with invalid data returns error changeset" do
       attrs = invalid_product_attrs()
-      assert {:error, %Ecto.Changeset{}} = Shop.create_product(attrs, "public")
+      assert {:error, %Ecto.Changeset{}} = Shop.create_product("public", attrs)
     end
 
     test "update_product/2 with valid data updates the product" do
@@ -44,13 +44,13 @@ defmodule AOFF.Shop.ProductsTest do
       product = product_fixture()
       attrs = invalid_product_attrs()
       assert {:error, %Ecto.Changeset{}} = Shop.update_product(product, attrs)
-      assert product == Shop.get_product!(product.id, "public")
+      assert product == Shop.get_product!("public", product.id)
     end
 
     test "delete_product/1 mark the product as deleted" do
       product = product_fixture()
       assert {:ok, %Product{}} = Shop.delete_product(product)
-      product = Shop.get_product!(product.id, "public")
+      product = Shop.get_product!("public", product.id)
       assert product.deleted == true
     end
 

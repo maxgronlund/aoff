@@ -29,7 +29,7 @@ defmodule AOFFWeb.Committees.MeetingController do
   # end
 
   def show(conn, %{"id" => id}) do
-    meeting = Committees.get_meeting!(id, conn.assigns.prefix)
+    meeting = Committees.get_meeting!(conn.assigns.prefix, id)
     render(conn, "show.html", committee: meeting.committee, meeting: meeting)
   end
 

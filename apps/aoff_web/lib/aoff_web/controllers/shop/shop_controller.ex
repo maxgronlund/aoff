@@ -8,23 +8,23 @@ defmodule AOFFWeb.Shop.ShopController do
 
   def index(conn, _params) do
     prefix = conn.assigns.prefix
-    dates = Shop.list_dates(AOFF.Time.today(), prefix, 0, 6)
+    dates = Shop.list_dates(prefix, AOFF.Time.today(), 0, 6)
 
     unless conn.assigns.valid_member do
       {:ok, expired_message} =
         System.find_or_create_message(
+          prefix,
           "/shop/ - expired",
           "Membership expired",
-          Gettext.get_locale(),
-          prefix
+          Gettext.get_locale()
         )
 
       {:ok, login_message} =
         System.find_or_create_message(
+          prefix,
           "/shop/ - login",
           "Login to shop",
-          Gettext.get_locale(),
-          prefix
+          Gettext.get_locale()
         )
 
       render(

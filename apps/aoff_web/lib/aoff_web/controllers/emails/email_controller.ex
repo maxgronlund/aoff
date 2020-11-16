@@ -7,14 +7,14 @@ defmodule AOFFWeb.EmailController do
 
   @email_from Application.get_env(:aoff_web, AOFFWeb.Mailer)[:email_from]
 
-  def reset_password_email(username_and_email, reset_password_url, prefix) do
+  def reset_password_email(prefix, username_and_email, reset_password_url) do
     # TODO: move out and remove prefix as param
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "/reset_password/:id/create",
         "Reset password",
-        Gettext.get_locale(),
-        prefix
+        Gettext.get_locale()
       )
 
     new_email()
@@ -26,8 +26,8 @@ defmodule AOFFWeb.EmailController do
     |> render(:reset_password, reset_password_url: reset_password_url, message: message)
   end
 
-  def invoice_email(order, cardno, paymenttype, prefix) do
-    user = Users.get_user!(order.user_id, prefix)
+  def invoice_email(prefix, order, cardno, paymenttype) do
+    user = Users.get_user!(prefix, order.user_id)
     username_and_email = {user.username, user.email}
 
     new_email()
@@ -39,14 +39,14 @@ defmodule AOFFWeb.EmailController do
     |> render(:invoice, order: order, cardno: cardno, paymenttype: paymenttype)
   end
 
-  def confirm_email_email(username_and_email, confirm_email_url, prefix) do
+  def confirm_email_email(prefix, username_and_email, confirm_email_url) do
     # TODO: move out and remove prefix as param
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "Confirm email email",
         "Confirm email email",
-        Gettext.get_locale(),
-        prefix
+        Gettext.get_locale()
       )
 
     new_email()

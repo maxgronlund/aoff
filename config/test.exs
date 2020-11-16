@@ -1,6 +1,5 @@
 use Mix.Config
 
-
 query_args = ["SET search_path TO public", []]
 
 # Configure your database

@@ -8,9 +8,10 @@ defmodule AOFFWeb.Admin.UserController do
 
   def index(conn, params) do
     prefix = conn.assigns.prefix
+
     users =
       if query = params["query"] do
-        Users.search_users(query, prefix)
+        Users.search_users(prefix, query)
       else
         page = params["page"] || "0"
         Users.list_users(prefix, String.to_integer(page))
@@ -28,14 +29,14 @@ defmodule AOFFWeb.Admin.UserController do
 
   def edit(conn, %{"id" => id}) do
     prefix = conn.assigns.prefix
-    user = Admins.get_user!(id, prefix)
+    user = Admins.get_user!(prefix, id)
     changeset = Admins.change_user(user)
     render(conn, "edit.html", user: user, changeset: changeset, email: user.email)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     prefix = conn.assigns.prefix
-    user = Admins.get_user!(id, prefix)
+    user = Admins.get_user!(prefix, id)
 
     case Admins.update_user(user, user_params) do
       {:ok, _user} ->
@@ -50,7 +51,7 @@ defmodule AOFFWeb.Admin.UserController do
 
   def delete(conn, %{"id" => id}) do
     prefix = conn.assigns.prefix
-    user = Admins.get_user!(id, prefix)
+    user = Admins.get_user!(prefix, id)
     {:ok, _user} = Admins.delete_user(user)
 
     conn

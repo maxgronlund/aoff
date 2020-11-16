@@ -21,10 +21,10 @@ defmodule AOFFWeb.UserController do
 
     {:ok, message} =
       System.find_or_create_message(
+        conn.assigns.prefix,
         "/users/new",
         "Create account",
-        Gettext.get_locale(),
-        conn.assigns.prefix
+        Gettext.get_locale()
       )
 
     render(
@@ -40,7 +40,7 @@ defmodule AOFFWeb.UserController do
   def create(conn, %{"user" => user_params}) do
     prefix = conn.assigns.prefix
 
-    case Users.create_user(user_params, prefix) do
+    case Users.create_user(prefix, user_params) do
       {:ok, user} ->
         username_and_email = {user.username, user.email}
 
@@ -51,7 +51,11 @@ defmodule AOFFWeb.UserController do
             user.password_reset_token <>
             "/confirm_email"
 
-        AOFFWeb.EmailController.confirm_email_email(username_and_email, confirm_email_url, conn.assigns.prefix)
+        AOFFWeb.EmailController.confirm_email_email(
+          conn.assigns.prefix,
+          username_and_email,
+          confirm_email_url
+        )
         |> AOFFWeb.Mailer.deliver_now()
 
         redirect(conn, to: Routes.user_welcome_path(conn, :index, user))
@@ -79,8 +83,8 @@ defmodule AOFFWeb.UserController do
     prefix = conn.assigns.prefix
     today = AOFF.Time.today()
     user = get_user!(conn, id)
-    upcomming_pick_ups = Shop.list_upcomming_pick_ups(user.id, today, prefix)
-    upcomming_meetings = AOFF.Committees.list_user_meetings(user.id, today, prefix)
+    upcomming_pick_ups = Shop.list_upcomming_pick_ups(prefix, user.id, today)
+    upcomming_meetings = AOFF.Committees.list_user_meetings(prefix, user.id, today)
 
     conn =
       conn
@@ -91,10 +95,10 @@ defmodule AOFFWeb.UserController do
 
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "Pay for membership",
         "Pay for membership",
-        Gettext.get_locale(),
-        prefix
+        Gettext.get_locale()
       )
 
     render(
@@ -151,7 +155,7 @@ defmodule AOFFWeb.UserController do
 
   def delete(conn, %{"id" => id}) do
     prefix = conn.assigns.prefix
-    user = Users.get_user!(id, prefix)
+    user = Users.get_user!(prefix, id)
     {:ok, _user} = Users.delete_user(user)
 
     conn
@@ -161,7 +165,8 @@ defmodule AOFFWeb.UserController do
 
   defp get_user!(conn, id) do
     prefix = conn.assigns.prefix
-    if user = Users.get_user(id, prefix) do
+
+    if user = Users.get_user(prefix, id) do
       authorize(conn, user)
     else
       conn
@@ -208,10 +213,10 @@ defmodule AOFFWeb.UserController do
   defp avatar_format(prefix) do
     {:ok, avatar_format} =
       System.find_or_create_message(
+        prefix,
         "/user/:id/edit",
         "Avatar format",
-        Gettext.get_locale(),
-        prefix
+        Gettext.get_locale()
       )
 
     avatar_format
