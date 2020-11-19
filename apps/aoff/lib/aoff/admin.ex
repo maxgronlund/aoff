@@ -54,7 +54,7 @@ defmodule AOFF.Admin do
 
     case Repo.one(query) do
       nil ->
-        create_association(%{"name" => name, prefix: prefix(name)})
+        create_association(%{"name" => name, "prefix" => prefix(name)})
 
       %Association{} = association ->
         {:ok, association}
@@ -82,6 +82,20 @@ defmodule AOFF.Admin do
 
       {:error, changeset} ->
         {:error, changeset}
+    end
+  end
+
+  def prefix(name) do
+    if name == nil do
+      nil
+
+    else
+      prefix =
+        name
+        |> String.downcase()
+        |> String.replace(" ", "_", global: true)
+
+      "prefix_#{prefix}"
     end
   end
 
@@ -171,15 +185,6 @@ defmodule AOFF.Admin do
 
   defp delete_schema(name) do
     Ecto.Adapters.SQL.query(Repo, "DROP SCHEMA \"#{prefix(name)}\" CASCADE")
-  end
-
-  def prefix(name) do
-    prefix =
-      name
-      |> String.downcase()
-      |> String.replace(" ", "_", global: true)
-
-    "prefix_#{prefix}"
   end
 
   defp schema_exists?(name) do

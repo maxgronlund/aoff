@@ -5,7 +5,8 @@ defmodule AOFF.Admin.AssociationFixture do
     "name" => "some name",
     "contact_person_1" => "some contact person 1",
     "contact_person_2" => "some contact person 2",
-    "prefix" => "public"
+    "prefix" => "public",
+    "host" => "localhost"
   }
 
   @update_attrs %{
