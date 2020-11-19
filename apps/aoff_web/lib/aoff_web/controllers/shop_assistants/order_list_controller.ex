@@ -3,8 +3,9 @@ defmodule AOFFWeb.ShopAssistant.OrderListController do
   alias AOFF.Shop
 
   def show(conn, %{"id" => id}) do
-    date = Shop.get_date!(id)
-    products = Shop.paid_orders_list(date.id)
+    prefix = conn.assigns.prefix
+    date = Shop.get_date!(prefix, id)
+    products = Shop.paid_orders_list(prefix, date.id)
 
     conn
     |> assign(:selected_menu_item, :volunteer)

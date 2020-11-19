@@ -10,7 +10,8 @@ defmodule AOFFWeb.Content.AboutControllerTest do
         System.find_or_create_message(
           "/info",
           "Info",
-          Gettext.get_locale()
+          Gettext.get_locale(),
+          "public"
         )
 
       conn = get(conn, Routes.about_path(conn, :index))

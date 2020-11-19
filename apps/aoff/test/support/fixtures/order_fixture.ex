@@ -27,11 +27,12 @@ defmodule AOFF.Users.OrderFixture do
   end
 
   def order_fixture(user_id, attrs \\ %{}) do
-    {:ok, order} =
+    attrs =
       attrs
       |> Enum.into(@create_attrs)
       |> Map.put("user_id", user_id)
-      |> Users.create_order()
+    {:ok, order} =
+      Users.create_order("public", attrs)
 
     order
   end

@@ -10,8 +10,9 @@ defmodule AOFFWeb.Committees.MessageController do
   alias AOFF.Committees.Message
 
   def index(conn, %{"committee_id" => committee_id}) do
-    messages = Committees.list_messages(committee_id)
-    committee = Committees.get_committee!(committee_id)
+    prefix = conn.assigns.prefix
+    messages = Committees.list_messages(prefix, committee_id)
+    committee = Committees.get_committee!(prefix, committee_id)
 
     if member_of_committee(conn, committee) do
       render(conn, "index.html", committee: committee, messages: messages)
@@ -21,7 +22,8 @@ defmodule AOFFWeb.Committees.MessageController do
   end
 
   def new(conn, %{"committee_id" => committee_id}) do
-    committee = Committees.get_committee!(committee_id)
+    prefix = conn.assigns.prefix
+    committee = Committees.get_committee!(prefix, committee_id)
 
     if member_of_committee(conn, committee) do
       changeset = Committees.change_message(%Message{})
@@ -32,7 +34,7 @@ defmodule AOFFWeb.Committees.MessageController do
   end
 
   def create(conn, %{"committee_id" => committee_id, "message" => message_params}) do
-    committee = Committees.get_committee!(committee_id)
+    committee = Committees.get_committee!(conn.assigns.prefix, committee_id)
 
     if member_of_committee(conn, committee) do
       message_params =
@@ -43,6 +45,7 @@ defmodule AOFFWeb.Committees.MessageController do
             "from" => conn.assigns.current_user.username
           }
         )
+
       create_message(conn, committee, message_params)
     else
       forbidden(conn)
@@ -50,7 +53,7 @@ defmodule AOFFWeb.Committees.MessageController do
   end
 
   defp create_message(conn, committee, message_params) do
-    case Committees.create_message(message_params) do
+    case Committees.create_message(conn.assigns.prefix, message_params) do
       {:ok, message} ->
         send_notification(conn, committee, message)
 
@@ -63,8 +66,8 @@ defmodule AOFFWeb.Committees.MessageController do
     end
   end
 
-  def show(conn, %{"committee_id" => committee_id, "id" => id}) do
-    message = Committees.get_message!(id)
+  def show(conn, %{"committee_id" => _committee_id, "id" => id}) do
+    message = Committees.get_message!(conn.assigns.prefix, id)
 
     if member_of_committee(conn, message.committee) do
       render(conn, "show.html", committee: message.committee, message: message)
@@ -85,12 +88,11 @@ defmodule AOFFWeb.Committees.MessageController do
     end
   end
 
-  defp  send_email(committee, message_url, user) do
+  defp send_email(_committee, message_url, user) do
     username_and_email = {user.username, user.email}
 
     AOFFWeb.EmailController.message_notification(username_and_email, message_url)
     |> AOFFWeb.Mailer.deliver_now()
-
   end
 
   # def edit(conn, %{"id" => id}) do

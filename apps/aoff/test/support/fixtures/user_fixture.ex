@@ -1,6 +1,4 @@
 defmodule AOFF.Users.UserFixture do
-  alias AOFF.Users
-
   @valid_attrs %{
     "username" => "some username",
     "member_nr" => 1,
@@ -76,8 +74,8 @@ defmodule AOFF.Users.UserFixture do
   def invalid_attrs(), do: @invalid_attrs
 
   def user_fixture(attrs \\ %{}) do
-    attrs = attrs |> Enum.into(@valid_attrs)
-    {:ok, user} = AOFF.Volunteers.register_user(attrs)
+    attrs = Enum.into(attrs, @valid_attrs)
+    {:ok, user} = AOFF.Volunteers.register_user("public", attrs)
     {:ok, user} = AOFF.Admin.Admins.update_user(user, attrs)
     user
   end

@@ -5,6 +5,7 @@ defmodule AOFFWeb.Users.WelcomeControllerTest do
 
   test "show welcome page", %{conn: conn} do
     user = user_fixture()
+    conn = conn.assign(prefix: "public")
     conn = get(conn, Routes.user_welcome_path(conn, :index, user))
     assert html_response(conn, 200) =~ gettext("Welcome")
   end

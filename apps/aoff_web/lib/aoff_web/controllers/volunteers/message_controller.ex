@@ -8,24 +8,29 @@ defmodule AOFFWeb.Volunteer.MessageController do
   plug :authenticate when action in [:index, :edit, :new, :update, :create, :delete]
 
   def index(conn, _params) do
+    prefix = conn.assigns.prefix
+
     {:ok, instructions} =
       System.find_or_create_message(
+        prefix,
         "/volunteer/messages",
         "Volunteer messages page",
         Gettext.get_locale()
       )
 
-    messages = System.list_messages(Gettext.get_locale())
+    messages = System.list_messages(prefix, Gettext.get_locale())
     render(conn, "index.html", messages: messages, instructions: instructions)
   end
 
   def show(conn, %{"id" => id}) do
-    message = System.get_message!(id)
+    prefix = conn.assigns.prefix
+    message = System.get_message!(prefix, id)
     render(conn, "show.html", message: message)
   end
 
   def edit(conn, %{"id" => id, "request_url" => request_url}) do
-    message = System.get_message!(id)
+    prefix = conn.assigns.prefix
+    message = System.get_message!(prefix, id)
     Users.set_bounce_to_url(conn.assigns.current_user, request_url)
 
     changeset = System.change_message(message)
@@ -39,7 +44,8 @@ defmodule AOFFWeb.Volunteer.MessageController do
   end
 
   def update(conn, %{"id" => id, "message" => message_params}) do
-    message = System.get_message!(id)
+    prefix = conn.assigns.prefix
+    message = System.get_message!(prefix, id)
 
     case System.update_message(message, message_params) do
       {:ok, message} ->
@@ -53,7 +59,8 @@ defmodule AOFFWeb.Volunteer.MessageController do
   end
 
   def delete(conn, %{"id" => id}) do
-    message = System.get_message!(id)
+    prefix = conn.assigns.prefix
+    message = System.get_message!(prefix, id)
     {:ok, _message} = System.delete_message(message)
 
     conn

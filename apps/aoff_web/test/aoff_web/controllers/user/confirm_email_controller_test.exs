@@ -31,7 +31,8 @@ defmodule AOFFWeb.Users.ConfirmEmailControllerTest do
         System.find_or_create_message(
           "Confirmation missing",
           "Confirmation missing",
-          Gettext.get_locale()
+          Gettext.get_locale(),
+          "public"
         )
 
       conn = get(conn, Routes.confirm_email_path(conn, :show, user))

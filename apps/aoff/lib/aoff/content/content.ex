@@ -18,14 +18,14 @@ defmodule AOFF.Content do
       [%Category{}, ...]
 
   """
-  def list_categories() do
+  def list_categories(prefix) do
     query =
       from c in Category,
         where: c.locale == ^Gettext.get_locale() and c.publish == true,
         order_by: [desc: c.position]
 
     query
-    |> Repo.all()
+    |> Repo.all(prefix: prefix)
   end
 
   @doc """
@@ -37,14 +37,14 @@ defmodule AOFF.Content do
       [%Category{}, ...]
 
   """
-  def list_categories(:all) do
+  def list_categories(prefix, :all) do
     query =
       from c in Category,
         where: c.locale == ^Gettext.get_locale(),
         order_by: [desc: c.position]
 
     query
-    |> Repo.all()
+    |> Repo.all(prefix: prefix)
   end
 
   @doc """
@@ -58,7 +58,7 @@ defmodule AOFF.Content do
       ** nil
 
   """
-  def get_category!(title) do
+  def get_category!(prefix, title) do
     query =
       from c in Category,
         where: c.title == ^title and c.locale == ^Gettext.get_locale(),
@@ -67,7 +67,7 @@ defmodule AOFF.Content do
           pages: ^from(p in Page, where: p.publish == ^true, order_by: [desc: p.position])
         ]
 
-    Repo.one(query)
+    Repo.one(query, prefix: prefix)
   end
 
   @doc """
@@ -82,14 +82,14 @@ defmodule AOFF.Content do
       ** nil
 
   """
-  def get_category!(:all, title) do
+  def get_category!(prefix, :all, title) do
     query =
       from c in Category,
         where: c.title == ^title and c.locale == ^Gettext.get_locale(),
         select: c,
         preload: [pages: ^from(p in Page, order_by: [desc: p.position])]
 
-    Repo.one(query)
+    Repo.one(query, prefix: prefix)
   end
 
   @doc """
@@ -100,35 +100,38 @@ defmodule AOFF.Content do
       {:ok, %Category{}}
 
   """
-  def find_or_create_category(category) do
+  def find_or_create_category(prefix, category) do
     query =
       from c in Category,
         where: c.identifier == ^category and c.locale == ^Gettext.get_locale(),
         select: c,
         preload: [pages: ^from(p in Page, order_by: [desc: p.date])]
 
-    case Repo.one(query) do
+    case Repo.one(query, prefix: prefix) do
       nil ->
-        create_category(%{
-          "title" => category,
-          "description" => category,
-          "identifier" => category,
-          "locale" => Gettext.get_locale()
-        })
+        create_category(
+          prefix,
+          %{
+            "title" => category,
+            "description" => category,
+            "identifier" => category,
+            "locale" => Gettext.get_locale()
+          }
+        )
 
       %Category{} = category ->
         {:ok, category}
     end
   end
 
-  def featured_pages() do
+  def featured_pages(prefix) do
     query =
       from p in Page,
         where: p.show_on_landing_page == ^true and p.locale == ^Gettext.get_locale(),
         order_by: [desc: p.date],
         limit: 3
 
-    query |> Repo.all() |> Repo.preload(:category)
+    query |> Repo.all(prefix: prefix) |> Repo.preload(:category)
   end
 
   @doc """
@@ -174,7 +177,7 @@ defmodule AOFF.Content do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_category(attrs \\ %{}) do
+  def create_category(prefix, attrs \\ %{}) do
     attrs =
       attrs
       |> Map.merge(%{
@@ -184,7 +187,7 @@ defmodule AOFF.Content do
 
     %Category{}
     |> Category.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: prefix)
   end
 
   @doc """
@@ -217,7 +220,7 @@ defmodule AOFF.Content do
       ** nil
 
   """
-  def get_page!(category_title, title) do
+  def get_page!(prefix, category_title, title) do
     # TODO: rename to get_page
     query =
       from p in Page,
@@ -227,12 +230,13 @@ defmodule AOFF.Content do
         limit: 1
 
     query
-    |> Repo.one()
+    |> Repo.one(prefix: prefix)
     |> Repo.preload(:category)
   end
 
-  def get_page(id) do
-    Repo.one(from p in Page, where: p.id == ^id)
+  def get_page(prefix, id) do
+    query = from p in Page, where: p.id == ^id
+    Repo.one(query, prefix: prefix)
   end
 
   @doc """
@@ -247,12 +251,12 @@ defmodule AOFF.Content do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_page(attrs \\ %{}) do
+  def create_page(prefix, attrs \\ %{}) do
     attrs = Map.put(attrs, "locale", Gettext.get_locale())
 
     %Page{}
     |> Page.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: prefix)
   end
 
   @doc """

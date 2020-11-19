@@ -30,9 +30,7 @@ defmodule AOFF.Shop.DateFixture do
 
   def date_fixture(attrs \\ %{}) do
     {:ok, date} =
-      attrs
-      |> Enum.into(@valid_attrs)
-      |> Shop.create_date()
+      Shop.create_date("public", Enum.into(attrs, @valid_attrs))
 
     date
   end

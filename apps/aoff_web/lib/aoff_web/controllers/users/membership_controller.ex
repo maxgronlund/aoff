@@ -9,13 +9,15 @@ defmodule AOFFWeb.Users.MembershipController do
   plug :authenticate when action in [:new, :create]
 
   def new(conn, %{"user_id" => user_id}) do
+    prefix = conn.assigns.prefix
     conn = assign(conn, :selected_menu_item, :user)
-    date = Shop.get_next_date(Date.utc_today())
-    user = Users.get_user!(user_id)
-    products = Shop.get_memberships()
+    date = Shop.get_next_date(prefix, Date.utc_today())
+    user = Users.get_user!(prefix, user_id)
+    products = Shop.get_memberships(prefix)
 
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "/users/:id/membership/new/ - buy new",
         "Buy membership",
         Gettext.get_locale()
@@ -32,10 +34,11 @@ defmodule AOFFWeb.Users.MembershipController do
   end
 
   def create(conn, %{"user_id" => user_id, "product_id" => product_id}) do
-    user = Users.get_user!(user_id)
-    order = Users.current_order(user_id)
-    product = Shop.get_product!(product_id)
-    date = Shop.get_next_date(Date.utc_today())
+    prefix = conn.assigns.prefix
+    user = Users.get_user!(prefix, user_id)
+    order = Users.current_order(prefix, user_id)
+    product = Shop.get_product!(prefix, product_id)
+    date = Shop.get_next_date(prefix, Date.utc_today())
 
     pick_up_params = %{
       "date_id" => date.id,
@@ -54,7 +57,7 @@ defmodule AOFFWeb.Users.MembershipController do
       "price" => product.price
     }
 
-    Users.add_membership_to_basket(pick_up_params, order_item_params)
+    Users.add_order_item_to_basket(prefix, pick_up_params, order_item_params)
 
     conn
     |> redirect(to: Routes.shop_checkout_path(conn, :edit, order))

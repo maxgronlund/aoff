@@ -10,17 +10,20 @@ defmodule AOFFWeb.Volunteer.MemberController do
   plug :authenticate when action in [:edit, :new, :update, :create, :delete]
 
   def new(conn, %{"committee_id" => committee_id}) do
-    committee = Committees.get_committee!(committee_id)
+    prefix = conn.assigns.prefix
+    committee = Committees.get_committee!(prefix, committee_id)
     changeset = Committees.change_member(%Member{})
 
     render(conn, "new.html",
       changeset: changeset,
       committee: committee,
-      users: list_volunteers()
+      users: list_volunteers(prefix)
     )
   end
 
   def create(conn, %{"member" => member_params}) do
+    prefix = conn.assigns.prefix
+
     case Committees.create_member(member_params) do
       {:ok, member} ->
         conn
@@ -28,30 +31,32 @@ defmodule AOFFWeb.Volunteer.MemberController do
         |> redirect(to: Routes.committee_committee_path(conn, :show, member.committee_id))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        committee = Committees.get_committee!(member_params["committee_id"])
+        committee = Committees.get_committee!(prefix, member_params["committee_id"])
 
         render(conn, "new.html",
           changeset: changeset,
           committee: committee,
-          users: list_volunteers()
+          users: list_volunteers(prefix)
         )
     end
   end
 
   def edit(conn, %{"id" => id}) do
-    member = Committees.get_member!(id)
+    prefix = conn.assigns.prefix
+    member = Committees.get_member!(prefix, id)
     changeset = Committees.change_member(member)
 
     render(conn, "edit.html",
       committee: member.committee,
       member: member,
       changeset: changeset,
-      users: list_volunteers()
+      users: list_volunteers(prefix)
     )
   end
 
   def update(conn, %{"id" => id, "member" => member_params}) do
-    member = Committees.get_member!(id)
+    prefix = conn.assigns.prefix
+    member = Committees.get_member!(prefix, id)
 
     case Committees.update_member(member, member_params) do
       {:ok, member} ->
@@ -63,14 +68,15 @@ defmodule AOFFWeb.Volunteer.MemberController do
         render(conn, "edit.html",
           member: member,
           committee: member.committee,
-          users: list_volunteers(),
+          users: list_volunteers(prefix),
           changeset: changeset
         )
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    member = Committees.get_member!(id)
+    prefix = conn.assigns.prefix
+    member = Committees.get_member!(prefix, id)
     {:ok, _member} = Committees.delete_member(member)
 
     conn
@@ -78,8 +84,8 @@ defmodule AOFFWeb.Volunteer.MemberController do
     |> redirect(to: Routes.committee_committee_path(conn, :show, member.committee_id))
   end
 
-  defp list_volunteers() do
-    Enum.map(Users.list_volunteers(), fn u -> {u.username, u.id} end)
+  defp list_volunteers(prefix) do
+    Enum.map(Users.list_volunteers(prefix), fn u -> {u.username, u.id} end)
   end
 
   defp authenticate(conn, _opts) do

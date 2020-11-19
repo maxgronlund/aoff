@@ -19,8 +19,8 @@ defmodule AOFF.Committees do
       [%Committee{}, ...]
 
   """
-  def list_committees do
-    Repo.all(Committee)
+  def list_committees(prefix) do
+    Repo.all(Committee, prefix: prefix)
   end
 
   @doc """
@@ -32,12 +32,12 @@ defmodule AOFF.Committees do
       [%Committee{}, ...]
 
   """
-  def list_committees(:public) do
+  def list_committees(prefix, :public) do
     query =
       from c in Committee,
         where: c.public_access == ^true
 
-    Repo.all(query)
+    Repo.all(query, prefix: prefix)
   end
 
   @doc """
@@ -49,12 +49,12 @@ defmodule AOFF.Committees do
       [%Committee{}, ...]
 
   """
-  def list_committees(:volunteer) do
+  def list_committees(prefix, :volunteer) do
     query =
       from c in Committee,
         where: c.volunteer_access == ^true
 
-    Repo.all(query)
+    Repo.all(query, prefix: prefix)
   end
 
   @doc """
@@ -66,12 +66,12 @@ defmodule AOFF.Committees do
       [%Committee{}, ...]
 
   """
-  def list_committees(:member) do
+  def list_committees(prefix, :member) do
     query =
       from c in Committee,
         where: c.member_access == ^true
 
-    Repo.all(query)
+    Repo.all(query, prefix: prefix)
   end
 
   @doc """
@@ -84,13 +84,13 @@ defmodule AOFF.Committees do
 
   """
 
-  def list_committees(user_id) do
+  def list_committees(prefix, user_id) do
     query =
       from c in Committee,
         join: mb in assoc(c, :members),
         where: mb.user_id == ^user_id
 
-    Repo.all(query)
+    Repo.all(query, prefix: prefix)
   end
 
   @doc """
@@ -107,7 +107,7 @@ defmodule AOFF.Committees do
       ** (Ecto.NoResultsError)
 
   """
-  def get_committee!(id) do
+  def get_committee!(prefix, id) do
     query =
       from(
         c in Committee,
@@ -119,7 +119,7 @@ defmodule AOFF.Committees do
         ]
       )
 
-    Repo.one(query)
+    Repo.one(query, prefix: prefix)
   end
 
   @doc """
@@ -134,10 +134,10 @@ defmodule AOFF.Committees do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_committee(attrs \\ %{}) do
+  def create_committee(prefix, attrs \\ %{}) do
     %Committee{}
     |> Committee.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: prefix)
   end
 
   @doc """
@@ -196,8 +196,8 @@ defmodule AOFF.Committees do
       [%Meeting{}, ...]
 
   """
-  def list_meetings do
-    Repo.all(Meeting)
+  def list_meetings(prefix) do
+    Repo.all(Meeting, prefix: prefix)
   end
 
   @doc """
@@ -209,7 +209,7 @@ defmodule AOFF.Committees do
       [%Meeting{}, ...]
 
   """
-  def list_user_meetings(user_id, today) do
+  def list_user_meetings(prefix, user_id, today) do
     query =
       from mt in Meeting,
         where: mt.date >= ^today,
@@ -220,7 +220,7 @@ defmodule AOFF.Committees do
 
     meetings =
       query
-      |> Repo.all()
+      |> Repo.all(prefix: prefix)
       |> Repo.preload(:committee)
 
     if Enum.any?(meetings), do: meetings, else: false
@@ -240,8 +240,8 @@ defmodule AOFF.Committees do
       ** (Ecto.NoResultsError)
 
   """
-  def get_meeting!(id) do
-    Repo.get!(Meeting, id)
+  def get_meeting!(prefix, id) do
+    Repo.get!(Meeting, id, prefix: prefix)
     |> Repo.preload(:moderator)
     |> Repo.preload(:minutes_taker)
     |> Repo.preload(committee: [:members])
@@ -259,10 +259,10 @@ defmodule AOFF.Committees do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_meeting(attrs \\ %{}) do
+  def create_meeting(prefix, attrs \\ %{}) do
     %Meeting{}
     |> Meeting.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: prefix)
   end
 
   @doc """
@@ -321,12 +321,12 @@ defmodule AOFF.Committees do
       [%Member{}, ...]
 
   """
-  def list_members(committee_id) do
+  def list_members(prefix, committee_id) do
     query =
       from m in Member,
         where: m.committee_id == ^committee_id
 
-    Repo.all(query)
+    Repo.all(query, prefix: prefix)
   end
 
   @doc """
@@ -343,9 +343,9 @@ defmodule AOFF.Committees do
       ** (Ecto.NoResultsError)
 
   """
-  def get_member!(id) do
+  def get_member!(prefix, id) do
     Member
-    |> Repo.get!(id)
+    |> Repo.get!(id, prefix: prefix)
     |> Repo.preload(:committee)
   end
 
@@ -361,10 +361,10 @@ defmodule AOFF.Committees do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_member(attrs \\ %{}) do
+  def create_member(prefix, attrs \\ %{}) do
     %Member{}
     |> Member.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: prefix)
   end
 
   @doc """
@@ -425,14 +425,12 @@ defmodule AOFF.Committees do
       [%Message{}, ...]
 
   """
-  def list_messages(committee_id) do
+  def list_messages(prefix, committee_id) do
     query =
-      from m in Message,
-        where: m.committee_id == ^committee_id, order_by: [desc: m.posted_at]
-
+      from m in Message, where: m.committee_id == ^committee_id, order_by: [desc: m.posted_at]
 
     query
-    |> Repo.all()
+    |> Repo.all(prefix: prefix)
     |> Repo.preload(:committee)
   end
 
@@ -450,9 +448,9 @@ defmodule AOFF.Committees do
       ** (Ecto.NoResultsError)
 
   """
-  def get_message!(id) do
+  def get_message!(prefix, id) do
     Message
-    |> Repo.get!(id)
+    |> Repo.get!(id, prefix: prefix)
     |> Repo.preload(committee: [:members])
   end
 
@@ -468,10 +466,10 @@ defmodule AOFF.Committees do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_message(attrs \\ %{}) do
+  def create_message(prefix, attrs \\ %{}) do
     %Message{}
     |> Message.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: prefix)
   end
 
   @doc """

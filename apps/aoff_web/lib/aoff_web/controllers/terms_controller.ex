@@ -5,6 +5,7 @@ defmodule AOFFWeb.TermsController do
   def index(conn, _params) do
     {:ok, message} =
       System.find_or_create_message(
+        conn.assigns.prefix,
         "/terms",
         "Terms and condition",
         Gettext.get_locale()

@@ -10,12 +10,12 @@ defmodule AOFF.Shop.DatesTest do
   describe "dates" do
     test "list_dates/0 returns all dates" do
       date = date_fixture()
-      assert Shop.list_dates() == [date]
+      assert Shop.list_dates("public", date.date) == [date]
     end
 
     test "get_date!/1 returns the date with given id" do
       date = date_fixture()
-      assert Shop.get_date!(date.id) == date
+      assert Shop.get_date!("public", date.id) == date
     end
 
     test "create_date/1 with valid data creates a date" do
@@ -32,7 +32,7 @@ defmodule AOFF.Shop.DatesTest do
           "shop_assistant_d" => user_d.id
         })
 
-      assert {:ok, %Date{} = date} = Shop.create_date(attrs)
+      assert {:ok, %Date{} = date} = Shop.create_date("public", attrs)
       assert date.date == attrs["date"]
       assert date.shop_assistant_a == user_a.id
       assert date.shop_assistant_b == user_b.id
@@ -42,7 +42,7 @@ defmodule AOFF.Shop.DatesTest do
 
     test "create_date/1 with invalid data returns error changeset" do
       attrs = invalid_date_attrs()
-      assert {:error, %Ecto.Changeset{}} = Shop.create_date(attrs)
+      assert {:error, %Ecto.Changeset{}} = Shop.create_date("public", attrs)
     end
 
     test "update_date/2 with valid data updates the date" do
@@ -56,13 +56,13 @@ defmodule AOFF.Shop.DatesTest do
       date = date_fixture()
       attrs = invalid_date_attrs()
       assert {:error, %Ecto.Changeset{}} = Shop.update_date(date, attrs)
-      assert date == Shop.get_date!(date.id)
+      assert date == Shop.get_date!("public", date.id)
     end
 
     test "delete_date/1 deletes the date" do
       date = date_fixture()
       assert {:ok, %Date{}} = Shop.delete_date(date)
-      assert_raise Ecto.NoResultsError, fn -> Shop.get_date!(date.id) end
+      assert_raise Ecto.NoResultsError, fn -> Shop.get_date!("public", date.id) end
     end
 
     test "change_date/1 returns a date changeset" do

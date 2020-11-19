@@ -8,6 +8,7 @@ defmodule AOFFWeb.ResetPasswordController do
   def index(conn, _params) do
     {:ok, message} =
       System.find_or_create_message(
+        conn.assigns.prefix,
         "/reset_password/index",
         "Reset password",
         Gettext.get_locale()
@@ -18,12 +19,19 @@ defmodule AOFFWeb.ResetPasswordController do
 
   def new(conn, _params) do
     changeset = Users.change_user(%User{})
-    render(conn, "new.html", changeset: changeset, message: new_message())
+
+    render(
+      conn,
+      "new.html",
+      changeset: changeset,
+      message: new_message(conn.assigns.prefix)
+    )
   end
 
-  defp new_message() do
+  defp new_message(prefix) do
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "/reset_password/new",
         "Send reset pasword email",
         Gettext.get_locale()
@@ -34,8 +42,9 @@ defmodule AOFFWeb.ResetPasswordController do
 
   def create(conn, params) do
     email = params["user"]["email"]
+    prefix = conn.assigns.prefix
 
-    case Users.get_user_by_email(email) do
+    case Users.get_user_by_email(prefix, email) do
       %User{} = user ->
         token = Ecto.UUID.generate()
 
@@ -55,7 +64,11 @@ defmodule AOFFWeb.ResetPasswordController do
         username_and_email = {user.username, user.email}
 
         # Create your email
-        AOFFWeb.EmailController.reset_password_email(username_and_email, reset_password_url)
+        AOFFWeb.EmailController.reset_password_email(
+          prefix,
+          username_and_email,
+          reset_password_url
+        )
         |> AOFFWeb.Mailer.deliver_now()
 
       _ ->
@@ -63,14 +76,16 @@ defmodule AOFFWeb.ResetPasswordController do
 
         conn
         |> put_flash(:error, gettext("Please check the email"))
-        |> render("new.html", changeset: changeset, message: new_message())
+        |> render("new.html", changeset: changeset, message: new_message(prefix))
     end
 
     redirect(conn, to: Routes.reset_password_path(conn, :index))
   end
 
   def edit(conn, %{"id" => id}) do
-    case Users.get_user_by_reset_password_token(id) do
+    prefix = conn.assigns.prefix
+
+    case Users.get_user_by_reset_password_token(prefix, id) do
       %User{} = user ->
         changeset = Users.change_user(user)
         render(conn, "edit.html", user: user, changeset: changeset)
@@ -81,7 +96,8 @@ defmodule AOFFWeb.ResetPasswordController do
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Users.get_user!(id)
+    prefix = conn.assigns.prefix
+    user = Users.get_user!(prefix, id)
 
     case DateTime.compare(
            AOFF.Time.now(),

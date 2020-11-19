@@ -15,7 +15,8 @@ defmodule AOFFWeb.EmailControllerTest do
       System.find_or_create_message(
         "/reset_password/:id/create",
         "Reset password",
-        Gettext.get_locale()
+        Gettext.get_locale(),
+        "public"
       )
 
     user = user_fixture()
@@ -43,7 +44,8 @@ defmodule AOFFWeb.EmailControllerTest do
       System.find_or_create_message(
         "Confirm email email",
         "Confirm email email",
-        Gettext.get_locale()
+        Gettext.get_locale(),
+        "public"
       )
 
     user = user_fixture()

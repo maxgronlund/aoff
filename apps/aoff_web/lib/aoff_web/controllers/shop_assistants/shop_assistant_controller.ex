@@ -8,7 +8,7 @@ defmodule AOFFWeb.ShopAssistant.ShopAssistantController do
   plug :authenticate when action in [:index]
 
   def index(conn, _params) do
-    dates = Shop.list_dates(Date.utc_today())
+    dates = Shop.list_dates(conn.assigns.prefix, Date.utc_today())
     render(conn, "index.html", dates: dates)
   end
 

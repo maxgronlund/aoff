@@ -11,12 +11,14 @@ defmodule AOFFWeb.Volunteer.UserController do
   plug :authenticate when action in [:index, :show, :edit, :update, :delete, :new]
 
   def index(conn, params) do
+    prefix = conn.assigns.prefix
+
     users =
       if query = params["query"] do
-        Users.search_users(query)
+        Users.search_users(prefix, query)
       else
         page = params["page"] || "0"
-        Users.list_users(String.to_integer(page))
+        Users.list_users(prefix, String.to_integer(page))
       end
 
     conn
@@ -25,15 +27,16 @@ defmodule AOFFWeb.Volunteer.UserController do
     |> render(
       "index.html",
       users: users,
-      pages: Users.user_pages(),
-      members: Users.member_count(:all),
-      valid_members: Users.member_count(:valid),
-      subscribers: Users.member_count(:subscribers)
+      pages: Users.user_pages(prefix),
+      members: Users.member_count(prefix, :all),
+      valid_members: Users.member_count(prefix, :valid),
+      subscribers: Users.member_count(prefix, :subscribers)
     )
   end
 
   def edit(conn, %{"id" => id}) do
-    user = Volunteers.get_user!(id)
+    prefix = conn.assigns.prefix
+    user = Volunteers.get_user!(prefix, id)
     changeset = Volunteers.change_user(user)
 
     conn
@@ -48,6 +51,7 @@ defmodule AOFFWeb.Volunteer.UserController do
   end
 
   def new(conn, _params) do
+    prefix = conn.assigns.prefix
     changeset =
       Users.change_user(%User{
         expiration_date: Date.add(AOFF.Time.today(), 365)
@@ -55,6 +59,7 @@ defmodule AOFFWeb.Volunteer.UserController do
 
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "/volunteer/users/new",
         "Create account",
         Gettext.get_locale()
@@ -74,11 +79,13 @@ defmodule AOFFWeb.Volunteer.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    prefix = conn.assigns.prefix
+
     user_params =
       user_params
       |> Map.put("terms_accepted", true)
 
-    case Volunteers.register_user(user_params) do
+    case Volunteers.register_user(prefix, user_params) do
       {:ok, user} ->
         conn
         |> put_flash(
@@ -90,6 +97,7 @@ defmodule AOFFWeb.Volunteer.UserController do
       {:error, %Ecto.Changeset{} = changeset} ->
         {:ok, message} =
           System.find_or_create_message(
+            prefix,
             "/volunteer/users/new",
             "Create account",
             Gettext.get_locale()
@@ -118,7 +126,8 @@ defmodule AOFFWeb.Volunteer.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = Volunteers.get_user!(id)
+    prefix = conn.assigns.prefix
+    user = Volunteers.get_user!(prefix, id)
 
     conn
     |> assign(:title, user.username)
@@ -126,7 +135,8 @@ defmodule AOFFWeb.Volunteer.UserController do
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Volunteers.get_user!(id)
+    prefix = conn.assigns.prefix
+    user = Volunteers.get_user!(prefix, id)
 
     case Volunteers.update_user(user, user_params) do
       {:ok, _user} ->
@@ -147,7 +157,8 @@ defmodule AOFFWeb.Volunteer.UserController do
   end
 
   def delete(conn, %{"id" => id}) do
-    user = Volunteers.get_user!(id)
+    prefix = conn.assigns.prefix
+    user = Volunteers.get_user!(prefix, id)
     {:ok, _user} = Volunteers.delete_user(user)
 
     conn

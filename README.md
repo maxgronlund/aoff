@@ -41,6 +41,14 @@ Seed the database
 $ mix run apps/aoff/priv/repo/seeds.exs
 ```
 
+## Test
+```
+mix test
+```
+## Using the shop on localhost
+ - Install ngrok or other app that can tunnel to your local host
+ - Set the environment variable EPAY_ENDPOINT to the ip address
+
 ## Image aspect ratio
 The [aspect ratio](https://en.wikipedia.org/wiki/Aspect_ratio_(image)) for images is based on the [golden ratio](https://en.wikipedia.org/wiki/Golden_ratio)
 
@@ -104,7 +112,6 @@ setup EPAY_ENDPOINT in your environt variables
 
 ## Reload terminal
 $ source ~/.zshrc
-
 
 ## Backup
 https://devcenter.heroku.com/articles/heroku-postgres-backups

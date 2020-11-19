@@ -21,7 +21,8 @@ defmodule AOFFWeb.PaymentTermsControllerTest do
         System.find_or_create_message(
           "/payment_terms",
           "Payment terms",
-          Gettext.get_locale()
+          Gettext.get_locale(),
+          "public"
         )
 
       conn =
@@ -30,6 +31,7 @@ defmodule AOFFWeb.PaymentTermsControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
+        |> assign(prefix: "public")
 
       {:ok, conn: conn, user: user, order: order, message: message}
     end

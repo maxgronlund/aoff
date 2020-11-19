@@ -6,9 +6,10 @@ defmodule AOFFWeb.Users.OrderItemController do
   alias AOFF.Users.OrderItem
 
   def create(conn, %{"params" => params}) do
-    user = Users.get_user!(params["user_id"])
-    order = Users.current_order(params["user_id"])
-    product = Shop.get_product!(params["product_id"])
+    prefix = conn.assigns.prefix
+    user = Users.get_user!(prefix, params["user_id"])
+    order = Users.current_order(prefix, params["user_id"])
+    product = Shop.get_product!(prefix, params["product_id"])
 
     pick_up_params = %{
       "date_id" => params["date_id"],
@@ -27,7 +28,12 @@ defmodule AOFFWeb.Users.OrderItemController do
         "order_id" => order.id
       })
 
-    result = Users.add_order_item_to_basket(pick_up_params, order_item_params)
+    result =
+      Users.add_order_item_to_basket(
+        pick_up_params,
+        order_item_params,
+        prefix
+      )
 
     case result do
       {:ok, %OrderItem{} = _order_item} ->
@@ -46,9 +52,10 @@ defmodule AOFFWeb.Users.OrderItemController do
   end
 
   def delete(conn, %{"id" => id}) do
-    order_item = Users.get_order_item!(id)
+    prefix = conn.assigns.prefix
+    order_item = Users.get_order_item!(prefix, id)
     order = order_item.order
-    {:ok, _order_item} = Users.delete_order_item(order_item)
+    {:ok, _order_item} = Users.delete_order_item(prefix, order_item)
 
     conn
     |> put_flash(:info, gettext("Order item deleted successfully."))

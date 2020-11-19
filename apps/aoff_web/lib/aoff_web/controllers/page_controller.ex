@@ -6,8 +6,11 @@ defmodule AOFFWeb.PageController do
   alias AOFF.Content
 
   def index(conn, _params) do
+    prefix = conn.assigns.prefix
+
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "/",
         "About AOFF - landing page",
         Gettext.get_locale()
@@ -15,13 +18,14 @@ defmodule AOFFWeb.PageController do
 
     {:ok, this_weeks_bag} =
       System.find_or_create_message(
+        prefix,
         "/",
         "This weeks bag - landing page",
         Gettext.get_locale()
       )
 
-    date = Shop.get_next_date(AOFF.Time.today())
-    products = Shop.get_products_for_landing_page()
+    date = Shop.get_next_date(prefix, AOFF.Time.today())
+    products = Shop.get_products_for_landing_page(prefix)
     conn = assign(conn, :backdrop, :show)
     conn = assign(conn, :selected_menu_item, :home)
 
@@ -30,8 +34,8 @@ defmodule AOFFWeb.PageController do
       date: date,
       message: message,
       this_weeks_bag: this_weeks_bag,
-      products_ordered: Shop.products_ordered(),
-      featured_pages: Content.featured_pages()
+      products_ordered: Shop.products_ordered(prefix),
+      featured_pages: Content.featured_pages(prefix)
     )
   end
 end

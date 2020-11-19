@@ -9,7 +9,8 @@ defmodule AOFFWeb.Volunteer.CalendarController do
   plug :navbar when action in [:index, :new, :show, :edit]
 
   def new(conn, _params) do
-    category = Content.find_or_create_category("Calendar")
+    prefix = conn.assigns.prefix
+    category = Content.find_or_create_category(prefix, "Calendar")
     changeset = Content.change_page(%Page{})
 
     render(
@@ -24,10 +25,11 @@ defmodule AOFFWeb.Volunteer.CalendarController do
   end
 
   def create(conn, %{"page" => page_attrs}) do
-    {:ok, category} = Content.find_or_create_category("Calendar")
+    prefix = conn.assigns.prefix
+    {:ok, category} = Content.find_or_create_category(prefix, "Calendar")
     page_attrs = Map.put(page_attrs, "category_id", category.id)
 
-    case Content.create_page(page_attrs) do
+    case Content.create_page(prefix, page_attrs) do
       {:ok, page} ->
         conn
         |> put_flash(:info, gettext("Please update the default image."))
@@ -47,9 +49,10 @@ defmodule AOFFWeb.Volunteer.CalendarController do
   end
 
   def edit(conn, %{"id" => id}) do
-    {:ok, category} = Content.find_or_create_category("Calendar")
+    prefix = conn.assigns.prefix
+    {:ok, category} = Content.find_or_create_category(prefix, "Calendar")
 
-    if page = Content.get_page!(category.title, id) do
+    if page = Content.get_page!(prefix, category.title, id) do
       changeset = Content.change_page(page)
 
       render(
@@ -60,7 +63,7 @@ defmodule AOFFWeb.Volunteer.CalendarController do
         changeset: changeset,
         author: page.author,
         date: page.date,
-        image_format: image_format()
+        image_format: image_format(prefix)
       )
     else
       conn
@@ -70,8 +73,9 @@ defmodule AOFFWeb.Volunteer.CalendarController do
   end
 
   def update(conn, %{"id" => id, "page" => page_params}) do
-    {:ok, category} = Content.find_or_create_category("Calendar")
-    page = Content.get_page!(category.title, id)
+    prefix = conn.assigns.prefix
+    {:ok, category} = Content.find_or_create_category(prefix, "Calendar")
+    page = Content.get_page!(prefix, category.title, id)
 
     case Content.update_page(page, page_params) do
       {:ok, page} ->
@@ -88,13 +92,14 @@ defmodule AOFFWeb.Volunteer.CalendarController do
           changeset: changeset,
           author: page.author,
           date: page.date,
-          image_format: image_format()
+          image_format: image_format(conn.assigns.prefix)
         )
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    page = Content.get_page(id)
+    prefix = conn.assigns.prefix
+    page = Content.get_page(prefix, id)
     {:ok, _page} = Content.delete_page(page)
 
     conn
@@ -102,9 +107,10 @@ defmodule AOFFWeb.Volunteer.CalendarController do
     |> redirect(to: Routes.calendar_path(conn, :index))
   end
 
-  defp image_format() do
+  defp image_format(prefix) do
     {:ok, message} =
       AOFF.System.find_or_create_message(
+        prefix,
         "/volunteer/category/:id/edit",
         "Image format",
         Gettext.get_locale()

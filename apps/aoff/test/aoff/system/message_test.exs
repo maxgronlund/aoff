@@ -10,17 +10,17 @@ defmodule AOFF.Volunteer.MessageTest do
 
     test "list_messages/0 returns all messages" do
       message = message_fixture()
-      assert List.first(System.list_messages()).id == message.id
+      assert List.first(System.list_messages("public")).id == message.id
     end
 
     test "get_message!/1 returns the message with given id" do
       message = message_fixture()
-      assert System.get_message!(message.id) == message
+      assert System.get_message!("public", message.id) == message
     end
 
     test "create_message/1 with valid data creates a message" do
       attrs = valid_message_attrs()
-      assert {:ok, %Message{} = message} = System.create_message(attrs)
+      assert {:ok, %Message{} = message} = System.create_message("public", attrs)
       assert message.text == attrs["text"]
       assert message.identifier == attrs["identifier"]
       assert message.locale == attrs["locale"]
@@ -30,7 +30,7 @@ defmodule AOFF.Volunteer.MessageTest do
 
     test "create_message/1 with invalid data returns error changeset" do
       attrs = invalid_message_attrs()
-      assert {:error, %Ecto.Changeset{}} = System.create_message(attrs)
+      assert {:error, %Ecto.Changeset{}} = System.create_message("public", attrs)
     end
 
     test "update_message/2 with valid data updates the message" do
@@ -48,13 +48,13 @@ defmodule AOFF.Volunteer.MessageTest do
       message = message_fixture()
       attrs = invalid_message_attrs()
       assert {:error, %Ecto.Changeset{}} = System.update_message(message, attrs)
-      assert message == System.get_message!(message.id)
+      assert message == System.get_message!("public", message.id)
     end
 
     test "delete_message/1 deletes the message" do
       message = message_fixture()
       assert {:ok, %Message{}} = System.delete_message(message)
-      assert_raise Ecto.NoResultsError, fn -> System.get_message!(message.id) end
+      assert_raise Ecto.NoResultsError, fn -> System.get_message!("public", message.id) end
     end
 
     test "change_message/1 returns a message changeset" do

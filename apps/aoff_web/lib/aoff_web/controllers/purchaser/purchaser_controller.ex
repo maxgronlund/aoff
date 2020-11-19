@@ -8,7 +8,7 @@ defmodule AOFFWeb.Purchaser.PurchaserController do
   plug :authenticate when action in [:index]
 
   def index(conn, _params) do
-    products = Shop.list_products()
+    products = Shop.list_products(conn.assigns.prefix)
     conn = assign(conn, :selected_menu_item, :purchaser)
 
     render(conn, "index.html", products: products)

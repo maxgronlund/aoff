@@ -48,6 +48,7 @@ defmodule AOFFWeb.Shop.CheckoutControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
+        |> assign(prefix: "public")
 
       {:ok, conn: conn, user: user, order: order, product: product}
     end

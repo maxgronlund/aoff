@@ -7,10 +7,13 @@ defmodule AOFFWeb.Content.CalendarController do
   alias AOFF.Events.Participant
 
   def index(conn, _params) do
-    {:ok, calendar} = Content.find_or_create_category("Calendar")
+    prefix = conn.assigns.prefix
+    {:ok, calendar} = Content.find_or_create_category(prefix, "Calendar")
+    IO.inspect(calendar)
 
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "Calendar",
         "Calendar",
         Gettext.get_locale()
@@ -22,14 +25,16 @@ defmodule AOFFWeb.Content.CalendarController do
   end
 
   def show(conn, %{"id" => id}) do
-    case Content.get_page!("Calendar", id) do
+    prefix = conn.assigns.prefix
+
+    case Content.get_page!(prefix, "Calendar", id) do
       nil ->
         conn
         |> put_flash(:info, gettext("Language updated"))
         |> redirect(to: Routes.about_path(conn, :index))
 
       page ->
-        participants = Events.list_participants(:all, page.id)
+        participants = Events.list_participants(prefix, :all, page.id)
         participant = participant(conn, page)
 
         changeset =
@@ -51,7 +56,7 @@ defmodule AOFFWeb.Content.CalendarController do
           changeset: changeset,
           participants: participants,
           participant: participant,
-          message: message(page)
+          message: message(prefix, page)
         )
     end
   end
@@ -63,11 +68,12 @@ defmodule AOFFWeb.Content.CalendarController do
     end
   end
 
-  defp message(page) do
+  defp message(prefix, page) do
     case page.signup_to_event do
       true ->
         {:ok, message} =
           System.find_or_create_message(
+            prefix,
             "Signup to event",
             "Signup to event",
             Gettext.get_locale()

@@ -17,7 +17,8 @@ defmodule AOFFWeb.Events.ParticipantController do
   # end
 
   def new(conn, %{"calendar_id" => calendar_id}) do
-    page = Content.get_page(calendar_id)
+    prefix = conn.assigns.prefix
+    page = Content.get_page(prefix, calendar_id)
     changeset = Events.change_participant(%Participant{})
 
     render(
@@ -31,16 +32,17 @@ defmodule AOFFWeb.Events.ParticipantController do
   end
 
   def create(conn, %{"participant" => participant_params}) do
-    page = Content.get_page(participant_params["page_id"])
+    prefix = conn.assigns.prefix
+    page = Content.get_page(prefix, participant_params["page_id"])
 
-    case Events.create_participant(participant_params) do
+    case Events.create_participant(prefix, participant_params) do
       {:ok, _participant} ->
         conn
         |> put_flash(:info, "Participant created successfully.")
         |> redirect(to: Routes.calendar_path(conn, :show, page))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        page = Content.get_page(participant_params["page_id"])
+        page = Content.get_page(prefix, participant_params["page_id"])
 
         render(
           conn,
@@ -54,13 +56,15 @@ defmodule AOFFWeb.Events.ParticipantController do
   end
 
   def show(conn, %{"id" => id}) do
-    participant = Events.get_participant(id)
+    prefix = conn.assigns.prefix
+    participant = Events.get_participant(prefix, id)
     render(conn, "show.html", participant: participant)
   end
 
   def edit(conn, %{"calendar_id" => calendar_id, "id" => id}) do
-    page = Content.get_page(calendar_id)
-    participant = Events.get_participant(id)
+    prefix = conn.assigns.prefix
+    page = Content.get_page(prefix, calendar_id)
+    participant = Events.get_participant(prefix, id)
     changeset = Events.change_participant(participant)
 
     render(
@@ -75,9 +79,10 @@ defmodule AOFFWeb.Events.ParticipantController do
   end
 
   def update(conn, %{"id" => id, "participant" => participant_params}) do
+    prefix = conn.assigns.prefix
     attrs = Map.drop(participant_params, ["user_id", "page_id"])
-    participant = Events.get_participant(id)
-    page = Content.get_page(participant.page_id)
+    participant = Events.get_participant(prefix, id)
+    page = Content.get_page(prefix, participant.page_id)
 
     case Events.update_participant(participant, attrs) do
       {:ok, _participant} ->
@@ -99,7 +104,8 @@ defmodule AOFFWeb.Events.ParticipantController do
   end
 
   def delete(conn, %{"id" => id}) do
-    participant = Events.get_participant(id)
+    prefix = conn.assigns.prefix
+    participant = Events.get_participant(prefix, id)
     {:ok, participant} = Events.delete_participant(participant)
 
     conn

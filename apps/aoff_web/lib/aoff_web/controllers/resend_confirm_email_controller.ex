@@ -5,8 +5,11 @@ defmodule AOFFWeb.ResendConfirmEmailController do
   alias AOFF.Users
 
   def new(conn, _params) do
+    prefix = conn.assigns.prefix
+
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "Resend confirmation email",
         "Resend confirmation email",
         Gettext.get_locale()
@@ -17,7 +20,9 @@ defmodule AOFFWeb.ResendConfirmEmailController do
   end
 
   def create(conn, %{"user" => %{"email" => email}}) do
-    if user = Users.get_user_by_email(email) do
+    prefix = conn.assigns.prefix
+
+    if user = Users.get_user_by_email(prefix, email) do
       resend_confirm_email(conn, user)
     end
 
@@ -25,8 +30,11 @@ defmodule AOFFWeb.ResendConfirmEmailController do
   end
 
   def index(conn, _params) do
+    prefix = conn.assigns.prefix
+
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "Confirmation email was resend",
         "Confirmation email was resend",
         Gettext.get_locale()
@@ -52,7 +60,11 @@ defmodule AOFFWeb.ResendConfirmEmailController do
         token <>
         "/confirm_email"
 
-    AOFFWeb.EmailController.confirm_email_email(username_and_email, confirm_email_url)
+    AOFFWeb.EmailController.confirm_email_email(
+      conn.assigns.prefix,
+      username_and_email,
+      confirm_email_url
+    )
     |> AOFFWeb.Mailer.deliver_now()
   end
 end

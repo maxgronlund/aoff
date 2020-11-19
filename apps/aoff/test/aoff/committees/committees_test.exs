@@ -13,7 +13,7 @@ defmodule AOFF.CommitteesTest do
 
     test "list_committees/0 returns all committees" do
       committee = committee_fixture()
-      assert Committees.list_committees() == [committee]
+      assert Committees.list_committees("public") == [committee]
     end
 
     test "list_committees/1 returns committees with public access" do
@@ -24,7 +24,7 @@ defmodule AOFF.CommitteesTest do
         "public_access" => false
       })
 
-      assert Committees.list_committees(:public) == [public_committee]
+      assert Committees.list_committees("public", :public) == [public_committee]
     end
 
     test "list_committees/1 returns committees with volunteer access" do
@@ -40,7 +40,7 @@ defmodule AOFF.CommitteesTest do
           "volunteer_access" => true
         })
 
-      assert Committees.list_committees(:volunteer) == [vollunteer_committee]
+      assert Committees.list_committees("public", :volunteer) == [vollunteer_committee]
     end
 
     test "list_committees/1 returns committees with member access" do
@@ -56,7 +56,7 @@ defmodule AOFF.CommitteesTest do
           "member_access" => true
         })
 
-      assert Committees.list_committees(:member) == [member]
+      assert Committees.list_committees("public", :member) == [member]
     end
 
     test "list_committees/1 returns committees with member_access" do
@@ -74,24 +74,24 @@ defmodule AOFF.CommitteesTest do
       user = user_fixture(%{"volunteer" => true})
       _member = member_fixture(%{"user_id" => user.id, "committee_id" => member_committee.id})
 
-      assert Committees.list_committees(user.id) == [member_committee]
+      assert Committees.list_committees("public", user.id) == [member_committee]
     end
 
     test "get_committee!/1 returns the committee with given id" do
       committee = committee_fixture()
-      assert Committees.get_committee!(committee.id).id == committee.id
+      assert Committees.get_committee!("public", committee.id).id == committee.id
     end
 
     test "create_committee/1 with valid data creates a committee" do
       attrs = valid_committee_attrs()
-      assert {:ok, %Committee{} = committee} = Committees.create_committee(attrs)
+      assert {:ok, %Committee{} = committee} = Committees.create_committee("public", attrs)
       assert committee.description == attrs["description"]
       assert committee.name == attrs["name"]
     end
 
     test "create_committee/1 with invalid data returns error changeset" do
       attrs = invalid_committee_attrs()
-      assert {:error, %Ecto.Changeset{}} = Committees.create_committee(attrs)
+      assert {:error, %Ecto.Changeset{}} = Committees.create_committee("public", attrs)
     end
 
     test "update_committee/2 with valid data updates the committee" do
@@ -106,14 +106,15 @@ defmodule AOFF.CommitteesTest do
       committee = committee_fixture()
       attrs = invalid_committee_attrs()
       assert {:error, %Ecto.Changeset{}} = Committees.update_committee(committee, attrs)
-      assert committee.id == Committees.get_committee!(committee.id).id
+      assert committee.id == Committees.get_committee!("public", committee.id).id
     end
 
     test "delete_committee/1 deletes the committee" do
       committee = committee_fixture()
       assert {:ok, %Committee{}} = Committees.delete_committee(committee)
-      assert Committees.get_committee!(committee.id) == nil
-      # assert_raise Ecto.NoResultsError, fn -> Committees.get_committee!(committee.id) end
+      assert Committees.get_committee!("public", committee.id) == nil
+
+      # assert_raise Ecto.NoResultsError, fn -> Committees.get_committee!(committee.id, "public") end
     end
 
     test "change_committee/1 returns a committee changeset" do
@@ -132,17 +133,17 @@ defmodule AOFF.CommitteesTest do
 
     test "list_meetings/0 returns all meetings", %{committee: committee} do
       meeting = meeting_fixture(%{"committee_id" => committee.id})
-      assert Committees.list_meetings() == [meeting]
+      assert Committees.list_meetings("public") == [meeting]
     end
 
     test "get_meeting!/1 returns the meeting with given id", %{committee: committee} do
       meeting = meeting_fixture(%{"committee_id" => committee.id})
-      assert Committees.get_meeting!(meeting.id).id == meeting.id
+      assert Committees.get_meeting!("public", meeting.id).id == meeting.id
     end
 
     test "create_meeting/1 with valid data creates a meeting", %{committee: committee} do
       attrs = valid_meeting_attrs(%{"committee_id" => committee.id})
-      assert {:ok, %Meeting{} = meeting} = Committees.create_meeting(attrs)
+      assert {:ok, %Meeting{} = meeting} = Committees.create_meeting("public", attrs)
       assert meeting.agenda == attrs["agenda"]
       assert meeting.name == attrs["name"]
       assert meeting.location == attrs["location"]
@@ -152,7 +153,7 @@ defmodule AOFF.CommitteesTest do
 
     test "create_meeting/1 with invalid data returns error changeset", %{committee: committee} do
       attrs = invalid_meeting_attrs(%{"committee_id" => committee.id})
-      assert {:error, %Ecto.Changeset{}} = Committees.create_meeting(attrs)
+      assert {:error, %Ecto.Changeset{}} = Committees.create_meeting("public", attrs)
     end
 
     test "update_meeting/2 with valid data updates the meeting", %{committee: committee} do
@@ -170,13 +171,13 @@ defmodule AOFF.CommitteesTest do
       meeting = meeting_fixture(%{"committee_id" => committee.id})
       attrs = invalid_meeting_attrs()
       assert {:error, %Ecto.Changeset{}} = Committees.update_meeting(meeting, attrs)
-      assert meeting.id == Committees.get_meeting!(meeting.id).id
+      assert meeting.id == Committees.get_meeting!("public", meeting.id).id
     end
 
     test "delete_meeting/1 deletes the meeting", %{committee: committee} do
       meeting = meeting_fixture(%{"committee_id" => committee.id})
       assert {:ok, %Meeting{}} = Committees.delete_meeting(meeting)
-      assert_raise Ecto.NoResultsError, fn -> Committees.get_meeting!(meeting.id) end
+      assert_raise Ecto.NoResultsError, fn -> Committees.get_meeting!("public", meeting.id) end
     end
 
     test "change_meeting/1 returns a meeting changeset", %{committee: committee} do
@@ -197,17 +198,17 @@ defmodule AOFF.CommitteesTest do
 
     test "list_members/0 returns all members", %{user: user, committee: committee} do
       member = member_fixture(%{"user_id" => user.id, "committee_id" => committee.id})
-      assert Committees.list_members(committee.id) == [member]
+      assert Committees.list_members("public", committee.id) == [member]
     end
 
     test "get_member!/1 returns the member with given id", %{user: user, committee: committee} do
       member = member_fixture(%{"user_id" => user.id, "committee_id" => committee.id})
-      assert Committees.get_member!(member.id).id == member.id
+      assert Committees.get_member!("public", member.id).id == member.id
     end
 
     test "create_member/1 with valid data creates a member", %{user: user, committee: committee} do
       attrs = valid_member_attrs(%{"user_id" => user.id, "committee_id" => committee.id})
-      assert {:ok, %Member{} = member} = Committees.create_member(attrs)
+      assert {:ok, %Member{} = member} = Committees.create_member("public", attrs)
       assert member.role == "some role"
     end
 
@@ -226,7 +227,7 @@ defmodule AOFF.CommitteesTest do
     test "delete_member/1 deletes the member", %{user: user, committee: committee} do
       member = member_fixture(%{"user_id" => user.id, "committee_id" => committee.id})
       assert {:ok, %Member{}} = Committees.delete_member(member)
-      assert_raise Ecto.NoResultsError, fn -> Committees.get_member!(member.id) end
+      assert_raise Ecto.NoResultsError, fn -> Committees.get_member!("public", member.id) end
     end
 
     test "change_member/1 returns a member changeset", %{user: user, committee: committee} do

@@ -25,12 +25,12 @@ defmodule AOFFWeb.ShopAssistant.DateView do
 
   alias AOFF.Users
 
-  def shop_assistant(user_id) do
+  def shop_assistant(user_id, prefix) do
     cond do
       user_id == nil ->
         @not_found
 
-      user = Users.get_user(user_id) ->
+      user = Users.get_user(user_id, prefix) ->
         "<b>#{user.username}</b>
         <br/>" <>
           "<a href=mailto:#{user.email}>" <>

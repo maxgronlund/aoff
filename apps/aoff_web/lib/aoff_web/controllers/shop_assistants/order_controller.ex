@@ -11,9 +11,10 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
   plug :authenticate when action in [:index, :show]
 
   def new(conn, %{"user_id" => user_id}) do
-    order = Users.current_order(user_id)
+    prefix = conn.assigns.prefix
+    order = Users.current_order(prefix, user_id)
     date_id = get_session(conn, :shop_assistant_date_id)
-    date = Shop.get_date!(date_id)
+    date = Shop.get_date!(prefix, date_id)
     changeset = Users.change_order_item(%OrderItem{})
 
     render(
@@ -23,20 +24,21 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
       order: order,
       date: date,
       products: products(),
-      dates: dates(),
+      dates: dates(prefix),
       changeset: changeset
     )
   end
 
   def update(conn, %{"id" => id}) do
-    order = Users.get_order!(id)
+    prefix = conn.assigns.prefix
+    order = Users.get_order!(prefix, id)
 
     case Users.payment_accepted(order, "cash") do
       {:ok, order} ->
         Users.extend_memberships(order)
-        send_invoice(order, "", "cash")
+        send_invoice(prefix, order, "", "cash")
         # Create a new order for the basket.
-        Users.create_order(%{"user_id" => order.user_id})
+        Users.create_order(prefix, %{"user_id" => order.user_id})
 
         case get_session(conn, :shop_assistant_date_id) do
           nil ->
@@ -55,13 +57,14 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
     end
   end
 
-  defp send_invoice(order, cardno, paymenttype) do
-    AOFFWeb.EmailController.invoice_email(order, cardno, paymenttype)
+  defp send_invoice(prefix, order, cardno, paymenttype) do
+    AOFFWeb.EmailController.invoice_email(prefix, order, cardno, paymenttype)
     |> AOFFWeb.Mailer.deliver_now()
   end
 
   def delete(conn, %{"id" => id}) do
-    order = Users.get_order!(id)
+    prefix = conn.assigns.prefix
+    order = Users.get_order!(prefix, id)
     Users.delete_order(order)
 
     date_id = get_session(conn, :shop_assistant_date_id)
@@ -98,8 +101,8 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
     name <> " : " <> Money.to_string(price)
   end
 
-  defp dates() do
-    dates = Shop.list_dates(Date.add(AOFF.Time.today(), -7), 0, 7)
+  defp dates(prefix) do
+    dates = Shop.list_dates(Date.add(prefix, AOFF.Time.today(), -7), 0, 7)
     Enum.map(dates, fn x -> {AOFF.Time.date_as_string(x.date), x.id} end)
   end
 

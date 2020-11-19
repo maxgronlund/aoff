@@ -11,14 +11,15 @@ defmodule AOFFWeb.Volunteer.OrderController do
   @orders_pr_page 8
 
   def index(conn, params) do
+    prefix = conn.assigns.prefix
     page = page(params)
-    pages_count = pages_count(params)
+    pages_count = pages_count(prefix, params)
 
     orders =
       if query = params["query"] do
-        Users.search_orders(query)
+        Users.search_orders(prefix, query)
       else
-        Users.list_orders(:all, page, @orders_pr_page)
+        Users.list_orders(prefix, :all, page, @orders_pr_page)
       end
 
     conn
@@ -37,20 +38,21 @@ defmodule AOFFWeb.Volunteer.OrderController do
     end
   end
 
-  defp pages_count(params) do
+  defp pages_count(params, prefix) do
     cond do
       params["query"] -> false
-      true -> Users.order_pages_count(@orders_pr_page)
+      true -> Users.order_pages_count(prefix, @orders_pr_page)
     end
   end
 
   def show(conn, %{"id" => id}) do
-    order = Users.get_order!(id)
+    order = Users.get_order!(id, "public")
     render(conn, "show.html", order: order)
   end
 
   def edit(conn, %{"id" => id}) do
-    order = Users.get_order!(id)
+    prefix = conn.assigns.prefix
+    order = Users.get_order!(id, prefix)
 
     changeset = Users.change_order_item(%OrderItem{})
 
@@ -60,7 +62,7 @@ defmodule AOFFWeb.Volunteer.OrderController do
       user: order.user,
       order: order,
       products: products(),
-      dates: dates(),
+      dates: dates(prefix),
       changeset: changeset
     )
   end
@@ -84,25 +86,31 @@ defmodule AOFFWeb.Volunteer.OrderController do
     name <> " : " <> Money.to_string(price)
   end
 
-  defp dates() do
-    dates = Shop.list_dates(Date.add(AOFF.Time.today(), 0), 0, 5)
+  defp dates(prefix) do
+    dates = Shop.list_dates(prefix, Date.add(AOFF.Time.today(), 0), 0, 5)
     Enum.map(dates, fn x -> {AOFF.Time.date_as_string(x.date), x.id} end)
   end
 
   def delete(conn, %{"id" => id}) do
-    order = Users.get_order!(id)
+    order = Users.get_order!(id, conn.assigns.prefix)
     Users.delete_order(order)
 
     date_id = get_session(conn, :shop_assistant_date_id)
 
-    conn
-    |> put_flash(:info, gettext("Order is cancled"))
-    |> redirect(to: Routes.shop_assistant_date_path(conn, :show, date_id))
+    if date_id do
+      conn
+      |> put_flash(:info, gettext("Order is deleted"))
+      |> redirect(to: Routes.shop_assistant_date_path(conn, :show, date_id))
+    else
+      conn
+      |> put_flash(:info, gettext("Order is cancled"))
+      |> redirect(to: Routes.volunteer_order_path(conn, :index))
+    end
   end
 
   # def delete(conn, %{"id" => id}) do
 
-  #   order = Users.get_order(id)
+  #   order = Users.get_order(id, "public")
   #   {:ok, _order} = Users.delete_order(order)
 
   #   conn

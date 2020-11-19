@@ -7,10 +7,12 @@ defmodule AOFFWeb.Content.AboutController do
   plug :navbar when action in [:index, :show]
 
   def index(conn, _params) do
-    categories = Content.list_categories()
+    prefix = conn.assigns.prefix
+    categories = Content.list_categories(prefix)
 
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "/info",
         "Info",
         Gettext.get_locale()
@@ -18,6 +20,7 @@ defmodule AOFFWeb.Content.AboutController do
 
     {:ok, committees} =
       System.find_or_create_message(
+        prefix,
         "/info - committees",
         "Committees",
         Gettext.get_locale()
@@ -31,7 +34,7 @@ defmodule AOFFWeb.Content.AboutController do
   end
 
   def show(conn, %{"id" => id}) do
-    case Content.get_category!(id) do
+    case Content.get_category!(conn.assign.prefix, id) do
       nil ->
         conn
         |> put_flash(:info, gettext("Language updated"))

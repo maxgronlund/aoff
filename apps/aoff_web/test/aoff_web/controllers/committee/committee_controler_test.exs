@@ -8,6 +8,13 @@ defmodule AOFFWeb.Committees.CommitteeControllerTest do
   alias Plug.Conn
 
   describe "as a guest" do
+    setup do
+      conn =
+        build_conn()
+        |> assign(:prefix, "public")
+
+      {:ok, conn: conn}
+    end
     test "lists public committess", %{conn: conn} do
       _hidden_committee = committee_fixture(%{"public_access" => false})
       public_committee = committee_fixture(%{"public_access" => true})
@@ -40,6 +47,7 @@ defmodule AOFFWeb.Committees.CommitteeControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
+        |> assign(:prefix, "public")
 
       {:ok, conn: conn, user: user}
     end

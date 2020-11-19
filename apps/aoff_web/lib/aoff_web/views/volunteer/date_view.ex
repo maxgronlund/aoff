@@ -10,12 +10,13 @@ defmodule AOFFWeb.Volunteer.DateView do
 
   @not_found "<i class='red'>" <> gettext("Missing host") <> "</i>"
 
-  def shop_assistant(user_id) do
+  # TODO: bad design accessing the DB From a view
+  def shop_assistant(user_id, prefix) do
     cond do
       user_id == nil ->
         @not_found
 
-      user = Users.get_user(user_id) ->
+      user = Users.get_user(user_id, prefix) ->
         # {user.mobile}"
         "<b>#{user.username}</b> - " <>
           gettext("Mobile: %{mobile}", mobile: user.mobile)

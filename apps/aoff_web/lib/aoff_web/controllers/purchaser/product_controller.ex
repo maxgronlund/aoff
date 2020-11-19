@@ -8,7 +8,7 @@ defmodule AOFFWeb.Purchaser.ProductController do
   plug :authenticate when action in [:index, :show, :edit, :new, :update, :create, :delete]
 
   def index(conn, _params) do
-    products = Shop.list_products()
+    products = Shop.list_products(conn.assigns.prefix)
 
     conn
     |> assign(:selected_menu_item, :volunteer)
@@ -26,11 +26,12 @@ defmodule AOFFWeb.Purchaser.ProductController do
   end
 
   def create(conn, %{"product" => product_params}) do
+    prefix = conn.assigns.prefix
     {price, _} = product_params["price"] |> Float.parse()
     price = Money.new(trunc(price * 100), :DKK)
     product_params = Map.put(product_params, "price", price)
 
-    case Shop.create_product(product_params) do
+    case Shop.create_product(prefix, product_params) do
       {:ok, product} ->
         conn
         |> put_flash(:info, gettext("Please attach image."))
@@ -48,13 +49,15 @@ defmodule AOFFWeb.Purchaser.ProductController do
   end
 
   def show(conn, %{"id" => id}) do
-    product = Shop.get_product!(id)
+    prefix = conn.assigns.prefix
+    product = Shop.get_product!(prefix, id)
 
     render(conn, "show.html", product: product)
   end
 
   def edit(conn, %{"id" => id}) do
-    product = Shop.get_product!(id)
+    prefix = conn.assigns.prefix
+    product = Shop.get_product!(prefix, id)
     changeset = Shop.change_product(product)
 
     conn
@@ -67,8 +70,8 @@ defmodule AOFFWeb.Purchaser.ProductController do
     {price, _} = product_params["price"] |> Float.parse()
     price = Money.new(trunc(price * 100), :DKK)
     product_params = Map.put(product_params, "price", price)
-
-    product = Shop.get_product!(id)
+    prefix = conn.assigns.prefix
+    product = Shop.get_product!(prefix, id)
 
     case Shop.update_product(product, product_params) do
       {:ok, product} ->
@@ -92,7 +95,8 @@ defmodule AOFFWeb.Purchaser.ProductController do
   end
 
   def delete(conn, %{"id" => id}) do
-    product = Shop.get_product!(id)
+    prefix = conn.assigns.prefix
+    product = Shop.get_product!(prefix, id)
     {:ok, _product} = Shop.delete_product(product)
 
     conn

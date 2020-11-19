@@ -56,9 +56,7 @@ defmodule AOFF.Shop.ProductFixture do
 
   def product_fixture(attrs \\ %{}) do
     {:ok, product} =
-      attrs
-      |> Enum.into(@create_attrs)
-      |> Shop.create_product()
+      Shop.create_product("public", Enum.into(attrs, @create_attrs))
 
     product
   end

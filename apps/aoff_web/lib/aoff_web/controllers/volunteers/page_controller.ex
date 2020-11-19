@@ -27,7 +27,8 @@ defmodule AOFFWeb.Volunteer.PageController do
   # end
 
   def show(conn, %{"category_id" => category_id, "id" => id}) do
-    page = Content.get_page!(category_id, id)
+    prefix = conn.assigns.prefix
+    page = Content.get_page!(prefix ,category_id, id)
     render(conn, "show.html", page: page, category: page.category)
   end
 
@@ -42,7 +43,8 @@ defmodule AOFFWeb.Volunteer.PageController do
   end
 
   def new(conn, %{"category_id" => category_id}) do
-    category = Content.get_category!(category_id)
+    prefix = conn.assigns.prefix
+    category = Content.get_category!(prefix, category_id)
     prev_pos = prev_pos(category.pages)
     changeset = Content.change_page(%Page{position: prev_pos})
 
@@ -58,7 +60,8 @@ defmodule AOFFWeb.Volunteer.PageController do
   end
 
   def create(conn, %{"category_id" => category_id, "page" => page_attrs}) do
-    category = Content.get_category!(category_id)
+    prefix = conn.assigns.prefix
+    category = Content.get_category!(prefix, category_id)
     page_attrs = Map.put(page_attrs, "category_id", category.id)
 
     case Content.create_page(page_attrs) do
@@ -81,7 +84,9 @@ defmodule AOFFWeb.Volunteer.PageController do
   end
 
   def edit(conn, %{"category_id" => category_id, "id" => id}) do
-    if page = Content.get_page!(category_id, id) do
+    prefix = conn.assigns.prefix
+
+    if page = Content.get_page!(prefix, category_id, id) do
       changeset = Content.change_page(page)
 
       render(
@@ -92,7 +97,7 @@ defmodule AOFFWeb.Volunteer.PageController do
         changeset: changeset,
         author: page.author,
         date: page.date,
-        image_format: image_format()
+        image_format: image_format(prefix)
       )
     else
       conn
@@ -102,7 +107,8 @@ defmodule AOFFWeb.Volunteer.PageController do
   end
 
   def update(conn, %{"category_id" => category_id, "id" => id, "page" => page_params}) do
-    page = Content.get_page!(category_id, id)
+    prefix = conn.assigns.prefix
+    page = Content.get_page!(prefix, category_id, id)
 
     case Content.update_page(page, page_params) do
       {:ok, page} ->
@@ -119,14 +125,15 @@ defmodule AOFFWeb.Volunteer.PageController do
           changeset: changeset,
           author: page.author,
           date: page.date,
-          image_format: image_format(),
+          image_format: image_format(prefix),
           page: page
         )
     end
   end
 
-  def delete(conn, %{"category_id" => category_id, "id" => id}) do
-    page = Content.get_page!(category_id, id)
+  def delete(conn, %{"category_id" => _category_id, "id" => id}) do
+    prefix = conn.assigns.prefix
+    page = Content.get_page!(prefix, :category_id, id)
     {:ok, _category} = Content.delete_page(page)
 
     conn
@@ -154,9 +161,10 @@ defmodule AOFFWeb.Volunteer.PageController do
     assign(conn, :selected_menu_item, :volunteer)
   end
 
-  defp image_format() do
+  defp image_format(prefix) do
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "/volunteer/category/:id/edit",
         "Image format",
         Gettext.get_locale()

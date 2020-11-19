@@ -13,9 +13,9 @@
       = link gettext("Show"), to: Routes.admin_association_path(@conn, :show, association), class: "button button-outline"
       | &nbsp;
       = link gettext("Edit"), to: Routes.admin_association_path(@conn, :edit, association), class: "button"
-      /
-        | &nbsp;
-        = link "Delete", to: Routes.admin_association_path(@conn, :delete, association), method: :delete, data: [confirm: "Are you sure?"], class: "button button-red"
+
+      | &nbsp;
+      = link "Delete", to: Routes.admin_association_path(@conn, :delete, association), method: :delete, data: [confirm: "Are you sure?"], class: "button button-red"
     |&nbsp;
     br
     |&nbsp;

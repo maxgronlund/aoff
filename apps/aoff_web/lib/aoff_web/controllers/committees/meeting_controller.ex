@@ -4,7 +4,7 @@ defmodule AOFFWeb.Committees.MeetingController do
   alias AOFF.Committees
 
   def index(conn, _params) do
-    meetings = Committees.list_meetings()
+    meetings = Committees.list_meetings(conn.assigns.prefix)
     render(conn, "index.html", meetings: meetings)
   end
 
@@ -29,7 +29,7 @@ defmodule AOFFWeb.Committees.MeetingController do
   # end
 
   def show(conn, %{"id" => id}) do
-    meeting = Committees.get_meeting!(id)
+    meeting = Committees.get_meeting!(conn.assigns.prefix, id)
     render(conn, "show.html", committee: meeting.committee, meeting: meeting)
   end
 

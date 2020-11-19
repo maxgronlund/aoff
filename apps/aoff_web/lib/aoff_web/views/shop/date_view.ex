@@ -26,19 +26,20 @@ defmodule AOFFWeb.Shop.DateView do
     date
   end
 
-  def current_order(user_id) do
-    {:ok, %Order{} = order} = Users.current_order(user_id)
+  def current_order(user_id, prefix) do
+    {:ok, %Order{} = order} = Users.current_order(user_id, prefix)
     order
   end
 
   alias AOFF.System
 
-  def closed_for_orders_message() do
+  def closed_for_orders_message(prefix) do
     {:ok, message} =
       System.find_or_create_message(
         "/shop/dates/:id - closed for orders",
         "Closed for orders",
-        Gettext.get_locale()
+        Gettext.get_locale(),
+        prefix
       )
 
     message

@@ -23,6 +23,7 @@ defmodule AOFFWeb.ShopAssistant.DateControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
+        |> assign(prefix: "public")
 
       {:ok, conn: conn, user: user, date: date}
     end
@@ -34,7 +35,7 @@ defmodule AOFFWeb.ShopAssistant.DateControllerTest do
 
     test "show date", %{conn: conn, date: date} do
       conn = get(conn, Routes.shop_assistant_date_path(conn, :show, date))
-      assert html_response(conn, 200) =~ gettext("Schedules")
+      assert html_response(conn, 200) =~ gettext("Pickup lists")
     end
 
     # test "renders new product form", %{conn: conn} do

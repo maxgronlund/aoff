@@ -9,18 +9,19 @@ defmodule AOFFWeb.ShopAssistant.UserController do
   plug :authenticate when action in [:index]
 
   def index(conn, params) do
+    prefix = conn.assigns.prefix
     date_id = get_session(conn, :shop_assistant_date_id)
-    date = Shop.get_date!(date_id)
+    date = Shop.get_date!(prefix, date_id)
 
     users =
       if query = params["query"] do
-        Users.search_users(query)
+        Users.search_users(prefix, query)
       else
         page = params["page"] || "0"
-        Users.list_users(String.to_integer(page))
+        Users.list_users(prefix, String.to_integer(page))
       end
 
-    render(conn, "index.html", users: users, pages: Users.user_pages(), date: date)
+    render(conn, "index.html", users: users, pages: Users.user_pages(prefix), date: date)
   end
 
   defp authenticate(conn, _opts) do

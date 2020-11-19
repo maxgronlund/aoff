@@ -7,7 +7,7 @@ defmodule AOFF.System.UserImporter do
   alias AOFF.Users.User
   alias AOFF.Users
 
-  def import(path) do
+  def import(prefix, path) do
     str = HTTPoison.get!(path).body
     rows = UserCsvParser.parse_string(str)
 
@@ -37,7 +37,7 @@ defmodule AOFF.System.UserImporter do
       member_nr = attrs["member_nr"]
 
       unless member_nr == "" do
-        user = Users.get_user_by_member_nr(member_nr)
+        user = Users.get_user_by_member_nr(member_nr, prefix)
 
         if is_nil(user) do
           IO.puts("not found: " <> attrs["username"])
@@ -65,4 +65,4 @@ end
 
 # AOFF.System.UserImporter.to_date("~D[2020-01-18]")
 
-# AOFF.System.UserImporter.import("https://aoff.s3-eu-west-1.amazonaws.com/imports/aoff-import.csv")
+# AOFF.System.UserImporter.import("https://aoff.s3-eu-west-1.amazonaws.com/imports/aoff-import.csv", "prefix")

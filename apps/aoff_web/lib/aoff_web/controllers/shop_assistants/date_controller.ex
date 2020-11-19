@@ -12,14 +12,16 @@ defmodule AOFFWeb.ShopAssistant.DateController do
   @dates_pr_page 12
 
   def index(conn, params) do
+    prefix = conn.assigns.prefix
+
     page =
       case params["page"] do
         nil -> Shop.todays_page(@dates_pr_page)
         page -> String.to_integer(page)
       end
 
-    dates = Shop.list_all_dates(AOFF.Time.today(), page, @dates_pr_page)
-    date = Shop.get_next_date(AOFF.Time.today())
+    dates = Shop.list_all_dates(prefix, AOFF.Time.today(), page, @dates_pr_page)
+    date = Shop.get_next_date(prefix, AOFF.Time.today())
 
     render(
       conn,
@@ -32,7 +34,8 @@ defmodule AOFFWeb.ShopAssistant.DateController do
   end
 
   def show(conn, params) do
-    date = Shop.get_date!(params["id"])
+    prefix = conn.assigns.prefix
+    date = Shop.get_date!(prefix, params["id"])
     query = params["query"]
 
     conn =
@@ -43,9 +46,9 @@ defmodule AOFFWeb.ShopAssistant.DateController do
 
     pick_ups =
       if query do
-        Shop.search_pick_up(query, params["id"])
+        Shop.search_pick_up(prefix, query, params["id"])
       else
-        Shop.list_pick_ups(date.id)
+        Shop.list_pick_ups(prefix, date.id)
       end
 
     render(
@@ -57,14 +60,16 @@ defmodule AOFFWeb.ShopAssistant.DateController do
   end
 
   def edit(conn, %{"id" => id}) do
-    date = Shop.get_date!(id)
+    prefix = conn.assigns.prefix
+    date = Shop.get_date!(prefix, id)
 
     changeset = Shop.change_date(date)
-    render(conn, "edit.html", date: date, changeset: changeset, users: shop_assistans())
+    render(conn, "edit.html", date: date, changeset: changeset, users: shop_assistans(prefix))
   end
 
   def update(conn, %{"id" => id, "date" => date_params}) do
-    date = Shop.get_date!(id)
+    prefix = conn.assigns.prefix
+    date = Shop.get_date!(prefix, id)
 
     case Shop.update_date(date, date_params) do
       {:ok, _date} ->
@@ -73,12 +78,12 @@ defmodule AOFFWeb.ShopAssistant.DateController do
         |> redirect(to: Routes.shop_assistant_date_path(conn, :show, date))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", date: date, changeset: changeset, users: shop_assistans())
+        render(conn, "edit.html", date: date, changeset: changeset, users: shop_assistans(prefix))
     end
   end
 
-  defp shop_assistans() do
-    Enum.map(Users.list_shop_assistans(), fn u -> {u.username, u.id} end)
+  defp shop_assistans(prefix) do
+    Enum.map(Users.list_shop_assistans(prefix), fn u -> {u.username, u.id} end)
   end
 
   defp authenticate(conn, _opts) do

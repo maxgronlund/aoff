@@ -16,13 +16,13 @@ defmodule AOFF.Events do
       [%Participant{}, ...]
 
   """
-  def list_participants(:all, page_id) do
+  def list_participants(prefix, :all, page_id) do
     query =
       from p in Participant,
         where: p.page_id == ^page_id
 
     query
-    |> Repo.all()
+    |> Repo.all(prefix: prefix)
     |> Repo.preload(:user)
   end
 
@@ -35,26 +35,25 @@ defmodule AOFF.Events do
       %Participant{}
 
   """
-  def get_participant(id) do
+  def get_participant(prefix, id) do
     Participant
-    |> Repo.get(id)
+    |> Repo.get(id, prefix: prefix)
     |> Repo.preload(:page)
     |> Repo.preload(:user)
   end
 
-  def get_participant(page_id, user_id) do
+  def get_participant(page_id, user_id, prefix) do
     query =
       from p in Participant,
         where: p.user_id == ^user_id and p.page_id == ^page_id,
         limit: 1
 
     query
-    |> Repo.one()
+    |> Repo.one(prefix: prefix)
   end
 
-  def create_participant(attrs \\ %{}) do
-    %Participant{} |> Participant.changeset(attrs)
-    %Participant{} |> Participant.changeset(attrs) |> Repo.insert()
+  def create_participant(prefix, attrs \\ %{}) do
+    %Participant{} |> Participant.changeset(attrs) |> Repo.insert(prefix: prefix)
   end
 
   @doc """

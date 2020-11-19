@@ -5,14 +5,17 @@ defmodule AOFFWeb.Shop.CheckoutController do
   alias AOFF.System
 
   def edit(conn, %{"id" => id}) do
+    prefix = conn.assigns.prefix
+
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "/shop/checkout/:id/new",
         "Checkout",
         Gettext.get_locale()
       )
 
-    order = Users.get_order!(id)
+    order = Users.get_order!(prefix, id)
 
     changeset = Users.change_order(order)
 

@@ -8,17 +8,17 @@ defmodule AOFF.Volunteer.NewsletterTest do
   describe "newsletters" do
     test "list_newsletters/0 returns all newsletters" do
       newsletter = newsletter_fixture()
-      assert Volunteers.list_newsletters() == [newsletter]
+      assert Volunteers.list_newsletters("public") == [newsletter]
     end
 
     test "get_newsletter!/1 returns the newsletter with given id" do
       newsletter = newsletter_fixture()
-      assert Volunteers.get_newsletter!(newsletter.id) == newsletter
+      assert Volunteers.get_newsletter!("public", newsletter.id) == newsletter
     end
 
     test "create_newsletter/1 with valid data creates a newsletter" do
       attrs = valid_newsletter_attrs()
-      assert {:ok, %Newsletter{} = newsletter} = Volunteers.create_newsletter(attrs)
+      assert {:ok, %Newsletter{} = newsletter} = Volunteers.create_newsletter("public", attrs)
       assert newsletter.author == attrs["author"]
       assert newsletter.caption == attrs["caption"]
       assert newsletter.date == attrs["date"]
@@ -29,7 +29,7 @@ defmodule AOFF.Volunteer.NewsletterTest do
 
     test "create_newsletter/1 with invalid data returns error changeset" do
       invalid_attrs = invalid_newsletter_attrs()
-      assert {:error, %Ecto.Changeset{}} = Volunteers.create_newsletter(invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Volunteers.create_newsletter("public", invalid_attrs)
     end
 
     test "update_newsletter/2 with valid data updates the newsletter" do
@@ -48,13 +48,16 @@ defmodule AOFF.Volunteer.NewsletterTest do
       newsletter = newsletter_fixture()
       invalid_attrs = invalid_newsletter_attrs()
       assert {:error, %Ecto.Changeset{}} = Volunteers.update_newsletter(newsletter, invalid_attrs)
-      assert newsletter == Volunteers.get_newsletter!(newsletter.id)
+      assert newsletter == Volunteers.get_newsletter!("public", newsletter.id)
     end
 
     test "delete_newsletter/1 deletes the newsletter" do
       newsletter = newsletter_fixture()
       assert {:ok, %Newsletter{}} = Volunteers.delete_newsletter(newsletter)
-      assert_raise Ecto.NoResultsError, fn -> Volunteers.get_newsletter!(newsletter.id) end
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Volunteers.get_newsletter!("public", newsletter.id)
+      end
     end
 
     test "newsletter_send/1 update the send field" do

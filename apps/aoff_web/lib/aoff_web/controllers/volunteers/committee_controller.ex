@@ -9,7 +9,7 @@ defmodule AOFFWeb.Volunteer.CommitteeController do
   plug :authenticate when action in [:index, :new, :create, :edit, :update, :delete]
 
   def index(conn, _params) do
-    committees = Committees.list_committees()
+    committees = Committees.list_committees(conn.assigns.prefix)
     render(conn, "index.html", committees: committees)
   end
 
@@ -19,7 +19,7 @@ defmodule AOFFWeb.Volunteer.CommitteeController do
   end
 
   def create(conn, %{"committee" => committee_params}) do
-    case Committees.create_committee(committee_params) do
+    case Committees.create_committee(committee_params, conn.assigns.prefix) do
       {:ok, committee} ->
         conn
         |> put_flash(:info, gettext("Committee created successfully."))
@@ -31,13 +31,16 @@ defmodule AOFFWeb.Volunteer.CommitteeController do
   end
 
   def edit(conn, %{"id" => id}) do
-    committee = Committees.get_committee!(id)
+    prefix = conn.assigns.prefix
+
+    committee = Committees.get_committee!(prefix, id)
     changeset = Committees.change_committee(committee)
     render(conn, "edit.html", committee: committee, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "committee" => committee_params}) do
-    committee = Committees.get_committee!(id)
+    prefix = conn.assigns.prefix
+    committee = Committees.get_committee!(prefix, id)
 
     case Committees.update_committee(committee, committee_params) do
       {:ok, _committee} ->
@@ -51,7 +54,8 @@ defmodule AOFFWeb.Volunteer.CommitteeController do
   end
 
   def delete(conn, %{"id" => id}) do
-    committee = Committees.get_committee!(id)
+    prefix = conn.assigns.prefix
+    committee = Committees.get_committee!(prefix, id)
     {:ok, _committee} = Committees.delete_committee(committee)
 
     conn

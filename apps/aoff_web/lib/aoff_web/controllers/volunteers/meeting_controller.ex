@@ -10,7 +10,8 @@ defmodule AOFFWeb.Volunteer.MeetingController do
   plug :authenticate when action in [:index, :edit, :new, :update, :create, :delete]
 
   def new(conn, %{"committee_id" => committee_id}) do
-    committee = Committees.get_committee!(committee_id)
+    prefix = conn.assigns.prefix
+    committee = Committees.get_committee!(prefix, committee_id)
     changeset = Committees.change_meeting(%Meeting{date: Date.add(Date.utc_today(), 14)})
 
     render(
@@ -18,14 +19,15 @@ defmodule AOFFWeb.Volunteer.MeetingController do
       "new.html",
       changeset: changeset,
       committee: committee,
-      users: list_volunteers()
+      users: list_volunteers(prefix)
     )
   end
 
   def create(conn, %{"meeting" => meeting_params}) do
-    committee = Committees.get_committee!(meeting_params["committee_id"])
+    prefix = conn.assigns.prefix
+    committee = Committees.get_committee!(prefix, meeting_params["committee_id"])
 
-    case Committees.create_meeting(meeting_params) do
+    case Committees.create_meeting(prefix, meeting_params) do
       {:ok, meeting} ->
         conn
         |> put_flash(:info, gettext("Meeting created successfully."))
@@ -37,13 +39,14 @@ defmodule AOFFWeb.Volunteer.MeetingController do
           "new.html",
           changeset: changeset,
           committee: committee,
-          users: list_volunteers()
+          users: list_volunteers(conn.assigns.prefix)
         )
     end
   end
 
   def edit(conn, %{"id" => id}) do
-    meeting = Committees.get_meeting!(id)
+    prefix = conn.assigns.prefix
+    meeting = Committees.get_meeting!(prefix, id)
     changeset = Committees.change_meeting(meeting)
 
     render(
@@ -52,12 +55,13 @@ defmodule AOFFWeb.Volunteer.MeetingController do
       committee: meeting.committee,
       meeting: meeting,
       changeset: changeset,
-      users: list_volunteers()
+      users: list_volunteers(conn.assigns.prefix)
     )
   end
 
   def update(conn, %{"id" => id, "meeting" => meeting_params}) do
-    meeting = Committees.get_meeting!(id)
+    prefix = conn.assigns.prefix
+    meeting = Committees.get_meeting!(prefix, id)
 
     case Committees.update_meeting(meeting, meeting_params) do
       {:ok, meeting} ->
@@ -73,7 +77,8 @@ defmodule AOFFWeb.Volunteer.MeetingController do
   end
 
   def delete(conn, %{"id" => id}) do
-    meeting = Committees.get_meeting!(id)
+    prefix = conn.assigns.prefix
+    meeting = Committees.get_meeting!(prefix, id)
     {:ok, _meeting} = Committees.delete_meeting(meeting)
 
     conn
@@ -93,7 +98,7 @@ defmodule AOFFWeb.Volunteer.MeetingController do
     end
   end
 
-  defp list_volunteers() do
-    Enum.map(Users.list_volunteers(), fn u -> {u.username, u.id} end)
+  defp list_volunteers(prefix) do
+    Enum.map(Users.list_volunteers(prefix), fn u -> {u.username, u.id} end)
   end
 end

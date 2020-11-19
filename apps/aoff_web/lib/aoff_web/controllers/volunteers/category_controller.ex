@@ -13,16 +13,17 @@ defmodule AOFFWeb.Volunteer.CategoryController do
   plug :navbar when action in [:index, :new, :edit]
 
   def index(conn, _params) do
-    conn = assign(conn, :selected_menu_item, :volunteer)
+    prefix = conn.assigns.prefix
 
     {:ok, help_text} =
       System.find_or_create_message(
+        prefix,
         "/volunteer/categories",
         "Categories",
         Gettext.get_locale()
       )
 
-    categories = Content.list_categories(:all)
+    categories = Content.list_categories(prefix, :all)
     render(conn, "index.html", categories: categories, help_text: help_text)
   end
 
@@ -54,7 +55,9 @@ defmodule AOFFWeb.Volunteer.CategoryController do
   # end
 
   def edit(conn, %{"id" => id}) do
-    if category = Content.get_category!(id) do
+    prefix = conn.assigns.prefix
+
+    if category = Content.get_category!(prefix, id) do
       changeset = Content.change_category(category)
 
       render(
@@ -62,7 +65,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
         "edit.html",
         category: category,
         changeset: changeset,
-        image_format: image_format()
+        image_format: image_format(prefix)
       )
     else
       conn
@@ -72,7 +75,8 @@ defmodule AOFFWeb.Volunteer.CategoryController do
   end
 
   def update(conn, %{"id" => id, "category" => category_params}) do
-    category = Content.get_category!(id)
+    prefix = conn.assigns.prefix
+    category = Content.get_category!(prefix, id)
 
     case Content.update_category(category, category_params) do
       {:ok, _category} ->
@@ -86,13 +90,14 @@ defmodule AOFFWeb.Volunteer.CategoryController do
           "edit.html",
           category: category,
           changeset: changeset,
-          image_format: image_format()
+          image_format: image_format(prefix)
         )
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    category = Content.get_category!(id)
+    prefix = conn.assigns.prefix
+    category = Content.get_category!(prefix, id)
     {:ok, _category} = Content.delete_category(category)
 
     conn
@@ -130,9 +135,10 @@ defmodule AOFFWeb.Volunteer.CategoryController do
     |> assign(:title, gettext("About AOFF"))
   end
 
-  defp image_format() do
+  defp image_format(prefix) do
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "/volunteer/categorys/:id/edit",
         "Image format",
         Gettext.get_locale()
