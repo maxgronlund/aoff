@@ -189,4 +189,23 @@ defmodule AOFF.Admin do
       {:ok, %Postgrex.Result{columns: ["bool"], rows: [[true]]}} -> true
     end
   end
+
+  def get_prefix_by_host(host) do
+    IO.inspect "----------------"
+    IO.inspect host
+
+    query =
+      from a in Association,
+        where: a.host == ^host,
+        limit: 1
+
+    IO.inspect Repo.one(query)
+
+    "public"
+    # case Repo.one(query) do
+    # {:ok, association} ->
+    #   association.prefix
+    #  _ -> "public"
+    # end
+  end
 end

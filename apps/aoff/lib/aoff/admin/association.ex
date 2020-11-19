@@ -9,6 +9,7 @@ defmodule AOFF.Admin.Association do
     field :name, :string
     field :contact_person_1_title, :string
     field :contact_person_2_title, :string
+    field :host, :string
     belongs_to :contact_person_1, User
     belongs_to :contact_person_2, User
 
@@ -22,6 +23,7 @@ defmodule AOFF.Admin.Association do
       attrs,
       [
         :name,
+        :host,
         :contact_person_1_title,
         :contact_person_2_title,
         :contact_person_1_id,

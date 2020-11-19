@@ -66,7 +66,6 @@ defmodule AOFFWeb.Admin.AssociationController do
 
   def update(conn, %{"id" => id, "association" => association_params}) do
     association = Admin.get_association!(id)
-
     case Admin.update_association(association, association_params) do
       {:ok, association} ->
         conn

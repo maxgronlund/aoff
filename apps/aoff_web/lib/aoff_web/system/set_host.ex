@@ -1,18 +1,10 @@
 defmodule AOFFWeb.System.SetHost do
   import Plug.Conn
-
+  alias AOFF.Admin
   def init(opts), do: opts
 
   def call(conn, _options) do
-    prefix =
-      case conn.host do
-        "1b6e2f270c4f.ngrok.io" ->
-          "prefix_roff"
-
-        _ ->
-          "public"
-      end
-
+    prefix = Admin.get_prefix_by_host(conn.host)
     conn
     |> assign(:prefix, prefix)
   end
