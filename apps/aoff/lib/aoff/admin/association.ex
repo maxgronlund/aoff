@@ -10,6 +10,7 @@ defmodule AOFF.Admin.Association do
     field :contact_person_1_title, :string
     field :contact_person_2_title, :string
     field :host, :string
+    field :prefix, :string
     belongs_to :contact_person_1, User
     belongs_to :contact_person_2, User
 
@@ -24,6 +25,7 @@ defmodule AOFF.Admin.Association do
       [
         :name,
         :host,
+        :prefix,
         :contact_person_1_title,
         :contact_person_2_title,
         :contact_person_1_id,
@@ -32,5 +34,6 @@ defmodule AOFF.Admin.Association do
     )
     |> validate_required([:name])
     |> unique_constraint(:name)
+    |> unique_constraint(:prefix)
   end
 end

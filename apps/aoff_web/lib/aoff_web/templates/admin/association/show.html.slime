@@ -15,6 +15,9 @@ ul
   li
     strong Name:&nbsp;
     = @association.name
+  li
+    strong Prefix:&nbsp;
+    = @association.prefix
 
 = link "Edit", to: Routes.admin_association_path(@conn, :edit, @association)
 | &nbsp;

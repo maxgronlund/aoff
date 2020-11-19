@@ -11,8 +11,8 @@
           = error_tag f, :name
         .form-group
           = label f, :host, gettext("Host address"), class: "control-label"
-	  = text_input f, :host, class: "form-controll full-width"
-	  = error_tag f, :host
+          = text_input f, :host, class: "form-controll full-width"
+          = error_tag f, :host
     .row
       .column
         .alert.alert-box
