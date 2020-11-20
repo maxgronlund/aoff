@@ -200,7 +200,7 @@ defmodule AOFF.Admin do
   end
 
   def get_prefix_by_host(host) do
-
+    host = String.replace(host, "www.", "")
     case Repo.get_by(Association, host: host) do
       nil -> "public"
       association ->
