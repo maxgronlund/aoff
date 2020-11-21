@@ -13,3 +13,4 @@ erl_crash.dump
 /apps/aoff_web/cover
 /apps/aoff/cover
 restore_db.txt
+.swp
