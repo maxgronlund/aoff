@@ -17,7 +17,7 @@ config :aoff_web, AOFFWeb.Endpoint,
   force_ssl: [host: nil, rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json",
   after_connect: {Postgrex, :query!, query_args},
-  check_origin: false
+  check_origin: ["synthmax.dk", "aoff.dk", "røfftest.dk"] 
 
 # ## SSL Support
 #
