@@ -36,10 +36,10 @@ defmodule AOFFWeb.Shop.DateView do
   def closed_for_orders_message(prefix) do
     {:ok, message} =
       System.find_or_create_message(
+        prefix,
         "/shop/dates/:id - closed for orders",
         "Closed for orders",
-        Gettext.get_locale(),
-        prefix
+        Gettext.get_locale()
       )
 
     message
