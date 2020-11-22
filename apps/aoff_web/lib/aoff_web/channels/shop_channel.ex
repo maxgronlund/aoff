@@ -22,9 +22,9 @@ defmodule AOFFWeb.ShopChannel do
     # TODO: find host and convert to prefix
     prefix = payload["prefix"]
 
-    user = Users.get_user!(payload["user_id"], prefix)
-    order = Users.current_order(payload["user_id"], prefix)
-    product = Shop.get_product!(payload["product_id"], prefix)
+    user = Users.get_user!(prefix, payload["user_id"])
+    order = Users.current_order(prefix, payload["user_id"])
+    product = Shop.get_product!(prefix, payload["product_id"])
 
     pick_up_params = %{
       "date_id" => payload["date_id"],
@@ -42,7 +42,7 @@ defmodule AOFFWeb.ShopChannel do
         "order_id" => order.id
       })
 
-    Users.add_order_item_to_basket(pick_up_params, order_item_params, prefix)
+    Users.add_order_item_to_basket(prefix, pick_up_params, order_item_params)
 
     {:reply, {:ok, payload}, socket}
   end

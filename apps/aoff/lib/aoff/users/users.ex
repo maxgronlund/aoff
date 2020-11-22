@@ -846,9 +846,8 @@ defmodule AOFF.Users do
       Repo.transaction(fn ->
         {:ok, pick_up} = Shop.find_or_create_pick_up(prefix, pick_up_params)
 
-        order_item_params
-        |> Map.merge(%{"pick_up_id" => pick_up.id})
-        |> create_order_item(prefix)
+        params = Map.merge(order_item_params, %{"pick_up_id" => pick_up.id})
+        create_order_item(prefix, params)
       end)
 
     case result do

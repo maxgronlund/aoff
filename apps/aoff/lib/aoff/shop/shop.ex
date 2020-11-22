@@ -420,6 +420,7 @@ defmodule AOFF.Shop do
     case Repo.one(query, prefix: prefix) do
       nil ->
         create_pick_up(
+          prefix,
           %{
             "user_id" => user_id,
             "username" => username,
@@ -428,8 +429,7 @@ defmodule AOFF.Shop do
             "picked_up" => false,
             "order_id" => order_id,
             "email" => email
-          },
-          prefix
+          }
         )
 
       %PickUp{} = pick_up ->
