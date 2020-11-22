@@ -14,9 +14,10 @@ query_args = ["SET search_path TO public", []]
 config :aoff_web, AOFFWeb.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [scheme: "https", host: "aoff.dk", port: 443],
-  force_ssl: [rewrite_on: [:x_forwarded_proto]],
+  force_ssl: [host: nil, rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json",
-  after_connect: {Postgrex, :query!, query_args}
+  after_connect: {Postgrex, :query!, query_args},
+  check_origin: false
 
 # ## SSL Support
 #

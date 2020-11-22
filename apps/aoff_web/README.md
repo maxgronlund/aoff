@@ -22,7 +22,7 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 
 
 ## Heroku
-  * migrating the db: ```$ heroku run "POOL_SIZE=2 mix exto.migrate"```
+  * migrating the db: ```$ heroku run "POOL_SIZE=2 mix ecto.migrate"```
 
   * Running the server: ```$ heroku run "POOL_SIZE=2 iex -S mix"```
 

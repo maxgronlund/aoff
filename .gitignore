@@ -8,8 +8,9 @@ erl_crash.dump
 *.beam
 *.dump
 .elixir_ls/
-*.DS_Store
+.DS_Store
 *.archived
 /apps/aoff_web/cover
 /apps/aoff/cover
 restore_db.txt
+.swp
