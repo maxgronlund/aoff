@@ -42,6 +42,7 @@ defmodule AOFFWeb.UserController do
 
     case Users.create_user(prefix, user_params) do
       {:ok, user} ->
+        IO.inspect user
         username_and_email = {user.username, user.email}
 
         confirm_email_url =
@@ -61,8 +62,10 @@ defmodule AOFFWeb.UserController do
         redirect(conn, to: Routes.user_welcome_path(conn, :index, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        IO.inspect changeset
         {:ok, message} =
           System.find_or_create_message(
+            prefix,
             "/users/new",
             "Create account",
             Gettext.get_locale()
