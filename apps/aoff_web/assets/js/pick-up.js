@@ -17,9 +17,11 @@ let PickUp = {
 
 
         let pickUpId = $(this).attr('pick_up_id')
+        let prefix = $(this).attr('prefix')
         let params =
           {
-            "pick_up_id": pickUpId
+            "pick_up_id": pickUpId,
+            "prefix": prefix
           }
         channel.push('handled', params)
         $( `#` + pickUpId).show()

@@ -20,17 +20,15 @@ defmodule AOFFWeb.PickUpChannel do
   alias AOFF.Shop
 
   def handle_in("handled", payload, socket) do
-    IO.inspect(payload)
-    IO.inspect(socket)
-
-    pick_up = Shop.get_pick_up!(payload["pick_up_id"])
+    pick_up = Shop.get_pick_up!(payload["prefix"], payload["pick_up_id"])
     Shop.update_pick_up(pick_up, %{"picked_up" => true})
 
     {:reply, {:ok, payload}, socket}
   end
 
   def handle_in("send_sms_reminder", payload, socket) do
-    pick_up = Shop.get_pick_up!(payload["pick_up_id"])
+    prefix = payload["prefix"]
+    pick_up = Shop.get_pick_up!(prefix, payload["pick_up_id"])
 
     Shop.update_pick_up(pick_up, %{"send_sms_notification" => false})
 
@@ -39,15 +37,16 @@ defmodule AOFFWeb.PickUpChannel do
 
     {:ok, pickup_message} =
       System.find_or_create_message(
+        prefix,
         "/channels/pickup_channel",
         "Hi USERNAME. Remember to pickup your order today before 6 PM",
-        Gettext.get_locale(),
-        "public"
+        Gettext.get_locale()
       )
+
 
     params = %{
       "mobile" => mobile,
-      "text" => pickup_message
+      "text" => String.replace(pickup_message.title, "USERNAME", user.username)
     }
 
     AOFF.SMSApi.send_sms_message(params)

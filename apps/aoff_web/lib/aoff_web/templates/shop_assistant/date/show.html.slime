@@ -93,7 +93,7 @@
               to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up),\
               class: "button button-outline float-right"
           - else
-            .button.pick_up_botton  pick_up_id="#{pick_up.id}"
+            .button.pick_up_botton  pick_up_id="#{pick_up.id}" prefix="#{@conn.assigns.prefix}"
               = gettext("Awaits")
             = link gettext("Handed"),\
               to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up),\

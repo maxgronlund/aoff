@@ -64,11 +64,6 @@
                 to: Routes.purchaser_date_path(@conn, :show, @date),\
                 class: "button button-outline"
 
-
-
-
-
-
 = render AOFFWeb.Shop.ShopView, "membership_expired.html", assigns
 
 
