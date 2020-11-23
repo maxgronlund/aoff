@@ -30,7 +30,7 @@ defmodule AOFFWeb.ShopAssistant.DateView do
       user_id == nil ->
         @not_found
 
-      user = Users.get_user(user_id, prefix) ->
+      user = Users.get_user(prefix, user_id) ->
         "<b>#{user.username}</b>
         <br/>" <>
           "<a href=mailto:#{user.email}>" <>
