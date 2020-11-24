@@ -29,11 +29,11 @@ defmodule AOFFWeb.ShopAssistant.PickUpController do
 
     page =
       case params["page"] do
-        nil -> Shop.todays_page(@dates_pr_page)
+        nil -> Shop.todays_page(prefix, @dates_pr_page)
         page -> String.to_integer(page)
       end
 
-    dates = Shop.list_all_dates(AOFF.Time.today(), page, @dates_pr_page)
+    dates = Shop.list_all_dates(prefix, AOFF.Time.today(), page, @dates_pr_page)
     date = Shop.get_next_date(prefix, AOFF.Time.today())
 
     render(
