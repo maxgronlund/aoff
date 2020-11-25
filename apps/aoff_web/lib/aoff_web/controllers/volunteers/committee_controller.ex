@@ -19,7 +19,8 @@ defmodule AOFFWeb.Volunteer.CommitteeController do
   end
 
   def create(conn, %{"committee" => committee_params}) do
-    case Committees.create_committee(committee_params, conn.assigns.prefix) do
+    prefix = conn.assigns.prefix
+    case Committees.create_committee(prefix, committee_params) do
       {:ok, committee} ->
         conn
         |> put_flash(:info, gettext("Committee created successfully."))
