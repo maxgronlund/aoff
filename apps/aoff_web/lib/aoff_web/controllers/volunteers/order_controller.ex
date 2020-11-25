@@ -38,7 +38,7 @@ defmodule AOFFWeb.Volunteer.OrderController do
     end
   end
 
-  defp pages_count(params, prefix) do
+  defp pages_count(prefix, params) do
     cond do
       params["query"] -> false
       true -> Users.order_pages_count(prefix, @orders_pr_page)
