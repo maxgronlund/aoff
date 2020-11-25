@@ -46,7 +46,8 @@ defmodule AOFFWeb.Volunteer.OrderController do
   end
 
   def show(conn, %{"id" => id}) do
-    order = Users.get_order!(id, "public")
+    prefix = conn.assigns.prefix
+    order = Users.get_order!(prefix, id)
     render(conn, "show.html", order: order)
   end
 
