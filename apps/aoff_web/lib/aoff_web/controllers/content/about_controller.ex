@@ -34,7 +34,8 @@ defmodule AOFFWeb.Content.AboutController do
   end
 
   def show(conn, %{"id" => id}) do
-    case Content.get_category!(conn.assign.prefix, id) do
+    prefix = conn.assigns.prefix
+    case Content.get_category!(prefix, id) do
       nil ->
         conn
         |> put_flash(:info, gettext("Language updated"))
