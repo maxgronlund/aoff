@@ -34,7 +34,7 @@ $ mix ecto.create
 
 Then you can migrate the database
 ```
-$ mix ecto.migrage
+$ mix ecto.migrate --<<< add schema
 ```
 Seed the database
 ```

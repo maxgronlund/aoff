@@ -16,7 +16,7 @@ defmodule AOFFWeb.Volunteer.DateView do
       user_id == nil ->
         @not_found
 
-      user = Users.get_user(user_id, prefix) ->
+      user = Users.get_user(prefix, user_id) ->
         # {user.mobile}"
         "<b>#{user.username}</b> - " <>
           gettext("Mobile: %{mobile}", mobile: user.mobile)

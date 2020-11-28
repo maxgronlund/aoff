@@ -48,8 +48,9 @@ defmodule AOFF.Shop do
     Repo.all(query, prefix: prefix)
   end
 
-  def date_pages(per_page \\ @dates_pr_page) do
-    dates = Repo.one(from d in Date, select: count(d.id))
+  def date_pages(prefix, per_page \\ @dates_pr_page) do
+    query = from d in Date, select: count(d.id)
+    dates = Repo.one(query, prefix: prefix)
     Integer.floor_div(dates, per_page)
   end
 

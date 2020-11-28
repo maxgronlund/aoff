@@ -20,7 +20,7 @@ defmodule AOFFWeb.Volunteer.DateController do
       conn,
       "index.html",
       dates: dates,
-      pages: Shop.date_pages(),
+      pages: Shop.date_pages(prefix),
       page: String.to_integer(page)
     )
   end
