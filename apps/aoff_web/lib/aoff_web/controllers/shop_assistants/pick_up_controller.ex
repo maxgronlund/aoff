@@ -41,7 +41,7 @@ defmodule AOFFWeb.ShopAssistant.PickUpController do
       "index.html",
       dates: dates,
       date: date,
-      pages: Shop.date_pages(),
+      pages: Shop.date_pages(prefix),
       page: page
     )
   end
