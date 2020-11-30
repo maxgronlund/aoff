@@ -295,7 +295,7 @@ defmodule AOFF.Users do
     attrs = set_subsribe_to_news_token(attrs)
 
     %User{expiration_date: Date.add(AOFF.Time.today(), -1)}
-    |> User.registration_changeset(attrs)
+    |> User.registration_changeset(prefix, attrs)
     |> Repo.insert(prefix: prefix)
   end
 
@@ -527,9 +527,9 @@ defmodule AOFF.Users do
     end
   end
 
-  def last_member_nr() do
+  def last_member_nr(prefix \\ "public") do
     query = from(u in User, order_by: [desc: u.member_nr], select: u.member_nr, limit: 1)
-    Repo.one(query)
+    Repo.one(query, prefix: prefix)
   end
 
   alias AOFF.Users.Order

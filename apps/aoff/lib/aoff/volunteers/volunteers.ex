@@ -98,7 +98,7 @@ defmodule AOFF.Volunteers do
       |> set_unsubsribe_to_news_token()
 
     %User{expiration_date: Date.add(AOFF.Time.today(), -1)}
-    |> User.volunteer_changeset(attrs)
+    |> User.volunteer_changeset(prefix, attrs)
     |> Repo.insert(prefix: prefix)
   end
 

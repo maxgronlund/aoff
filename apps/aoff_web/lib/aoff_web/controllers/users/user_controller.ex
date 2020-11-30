@@ -11,7 +11,8 @@ defmodule AOFFWeb.UserController do
   plug :navbar when action in [:new, :edit]
 
   def new(conn, _params) do
-    last_member_nr = Users.last_member_nr() || 0
+    prefix = conn.assigns.prefix
+    last_member_nr = Users.last_member_nr(prefix) || 0
 
     changeset =
       Users.change_user(%User{
@@ -21,7 +22,7 @@ defmodule AOFFWeb.UserController do
 
     {:ok, message} =
       System.find_or_create_message(
-        conn.assigns.prefix,
+        prefix,
         "/users/new",
         "Create account",
         Gettext.get_locale()
@@ -42,7 +43,6 @@ defmodule AOFFWeb.UserController do
 
     case Users.create_user(prefix, user_params) do
       {:ok, user} ->
-        IO.inspect user
         username_and_email = {user.username, user.email}
 
         confirm_email_url =
@@ -62,7 +62,6 @@ defmodule AOFFWeb.UserController do
         redirect(conn, to: Routes.user_welcome_path(conn, :index, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        IO.inspect changeset
         {:ok, message} =
           System.find_or_create_message(
             prefix,

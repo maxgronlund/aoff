@@ -98,12 +98,12 @@ defmodule AOFF.Users.User do
   end
 
   @doc false
-  def volunteer_changeset(user, attrs) do
+  def volunteer_changeset(user, prefix, attrs) do
     attrs =
       Map.merge(
         attrs,
         %{
-          "member_nr" => last_member_nr(attrs) + 1,
+          "member_nr" => last_member_nr(prefix, attrs) + 1,
           "registration_date" => AOFF.Time.today()
         }
       )
@@ -295,12 +295,12 @@ defmodule AOFF.Users.User do
     |> cast_attachments(attrs, [:avatar])
   end
 
-  def registration_changeset(user, attrs) do
+  def registration_changeset(user, prefix, attrs) do
     attrs =
       Map.merge(
         attrs,
         %{
-          "member_nr" => last_member_nr(attrs) + 1,
+          "member_nr" => last_member_nr(prefix, attrs) + 1,
           "registration_date" => AOFF.Time.today(),
           "password_reset_token" => Ecto.UUID.generate(),
           "password_reset_expires" => AOFF.Time.now()
@@ -356,8 +356,8 @@ defmodule AOFF.Users.User do
     )
   end
 
-  def last_member_nr(attrs) do
-    Users.last_member_nr() || attrs["member_nr"] || 0
+  def last_member_nr(prefix, attrs) do
+    Users.last_member_nr(prefix) || attrs["member_nr"] || 0
   end
 
   @doc false

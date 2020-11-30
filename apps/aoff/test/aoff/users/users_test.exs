@@ -109,7 +109,6 @@ defmodule AOFF.UsersTest do
 
     test "create_user/1 with valid data creates a user" do
       attrs = valid_attrs()
-
       assert {:ok, %User{} = user} = Users.create_user("public", attrs)
       assert user.username == attrs["username"]
       assert user.email == attrs["email"]
@@ -117,7 +116,7 @@ defmodule AOFF.UsersTest do
     end
 
     test "create_user/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Users.create_user(invalid_attrs())
+      assert {:error, %Ecto.Changeset{}} = Users.create_user("public", invalid_attrs())
     end
 
     test "update_user/2 with valid data updates the user" do
@@ -265,12 +264,6 @@ defmodule AOFF.UsersTest do
 
       assert user.expiration_date == Date.add(expiration_date, 365)
     end
-
-    # test "last_member_nr/0 returne the last member_nr" do
-    #   _user = user_fixture()
-    #   user = user_fixture(%{"member_nr" => 2})
-    #   assert Users.last_member_nr() == user.member_nr
-    # end
   end
 
   describe "news mail" do
