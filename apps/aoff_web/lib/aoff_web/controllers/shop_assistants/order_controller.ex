@@ -23,7 +23,7 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
       user: order.user,
       order: order,
       date: date,
-      products: products(),
+      products: products(prefix),
       dates: dates(prefix),
       changeset: changeset
     )
@@ -82,8 +82,8 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
     |> halt()
   end
 
-  defp products() do
-    products = Shop.list_products(:for_sale)
+  defp products(prefix) do
+    products = Shop.list_products(prefix, :for_sale)
     Enum.map(products, fn x -> name_and_id(x) end)
   end
 
@@ -102,7 +102,7 @@ defmodule AOFFWeb.ShopAssistant.OrderController do
   end
 
   defp dates(prefix) do
-    dates = Shop.list_dates(Date.add(prefix, AOFF.Time.today(), -7), 0, 7)
+    dates = Shop.list_dates(prefix, Date.add(AOFF.Time.today(), -7), 0, 7)
     Enum.map(dates, fn x -> {AOFF.Time.date_as_string(x.date), x.id} end)
   end
 
