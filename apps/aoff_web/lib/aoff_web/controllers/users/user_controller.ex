@@ -49,8 +49,7 @@ defmodule AOFFWeb.UserController do
 
         confirm_email_url =
           host_url <>
-            conn.request_path <>
-            "/" <>
+            "users/" <>
             user.password_reset_token <>
             "/confirm_email"
 
