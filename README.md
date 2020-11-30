@@ -79,7 +79,9 @@ The system relies on a couple of external serveces:
 
 Run migration on heroku
 ```
-heroku run "POOL_SIZE=2 mix ecto.migrate"
+heroku run "POOL_SIZE=2 mix ecto.migrate --prefix 'public'"
+heroku run "POOL_SIZE=2 mix ecto.migrate --prefix 'prefix_synthmax'"
+heroku run "POOL_SIZE=2 mix ecto.migrate --prefix 'prefix_røfftest'"
 ```
 
 Run phoenix from the console

@@ -207,4 +207,13 @@ defmodule AOFF.Admin do
         association.prefix
     end
   end
+
+  def get_host_by_prefix(prefix) do
+    case Repo.get_by(Association, prefix: prefix) do
+      nil -> "https://aoff.dk"
+      association ->
+        "https://" <>
+        association.host
+    end
+  end
 end

@@ -41,12 +41,14 @@ defmodule AOFFWeb.UserController do
   def create(conn, %{"user" => user_params}) do
     prefix = conn.assigns.prefix
 
+
     case Users.create_user(prefix, user_params) do
       {:ok, user} ->
         username_and_email = {user.username, user.email}
+        host_url = AOFF.Admin.get_host_by_prefix(prefix)
 
         confirm_email_url =
-          AOFFWeb.Router.Helpers.url(conn) <>
+          host_url <>
             conn.request_path <>
             "/" <>
             user.password_reset_token <>

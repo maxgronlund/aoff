@@ -44,7 +44,9 @@ defmodule AOFFWeb.ResendConfirmEmailController do
   end
 
   defp resend_confirm_email(conn, user) do
+    prefix = conn.assigns.prefix
     username_and_email = {user.username, user.email}
+    host_url = AOFF.Admin.get_host_by_prefix(prefix)
 
     token = Ecto.UUID.generate()
 
@@ -54,7 +56,7 @@ defmodule AOFFWeb.ResendConfirmEmailController do
     )
 
     confirm_email_url =
-      AOFFWeb.Router.Helpers.url(conn) <>
+      host_url <>
         conn.request_path <>
         "/" <>
         token <>
