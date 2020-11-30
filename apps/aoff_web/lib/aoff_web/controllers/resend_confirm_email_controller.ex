@@ -57,7 +57,7 @@ defmodule AOFFWeb.ResendConfirmEmailController do
 
     confirm_email_url =
       host_url <>
-        "users/" <>
+        "/users/" <>
         token <>
         "/confirm_email"
 

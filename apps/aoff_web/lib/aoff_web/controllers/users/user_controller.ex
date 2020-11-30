@@ -49,7 +49,7 @@ defmodule AOFFWeb.UserController do
 
         confirm_email_url =
           host_url <>
-            "users/" <>
+            "/users/" <>
             user.password_reset_token <>
             "/confirm_email"
 
