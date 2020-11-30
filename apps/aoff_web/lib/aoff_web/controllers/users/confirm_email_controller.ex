@@ -15,8 +15,7 @@ defmodule AOFFWeb.Users.ConfirmEmailController do
           prefix,
           "Email confirmed",
           "Email confirmed",
-          Gettext.get_locale(),
-          conn.assigns.prefix
+          Gettext.get_locale()
         )
 
       render(conn, "index.html", user: user, message: message)
