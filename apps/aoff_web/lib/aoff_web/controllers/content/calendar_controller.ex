@@ -9,7 +9,6 @@ defmodule AOFFWeb.Content.CalendarController do
   def index(conn, _params) do
     prefix = conn.assigns.prefix
     {:ok, calendar} = Content.find_or_create_category(prefix, "Calendar")
-    IO.inspect(calendar)
 
     {:ok, message} =
       System.find_or_create_message(
@@ -35,7 +34,7 @@ defmodule AOFFWeb.Content.CalendarController do
 
       page ->
         participants = Events.list_participants(prefix, :all, page.id)
-        participant = participant(conn, page)
+        participant = participant(prefix, conn, page)
 
         changeset =
           case conn.assigns.current_user do
@@ -61,10 +60,10 @@ defmodule AOFFWeb.Content.CalendarController do
     end
   end
 
-  defp participant(conn, page) do
+  defp participant(prefix, conn, page) do
     case conn.assigns.current_user do
       nil -> false
-      _ -> Events.get_participant(page.id, conn.assigns.current_user.id)
+      _ -> Events.get_participant(prefix, page.id, conn.assigns.current_user.id)
     end
   end
 
@@ -80,7 +79,6 @@ defmodule AOFFWeb.Content.CalendarController do
           )
 
         message
-
       _ ->
         ""
     end

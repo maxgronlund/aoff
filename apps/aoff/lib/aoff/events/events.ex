@@ -42,7 +42,7 @@ defmodule AOFF.Events do
     |> Repo.preload(:user)
   end
 
-  def get_participant(page_id, user_id, prefix) do
+  def get_participant(prefix, page_id, user_id) do
     query =
       from p in Participant,
         where: p.user_id == ^user_id and p.page_id == ^page_id,
