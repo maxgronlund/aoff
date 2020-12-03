@@ -94,7 +94,7 @@ defmodule AOFFWeb.UserController do
       |> assign(:selected_menu_item, :user)
       |> assign(:title, user.username)
 
-    host_dates = Users.host_dates(Date.utc_today(), user.id)
+    host_dates = Users.host_dates(prefix, Date.utc_today(), user.id)
 
     {:ok, message} =
       System.find_or_create_message(

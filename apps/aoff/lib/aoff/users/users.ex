@@ -122,7 +122,7 @@ defmodule AOFF.Users do
     Integer.floor_div(users, per_page)
   end
 
-  def host_dates(date, user_id) do
+  def host_dates(prefix, date, user_id) do
     dates =
       from d in AOFF.Shop.Date,
         order_by: [asc: d.date],
@@ -133,7 +133,7 @@ defmodule AOFF.Users do
 
     host_dates =
       dates
-      |> Repo.all()
+      |> Repo.all(prefix: prefix)
 
     if Enum.empty?(host_dates), do: false, else: host_dates
   end

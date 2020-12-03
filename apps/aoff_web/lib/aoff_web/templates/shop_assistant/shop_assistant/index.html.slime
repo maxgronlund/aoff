@@ -11,19 +11,19 @@ p= gettext("Please select an opening date")
             = date(date.date)
         .card-content
           = gettext("Open")
-          = if name = assistant_name(date.shop_assistant_a, @conn.assigns.prefix) do
+          = if name = assistant_name(@conn.assigns.prefix, date.shop_assistant_a) do
             br
             =name
-          = if name = assistant_name(date.shop_assistant_b, @conn.assigns.prefix) do
+          = if name = assistant_name(@conn.assigns.prefix, date.shop_assistant_b) do
             br
             =name
           hr
           = gettext("Close")
-          = if name = assistant_name(date.shop_assistant_c, @conn.assigns.prefix) do
+          = if name = assistant_name(@conn.assigns.prefix, date.shop_assistant_c) do
             br
             =name
 
-          = if name = assistant_name(date.shop_assistant_d, @conn.assigns.prefix) do
+          = if name = assistant_name(@conn.assigns.prefix, date.shop_assistant_d) do
             br
             =name
           / = date.
