@@ -799,17 +799,18 @@ defmodule AOFF.Users do
 
   ## Examples
 
-      iex> get_order_item(123)
+      iex> get_order_item!(123)
       %OrderItem{}
 
-      iex> get_order_item(456)
+      iex> get_order_item!(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_order_item(prefix, id) do
+  def get_order_item!(prefix, id) do
     OrderItem
     |> Repo.get!(id, prefix: prefix)
     |> Repo.preload(order: [:user])
+    |> Repo.preload(:date)
   end
 
   @doc """

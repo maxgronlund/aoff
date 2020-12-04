@@ -2,6 +2,7 @@ defmodule AOFFWeb.ShopAssistant.OrderItemController do
   use AOFFWeb, :controller
 
   alias AOFF.Users
+  alias AOFF.Users.OrderItem
   alias AOFF.Shop
   alias AOFFWeb.Users.Auth
 
@@ -61,10 +62,24 @@ defmodule AOFFWeb.ShopAssistant.OrderItemController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    order_item = Users.get_order_item!(id)
-
+  def edit(conn, %{"id" => id}) do
     prefix = conn.assigns.prefix
+
+    case  Users.get_order_item!(prefix, id) do
+      %OrderItem{} = order_item ->
+        IO.inspect order_item
+        changeset = Users.change_order_item(order_item)
+        render(conn, "edit.html", order_item: order_item, changeset: changeset)
+      _ ->
+        render(conn, "not_found.html")
+    end
+  end
+
+  def delete(conn, %{"id" => id}) do
+    prefix = conn.assigns.prefix
+    order_item = Users.get_order_item!(prefix, id)
+
+
 
     case Users.delete_order_item(prefix, order_item) do
       {:ok, order_item} ->
