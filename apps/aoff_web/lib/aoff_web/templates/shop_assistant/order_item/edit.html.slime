@@ -11,6 +11,16 @@
           = link gettext("Pickup lists"), to: Routes.shop_assistant_pick_up_path(@conn, :index)
         li
           = link date(@order_item.date.date), to: Routes.shop_assistant_date_path(@conn, :show, @order_item.date)
+        li
+          = link product_name(@order_item.product), to: Routes.shop_assistant_pick_up_path(@conn, :edit, @order_item.pick_up_id)
+
         li.is-active
           | &nbsp;
-          = gettext("Pickup")
+          = gettext("Edit")
+
+h2 = gettext("Pickup date for: %{product_name}", product_name: product_name(@order_item.product))
+
+.row.mt-1
+  .column
+    .tile
+      = render "form.html", Map.put(assigns, :action, Routes.shop_assistant_order_order_item_path(@conn, :update, @order_item.order, @order_item))

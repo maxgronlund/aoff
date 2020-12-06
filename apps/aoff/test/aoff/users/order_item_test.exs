@@ -50,7 +50,7 @@ defmodule AOFF.Users.OrderItemTest do
           "price" => product.price
         })
 
-      assert Users.get_order_item("public", order_item.id).id == order_item.id
+      assert Users.get_order_item!("public", order_item.id).id == order_item.id
     end
 
     test "create_order_item/1 with valid data creates a order_item",
@@ -87,7 +87,7 @@ defmodule AOFF.Users.OrderItemTest do
         })
 
       assert {:ok, %OrderItem{}} = Users.delete_order_item("public", order_item)
-      assert_raise Ecto.NoResultsError, fn -> Users.get_order_item("public", order_item.id) end
+      assert_raise Ecto.NoResultsError, fn -> Users.get_order_item!("public", order_item.id) end
     end
 
     test "change_order_item/1 returns a order_item changeset",
