@@ -2053,7 +2053,7 @@ msgstr "Medlemmer"
 #, elixir-format
 #: lib/aoff_web/templates/shop/checkout/edit.html.slime:15
 msgid "payment terms and condition"
-msgstr "betalings betingelserne"
+msgstr "betalingsbetingelserne"
 
 #, elixir-format
 #: lib/aoff_web/templates/volunteer/page/form.html.slime:12
