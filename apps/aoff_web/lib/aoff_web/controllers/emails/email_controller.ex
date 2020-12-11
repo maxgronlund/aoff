@@ -76,11 +76,11 @@ defmodule AOFFWeb.EmailController do
     )
   end
 
-  def message_notification(username_and_email, message_url) do
+  def message_notification(association_name, username_and_email, message_url) do
     new_email()
     |> to(username_and_email)
     |> from(@email_from)
-    |> subject(gettext("Message from AOFF"))
+    |> subject(gettext("Message from %{name}", name: association_name))
     |> put_header("Reply-To", @email_from)
     |> put_layout({AOFFWeb.EmailView, :message_notification})
     |> render(
