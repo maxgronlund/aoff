@@ -1,0 +1,16 @@
+
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+        li
+          = link gettext("Shop admin"), to: Routes.volunteer_shop_path(@conn, :index)
+        li
+          = link gettext("Pickup lists"), to: Routes.shop_assistant_pick_up_path(@conn, :index)
+        li
+          = link date(@order_item.date.date), to: Routes.shop_assistant_date_path(@conn, :show, @order_item.date)
+        li.is-active
+          | &nbsp;
+          = gettext("Pickup")

@@ -1,0 +1,40 @@
+.row
+  .column
+    .breadcrumb aria-label="breadcrumbs"
+      ul
+        li
+          = link gettext("Volunteer"), to: Routes.volunteer_volunteer_path(@conn, :index)
+        li
+          = link gettext("Shop admin"), to: Routes.volunteer_shop_path(@conn, :index)
+        li
+          = link gettext("Pickup lists"), to: Routes.shop_assistant_pick_up_path(@conn, :index)
+        li
+          = link date(@pick_up.date.date), to: Routes.shop_assistant_date_path(@conn, :show, @pick_up.date)
+        li.is-active
+          | &nbsp;
+          = gettext("Pickup")
+
+
+.row
+  .column
+    h2 = gettext("Pickup")
+.tile
+  b = raw gettext("%{username} - %{date}", date: date(@pick_up.date.date), username: @pick_up.user.username)
+  table
+    thead
+      tr
+        th = gettext("Product")
+        th = gettext("Price")
+        /th = gettext("Date")
+        th = gettext("Date")
+    tbody
+      = for order_item <- @pick_up.order_items do
+        tr
+          td = name(order_item.product)
+          td = order_item.price
+          /td = date(@pick_up.date.date)
+
+          td
+            = link gettext("Edit"),\
+              to: Routes.shop_assistant_order_order_item_path(@conn, :edit, @pick_up.order, order_item),\
+              class: "button button-outline"

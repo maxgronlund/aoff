@@ -55,7 +55,7 @@ defmodule AOFFWeb.Volunteer.OrderController do
 
   def edit(conn, %{"id" => id}) do
     prefix = conn.assigns.prefix
-    order = Users.get_order!(id, prefix)
+    order = Users.get_order!(prefix, id)
 
     changeset = Users.change_order_item(%OrderItem{})
 
@@ -64,14 +64,14 @@ defmodule AOFFWeb.Volunteer.OrderController do
       "edit.html",
       user: order.user,
       order: order,
-      products: products(),
+      products: products(prefix),
       dates: dates(prefix),
       changeset: changeset
     )
   end
 
-  defp products() do
-    products = Shop.list_products(:for_sale)
+  defp products(prefix) do
+    products = Shop.list_products(prefix, :for_sale)
     Enum.map(products, fn x -> name_and_id(x) end)
   end
 

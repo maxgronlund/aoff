@@ -82,6 +82,10 @@
     .row.mt-1
       .column
         .float-right
+          = link gettext("Edit"),\
+            to: Routes.shop_assistant_pick_up_path(@conn, :edit, pick_up),\
+            class: "button button-outline"
+          |&nbsp;
 
           = if pick_up.send_sms_notification do
             .button.sms_button.button-outline pick_up_id="#{pick_up.id}" id="sms-#{pick_up. id}"
@@ -99,6 +103,7 @@
               to: Routes.shop_assistant_pick_up_path(@conn, :show, pick_up),\
               class: "button button-outline hidden",
               id: "#{pick_up.id}"
+
 
 a name="hosts"
 h3 = gettext("Hosts")
