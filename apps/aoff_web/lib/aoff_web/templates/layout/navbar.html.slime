@@ -15,7 +15,7 @@ header
         = link gettext("Calendar"), to: Routes.calendar_path(@conn, :index)
 
       li class="<%= menu_item(@conn, :about_aoff) %>"
-       = link gettext("About AOFF"), to: Routes.about_path(@conn, :index)
+       = link gettext("About %{association_name}", association_name: @conn.assigns.association_name), to: Routes.about_path(@conn, :index)
 
       = if @current_user do
         li class="<%= menu_item(@conn, :logout) %>"

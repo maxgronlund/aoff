@@ -216,4 +216,8 @@ defmodule AOFF.Admin do
         association.host
     end
   end
+
+  def get_association_by_host(host) do
+    Repo.get_by(Association, host: host)
+  end
 end
