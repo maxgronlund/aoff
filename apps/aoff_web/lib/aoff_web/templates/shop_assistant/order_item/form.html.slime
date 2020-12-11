@@ -1,0 +1,23 @@
+= form_for @changeset, @action, fn f ->
+  = if @changeset.action do
+    .alert.alert-danger
+      p = gettext("Oops, something went wrong! Please check the errors below.")
+
+  .row
+    .column
+      .form-group
+        = label f, :product_id, gettext("Pick up date"), class: "control-label"
+        = select f, :date_id, \
+          @dates,\
+          prompt: gettext("Select date"),\
+          class: "form-control full-width"
+
+      = hidden_input f, :order_id, value: @order_item.order_id
+      = hidden_input f, :user_id, value: @order_item.user_id
+    .column
+  .row
+    .column
+      .form-group
+        = submit gettext("Save"), class: "btn btn-primary float-right"
+    .column
+

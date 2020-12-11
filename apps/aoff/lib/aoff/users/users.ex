@@ -810,6 +810,8 @@ defmodule AOFF.Users do
     OrderItem
     |> Repo.get!(id, prefix: prefix)
     |> Repo.preload(order: [:user])
+    |> Repo.preload(:product)
+    |> Repo.preload(:pick_up)
     |> Repo.preload(:date)
   end
 
@@ -864,6 +866,24 @@ defmodule AOFF.Users do
         select: type(sum(i.price), i.price)
 
     Repo.one(q, prefix: prefix)
+  end
+
+  @doc """
+  Updates a order.
+
+  ## Examples
+
+      iex> update_order(order, %{field: new_value})
+      {:ok, %Order{}}
+
+      iex> update_order(order, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def move_order_item_pick_up_date(%OrderItem{} = order_item, attrs) do
+    order_item
+    |> OrderItem.move_date_changeset(attrs)
+    |> Repo.update()
   end
 
   @doc """

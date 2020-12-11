@@ -48,4 +48,13 @@ defmodule AOFF.Users.OrderItem do
     ])
     |> validate_required([:state])
   end
+
+  def move_date_changeset(order_item, attrs) do
+    order_item
+    |> cast(attrs, [
+      :date_id,
+      :pick_up_id
+    ])
+    |> validate_required([:date_id, :pick_up_id])
+  end
 end

@@ -49,7 +49,10 @@ defmodule AOFFWeb.ShopAssistant.PickUpController do
   def edit(conn, %{"id" => id}) do
     prefix = conn.assigns.prefix
     pick_up = Shop.get_pick_up!(prefix, id)
-    render(conn, "edit.html", pick_up: pick_up)
+    render(
+      conn, "edit.html",
+      pick_up: pick_up
+    )
   end
 
   defp authenticate(conn, _opts) do
