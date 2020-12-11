@@ -55,11 +55,8 @@ defmodule AOFFWeb.ResetPasswordController do
             "password_reset_expires" => AOFF.Time.now()
           }
         )
-
-        reset_password_url =
-          AOFFWeb.Router.Helpers.url(conn) <>
-            conn.request_path <>
-            "/" <> token <> "/edit"
+        host_url = AOFF.Admin.get_host_by_prefix(prefix)
+        reset_password_url = host_url <> "/reset_password/" <> token <> "/edit"
 
         username_and_email = {user.username, user.email}
 
