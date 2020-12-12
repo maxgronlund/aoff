@@ -141,6 +141,11 @@ defmodule AOFF.Admin do
     end)
   end
 
+  def update_association_prefix(%Association{} = association, attrs) do
+    Association.prefix_changeset(association, attrs)
+    |> Repo.update()
+  end
+
   @doc """
   Deletes a association.
 
