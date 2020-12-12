@@ -4,6 +4,7 @@ defmodule AOFFWeb.ShopAssistant.DateControllerTest do
 
   import AOFF.Shop.DateFixture
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
   import AOFFWeb.Gettext
 
   describe "shop assistant" do
@@ -14,6 +15,7 @@ defmodule AOFFWeb.ShopAssistant.DateControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"shop_assistant" => true})
       date = date_fixture()
 

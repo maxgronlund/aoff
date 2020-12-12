@@ -17,6 +17,7 @@ defmodule AOFFWeb.Purchaser.DateControllerTest do
 
     setup do
       _association = association_fixture()
+
       user =
         user_fixture(%{
           "volunteer" => true,

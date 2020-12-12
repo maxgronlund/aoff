@@ -7,6 +7,7 @@ defmodule AOFFWeb.ResendConfirmEmailControllerTest do
   describe "resend email confirmation email" do
     setup do
       _association = association_fixture()
+
       conn =
         build_conn()
         |> assign(:prefix, "public")
@@ -43,6 +44,7 @@ defmodule AOFFWeb.ResendConfirmEmailControllerTest do
           "Confirmation email was resend",
           Gettext.get_locale()
         )
+
       conn = get(conn, Routes.resend_confirm_email_path(conn, :index, %{}))
       assert html_response(conn, 200) =~ message.title
     end

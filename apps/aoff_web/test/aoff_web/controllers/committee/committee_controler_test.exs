@@ -11,6 +11,7 @@ defmodule AOFFWeb.Committees.CommitteeControllerTest do
   describe "as a guest" do
     setup do
       _association = association_fixture()
+
       conn =
         build_conn()
         |> assign(:prefix, "public")

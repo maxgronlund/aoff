@@ -1,11 +1,18 @@
 defmodule AOFFWeb.Volunteer.NewsletterControllerTest do
   use AOFFWeb.ConnCase
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
   import AOFF.Volunteer.NewsletterFixture
   import AOFFWeb.Gettext
   alias Plug.Conn
 
   describe "unauthorized" do
+    setup do
+      _association = association_fixture()
+      conn = build_conn() |> assign(:prefix, "public")
+      {:ok, conn: conn}
+    end
+
     test "index renders 401", %{conn: conn} do
       conn = get(conn, Routes.volunteer_newsletter_path(conn, :index))
       assert html_response(conn, 401) =~ "401"
@@ -37,6 +44,7 @@ defmodule AOFFWeb.Volunteer.NewsletterControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"volunteer" => true, "text_editor" => true})
       # AOFF.Users.set_bounce_to_url(user, "/")
 

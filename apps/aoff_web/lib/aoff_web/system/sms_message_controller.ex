@@ -20,6 +20,7 @@ defmodule AOFFWeb.System.SMSMessageController do
 
   def create(conn, %{"sms_message" => sms_message_params}) do
     user = conn.assigns.current_user
+    prefix = conn.assigns.prefix
 
     _result =
       case sms_api().send_sms_message(sms_message_params) do
@@ -32,13 +33,14 @@ defmodule AOFFWeb.System.SMSMessageController do
 
     sms_message_params = Map.put(sms_message_params, "user_id", user.id)
 
-    case System.create_sms_message(sms_message_params) do
+    case System.create_sms_message(prefix, sms_message_params) do
       {:ok, sms_message} ->
         conn
         |> put_flash(:info, "Sms message created successfully.")
         |> redirect(to: Routes.system_sms_message_path(conn, :show, sms_message))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        IO.inspect changeset
         render(conn, "new.html", changeset: changeset)
     end
   end
@@ -48,7 +50,7 @@ defmodule AOFFWeb.System.SMSMessageController do
   end
 
   def show(conn, %{"id" => id}) do
-    sms_message = System.get_sms_message!(id, conn.assigns.prefix)
+    sms_message = System.get_sms_message!(conn.assigns.prefix, id)
     render(conn, "show.html", sms_message: sms_message)
   end
 

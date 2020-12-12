@@ -5,6 +5,7 @@ defmodule AOFFWeb.ShopAssistant.OrderItemControllerTest do
   import AOFF.Shop.ProductFixture
   import AOFF.Shop.PickUpFixture
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
   import AOFF.Users.OrderFixture
   import AOFF.Users.OrderItemFixture
   # import AOFFWeb.Gettext
@@ -17,6 +18,7 @@ defmodule AOFFWeb.ShopAssistant.OrderItemControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"shop_assistant" => true})
 
       guest =

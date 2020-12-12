@@ -5,6 +5,7 @@ defmodule AOFFWeb.Volunteer.VollunteerControllerTest do
   import AOFF.Shop.DateFixture
   import AOFFWeb.Gettext
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
 
   describe "volunteer" do
     @session Plug.Session.init(
@@ -15,6 +16,7 @@ defmodule AOFFWeb.Volunteer.VollunteerControllerTest do
              )
 
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"volunteer" => true, "shop_assistant" => true})
 
       conn =

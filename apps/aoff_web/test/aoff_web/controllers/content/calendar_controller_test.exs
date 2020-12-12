@@ -8,9 +8,11 @@ defmodule AOFFWeb.Content.CalendarControllerTest do
   describe "calendar as a guest" do
     setup do
       _association = association_fixture()
+
       conn =
         build_conn()
         |> assign(:prefix, "public")
+
       {:ok, conn: conn}
     end
 

@@ -1,11 +1,18 @@
 defmodule AOFFWeb.Users.ConfirmEmailControllerTest do
   use AOFFWeb.ConnCase
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
   import AOFFWeb.Gettext
   alias AOFF.System
   alias AOFF.Users
 
   describe "confirm email" do
+    setup do
+      _association = association_fixture()
+      conn = build_conn() |> assign(:prefix, "public")
+      {:ok, conn: conn}
+    end
+
     test "render index when token is valid", %{conn: conn} do
       user = user_fixture()
 
@@ -29,10 +36,10 @@ defmodule AOFFWeb.Users.ConfirmEmailControllerTest do
 
       {:ok, message} =
         System.find_or_create_message(
+          "public",
           "Confirmation missing",
           "Confirmation missing",
-          Gettext.get_locale(),
-          "public"
+          Gettext.get_locale()
         )
 
       conn = get(conn, Routes.confirm_email_path(conn, :show, user))

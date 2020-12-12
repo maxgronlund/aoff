@@ -3,12 +3,14 @@ defmodule AOFFWeb.MessageControllerTest do
 
   import AOFF.System.MessageFixture
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
   import AOFFWeb.Gettext
 
   alias Plug.Conn
 
   describe "unauthorized" do
     test "index renders 401", %{conn: conn} do
+      _association = association_fixture()
       conn = get(conn, Routes.volunteer_message_path(conn, :index))
       assert html_response(conn, 401) =~ "401"
     end
@@ -22,6 +24,7 @@ defmodule AOFFWeb.MessageControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"volunteer" => true})
       AOFF.Users.set_bounce_to_url(user, "/")
 

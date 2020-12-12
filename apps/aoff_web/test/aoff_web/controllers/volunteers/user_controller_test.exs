@@ -7,6 +7,7 @@ defmodule AOFFWeb.Volunteer.UserControllerTest do
 
   import AOFF.Users.UserFixture
   import AOFFWeb.Gettext
+  import AOFF.Admin.AssociationFixture
 
   describe "as a volunteer" do
     @session Plug.Session.init(
@@ -16,6 +17,7 @@ defmodule AOFFWeb.Volunteer.UserControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"volunteer" => true})
 
       conn =

@@ -2,6 +2,7 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
   use AOFFWeb.ConnCase
 
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
   import AOFF.Users.OrderFixture
   import AOFF.Users.OrderItemFixture
   import AOFF.Shop.DateFixture
@@ -19,6 +20,7 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"expiration_date" => AOFF.Time.today()})
       order = order_fixture(user.id, %{"payment_date" => AOFF.Time.now()})
 
@@ -68,7 +70,7 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
           )
         )
 
-      assert Users.get_user!(user.id).expiration_date == Date.add(AOFF.Time.today(), 365)
+      assert Users.get_user!("public", user.id).expiration_date == Date.add(AOFF.Time.today(), 365)
     end
 
     test "index/2 updates the order state", %{conn: conn, user: user, order: order} do
@@ -103,7 +105,7 @@ defmodule AOFFWeb.Shop.PaymentAcceptedControllerTest do
         )
 
       assert html_response(conn, 200) =~ gettext("Back to the shop")
-      order = Users.get_order!(order.id)
+      order = Users.get_order!("public", order.id)
       assert order.state == "payment_accepted"
       assert order.card_nr == "xxxx xxxx xxxx 1234"
     end

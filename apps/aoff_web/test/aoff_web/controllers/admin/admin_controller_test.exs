@@ -14,6 +14,7 @@ defmodule AOFFWeb.OrderControllerTest do
   describe "in the admin namespace" do
     test "render index", %{conn: conn} do
       _association = association_fixture()
+
       conn =
         conn
         |> using_basic_auth(@username, @password)

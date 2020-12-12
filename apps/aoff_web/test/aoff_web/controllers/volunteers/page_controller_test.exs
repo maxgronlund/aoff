@@ -5,6 +5,7 @@ defmodule AOFFWeb.Volunteer.PageControllerTest do
   import AOFF.Content.CategoryFixture
   import AOFF.Content.PageFixture
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
 
   alias Plug.Conn
 
@@ -16,6 +17,7 @@ defmodule AOFFWeb.Volunteer.PageControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"volunteer" => true})
 
       conn =
@@ -93,8 +95,8 @@ defmodule AOFFWeb.Volunteer.PageControllerTest do
           Routes.volunteer_category_page_path(
             conn,
             :delete,
-            category,
-            page
+            category.title,
+            page.title
           )
         )
 

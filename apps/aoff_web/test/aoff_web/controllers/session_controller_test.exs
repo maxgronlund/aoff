@@ -9,7 +9,7 @@ defmodule AOFFWeb.SessionControllerTest do
   describe "account confirmed" do
     test "redirect to user when credentials are valid", %{conn: conn} do
       attrs = valid_attrs()
-      association = association_fixture()
+      _association = association_fixture()
       user = user_fixture()
       Users.confirm_user(user)
       conn = assign(conn, :prefix, "public")
@@ -26,7 +26,7 @@ defmodule AOFFWeb.SessionControllerTest do
           )
         )
 
-      # assert redirected_to(conn) == Routes.user_path(conn, :show, user.id)
+      assert redirected_to(conn) == Routes.user_path(conn, :show, user.id)
     end
 
     test "render new when credentials are invalid", %{conn: conn} do

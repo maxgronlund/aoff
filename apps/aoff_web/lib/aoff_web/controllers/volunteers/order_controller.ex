@@ -95,7 +95,7 @@ defmodule AOFFWeb.Volunteer.OrderController do
   end
 
   def delete(conn, %{"id" => id}) do
-    order = Users.get_order!(id, conn.assigns.prefix)
+    order = Users.get_order!(conn.assigns.prefix, id)
     Users.delete_order(order)
 
     date_id = get_session(conn, :shop_assistant_date_id)

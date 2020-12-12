@@ -64,7 +64,7 @@ defmodule AOFFWeb.Volunteer.PageController do
     category = Content.get_category!(prefix, category_id)
     page_attrs = Map.put(page_attrs, "category_id", category.id)
 
-    case Content.create_page(page_attrs) do
+    case Content.create_page(prefix, page_attrs) do
       {:ok, page} ->
         conn
         |> put_flash(:info, gettext("Please update the default image."))
@@ -131,9 +131,9 @@ defmodule AOFFWeb.Volunteer.PageController do
     end
   end
 
-  def delete(conn, %{"category_id" => _category_id, "id" => id}) do
+  def delete(conn, %{"category_id" => category_title, "id" => page_title}) do
     prefix = conn.assigns.prefix
-    page = Content.get_page!(prefix, :category_id, id)
+    page = Content.get_page!(prefix, category_title, page_title)
     {:ok, _category} = Content.delete_page(page)
 
     conn

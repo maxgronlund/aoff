@@ -3,6 +3,7 @@ defmodule AOFFWeb.System.SMSMessageControllerTest do
 
   import AOFF.System.SMSMessageFixture
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
 
   alias Plug.Conn
 
@@ -15,6 +16,7 @@ defmodule AOFFWeb.System.SMSMessageControllerTest do
              )
 
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"volunteer" => true})
 
       conn =

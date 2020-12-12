@@ -150,6 +150,7 @@ defmodule AOFFWeb.Committees.MessageControllerTest do
   describe "as a guest" do
     setup do
       _association = association_fixture()
+
       committee =
         committee_fixture(%{
           "volunteer_access" => false,

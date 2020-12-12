@@ -8,13 +8,14 @@ defmodule AOFFWeb.Admin.AssociationControllerTest do
 
   describe "admin associations" do
     setup do
-
       header_content = "Basic " <> Base.encode64("#{@username}:#{@password}")
       _association = association_fixture()
+
       conn =
         build_conn()
         |> assign(:prefix, "public")
         |> put_req_header("authorization", header_content)
+
       {:ok, conn: conn}
     end
 
