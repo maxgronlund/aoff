@@ -11,11 +11,11 @@ defmodule AOFFWeb.Users.UnsubscribeToNewsController do
         render(conn, "show.html", user: user)
 
       _ ->
-        forbidden(conn)
+        not_found(conn)
     end
   end
 
-  defp forbidden(conn) do
+  defp not_found(conn) do
     conn
     |> put_status(401)
     |> put_view(AOFFWeb.ErrorView)

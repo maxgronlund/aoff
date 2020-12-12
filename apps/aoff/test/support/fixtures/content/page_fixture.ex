@@ -56,6 +56,7 @@ defmodule AOFF.Content.PageFixture do
       attrs
       |> Enum.into(@create_attrs)
       |> Map.put("category_id", category_id)
+
     {:ok, page} = Content.create_page("public", attrs)
 
     page

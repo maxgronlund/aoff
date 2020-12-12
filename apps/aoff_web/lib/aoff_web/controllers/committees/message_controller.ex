@@ -83,7 +83,7 @@ defmodule AOFFWeb.Committees.MessageController do
         "/" <>
         message.id
 
-      association_name = conn.assigns.association_name
+    association_name = conn.assigns.association_name
 
     for member <- committee.members do
       send_email(association_name, message_url, member.user)
@@ -93,7 +93,11 @@ defmodule AOFFWeb.Committees.MessageController do
   defp send_email(association_name, message_url, user) do
     username_and_email = {user.username, user.email}
 
-    AOFFWeb.EmailController.message_notification(association_name, username_and_email, message_url)
+    AOFFWeb.EmailController.message_notification(
+      association_name,
+      username_and_email,
+      message_url
+    )
     |> AOFFWeb.Mailer.deliver_now()
   end
 

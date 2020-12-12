@@ -24,7 +24,7 @@ defmodule AOFFWeb.Volunteer.MemberController do
   def create(conn, %{"member" => member_params}) do
     prefix = conn.assigns.prefix
 
-    case Committees.create_member(member_params) do
+    case Committees.create_member(prefix, member_params) do
       {:ok, member} ->
         conn
         |> put_flash(:info, gettext("Member created successfully."))

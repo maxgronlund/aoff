@@ -28,7 +28,7 @@ defmodule AOFFWeb.Volunteer.PageController do
 
   def show(conn, %{"category_id" => category_id, "id" => id}) do
     prefix = conn.assigns.prefix
-    page = Content.get_page!(prefix ,category_id, id)
+    page = Content.get_page!(prefix, category_id, id)
     render(conn, "show.html", page: page, category: page.category)
   end
 

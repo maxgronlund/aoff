@@ -2,7 +2,7 @@ defmodule AOFF.Admin.AssociationFixture do
   alias AOFF.Admin
 
   @valid_attrs %{
-    "name" => "some name",
+    "name" => "ABC",
     "contact_person_1" => "some contact person 1",
     "contact_person_2" => "some contact person 2",
     "prefix" => "public",
@@ -10,7 +10,7 @@ defmodule AOFF.Admin.AssociationFixture do
   }
 
   @update_attrs %{
-    "name" => "some updated name",
+    "name" => "DEF",
     "contact_person_1" => "some updated contact person 1",
     "contact_person_2" => "some updated contact person 2"
   }

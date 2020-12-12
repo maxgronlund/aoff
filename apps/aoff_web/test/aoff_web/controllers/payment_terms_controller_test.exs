@@ -3,6 +3,7 @@ defmodule AOFFWeb.PaymentTermsControllerTest do
 
   import AOFF.Users.UserFixture
   import AOFF.Users.OrderFixture
+  import AOFF.Admin.AssociationFixture
   alias Plug.Conn
   alias AOFF.System
 
@@ -14,15 +15,16 @@ defmodule AOFFWeb.PaymentTermsControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture()
       order = order_fixture(user.id, %{"state" => "open"})
 
       {:ok, message} =
         System.find_or_create_message(
+          "public",
           "/payment_terms",
           "Payment terms",
-          Gettext.get_locale(),
-          "public"
+          Gettext.get_locale()
         )
 
       conn =
@@ -31,7 +33,7 @@ defmodule AOFFWeb.PaymentTermsControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
-        |> assign(prefix: "public")
+        |> assign(:prefix, "public")
 
       {:ok, conn: conn, user: user, order: order, message: message}
     end

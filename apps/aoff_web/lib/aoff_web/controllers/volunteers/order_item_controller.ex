@@ -65,7 +65,6 @@ defmodule AOFFWeb.Volunteer.OrderItemController do
     prefix = conn.assigns.prefix
     order_item = Users.get_order_item(prefix, id)
 
-
     case Users.delete_order_item(prefix, order_item) do
       {:ok, order_item} ->
         conn

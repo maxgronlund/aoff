@@ -38,8 +38,7 @@ defmodule AOFF.Shop.PickUpFixture do
   end
 
   def pick_up_fixture(attrs \\ %{}) do
-    {:ok, pick_up} =
-      Shop.create_pick_up("public", Enum.into(attrs, @valid_attrs))
+    {:ok, pick_up} = Shop.create_pick_up("public", Enum.into(attrs, @valid_attrs))
 
     pick_up
   end

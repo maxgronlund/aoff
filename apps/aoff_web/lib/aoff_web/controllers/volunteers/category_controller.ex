@@ -33,7 +33,7 @@ defmodule AOFFWeb.Volunteer.CategoryController do
   end
 
   def create(conn, %{"category" => category_params}) do
-    case Content.create_category(category_params) do
+    case Content.create_category(conn.assigns.prefix, category_params) do
       {:ok, category} ->
         conn
         |> put_flash(:info, gettext("Please update the default image."))

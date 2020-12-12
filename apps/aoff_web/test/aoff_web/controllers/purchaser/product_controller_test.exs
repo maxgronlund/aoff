@@ -4,6 +4,7 @@ defmodule AOFFWeb.Purchaser.ProductControllerTest do
 
   import AOFF.Shop.ProductFixture
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
   import AOFFWeb.Gettext
 
   describe "purchaser" do
@@ -14,6 +15,7 @@ defmodule AOFFWeb.Purchaser.ProductControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"purchasing_manager" => true})
       _product = product_fixture()
 
@@ -23,7 +25,7 @@ defmodule AOFFWeb.Purchaser.ProductControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
-        |> assign(prefix: "public")
+        |> assign(:prefix, "public")
 
       {:ok, conn: conn, user: user}
     end

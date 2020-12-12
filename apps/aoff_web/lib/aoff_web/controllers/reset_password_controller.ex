@@ -55,6 +55,7 @@ defmodule AOFFWeb.ResetPasswordController do
             "password_reset_expires" => AOFF.Time.now()
           }
         )
+
         host_url = AOFF.Admin.get_host_by_prefix(prefix)
         reset_password_url = host_url <> "/reset_password/" <> token <> "/edit"
 

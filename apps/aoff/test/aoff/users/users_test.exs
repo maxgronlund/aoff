@@ -17,7 +17,7 @@ defmodule AOFF.UsersTest do
 
       assert {:ok, %Users.User{}} =
                Users.authenticate_by_email_and_pass(
-                "public",
+                 "public",
                  attrs["email"],
                  attrs["password"]
                )
@@ -29,7 +29,7 @@ defmodule AOFF.UsersTest do
 
       assert {:error, :unauthorized} ==
                Users.authenticate_by_email_and_pass(
-                "public",
+                 "public",
                  attrs["email"],
                  "chunky-becon"
                )
@@ -40,7 +40,7 @@ defmodule AOFF.UsersTest do
 
       assert {:error, :not_found} ==
                Users.authenticate_by_email_and_pass(
-                "public",
+                 "public",
                  "no-one@example.com",
                  "chunky-becon"
                )

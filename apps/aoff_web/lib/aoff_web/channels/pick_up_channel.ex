@@ -43,7 +43,6 @@ defmodule AOFFWeb.PickUpChannel do
         Gettext.get_locale()
       )
 
-
     params = %{
       "mobile" => mobile,
       "text" => String.replace(pickup_message.title, "USERNAME", user.username)

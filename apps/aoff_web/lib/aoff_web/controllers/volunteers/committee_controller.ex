@@ -20,6 +20,7 @@ defmodule AOFFWeb.Volunteer.CommitteeController do
 
   def create(conn, %{"committee" => committee_params}) do
     prefix = conn.assigns.prefix
+
     case Committees.create_committee(prefix, committee_params) do
       {:ok, committee} ->
         conn

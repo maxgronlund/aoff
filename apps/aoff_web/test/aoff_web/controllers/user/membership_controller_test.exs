@@ -4,6 +4,8 @@ defmodule AOFFWeb.Users.MembershipControllerTest do
 
   alias AOFF.System
   alias Plug.Conn
+  import AOFF.Admin.AssociationFixture
+  import AOFF.Shop.ProductFixture
 
   describe "extend membership" do
     @session Plug.Session.init(
@@ -13,14 +15,16 @@ defmodule AOFFWeb.Users.MembershipControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture()
+      _membership = product_fixture(%{"membership" => true})
 
       {:ok, message} =
         System.find_or_create_message(
+          "public",
           "/users/:id/membership/new/ - buy new",
           "Buy membership",
-          Gettext.get_locale(),
-          "public"
+          Gettext.get_locale()
         )
 
       conn =
@@ -29,7 +33,7 @@ defmodule AOFFWeb.Users.MembershipControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
-        |> assign(prefix: "public")
+        |> assign(:prefix, "public")
 
       {:ok, conn: conn, user: user, message: message}
     end

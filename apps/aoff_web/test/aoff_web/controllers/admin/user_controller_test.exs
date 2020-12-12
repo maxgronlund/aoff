@@ -3,6 +3,7 @@ defmodule AOFFWeb.Admin.UserControllerTest do
   import AOFFWeb.Gettext
 
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
 
   @username Application.get_env(:aoff_web, :basic_auth)[:username]
   @password Application.get_env(:aoff_web, :basic_auth)[:password]
@@ -14,6 +15,7 @@ defmodule AOFFWeb.Admin.UserControllerTest do
 
   describe "admin users" do
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"admin" => true})
 
       conn =

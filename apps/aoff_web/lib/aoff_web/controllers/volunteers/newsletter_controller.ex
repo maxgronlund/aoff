@@ -20,6 +20,7 @@ defmodule AOFFWeb.Volunteer.NewsletterController do
 
   def create(conn, %{"newsletter" => newsletter_params}) do
     prefix = conn.assigns.prefix
+
     case Volunteers.create_newsletter(prefix, newsletter_params) do
       {:ok, newsletter} ->
         conn

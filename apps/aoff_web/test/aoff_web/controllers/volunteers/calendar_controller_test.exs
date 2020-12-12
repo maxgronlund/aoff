@@ -3,6 +3,7 @@ defmodule AOFFWeb.Volunteers.CalendarControllerTest do
   import AOFF.Content.PageFixture
   import AOFF.Users.UserFixture
   import AOFF.Content.CategoryFixture
+  import AOFF.Admin.AssociationFixture
   import AOFFWeb.Gettext
   alias Plug.Conn
 
@@ -14,6 +15,7 @@ defmodule AOFFWeb.Volunteers.CalendarControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"text_editor" => true})
 
       conn =
@@ -22,7 +24,7 @@ defmodule AOFFWeb.Volunteers.CalendarControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
-        |> assign(prefix: "public")
+        |> assign(:prefix, "public")
 
       {:ok, conn: conn, user: user}
     end
@@ -75,7 +77,7 @@ defmodule AOFFWeb.Volunteers.CalendarControllerTest do
       page = page_fixture(category.id)
       conn = delete(conn, Routes.volunteer_calendar_path(conn, :delete, page.id))
       assert redirected_to(conn) == Routes.calendar_path(conn, :index)
-      assert is_nil(AOFF.Content.get_page(page.id))
+      assert is_nil(AOFF.Content.get_page("public", page.id))
     end
   end
 end

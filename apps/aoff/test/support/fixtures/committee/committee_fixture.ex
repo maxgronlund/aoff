@@ -40,8 +40,7 @@ defmodule AOFF.Committees.CommitteeFixture do
   end
 
   def committee_fixture(attrs \\ %{}) do
-    {:ok, committee} =
-      Committees.create_committee("public", Enum.into(attrs, @valid_attrs))
+    {:ok, committee} = Committees.create_committee("public", Enum.into(attrs, @valid_attrs))
 
     committee
   end

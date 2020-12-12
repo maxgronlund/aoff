@@ -3,6 +3,7 @@ defmodule AOFFWeb.Volunteer.CommitteeControllerTest do
   import AOFFWeb.Gettext
   import AOFF.Users.UserFixture
   import AOFF.Committees.CommitteeFixture
+  import AOFF.Admin.AssociationFixture
 
   alias Plug.Conn
 
@@ -14,6 +15,7 @@ defmodule AOFFWeb.Volunteer.CommitteeControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"volunteer" => true, "admin" => true})
 
       conn =
