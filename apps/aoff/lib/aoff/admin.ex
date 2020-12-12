@@ -218,6 +218,18 @@ defmodule AOFF.Admin do
   end
 
   def get_association_by_host(host) do
-    Repo.get_by(Association, host: host)
+
+    IO.inspect "---------------"
+    IO.inspect host
+    IO.inspect "---------------"
+
+    case Repo.get_by(Association, prefix: host) do
+      nil -> "https://aoff.dk"
+      association ->
+        "https://" <>
+        association.host
+    end
+
+
   end
 end
