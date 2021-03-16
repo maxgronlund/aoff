@@ -60,7 +60,7 @@ defmodule AOFF.System do
 
   """
   def get_message!(prefix, id) do
-    Repo.get(Message, id, prefix: prefix)
+    Repo.get!(Message, id, prefix: prefix)
   end
 
   @doc """
