@@ -42,7 +42,7 @@ html lang="da"
                 .flag.uk
 
 
-      = if @warning.show do
+      /= if @warning.show do
         .alert.alert-danger
           h4= @warning.title
           = raw @warning.text
