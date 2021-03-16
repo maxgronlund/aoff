@@ -59,7 +59,9 @@ defmodule AOFF.System do
       ** (Ecto.NoResultsError)
 
   """
-  def get_message!(prefix, id), do: Repo.get!(Message, id, prefix: prefix)
+  def get_message!(prefix, id) do
+    Repo.get(Message, id, prefix: prefix)
+  end
 
   @doc """
   Creates a message.
