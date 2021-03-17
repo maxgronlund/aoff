@@ -12,6 +12,6 @@ erl_crash.dump
 *.archived
 /apps/aoff_web/cover
 /apps/aoff/cover
-# apps/aoff_web/assets/node_modules/
+apps/aoff_web/assets/node_modules/
 restore_db.txt
 *.swp
