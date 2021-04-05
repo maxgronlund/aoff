@@ -45,7 +45,8 @@ defmodule AOFFWeb.Committees.MessageControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
-        |> assign(prefix: "public")
+        |> assign(:prefix, "public")
+
 
       {:ok, conn: conn, user: user, committee: committee}
     end
@@ -77,7 +78,7 @@ defmodule AOFFWeb.Committees.MessageControllerTest do
       assert redirected_to(conn) ==
                Routes.committee_committee_message_path(conn, :index, committee)
 
-      messages = Committees.list_messages(committee_id)
+      messages = Committees.list_messages("public", committee_id)
       message = List.first(messages)
 
       conn = get(conn, Routes.committee_committee_message_path(conn, :show, committee, message))
