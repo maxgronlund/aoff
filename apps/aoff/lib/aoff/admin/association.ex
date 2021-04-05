@@ -36,4 +36,10 @@ defmodule AOFF.Admin.Association do
     |> unique_constraint(:name)
     |> unique_constraint(:prefix)
   end
+
+  def prefix_changeset(association, attrs) do
+    association
+    |> cast(attrs,[:prefix])
+    |> unique_constraint(:prefix)
+  end
 end

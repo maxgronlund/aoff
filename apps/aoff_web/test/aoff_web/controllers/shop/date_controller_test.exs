@@ -2,6 +2,7 @@ defmodule AOFFWeb.Shop.DateControllerTest do
   use AOFFWeb.ConnCase
   import AOFFWeb.Gettext
   import AOFF.Shop.DateFixture
+  import AOFF.Admin.AssociationFixture
   # alias AOFF.Shop
 
   # @create_attrs %{picked_up: true}
@@ -15,6 +16,7 @@ defmodule AOFFWeb.Shop.DateControllerTest do
 
   describe "guest" do
     test "show products for a given date", %{conn: conn} do
+      _association = association_fixture()
       date = date_fixture()
       conn = get(conn, Routes.shop_date_path(conn, :show, date))
       assert html_response(conn, 200) =~ gettext("Shop")

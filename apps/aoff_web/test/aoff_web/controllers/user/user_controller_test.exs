@@ -8,6 +8,7 @@ defmodule AOFFWeb.UserControllerTest do
   alias AOFF.Users
 
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
   import AOFFWeb.Gettext
 
   describe "as a member" do
@@ -18,6 +19,7 @@ defmodule AOFFWeb.UserControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture()
 
       conn =
@@ -26,7 +28,7 @@ defmodule AOFFWeb.UserControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
-        |> assign(prefix: "public")
+        |> assign(:prefix, "public")
 
       {:ok, conn: conn, user: user}
     end
@@ -62,13 +64,23 @@ defmodule AOFFWeb.UserControllerTest do
   end
 
   describe "as a guest" do
+    setup do
+      _association = association_fixture()
+
+      conn =
+        build_conn()
+        |> assign(:prefix, "public")
+
+      {:ok, conn: conn}
+    end
+
     test "render form for new user", %{conn: conn} do
       {:ok, message} =
         System.find_or_create_message(
+          "public",
           "/users/new",
           "Create account",
-          Gettext.get_locale(),
-          "public"
+          Gettext.get_locale()
         )
 
       conn = get(conn, Routes.user_path(conn, :new))
@@ -78,7 +90,7 @@ defmodule AOFFWeb.UserControllerTest do
     test "create user with valid data", %{conn: conn} do
       attrs = valid_attrs()
       conn = post(conn, Routes.user_path(conn, :create), user: attrs)
-      user = Users.get_user_by_email(attrs["email"])
+      user = Users.get_user_by_email("public", attrs["email"])
       assert redirected_to(conn) == Routes.user_welcome_path(conn, :index, user)
     end
 
@@ -88,10 +100,10 @@ defmodule AOFFWeb.UserControllerTest do
 
       {:ok, message} =
         System.find_or_create_message(
+          "public",
           "/users/new",
           "Create account",
-          Gettext.get_locale(),
-          "public"
+          Gettext.get_locale()
         )
 
       assert html_response(conn, 200) =~ message.title

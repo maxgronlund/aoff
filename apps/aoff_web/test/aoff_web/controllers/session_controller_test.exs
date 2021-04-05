@@ -1,6 +1,7 @@
 defmodule AOFFWeb.SessionControllerTest do
   use AOFFWeb.ConnCase
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
   import AOFFWeb.Gettext
   alias AOFF.Users
   alias Plug.Conn
@@ -8,9 +9,10 @@ defmodule AOFFWeb.SessionControllerTest do
   describe "account confirmed" do
     test "redirect to user when credentials are valid", %{conn: conn} do
       attrs = valid_attrs()
+      _association = association_fixture()
       user = user_fixture()
       Users.confirm_user(user)
-      conn = assign(conn, prefix: "public")
+      conn = assign(conn, :prefix, "public")
 
       conn =
         post(
@@ -29,8 +31,9 @@ defmodule AOFFWeb.SessionControllerTest do
 
     test "render new when credentials are invalid", %{conn: conn} do
       user = user_fixture()
+      _association = association_fixture()
       Users.confirm_user(user)
-      conn = assign(conn, prefix: "public")
+      conn = assign(conn, :prefix, "public")
 
       conn =
         post(
@@ -56,7 +59,8 @@ defmodule AOFFWeb.SessionControllerTest do
     test "redirect to confirm_email when credentials are valid", %{conn: conn} do
       attrs = valid_attrs()
       _user = user_fixture()
-      conn = assign(conn, prefix: "public")
+      _association = association_fixture()
+      conn = assign(conn, :prefix, "public")
 
       conn =
         post(
@@ -73,7 +77,7 @@ defmodule AOFFWeb.SessionControllerTest do
           )
         )
 
-      user = Users.get_user_by_email(attrs["email"], "public")
+      user = Users.get_user_by_email("public", attrs["email"])
 
       assert redirected_to(conn) ==
                Routes.confirm_email_path(conn, :show, user)
@@ -89,6 +93,7 @@ defmodule AOFFWeb.SessionControllerTest do
              )
     setup do
       user = user_fixture()
+      _association = association_fixture()
 
       conn =
         build_conn()
@@ -96,14 +101,14 @@ defmodule AOFFWeb.SessionControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
-        |> assign(prefix: "public")
+        |> assign(:prefix, "public")
 
       {:ok, conn: conn, user: user}
     end
 
     test "logout", %{conn: conn, user: user} do
       conn = delete(conn, Routes.session_path(conn, :delete, user))
-      conn = assign(conn, prefix: "public")
+      conn = assign(conn, :prefix, "public")
       assert redirected_to(conn) == Routes.page_path(conn, :index)
     end
   end

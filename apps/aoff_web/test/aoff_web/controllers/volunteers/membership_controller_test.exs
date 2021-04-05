@@ -4,6 +4,7 @@ defmodule AOFFWeb.Volunteers.MembershipControllerTest do
 
   alias Plug.Conn
 
+  import AOFF.Admin.AssociationFixture
   import AOFF.Users.UserFixture
 
   describe "volunteer" do
@@ -14,6 +15,8 @@ defmodule AOFFWeb.Volunteers.MembershipControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
+
       user =
         user_fixture(%{
           "volunteer" => true,
@@ -26,7 +29,7 @@ defmodule AOFFWeb.Volunteers.MembershipControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
-        |> assign(prefix: "public")
+        |> assign(:prefix, "public")
 
       {:ok, conn: conn}
     end

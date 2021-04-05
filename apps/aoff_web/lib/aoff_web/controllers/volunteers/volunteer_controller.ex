@@ -8,6 +8,7 @@ defmodule AOFFWeb.Volunteer.VolunteerController do
 
   def index(conn, _params) do
     prefix = conn.assigns.prefix
+
     {:ok, volunteer} =
       System.find_or_create_message(
         prefix,

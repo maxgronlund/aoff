@@ -4,6 +4,7 @@ defmodule AOFFWeb.Users.InvoiceControllerTest do
 
   import AOFF.Users.OrderFixture
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
 
   alias Plug.Conn
 
@@ -15,6 +16,7 @@ defmodule AOFFWeb.Users.InvoiceControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture()
 
       conn =
@@ -23,7 +25,7 @@ defmodule AOFFWeb.Users.InvoiceControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
-        |> assign(prefix: "public")
+        |> assign(:prefix, "public")
 
       {:ok, conn: conn, user: user}
     end

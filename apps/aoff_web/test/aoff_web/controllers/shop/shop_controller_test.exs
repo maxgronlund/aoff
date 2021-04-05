@@ -1,6 +1,7 @@
 defmodule AOFFWeb.ShopControllerTest do
   use AOFFWeb.ConnCase
   import AOFFWeb.Gettext
+  import AOFF.Admin.AssociationFixture
 
   # alias AOFF.Shop
 
@@ -14,6 +15,12 @@ defmodule AOFFWeb.ShopControllerTest do
   # end
 
   describe "shop" do
+    setup do
+      _association = association_fixture()
+      conn = build_conn() |> assign(:prefix, "public")
+      {:ok, conn: conn}
+    end
+
     test "index lists all dates", %{conn: conn} do
       conn = get(conn, Routes.shop_shop_path(conn, :index))
       assert html_response(conn, 200) =~ gettext("Please select a pickup date")

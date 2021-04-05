@@ -92,7 +92,7 @@ defmodule AOFFWeb.Volunteer.DateController do
   end
 
   def delete(conn, %{"id" => id}) do
-    date = Shop.get_date!(id, conn.assigns.prefix)
+    date = Shop.get_date!(conn.assigns.prefix, id)
     {:ok, _date} = Shop.delete_date(date)
 
     conn

@@ -16,7 +16,7 @@ defmodule AOFFWeb.ShopAssistant.DateController do
 
     page =
       case params["page"] do
-        nil -> Shop.todays_page(@dates_pr_page)
+        nil -> Shop.todays_page(prefix, @dates_pr_page)
         page -> String.to_integer(page)
       end
 
@@ -28,7 +28,7 @@ defmodule AOFFWeb.ShopAssistant.DateController do
       "index.html",
       dates: dates,
       date: date,
-      pages: Shop.date_pages(),
+      pages: Shop.date_pages(prefix),
       page: page
     )
   end

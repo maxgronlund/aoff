@@ -51,7 +51,7 @@ defmodule AOFFWeb.Committees.CommitteeController do
   end
 
   def show(conn, %{"id" => id}) do
-    IO.inspect prefix = conn.assigns.prefix
+    prefix = conn.assigns.prefix
 
     if committee = Committees.get_committee!(prefix, id) do
       conn = assign(conn, :selected_menu_item, :about_aoff)

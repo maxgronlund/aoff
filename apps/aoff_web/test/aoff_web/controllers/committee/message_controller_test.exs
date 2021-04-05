@@ -7,6 +7,7 @@ defmodule AOFFWeb.Committees.MessageControllerTest do
   import AOFF.Committees.CommitteeFixture
   import AOFF.Committees.MemberFixture
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
   import AOFFWeb.Gettext
 
   alias Plug.Conn
@@ -28,6 +29,7 @@ defmodule AOFFWeb.Committees.MessageControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"volunteer" => true})
 
       committee =
@@ -46,7 +48,6 @@ defmodule AOFFWeb.Committees.MessageControllerTest do
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
         |> assign(:prefix, "public")
-
 
       {:ok, conn: conn, user: user, committee: committee}
     end
@@ -100,6 +101,7 @@ defmodule AOFFWeb.Committees.MessageControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"volunteer" => true})
 
       committee =
@@ -147,6 +149,8 @@ defmodule AOFFWeb.Committees.MessageControllerTest do
 
   describe "as a guest" do
     setup do
+      _association = association_fixture()
+
       committee =
         committee_fixture(%{
           "volunteer_access" => false,

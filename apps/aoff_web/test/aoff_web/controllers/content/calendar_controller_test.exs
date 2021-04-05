@@ -2,9 +2,20 @@ defmodule AOFFWeb.Content.CalendarControllerTest do
   use AOFFWeb.ConnCase
   import AOFF.Content.PageFixture
   import AOFF.Content.CategoryFixture
+  import AOFF.Admin.AssociationFixture
   import AOFFWeb.Gettext
 
   describe "calendar as a guest" do
+    setup do
+      _association = association_fixture()
+
+      conn =
+        build_conn()
+        |> assign(:prefix, "public")
+
+      {:ok, conn: conn}
+    end
+
     test "render index", %{conn: conn} do
       _category = category_fixture(%{"identifier" => "Calendar", "title" => "Calendar"})
       conn = get(conn, Routes.calendar_path(conn, :index))

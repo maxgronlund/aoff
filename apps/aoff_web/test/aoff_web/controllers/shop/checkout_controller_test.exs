@@ -3,6 +3,7 @@ defmodule AOFFWeb.Shop.CheckoutControllerTest do
   import AOFF.Users.OrderFixture
   import AOFF.Users.OrderItemFixture
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
   import AOFF.Shop.DateFixture
   import AOFF.Shop.ProductFixture
   import AOFF.Users.OrderItemFixture
@@ -17,6 +18,7 @@ defmodule AOFFWeb.Shop.CheckoutControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       date = date_fixture()
       user = user_fixture()
       product = product_fixture()
@@ -48,7 +50,7 @@ defmodule AOFFWeb.Shop.CheckoutControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
-        |> assign(prefix: "public")
+        |> assign(:prefix, "public")
 
       {:ok, conn: conn, user: user, order: order, product: product}
     end

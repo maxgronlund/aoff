@@ -5,6 +5,7 @@ defmodule AOFFWeb.Events.ParticipantControllerTest do
   import AOFF.Content.PageFixture
   import AOFF.Events.ParticipantFixture
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
   import AOFFWeb.Gettext
   alias Plug.Conn
 
@@ -16,6 +17,7 @@ defmodule AOFFWeb.Events.ParticipantControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture()
       category = category_fixture()
       page = page_fixture(category.id)
@@ -26,7 +28,7 @@ defmodule AOFFWeb.Events.ParticipantControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
-        |> assign(prefix: "public")
+        |> assign(:prefix, "public")
 
       {:ok, conn: conn, user: user, page: page, category: category}
     end

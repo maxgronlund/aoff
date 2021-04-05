@@ -41,7 +41,6 @@ defmodule AOFFWeb.UserController do
   def create(conn, %{"user" => user_params}) do
     prefix = conn.assigns.prefix
 
-
     case Users.create_user(prefix, user_params) do
       {:ok, user} ->
         username_and_email = {user.username, user.email}

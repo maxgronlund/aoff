@@ -11,8 +11,5 @@ defmodule AOFFWeb.ShopAssistant.OrderItemView do
       "da" -> product.name_da
       _ -> product.name_en
     end
-
-
-
   end
 end

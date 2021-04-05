@@ -6,6 +6,7 @@ defmodule AOFFWeb.Volunteers.CategoryControllerTest do
 
   import AOFF.Content.CategoryFixture
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
 
   alias AOFF.Content
 
@@ -17,6 +18,7 @@ defmodule AOFFWeb.Volunteers.CategoryControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"volunteer" => true})
 
       conn =
@@ -25,7 +27,7 @@ defmodule AOFFWeb.Volunteers.CategoryControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
-        |> assign(prefix: "public")
+        |> assign(:prefix, "public")
 
       {:ok, conn: conn}
     end
@@ -44,6 +46,7 @@ defmodule AOFFWeb.Volunteers.CategoryControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = admin_fixture(%{"admin" => true, "volunteer" => true})
 
       conn =
@@ -52,6 +55,7 @@ defmodule AOFFWeb.Volunteers.CategoryControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
+        |> assign(:prefix, "public")
 
       {:ok, conn: conn}
     end
@@ -70,7 +74,7 @@ defmodule AOFFWeb.Volunteers.CategoryControllerTest do
       attrs = create_category_attrs()
       conn = post(conn, Routes.volunteer_category_path(conn, :create), category: attrs)
 
-      category = Content.get_category!(attrs["title"])
+      category = Content.get_category!("public", attrs["title"])
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.volunteer_category_path(conn, :edit, category)

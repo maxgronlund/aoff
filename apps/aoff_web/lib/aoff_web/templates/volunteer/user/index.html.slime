@@ -24,14 +24,39 @@
 
 .tile
   = form_for @conn, Routes.volunteer_user_path(@conn, :index), [method: :get], fn f ->
+
     .row
       .column
         = label f, gettext("Search"), class: "control-label"
+
+        /
+          .row
+            .column
+              = label f, :volunteer do
+                = checkbox f, :volunteer, class: "form-control"
+                = label f, :volunteer, gettext("Volunteer"), class: "control-label label-inline"
+            .column
+              = label f, :purchasing_manager do
+                = checkbox f, :purchasing_manager, class: "form-control"
+                = label f, :purchasing_manager, gettext("Purchaser"), class: "control-label label-inline"
+
+            .column
+              .form-group
+                = label f, :shop_assistant do
+                  = checkbox f, :shop_assistant, class: "form-control"
+                  = label f, :shop_assistant, gettext("Host"),class: "control-label label-inline"
+            .column
+              .form-group
+                = label f, :text_editor do
+                  = checkbox f, :text_editor, class: "form-control"
+                  = label f, :text_editor, gettext("Text editor"),class: "control-label label-inline"
         = search_input f,\
           :query,\
           placeholder: gettext("Username / Member Nr. / email"),\
           class: "full-width",\
           autofocus: true
+
+
         = hidden_input f, :page, value: "1"
         br
 
@@ -39,14 +64,16 @@
           = link gettext("Show all"), to: Routes.volunteer_user_path(@conn, :index), class: "button button-outline"
           | &nbsp;
           = submit gettext("Search")
-      .column
-        b = gettext("Statistic")
-        br
-        = gettext("Total members: %{count}", count: @members)
-        br
-        = gettext("Valid members: %{count}", count: @valid_members)
-        br
-        = gettext("Newsletter subscribers: %{count}", count: @subscribers)
+.tile
+  .row
+    .column
+      b = gettext("Statistic")
+      br
+      = gettext("Total members: %{count}", count: @members)
+      br
+      = gettext("Valid members: %{count}", count: @valid_members)
+      br
+      = gettext("Newsletter subscribers: %{count}", count: @subscribers)
 .tiles.button-tiles
   = for user <- @users do
     .card.is-shady

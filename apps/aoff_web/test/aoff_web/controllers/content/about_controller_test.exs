@@ -2,16 +2,27 @@ defmodule AOFFWeb.Content.AboutControllerTest do
   use AOFFWeb.ConnCase
 
   import AOFF.Content.CategoryFixture
+  import AOFF.Admin.AssociationFixture
   alias AOFF.System
 
   describe "guest" do
+    setup do
+      _association = association_fixture()
+
+      conn =
+        build_conn()
+        |> assign(:prefix, "public")
+
+      {:ok, conn: conn}
+    end
+
     test "show all categories", %{conn: conn} do
       {:ok, message} =
         System.find_or_create_message(
+          "public",
           "/info",
           "Info",
-          Gettext.get_locale(),
-          "public"
+          Gettext.get_locale()
         )
 
       conn = get(conn, Routes.about_path(conn, :index))

@@ -4,17 +4,21 @@ defmodule AOFFWeb.Committees.CommitteeControllerTest do
   import AOFF.Users.UserFixture
   import AOFF.Committees.CommitteeFixture
   import AOFF.Committees.MemberFixture
+  import AOFF.Admin.AssociationFixture
 
   alias Plug.Conn
 
   describe "as a guest" do
     setup do
+      _association = association_fixture()
+
       conn =
         build_conn()
         |> assign(:prefix, "public")
 
       {:ok, conn: conn}
     end
+
     test "lists public committess", %{conn: conn} do
       _hidden_committee = committee_fixture(%{"public_access" => false})
       public_committee = committee_fixture(%{"public_access" => true})
@@ -39,6 +43,7 @@ defmodule AOFFWeb.Committees.CommitteeControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"volunteer" => true})
 
       conn =
@@ -128,6 +133,7 @@ defmodule AOFFWeb.Committees.CommitteeControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"volunteer" => false})
 
       conn =

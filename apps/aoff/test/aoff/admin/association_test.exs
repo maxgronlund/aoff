@@ -27,7 +27,7 @@ defmodule AOFF.Admin.AssociationTest do
     test "create_association/1 with valid data creates a association" do
       attrs = association_attrs()
       assert {:ok, %Association{} = association} = Admin.create_association(attrs)
-      assert association.name == "some name"
+      assert association.name == attrs["name"]
     end
 
     test "create_association/1 with invalid data returns error changeset" do

@@ -13,16 +13,16 @@ defmodule AOFFWeb.EmailControllerTest do
   test "reset_password_email/2 render a reset password email" do
     {:ok, message} =
       System.find_or_create_message(
+        "public",
         "/reset_password/:id/create",
         "Reset password",
-        Gettext.get_locale(),
-        "public"
+        Gettext.get_locale()
       )
 
     user = user_fixture()
     username_and_email = {user.username, user.email}
 
-    response = EmailController.reset_password_email(username_and_email, "https://example.com")
+    response = EmailController.reset_password_email("public", username_and_email, "https://example.com")
     assert %Bamboo.Email{from: @email_from, html_body: body} = response
     assert body =~ message.text
   end
@@ -32,9 +32,9 @@ defmodule AOFFWeb.EmailControllerTest do
     %AOFF.Users.Order{token: token} = order_fixture(user.id, %{})
     cardno = "0000 0000 0000 0000"
 
-    order = Users.get_order_by_token!(token)
+    order = Users.get_order_by_token!("public", token)
 
-    response = EmailController.invoice_email(order, cardno, "Visa")
+    response = EmailController.invoice_email("public", order, cardno, "Visa")
     assert %Bamboo.Email{from: @email_from, html_body: body} = response
     assert body =~ cardno
   end
@@ -42,16 +42,16 @@ defmodule AOFFWeb.EmailControllerTest do
   test "confirm_email/2 render an email confirmation email" do
     {:ok, message} =
       System.find_or_create_message(
+        "public",
         "Confirm email email",
         "Confirm email email",
-        Gettext.get_locale(),
-        "public"
+        Gettext.get_locale()
       )
 
     user = user_fixture()
     username_and_email = {user.username, user.email}
 
-    response = EmailController.confirm_email_email(username_and_email, "https://example.com")
+    response = EmailController.confirm_email_email("public", username_and_email, "https://example.com")
     assert %Bamboo.Email{from: @email_from, html_body: body} = response
     assert body =~ message.text
   end

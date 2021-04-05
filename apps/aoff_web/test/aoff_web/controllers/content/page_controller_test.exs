@@ -2,10 +2,12 @@ defmodule AOFFWeb.Content.PageControllerTest do
   use AOFFWeb.ConnCase
   import AOFF.Content.PageFixture
   import AOFF.Content.CategoryFixture
+  import AOFF.Admin.AssociationFixture
   import AOFFWeb.Gettext
 
   describe "page as a guest" do
     setup do
+      _association = association_fixture()
       conn = build_conn()
       category = category_fixture()
       {:ok, conn: conn, category: category}

@@ -5,6 +5,7 @@ defmodule AOFFWeb.Purchaser.DateControllerTest do
   import AOFF.Shop.DateFixture
   import AOFFWeb.Gettext
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
 
   describe "volunteer" do
     @session Plug.Session.init(
@@ -15,6 +16,8 @@ defmodule AOFFWeb.Purchaser.DateControllerTest do
              )
 
     setup do
+      _association = association_fixture()
+
       user =
         user_fixture(%{
           "volunteer" => true,
@@ -27,7 +30,7 @@ defmodule AOFFWeb.Purchaser.DateControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
-        |> assign(prefix: "public")
+        |> assign(:prefix, "public")
 
       date = date_fixture()
       {:ok, conn: conn, date: date}

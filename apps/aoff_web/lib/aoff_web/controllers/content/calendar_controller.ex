@@ -79,6 +79,7 @@ defmodule AOFFWeb.Content.CalendarController do
           )
 
         message
+
       _ ->
         ""
     end

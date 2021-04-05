@@ -65,10 +65,10 @@ defmodule AOFFWeb.ShopAssistant.OrderItemController do
   def edit(conn, %{"id" => id}) do
     prefix = conn.assigns.prefix
 
-    case  Users.get_order_item!(prefix, id) do
+    case Users.get_order_item!(prefix, id) do
       %OrderItem{} = order_item ->
-
         changeset = Users.change_order_item(order_item)
+
         render(
           conn,
           "edit.html",
@@ -76,6 +76,7 @@ defmodule AOFFWeb.ShopAssistant.OrderItemController do
           changeset: changeset,
           dates: dates(prefix)
         )
+
       _ ->
         render(conn, "not_found.html")
     end
@@ -86,36 +87,34 @@ defmodule AOFFWeb.ShopAssistant.OrderItemController do
     Enum.map(dates, fn x -> {AOFF.Time.date_as_string(x.date), x.id} end)
   end
 
-  def update(conn, %{ "id" => id, "order_item" => params}) do
+  def update(conn, %{"id" => id, "order_item" => params}) do
     prefix = conn.assigns.prefix
 
     order_item = Users.get_order_item!(prefix, id)
     prev_pick_up = order_item.pick_up
     # prev_pick_up = order_item.pick_up_id
 
-    pickup_params =
-      %{
-          "date_id" => params["date_id"],
-          "user_id" => params["user_id"],
-          "order_id" => params["order_id"],
-          "username" => order_item.order.user.username,
-          "member_nr" => order_item.order.user.member_nr,
-          "email" => order_item.order.user.email
-        }
+    pickup_params = %{
+      "date_id" => params["date_id"],
+      "user_id" => params["user_id"],
+      "order_id" => params["order_id"],
+      "username" => order_item.order.user.username,
+      "member_nr" => order_item.order.user.member_nr,
+      "email" => order_item.order.user.email
+    }
+
     {:ok, pick_up} = Shop.find_or_create_pick_up(prefix, pickup_params)
 
     params = Map.put(params, "pick_up_id", pick_up.id)
     Users.move_order_item_pick_up_date(order_item, params)
+
     conn
     |> redirect(to: Routes.shop_assistant_pick_up_path(conn, :edit, prev_pick_up))
-
   end
 
   def delete(conn, %{"id" => id}) do
     prefix = conn.assigns.prefix
     order_item = Users.get_order_item!(prefix, id)
-
-
 
     case Users.delete_order_item(prefix, order_item) do
       {:ok, order_item} ->

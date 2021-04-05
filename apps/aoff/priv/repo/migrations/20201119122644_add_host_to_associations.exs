@@ -8,4 +8,3 @@ defmodule AOFF.Repo.Migrations.AddHostToAssociations do
     end
   end
 end
-

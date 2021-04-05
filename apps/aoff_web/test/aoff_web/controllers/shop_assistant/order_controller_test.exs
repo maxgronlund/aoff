@@ -4,6 +4,7 @@ defmodule AOFFWeb.ShopAssistant.OrderControllerTest do
 
   import AOFF.Shop.DateFixture
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
   import AOFF.Users.OrderFixture
   import AOFFWeb.Gettext
 
@@ -15,6 +16,7 @@ defmodule AOFFWeb.ShopAssistant.OrderControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"shop_assistant" => true})
 
       guest =
@@ -33,7 +35,7 @@ defmodule AOFFWeb.ShopAssistant.OrderControllerTest do
         |> put_session(:user_id, user.id)
         |> put_session(:shop_assistant_date_id, date.id)
         |> configure_session(renew: true)
-        |> assign(prefix: "public")
+        |> assign(:prefix, "public")
 
       {:ok, conn: conn, user: guest, date: date}
     end

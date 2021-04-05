@@ -52,6 +52,7 @@ defmodule AOFFWeb.Volunteer.UserController do
 
   def new(conn, _params) do
     prefix = conn.assigns.prefix
+
     changeset =
       Users.change_user(%User{
         expiration_date: Date.add(AOFF.Time.today(), 365)

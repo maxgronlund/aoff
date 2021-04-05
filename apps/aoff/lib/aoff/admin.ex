@@ -55,7 +55,8 @@ defmodule AOFF.Admin do
     case Repo.one(query) do
       nil ->
         create_association(%{"name" => name, "prefix" => prefix(name)})
-        # create_association(%{"name" => name, "prefix" => prefix(name)})
+
+      # create_association(%{"name" => name, "prefix" => prefix(name)})
 
       %Association{} = association ->
         {:ok, association}
@@ -75,7 +76,16 @@ defmodule AOFF.Admin do
 
   """
   def create_association(attrs \\ %{}) do
-    attrs = Map.put(attrs, "prefix", prefix(attrs["name"]))
+    attrs =
+      cond do
+        is_nil(attrs["prefix"]) ->
+          Map.put(attrs, "prefix", prefix(attrs["name"]))
+
+        true ->
+          Map.put(attrs, "prefix", "public")
+      end
+
+    # attrs = Map.put(attrs, "prefix", prefix(attrs["name"]))
     case %Association{} |> Association.changeset(attrs) |> Repo.insert() do
       {:ok, association} ->
         create_schema(association)
@@ -89,7 +99,6 @@ defmodule AOFF.Admin do
   def prefix(name) do
     if name == nil do
       nil
-
     else
       prefix =
         name
@@ -114,6 +123,7 @@ defmodule AOFF.Admin do
   """
   def update_association(%Association{} = association, attrs) do
     attrs = Map.put(attrs, "prefix", prefix(attrs["name"]))
+
     Repo.transaction(fn ->
       from_name = association.name
 
@@ -122,12 +132,18 @@ defmodule AOFF.Admin do
           if association.name != from_name do
             update_schema(association, from_name)
           end
+
           association
 
         {:error, changeset} ->
           changeset |> Repo.rollback()
       end
     end)
+  end
+
+  def update_association_prefix(%Association{} = association, attrs) do
+    Association.prefix_changeset(association, attrs)
+    |> Repo.update()
   end
 
   @doc """
@@ -202,7 +218,9 @@ defmodule AOFF.Admin do
 
   def get_prefix_by_host(host) do
     case Repo.get_by(Association, host: host) do
-      nil -> "public"
+      nil ->
+        "public"
+
       association ->
         association.prefix
     end
@@ -211,9 +229,14 @@ defmodule AOFF.Admin do
   def get_host_by_prefix(prefix) do
     case Repo.get_by(Association, prefix: prefix) do
       nil -> "https://aoff.dk"
-      association ->
-        "https://" <>
-        association.host
+      association -> "https://" <> association.host
+    end
+  end
+
+  def get_association_by_prefix(host) do
+    case Repo.get_by(Association, host: host) do
+      nil -> Association |> first() |> Repo.one()
+      association -> association
     end
   end
 end

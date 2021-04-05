@@ -3,6 +3,7 @@ defmodule AOFFWeb.Committees.MemberControllerTest do
   import AOFF.Committees.MemberFixture
   import AOFF.Committees.CommitteeFixture
   import AOFF.Users.UserFixture
+  import AOFF.Admin.AssociationFixture
   import AOFFWeb.Gettext
 
   alias Plug.Conn
@@ -15,6 +16,7 @@ defmodule AOFFWeb.Committees.MemberControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
       user = user_fixture(%{"volunteer" => true})
 
       conn =
@@ -23,7 +25,7 @@ defmodule AOFFWeb.Committees.MemberControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
-        |> assign(prefix: "public")
+        |> assign(:prefix, "public")
 
       committee = committee_fixture()
 

@@ -4,8 +4,10 @@ defmodule AOFFWeb.PageControllerTest do
   import AOFFWeb.Gettext
   import AOFF.Shop.DateFixture
   import AOFF.Shop.ProductFixture
+  import AOFF.Admin.AssociationFixture
 
   test "GET /", %{conn: conn} do
+    _association = association_fixture()
     _date = date_fixture()
     product = product_fixture()
     conn = get(conn, "/")

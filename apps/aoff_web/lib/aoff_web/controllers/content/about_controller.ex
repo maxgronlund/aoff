@@ -35,6 +35,7 @@ defmodule AOFFWeb.Content.AboutController do
 
   def show(conn, %{"id" => id}) do
     prefix = conn.assigns.prefix
+
     case Content.get_category!(prefix, id) do
       nil ->
         conn

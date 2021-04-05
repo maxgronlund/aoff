@@ -80,9 +80,8 @@ msgstr "AOFF Nyhedsbrev"
 #: lib/aoff_web/templates/committees/committee/show.html.slime:1 lib/aoff_web/templates/committees/meeting/show.html.slime:1
 #: lib/aoff_web/templates/committees/message/index.html.slime:1 lib/aoff_web/templates/committees/message/new.html.slime:1
 #: lib/aoff_web/templates/committees/message/show.html.slime:1 lib/aoff_web/templates/content/about/show.html.slime:1
-#: lib/aoff_web/templates/content/page/show.html.slime:1 lib/aoff_web/templates/layout/navbar.html.slime:1
-#: lib/aoff_web/templates/volunteer/category/edit.html.slime:1 lib/aoff_web/templates/volunteer/meeting/edit.html.slime:1
-#: lib/aoff_web/templates/volunteer/page/show.html.slime:1
+#: lib/aoff_web/templates/content/page/show.html.slime:1 lib/aoff_web/templates/volunteer/category/edit.html.slime:1
+#: lib/aoff_web/templates/volunteer/meeting/edit.html.slime:1 lib/aoff_web/templates/volunteer/page/show.html.slime:1
 msgid "About AOFF"
 msgstr "Om AOFF"
 
@@ -1387,7 +1386,7 @@ msgid "Please check date and product"
 msgstr "Vælg dato og produkter"
 
 #, elixir-format
-#: lib/aoff_web/controllers/reset_password_controller.ex:78
+#: lib/aoff_web/controllers/reset_password_controller.ex:75
 msgid "Please check the email"
 msgstr "Kontroler email"
 
@@ -2196,27 +2195,22 @@ msgstr "Ny besked"
 #, elixir-format
 #: lib/aoff_web/templates/committees/message/show.html.slime:2
 msgid "<< Back"
-msgstr "<< Forrige"
-
-#, elixir-format
-#: lib/aoff_web/controllers/emails/email_controller.ex:83
-msgid "Message from AOFF"
-msgstr "Besked fra AOFF"
+msgstr ""
 
 #, elixir-format
 #: lib/aoff_web/templates/email/message_notification.html.eex:344
 msgid "New message from AOFF"
-msgstr "Ny besked fra AOFF"
+msgstr "Ny besked"
 
 #, elixir-format
 #: lib/aoff_web/templates/email/message_notification.html.eex:355
 msgid "Read Message"
-msgstr "Ny besked"
+msgstr "Læs besked"
 
 #, elixir-format
 #: lib/aoff_web/templates/email/message_notification.html.eex:345
 msgid "You receive this message because you are a member of a committee"
-msgstr "Du modtager denne besked fordig du er medlem af et udvalg"
+msgstr "Du modtager denne besked fordi du er medlem af et udvalg"
 
 #, elixir-format
 #: lib/aoff_web/templates/shop_assistant/pick_up/edit.html.slime:1
@@ -2224,16 +2218,21 @@ msgid "%{username} - %{date}"
 msgstr ""
 
 #, elixir-format
+#: lib/aoff_web/templates/layout/navbar.html.slime:1
+msgid "About %{association_name}"
+msgstr "Om %{association_name}"
+
+#, elixir-format
 #: lib/aoff_web/templates/admin/association/form.html.slime:1
 msgid "Host address"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/controllers/volunteers/order_controller.ex:105
 msgid "Order is deleted"
-msgstr "Bestillingsliste"
+msgstr "Ordren er fjernet"
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/shop_assistant/pick_up/edit.html.slime:1
 #: lib/aoff_web/templates/shop_assistant/pick_up/edit.html.slime:1
 msgid "Pickup"
@@ -2242,4 +2241,9 @@ msgstr "Afhentet"
 #, elixir-format
 #: lib/aoff_web/templates/shop_assistant/order_item/edit.html.slime:1
 msgid "Pickup date for: %{product_name}"
-msgstr "Opsamlngs dagto for %{product_name}"
+msgstr "Opsamlings dato for: %{product_name}"
+
+#, elixir-format, fuzzy
+#: lib/aoff_web/controllers/emails/email_controller.ex:83
+msgid "Message from %{name}"
+msgstr ""

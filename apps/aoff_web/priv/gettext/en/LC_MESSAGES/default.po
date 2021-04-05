@@ -67,9 +67,8 @@ msgstr ""
 #: lib/aoff_web/templates/committees/committee/show.html.slime:1 lib/aoff_web/templates/committees/meeting/show.html.slime:1
 #: lib/aoff_web/templates/committees/message/index.html.slime:1 lib/aoff_web/templates/committees/message/new.html.slime:1
 #: lib/aoff_web/templates/committees/message/show.html.slime:1 lib/aoff_web/templates/content/about/show.html.slime:1
-#: lib/aoff_web/templates/content/page/show.html.slime:1 lib/aoff_web/templates/layout/navbar.html.slime:1
-#: lib/aoff_web/templates/volunteer/category/edit.html.slime:1 lib/aoff_web/templates/volunteer/meeting/edit.html.slime:1
-#: lib/aoff_web/templates/volunteer/page/show.html.slime:1
+#: lib/aoff_web/templates/content/page/show.html.slime:1 lib/aoff_web/templates/volunteer/category/edit.html.slime:1
+#: lib/aoff_web/templates/volunteer/meeting/edit.html.slime:1 lib/aoff_web/templates/volunteer/page/show.html.slime:1
 msgid "About AOFF"
 msgstr ""
 
@@ -1374,7 +1373,7 @@ msgid "Please check date and product"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/controllers/reset_password_controller.ex:78
+#: lib/aoff_web/controllers/reset_password_controller.ex:75
 msgid "Please check the email"
 msgstr ""
 
@@ -2186,11 +2185,6 @@ msgid "<< Back"
 msgstr ""
 
 #, elixir-format
-#: lib/aoff_web/controllers/emails/email_controller.ex:83
-msgid "Message from AOFF"
-msgstr ""
-
-#, elixir-format
 #: lib/aoff_web/templates/email/message_notification.html.eex:344
 msgid "New message from AOFF"
 msgstr ""
@@ -2211,16 +2205,21 @@ msgid "%{username} - %{date}"
 msgstr ""
 
 #, elixir-format
+#: lib/aoff_web/templates/layout/navbar.html.slime:1
+msgid "About %{association_name}"
+msgstr ""
+
+#, elixir-format
 #: lib/aoff_web/templates/admin/association/form.html.slime:1
 msgid "Host address"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/controllers/volunteers/order_controller.ex:105
 msgid "Order is deleted"
 msgstr ""
 
-#, elixir-format, fuzzy
+#, elixir-format
 #: lib/aoff_web/templates/shop_assistant/pick_up/edit.html.slime:1
 #: lib/aoff_web/templates/shop_assistant/pick_up/edit.html.slime:1
 msgid "Pickup"
@@ -2229,4 +2228,9 @@ msgstr ""
 #, elixir-format
 #: lib/aoff_web/templates/shop_assistant/order_item/edit.html.slime:1
 msgid "Pickup date for: %{product_name}"
+msgstr ""
+
+#, elixir-format, fuzzy
+#: lib/aoff_web/controllers/emails/email_controller.ex:83
+msgid "Message from %{name}"
 msgstr ""

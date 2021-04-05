@@ -1,6 +1,7 @@
 defmodule AOFFWeb.OrderControllerTest do
   use AOFFWeb.ConnCase
   import AOFFWeb.Gettext
+  import AOFF.Admin.AssociationFixture
 
   @username Application.get_env(:aoff_web, :basic_auth)[:username]
   @password Application.get_env(:aoff_web, :basic_auth)[:password]
@@ -12,6 +13,8 @@ defmodule AOFFWeb.OrderControllerTest do
 
   describe "in the admin namespace" do
     test "render index", %{conn: conn} do
+      _association = association_fixture()
+
       conn =
         conn
         |> using_basic_auth(@username, @password)

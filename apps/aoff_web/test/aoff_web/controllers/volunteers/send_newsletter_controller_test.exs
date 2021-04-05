@@ -4,6 +4,7 @@ defmodule AOFF.Volunteer.SendNewsletterControllerTest do
 
   import AOFF.Users.UserFixture
   import AOFF.Volunteer.NewsletterFixture
+  import AOFF.Admin.AssociationFixture
 
   describe "as a volunteer" do
     @session Plug.Session.init(
@@ -13,6 +14,8 @@ defmodule AOFF.Volunteer.SendNewsletterControllerTest do
                signing_salt: "yadayada"
              )
     setup do
+      _association = association_fixture()
+
       user =
         user_fixture(%{
           "volunteer" => true,
@@ -26,7 +29,7 @@ defmodule AOFF.Volunteer.SendNewsletterControllerTest do
         |> Conn.fetch_session()
         |> put_session(:user_id, user.id)
         |> configure_session(renew: true)
-        |> assign(prefix: "public")
+        |> assign(:prefix, "public")
 
       {:ok, conn: conn, user: user}
     end
