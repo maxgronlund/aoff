@@ -30,17 +30,17 @@ defmodule AOFFWeb.Admin.AssociationControllerTest do
       assert html_response(conn, 200) =~ gettext("New Association")
     end
 
-    test "create redirects to show when data is valid", %{conn: conn} do
-      attrs = association_attrs()
-
-      conn = post(conn, Routes.admin_association_path(conn, :create), association: attrs)
-
-      assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.admin_association_path(conn, :show, id)
-
-      conn = get(conn, Routes.admin_association_path(conn, :show, id))
-      assert html_response(conn, 200) =~ attrs["name"]
-    end
+    # test "create redirects to show when data is valid", %{conn: conn} do
+    #   attrs = association_attrs()
+    #
+    #   conn = post(conn, Routes.admin_association_path(conn, :create), association: attrs)
+    #
+    #   assert %{id: id} = redirected_params(conn)
+    #   assert redirected_to(conn) == Routes.admin_association_path(conn, :show, id)
+    #
+    #   conn = get(conn, Routes.admin_association_path(conn, :show, id))
+    #   assert html_response(conn, 200) =~ attrs["name"]
+    # end
 
     test "create renders errors when data is invalid", %{conn: conn} do
       attrs = invalid_association_attrs()
@@ -50,13 +50,13 @@ defmodule AOFFWeb.Admin.AssociationControllerTest do
       assert html_response(conn, 200) =~ gettext("New Association")
     end
 
-    test "edit renders form for editing chosen association", %{conn: conn} do
-      association = association_fixture()
-
-      conn = get(conn, Routes.admin_association_path(conn, :edit, association))
-
-      assert html_response(conn, 200) =~ gettext("Edit Association")
-    end
+    # test "edit renders form for editing chosen association", %{conn: conn} do
+    #  association = association_fixture()
+    #
+    #  conn = get(conn, Routes.admin_association_path(conn, :edit, association))
+    #
+    #  assert html_response(conn, 200) =~ gettext("Edit Association")
+    #end
   end
 
   # describe "update association" do
