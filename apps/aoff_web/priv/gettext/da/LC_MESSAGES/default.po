@@ -737,6 +737,9 @@ msgstr "Vært √"
 msgid "Hosts"
 msgstr "Værter"
 
+msgid "Hosts missing"
+msgstr "Værter mangler"
+
 #, elixir-format
 #: lib/aoff_web/templates/user/form.html.slime:5
 msgid "I accept"

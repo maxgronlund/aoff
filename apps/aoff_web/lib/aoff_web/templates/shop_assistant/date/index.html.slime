@@ -26,6 +26,11 @@
     = link to: Routes.shop_assistant_date_path(@conn, :show, date) do
       .tile
         = raw formatted_date(date.date)
+	= if number_of_shop_assistants(date) < full_shift() do
+	  p.red
+	    b= gettext("Host missing")
+	    = full_shift() - number_of_shop_assistants(date)
+
 hr
 
 = render "pagination.html", assigns

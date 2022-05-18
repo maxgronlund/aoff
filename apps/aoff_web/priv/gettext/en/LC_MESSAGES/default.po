@@ -724,6 +724,9 @@ msgstr ""
 msgid "Hosts"
 msgstr ""
 
+msgid "Hosts missing"
+msgstr ""
+
 #, elixir-format
 #: lib/aoff_web/templates/user/form.html.slime:5
 msgid "I accept"
